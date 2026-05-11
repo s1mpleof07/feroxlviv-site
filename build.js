@@ -10,11 +10,11 @@ const OUT = __dirname + '/build';
 // ════════════════════════════════════════════════════════
 const IMG = {
   // Hero & general metal textures
-  heroTexture: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1600&q=80&auto=format&fit=crop',
+  heroTexture: 'https://images.unsplash.com/photo-1605559911160-a3d95d213904?w=1600&q=80&auto=format&fit=crop',
   workshopWide: 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1600&q=80&auto=format&fit=crop',
 
   // Corten
-  cortenWeathered: 'https://images.unsplash.com/photo-1587501480700-acb88a17fcad?w=1200&q=80&auto=format&fit=crop',
+  cortenWeathered: 'https://images.unsplash.com/photo-1604147706283-d7119b5b822c?w=1200&q=80&auto=format&fit=crop',
   cortenWall: 'https://images.unsplash.com/photo-1604147706283-d7119b5b822c?w=1200&q=80&auto=format&fit=crop',
   cortenArt: 'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=1200&q=80&auto=format&fit=crop',
 
@@ -24,8 +24,8 @@ const IMG = {
   laserCut: 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1200&q=80&auto=format&fit=crop',
 
   // CNC bending
-  bendingMachine: 'https://images.unsplash.com/photo-1531758854681-1c41bb73e2c0?w=1200&q=80&auto=format&fit=crop',
-  bendingSheet: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1200&q=80&auto=format&fit=crop',
+  bendingMachine: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80&auto=format&fit=crop',
+  bendingSheet: 'https://images.unsplash.com/photo-1605559911160-a3d95d213904?w=1200&q=80&auto=format&fit=crop',
 
   // Welding
   weldingArc: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1200&q=80&auto=format&fit=crop',
@@ -34,13 +34,13 @@ const IMG = {
 
   // Materials
   matCorten: 'https://images.unsplash.com/photo-1604147706283-d7119b5b822c?w=800&q=80&auto=format&fit=crop',
-  matSteel: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&q=80&auto=format&fit=crop',
-  matStainless: 'https://images.unsplash.com/photo-1635424710928-0544e3edcd95?w=800&q=80&auto=format&fit=crop',
+  matSteel: 'https://images.unsplash.com/photo-1605559911160-a3d95d213904?w=800&q=80&auto=format&fit=crop',
+  matStainless: 'https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=800&q=80&auto=format&fit=crop',
   matAluminum: 'https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=800&q=80&auto=format&fit=crop',
   matHardox: 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&q=80&auto=format&fit=crop',
 
   // Portfolio items
-  pCortenDeer: 'https://images.unsplash.com/photo-1587501480700-acb88a17fcad?w=1200&q=80&auto=format&fit=crop',
+  pCortenDeer: 'https://images.unsplash.com/photo-1604147706283-d7119b5b822c?w=1200&q=80&auto=format&fit=crop',
   pCortenPlanters: 'https://images.unsplash.com/photo-1604147706283-d7119b5b822c?w=1200&q=80&auto=format&fit=crop',
   pFurnitureParts: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&q=80&auto=format&fit=crop',
   pCortenFacade: 'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=1200&q=80&auto=format&fit=crop',
@@ -138,10 +138,10 @@ const materials = [
 function defaultGallery(slug) {
   const galleries = {
     'corten': [
-      { img: 'https://images.unsplash.com/photo-1587501480700-acb88a17fcad?w=1200&q=80&auto=format&fit=crop', tag: 'Кортен · Арт-об\'єкт', title: 'Скульптура оленя' },
+      { img: 'https://images.unsplash.com/photo-1604147706283-d7119b5b822c?w=1200&q=80&auto=format&fit=crop', tag: 'Кортен · Арт-об\'єкт', title: 'Скульптура оленя' },
       { img: 'https://images.unsplash.com/photo-1604147706283-d7119b5b822c?w=800&q=80&auto=format&fit=crop', tag: 'Кортен · Ландшафт', title: 'Кашпо комплект' },
       { img: 'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=800&q=80&auto=format&fit=crop', tag: 'Кортен · Фасад', title: 'Фасадні панелі' },
-      { img: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&q=80&auto=format&fit=crop', tag: 'Кортен · Декор', title: 'Камінний портал' },
+      { img: 'https://images.unsplash.com/photo-1605559911160-a3d95d213904?w=800&q=80&auto=format&fit=crop', tag: 'Кортен · Декор', title: 'Камінний портал' },
       { img: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80&auto=format&fit=crop', tag: 'Кортен · Інтер\'єр', title: 'Декоративна перегородка' },
       { img: 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&q=80&auto=format&fit=crop', tag: 'Кортен · Меморіал', title: 'Пам\'ятна табличка' }
     ],
@@ -149,13 +149,13 @@ function defaultGallery(slug) {
       { img: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&q=80&auto=format&fit=crop', tag: 'Лазер · B2B', title: 'Меблева серія' },
       { img: 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&q=80&auto=format&fit=crop', tag: 'Лазер · Точність', title: 'Технічні заготовки' },
       { img: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80&auto=format&fit=crop', tag: 'Лазер · Перфорація', title: 'Декоративні екрани' },
-      { img: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&q=80&auto=format&fit=crop', tag: 'Лазер · Логотип', title: 'Брендові вивіски' },
-      { img: 'https://images.unsplash.com/photo-1531758854681-1c41bb73e2c0?w=800&q=80&auto=format&fit=crop', tag: 'Лазер · Серія', title: 'Серійне виробництво' },
+      { img: 'https://images.unsplash.com/photo-1605559911160-a3d95d213904?w=800&q=80&auto=format&fit=crop', tag: 'Лазер · Логотип', title: 'Брендові вивіски' },
+      { img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80&auto=format&fit=crop', tag: 'Лазер · Серія', title: 'Серійне виробництво' },
       { img: 'https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=800&q=80&auto=format&fit=crop', tag: 'Лазер · Прототип', title: 'Прототипи деталей' }
     ],
     'cnc-bending': [
-      { img: 'https://images.unsplash.com/photo-1531758854681-1c41bb73e2c0?w=1200&q=80&auto=format&fit=crop', tag: 'Гнуття · ЧПУ', title: 'Корпуси для електротехніки' },
-      { img: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&q=80&auto=format&fit=crop', tag: 'Гнуття · Архітектура', title: 'Профілі для фасадів' },
+      { img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80&auto=format&fit=crop', tag: 'Гнуття · ЧПУ', title: 'Корпуси для електротехніки' },
+      { img: 'https://images.unsplash.com/photo-1605559911160-a3d95d213904?w=800&q=80&auto=format&fit=crop', tag: 'Гнуття · Архітектура', title: 'Профілі для фасадів' },
       { img: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80&auto=format&fit=crop', tag: 'Гнуття · Кронштейни', title: 'Кріплення' },
       { img: 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&q=80&auto=format&fit=crop', tag: 'Гнуття · Жолоби', title: 'Водовідводи' },
       { img: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80&auto=format&fit=crop', tag: 'Гнуття · Меблі', title: 'Меблеві основи' },
@@ -167,13 +167,13 @@ function defaultGallery(slug) {
       { img: 'https://images.unsplash.com/photo-1518709594023-6eab9bab7b23?w=800&q=80&auto=format&fit=crop', tag: 'Зварювання · Огорожі', title: 'Ворота і огорожі' },
       { img: 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&q=80&auto=format&fit=crop', tag: 'Вальцювання', title: 'Циліндричні елементи' },
       { img: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80&auto=format&fit=crop', tag: 'Зварювання · Резервуари', title: 'Технічні ємкості' },
-      { img: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&q=80&auto=format&fit=crop', tag: 'Зварювання · Прицепи', title: 'Спецтехніка' }
+      { img: 'https://images.unsplash.com/photo-1605559911160-a3d95d213904?w=800&q=80&auto=format&fit=crop', tag: 'Зварювання · Прицепи', title: 'Спецтехніка' }
     ],
     'hardox': [
       { img: 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1200&q=80&auto=format&fit=crop', tag: 'Hardox · Оборонка', title: 'Броньовані елементи' },
-      { img: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&q=80&auto=format&fit=crop', tag: 'Hardox 500', title: 'Захисні плити' },
+      { img: 'https://images.unsplash.com/photo-1605559911160-a3d95d213904?w=800&q=80&auto=format&fit=crop', tag: 'Hardox 500', title: 'Захисні плити' },
       { img: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80&auto=format&fit=crop', tag: 'Hardox 400', title: 'Підкуси та відвали' },
-      { img: 'https://images.unsplash.com/photo-1531758854681-1c41bb73e2c0?w=800&q=80&auto=format&fit=crop', tag: 'Hardox · Обробка', title: 'Лазерна різка броні' },
+      { img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80&auto=format&fit=crop', tag: 'Hardox · Обробка', title: 'Лазерна різка броні' },
       { img: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&q=80&auto=format&fit=crop', tag: 'Hardox · Зварювання', title: 'Спецзварювання' },
       { img: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80&auto=format&fit=crop', tag: 'Hardox · Спецтехніка', title: 'Корпуси і модулі' }
     ]
@@ -301,7 +301,7 @@ const services = [
   {
     slug: 'corten',
     num: '01',
-    deco: 'corten', bgImage: 'https://images.unsplash.com/photo-1587501480700-acb88a17fcad?w=1600&q=80&auto=format&fit=crop',
+    deco: 'corten', bgImage: 'https://images.unsplash.com/photo-1604147706283-d7119b5b822c?w=1600&q=80&auto=format&fit=crop',
     title: 'Кортен та дизайн-об\'єкти',
     titleShort: 'Кортен',
     titleH1: 'Дизайн-об\'єкти<br>з <em>кортену.</em>',
@@ -392,7 +392,7 @@ const services = [
   {
     slug: 'cnc-bending',
     num: '03',
-    deco: 'bending', bgImage: 'https://images.unsplash.com/photo-1531758854681-1c41bb73e2c0?w=1600&q=80&auto=format&fit=crop',
+    deco: 'bending', bgImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80&auto=format&fit=crop',
     title: 'Гнуття з ЧПУ',
     titleShort: 'Гнуття з ЧПУ',
     titleH1: 'Точне гнуття<br>металу <em>з ЧПУ.</em>',
@@ -863,7 +863,7 @@ function homePage() {
   <div class="hero-bg-warm" aria-hidden="true"></div>
   <div class="hero-bg-cool" aria-hidden="true"></div>
   <div class="hero-photo" aria-hidden="true">
-    <div class="hero-photo-img" style="background-image:url('https://images.unsplash.com/photo-1587501480700-acb88a17fcad?w=1800&q=85&auto=format&fit=crop')"></div>
+    <div class="hero-photo-img" style="background-image:url('https://images.unsplash.com/photo-1604147706283-d7119b5b822c?w=1800&q=85&auto=format&fit=crop')"></div>
     <div class="hero-photo-fade"></div>
   </div>
   <div class="hero-grid" aria-hidden="true"></div>
