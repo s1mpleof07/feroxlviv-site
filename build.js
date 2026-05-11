@@ -340,7 +340,8 @@ const services = [
       'Пам\'ятники та меморіальні таблички',
       'Вивіски та брендові елементи для готелів і ресторанів',
       'Фонтани, водні об\'єкти, басейни',
-      'Камінні портали, мангали, садові печі'
+      'Камінні портали, мангали, садові печі',
+      'Інтер\'єрні перегородки, столики, аксесуари'
     ]
   },
   {
@@ -861,6 +862,10 @@ function homePage() {
   <div class="hero-bg" aria-hidden="true"></div>
   <div class="hero-bg-warm" aria-hidden="true"></div>
   <div class="hero-bg-cool" aria-hidden="true"></div>
+  <div class="hero-photo" aria-hidden="true">
+    <div class="hero-photo-img" style="background-image:url('https://images.unsplash.com/photo-1587501480700-acb88a17fcad?w=1800&q=85&auto=format&fit=crop')"></div>
+    <div class="hero-photo-fade"></div>
+  </div>
   <div class="hero-grid" aria-hidden="true"></div>
   <div class="hero-laser" aria-hidden="true"></div>
   <div class="hero-vline" aria-hidden="true"></div>
