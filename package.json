@@ -1,0 +1,12 @@
+{
+  "name": "feroxlviv-site",
+  "version": "1.0.0",
+  "description": "FEROX LVIV — official website. Static site generator with Node.js.",
+  "private": true,
+  "scripts": {
+    "build": "node build.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
