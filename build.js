@@ -553,6 +553,17 @@ function head(title, desc, keywords, canonical) {
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://feroxlviv.ua${canonical}">
 <meta property="og:locale" content="uk_UA">
+<meta property="og:site_name" content="FEROX LVIV">
+<meta property="og:image" content="https://feroxlviv.ua/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${title}">
+<meta name="twitter:description" content="${desc}">
+<meta name="twitter:image" content="https://feroxlviv.ua/og-cover.jpg">
+<meta name="theme-color" content="#2C2C2A">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="format-detection" content="telephone=no">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -726,7 +737,7 @@ function decoSvg(type) {
 
 function pageHeader(crumbs, h1, sub, deco, bgImage) {
   return `<section class="ph${bgImage ? ' ph-with-bg' : ''}">
-  ${bgImage ? `<div class="ph-photo" style="background-image:url('${bgImage}')" aria-hidden="true"></div>` : ''}
+  ${bgImage ? `<div class="ph-photo" aria-hidden="true"></div>` : ''}
   <div class="ph-bg" aria-hidden="true"></div>
   <div class="ph-bg-warm" aria-hidden="true"></div>
   <div class="ph-grid" aria-hidden="true"></div>
@@ -841,7 +852,7 @@ function footer() {
     <p class="ft-seo">Лазерна різка металу Львів · Кортен купити · Металообробка Львів · Гнуття металу · Зварювання Львів</p>
   </div>
 </footer>
-<script src="/script.js"></script>
+<script src="/script.js" defer></script>
 </body>
 </html>`;
 }
@@ -863,7 +874,7 @@ function homePage() {
   <div class="hero-bg-warm" aria-hidden="true"></div>
   <div class="hero-bg-cool" aria-hidden="true"></div>
   <div class="hero-photo" aria-hidden="true">
-    <div class="hero-photo-img" style="background-image:url('https://images.unsplash.com/photo-1604147706283-d7119b5b822c?w=1800&q=85&auto=format&fit=crop')"></div>
+    <div class="hero-photo-img"></div>
     <div class="hero-photo-fade"></div>
   </div>
   <div class="hero-grid" aria-hidden="true"></div>
