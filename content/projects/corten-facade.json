@@ -1,10 +1,10 @@
 {
   "slug": "corten-facade",
-  "tag": "Кортен · Фасад",
   "title": "Фасадні панелі для апартелю",
-  "wide": false,
+  "tag": "Кортен · Фасад",
   "code": "FE",
-  "image": "https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=1200&q=80&auto=format&fit=crop",
+  "image": "/uploads/Кортен_зразок.png",
+  "wide": false,
   "order": 4,
   "video": {
     "title": "",
