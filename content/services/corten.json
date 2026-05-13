@@ -114,12 +114,12 @@
       "title": "Камінний портал"
     },
     {
-      "img": "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80&auto=format&fit=crop",
-      "tag": "Кортен · Інтер'єр",
-      "title": "Декоративна перегородка"
+      "img": "/uploads/Фонтан.png",
+      "tag": "Кортен · Водний об'єкт",
+      "title": "Фонтан"
     },
     {
-      "img": "/uploads/Хардокс.png",
+      "img": "/uploads/Памятник.png",
       "tag": "Кортен · Меморіал",
       "title": "Пам'ятна табличка"
     }
