@@ -1074,6 +1074,28 @@ function build() {
   fs.copyFileSync(SRC + '/script.js', OUT + '/script.js');
   console.log('  ✓ styles.css, script.js');
 
+  // Admin (Sveltia CMS)
+  const ADMIN = __dirname + '/admin';
+  if (fs.existsSync(ADMIN)) {
+    fs.mkdirSync(OUT + '/admin', { recursive: true });
+    fs.readdirSync(ADMIN).forEach(f => {
+      fs.copyFileSync(ADMIN + '/' + f, OUT + '/admin/' + f);
+    });
+    console.log('  ✓ admin/');
+  }
+
+  // Uploaded media (from CMS uploads)
+  const UPLOADS = __dirname + '/static/uploads';
+  if (fs.existsSync(UPLOADS)) {
+    fs.mkdirSync(OUT + '/uploads', { recursive: true });
+    fs.readdirSync(UPLOADS).forEach(f => {
+      const src = UPLOADS + '/' + f;
+      const dest = OUT + '/uploads/' + f;
+      if (fs.statSync(src).isFile()) fs.copyFileSync(src, dest);
+    });
+    console.log('  ✓ uploads/');
+  }
+
   // Home
   writeFile('index.html', homePage());
 
