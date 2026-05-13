@@ -1,0 +1,336 @@
+backend:
+  name: github
+  repo: s1mpleof07/feroxlviv-site
+  branch: main
+  base_url: https://auth-feroxlviv.prokopiv-andriy99.workers.dev
+  auth_endpoint: oauth/authorize
+
+# Папка куди заливаються фото
+media_folder: "static/uploads"
+public_folder: "/uploads"
+
+site_url: https://feroxlviv-site.pages.dev
+display_url: https://feroxlviv-site.pages.dev
+logo_url: https://feroxlviv-site.pages.dev/favicon.ico
+
+# Інтерфейс українською
+locale: 'uk'
+
+# Поля для редагування
+collections:
+  # ════════════════════════════════════════════
+  # 1. ГЛОБАЛЬНІ НАЛАШТУВАННЯ
+  # ════════════════════════════════════════════
+  - name: site
+    label: "Налаштування сайту"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: site
+        label: "Головні налаштування"
+        file: "content/site.json"
+        fields:
+          - { name: name, label: "Назва бренду", widget: string }
+          - { name: domain, label: "Домен", widget: string }
+          - { name: url, label: "Повний URL", widget: string }
+
+          - name: hero
+            label: "Hero — головний блок на головній"
+            widget: object
+            fields:
+              - { name: label, label: "Маленький текст зверху", widget: string }
+              - { name: h1, label: "Великий заголовок (HTML дозволено)", widget: text }
+              - { name: sub, label: "Підзаголовок", widget: text }
+              - name: ctaPrimary
+                label: "Головна кнопка"
+                widget: object
+                fields:
+                  - { name: label, label: "Текст", widget: string }
+                  - { name: href, label: "Куди веде", widget: string }
+              - name: ctaSecondary
+                label: "Друга кнопка"
+                widget: object
+                fields:
+                  - { name: label, label: "Текст", widget: string }
+                  - { name: href, label: "Куди веде", widget: string }
+
+          - name: about
+            label: "Блок 'Про нас' на головній"
+            widget: object
+            fields:
+              - { name: label, label: "Маленький текст зверху", widget: string }
+              - { name: title, label: "Заголовок", widget: text }
+              - { name: sectionTitle, label: "Підзаголовок секції", widget: string }
+              - { name: sectionText, label: "Опис команди", widget: text }
+              - name: valueProps
+                label: "Чотири статистики"
+                widget: list
+                fields:
+                  - { name: num, label: "Число", widget: string }
+                  - { name: label, label: "Підпис", widget: string }
+
+          - name: contacts
+            label: "Контакти"
+            widget: object
+            fields:
+              - { name: telegram, label: "Telegram @", widget: string }
+              - { name: telegramUrl, label: "Telegram URL", widget: string }
+              - { name: instagram, label: "Instagram @", widget: string }
+              - { name: instagramUrl, label: "Instagram URL", widget: string }
+              - { name: pinterest, label: "Pinterest", widget: string }
+              - { name: pinterestUrl, label: "Pinterest URL", widget: string }
+              - { name: email, label: "Email", widget: string }
+              - { name: phone, label: "Телефон", widget: string }
+              - { name: address, label: "Адреса", widget: string }
+              - { name: responseTime, label: "Час відповіді (основний)", widget: string }
+              - { name: responseNote, label: "Час відповіді (примітка)", widget: string }
+
+          - name: seo
+            label: "SEO за замовчуванням"
+            widget: object
+            fields:
+              - { name: defaultTitle, label: "Title по дефолту", widget: string }
+              - { name: defaultDesc, label: "Description по дефолту", widget: text }
+              - { name: defaultKeywords, label: "Keywords", widget: text }
+              - { name: ogImage, label: "OG image для соцмереж (шлях)", widget: string }
+
+          - name: whyUs
+            label: "УТП — Чому ми (8 пунктів)"
+            widget: list
+            fields:
+              - name: icon
+                label: "Іконка"
+                widget: select
+                options: [clock, warehouse, card, doc, box, truck, tools, handshake]
+              - { name: title, label: "Заголовок пункту", widget: string }
+              - { name: desc, label: "Опис", widget: text }
+
+  # ════════════════════════════════════════════
+  # 2. ПОСЛУГИ
+  # ════════════════════════════════════════════
+  - name: services
+    label: "Послуги (5 послуг)"
+    folder: "content/services"
+    create: false
+    delete: false
+    extension: json
+    format: json
+    identifier_field: titleShort
+    editor:
+      preview: false
+    fields:
+      - { name: slug, label: "URL (slug)", widget: string }
+      - { name: num, label: "Порядковий номер (01-05)", widget: string }
+      - { name: title, label: "Заголовок (повна назва)", widget: string }
+      - { name: titleShort, label: "Коротка назва", widget: string }
+      - { name: titleH1, label: "H1 на сторінці (HTML дозволено)", widget: text }
+      - { name: desc, label: "Короткий опис", widget: text }
+      - { name: metaTitle, label: "SEO Title", widget: string }
+      - { name: metaDesc, label: "SEO Description", widget: text }
+      - { name: keywords, label: "SEO Keywords", widget: text }
+      - { name: bgImage, label: "Фонове фото (URL)", widget: string, required: false }
+      - { name: deco, label: "Декоративний стиль", widget: string, required: false }
+      - { name: tags, label: "Теги (масив)", widget: list, field: { name: tag, widget: string } }
+
+      - name: intro
+        label: "Вступні абзаци (2-3 параграфи)"
+        widget: list
+        field: { name: paragraph, widget: text }
+
+      - name: features
+        label: "Характеристики (4-6 карток)"
+        widget: list
+        fields:
+          - { name: n, label: "Номер (01, 02...)", widget: string }
+          - { name: t, label: "Заголовок", widget: string }
+          - { name: d, label: "Опис", widget: text }
+
+      - name: spec
+        label: "Технічна специфікація (таблиця)"
+        widget: list
+        fields:
+          - { name: k, label: "Параметр", widget: string }
+          - { name: v, label: "Значення", widget: string }
+
+      - { name: typesTitle, label: "Заголовок для розділу 'Типи виробів'", widget: string }
+      - name: types
+        label: "Типи виробів (парна кількість)"
+        widget: list
+        field: { name: type, widget: string }
+
+      - name: gallery
+        label: "Галерея робіт"
+        widget: list
+        fields:
+          - { name: img, label: "Фото", widget: image }
+          - { name: tag, label: "Тег", widget: string }
+          - { name: title, label: "Підпис під фото", widget: string }
+
+      - name: video
+        label: "Відео (YouTube)"
+        widget: object
+        fields:
+          - { name: title, label: "Заголовок відео", widget: string, required: false }
+          - { name: youtubeId, label: "YouTube ID (з URL після ?v=)", widget: string, required: false }
+          - { name: thumbnail, label: "Кастомний thumbnail (опційно)", widget: image, required: false }
+
+      - name: seo
+        label: "SEO текст внизу сторінки"
+        widget: object
+        fields:
+          - { name: label, label: "Маленький текст-мітка", widget: string }
+          - { name: title, label: "Заголовок секції", widget: string }
+          - { name: titleAccent, label: "Заголовок (друга частина)", widget: string }
+          - { name: text, label: "Текст 300+ слів (HTML дозволено)", widget: text }
+
+  # ════════════════════════════════════════════
+  # 3. ПРОЕКТИ ПОРТФОЛІО
+  # ════════════════════════════════════════════
+  - name: projects
+    label: "Проекти портфоліо"
+    folder: "content/projects"
+    create: true
+    delete: true
+    extension: json
+    format: json
+    identifier_field: title
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - { name: slug, label: "URL (slug, латиницею)", widget: string }
+      - { name: title, label: "Назва проекту", widget: string }
+      - { name: tag, label: "Тег (напр. 'Кортен · Арт-об'єкт')", widget: string }
+      - { name: code, label: "Код-абревіатура (3 літери)", widget: string }
+      - { name: image, label: "Фото проекту", widget: image }
+      - { name: wide, label: "Широка картка (2 колонки)", widget: boolean, default: false }
+      - { name: order, label: "Порядок (1, 2, 3...)", widget: number, default: 99 }
+      - name: video
+        label: "Відео (опційно)"
+        widget: object
+        required: false
+        fields:
+          - { name: title, label: "Заголовок", widget: string, required: false }
+          - { name: youtubeId, label: "YouTube ID", widget: string, required: false }
+
+  # ════════════════════════════════════════════
+  # 4. МАТЕРІАЛИ
+  # ════════════════════════════════════════════
+  - name: materials
+    label: "Матеріали (модалка на головній)"
+    folder: "content/materials"
+    create: false
+    delete: false
+    extension: json
+    format: json
+    identifier_field: name
+    editor:
+      preview: false
+    fields:
+      - { name: slug, label: "URL (slug)", widget: string }
+      - { name: name, label: "Назва матеріалу", widget: string }
+      - { name: tag, label: "Тег (опційно)", widget: string, required: false }
+      - { name: tagHot, label: "Червоний бейдж (Hardox)", widget: boolean, default: false }
+      - { name: order, label: "Порядок в списку", widget: number }
+      - { name: image, label: "Фото текстури", widget: image }
+      - { name: short, label: "Короткий опис (на картці)", widget: text }
+      - { name: spec, label: "Технічна позначка", widget: string }
+      - { name: description, label: "Повний опис (в модалці)", widget: text }
+      - name: usage
+        label: "Де використовується"
+        widget: list
+        field: { name: item, widget: string }
+      - { name: laser, label: "Параметри лазерної різки", widget: text }
+      - { name: bending, label: "Параметри гнуття", widget: text }
+      - { name: welding, label: "Параметри зварювання", widget: text }
+      - { name: rolling, label: "Параметри вальцювання", widget: text }
+
+  # ════════════════════════════════════════════
+  # 5. СТОРІНКИ (about, process, contact)
+  # ════════════════════════════════════════════
+  - name: pages
+    label: "Сторінки"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: about
+        label: "Про нас"
+        file: "content/pages/about.json"
+        fields:
+          - { name: metaTitle, label: "SEO Title", widget: string }
+          - { name: metaDesc, label: "SEO Description", widget: text }
+          - { name: keywords, label: "Keywords", widget: text }
+          - name: hero
+            label: "Hero блок сторінки"
+            widget: object
+            fields:
+              - { name: label, label: "Маленький текст", widget: string }
+              - { name: h1, label: "H1 (HTML дозволено)", widget: text }
+              - { name: sub, label: "Підзаголовок", widget: text }
+          - name: story
+            label: "Блок 'Наша історія'"
+            widget: object
+            fields:
+              - { name: label, label: "Текст-мітка", widget: string }
+              - { name: title, label: "Заголовок", widget: text }
+              - name: paragraphs
+                label: "Абзаци історії"
+                widget: list
+                field: { name: paragraph, widget: text }
+          - name: values
+            label: "Наші цінності (4 пункти)"
+            widget: list
+            fields:
+              - { name: num, label: "Номер (01, 02...)", widget: string }
+              - { name: title, label: "Заголовок", widget: string }
+              - { name: desc, label: "Опис", widget: text }
+
+      - name: process
+        label: "Як ми працюємо"
+        file: "content/pages/process.json"
+        fields:
+          - { name: metaTitle, label: "SEO Title", widget: string }
+          - { name: metaDesc, label: "SEO Description", widget: text }
+          - { name: keywords, label: "Keywords", widget: text }
+          - name: hero
+            label: "Hero блок"
+            widget: object
+            fields:
+              - { name: label, label: "Маленький текст", widget: string }
+              - { name: h1, label: "H1 (HTML дозволено)", widget: text }
+              - { name: sub, label: "Підзаголовок", widget: text }
+          - name: steps
+            label: "Етапи процесу (5 кроків)"
+            widget: list
+            fields:
+              - { name: num, label: "Номер кроку", widget: string }
+              - { name: title, label: "Назва етапу", widget: string }
+              - { name: desc, label: "Опис", widget: text }
+
+      - name: contact
+        label: "Контакти"
+        file: "content/pages/contact.json"
+        fields:
+          - { name: metaTitle, label: "SEO Title", widget: string }
+          - { name: metaDesc, label: "SEO Description", widget: text }
+          - { name: keywords, label: "Keywords", widget: text }
+          - name: hero
+            label: "Hero блок"
+            widget: object
+            fields:
+              - { name: title, label: "Заголовок (HTML дозволено)", widget: text }
+              - { name: sub, label: "Підзаголовок", widget: text }
+          - name: channels
+            label: "Канали зв'язку (4 картки)"
+            widget: list
+            fields:
+              - { name: name, label: "Назва каналу", widget: string }
+              - { name: handle, label: "Хендл/адреса", widget: string }
+              - { name: desc, label: "Опис", widget: text }
+              - name: icon
+                label: "Іконка"
+                widget: select
+                options: [telegram, instagram, pinterest, mail]
+              - { name: url, label: "URL", widget: string }
