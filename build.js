@@ -248,7 +248,7 @@ function decoSvg(type) {
   </svg>`;
 }
 
-function pageHeader(crumbs, h1, sub, deco, bgImage) {
+function pageHeader(crumbs, h1, sub, deco, bgImage, label) {
   return `<section class="ph${bgImage ? ' ph-with-bg' : ''}">
   ${bgImage ? `<div class="ph-photo" aria-hidden="true"></div>` : ''}
   <div class="ph-bg" aria-hidden="true"></div>
@@ -262,6 +262,7 @@ function pageHeader(crumbs, h1, sub, deco, bgImage) {
       : `<a href="${c.href}">${c.label}</a><span class="crumbs-sep">/</span>`
     ).join('')}
   </nav>
+  ${label ? `<p class="ph-label" style="position:relative;z-index:1;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--corten);margin:24px 0 16px">${label}</p>` : ''}
   <h1 class="ph-h1">${h1}</h1>
   ${sub ? `<p class="ph-sub">${sub}</p>` : ''}
 </section>`;
@@ -377,9 +378,9 @@ function footer() {
 // ── HOME ──
 function homePage() {
   return head(
-    'FEROX LVIV | Металеві дизайн-рішення та металообробка у Львові',
-    'FEROX LVIV — виготовлення дизайн-об\'єктів з кортену, лазерна різка, гнуття та зварювання металу у Львові. Для архітекторів, девелоперів та ландшафтних дизайнерів.',
-    'кортен Львів, лазерна різка металу Львів, металообробка Львів, дизайн з металу, кортен купити',
+    site.seo.defaultTitle,
+    site.seo.defaultDesc,
+    site.seo.defaultKeywords,
     '/'
   ) + nav('') + `
 <section class="hero" aria-label="Головний блок FEROX LVIV">
@@ -395,14 +396,14 @@ function homePage() {
   <div class="hero-vline" aria-hidden="true"></div>
   <div class="hero-hline" aria-hidden="true"></div>
 
-  <p class="hero-label">Метал. Форма. Характер.</p>
-  <h1 class="hero-h1">Метал,<br>що говорить<br><em>за себе.</em></h1>
-  <p class="hero-sub">Дизайн-об'єкти з кортену та точна металообробка у Львові. Для архітекторів, девелоперів і тих, хто цінує якість матеріалу.</p>
+  <p class="hero-label">${site.hero.label}</p>
+  <h1 class="hero-h1">${site.hero.h1}</h1>
+  <p class="hero-sub">${site.hero.sub}</p>
   <div class="hero-btns">
-    <a href="/contact/" class="btn-p"><span>Отримати прорахунок</span>
+    <a href="${site.hero.ctaPrimary.href}" class="btn-p"><span>${site.hero.ctaPrimary.label}</span>
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
-    <a href="/portfolio/" class="btn-g"><span>Переглянути проекти</span></a>
+    <a href="${site.hero.ctaSecondary.href}" class="btn-g"><span>${site.hero.ctaSecondary.label}</span></a>
   </div>
   <div class="hero-scroll" aria-hidden="true">Гортай вниз</div>
 </section>
@@ -418,16 +419,13 @@ function homePage() {
 <section id="about">
   <div class="about-grid">
     <div class="reveal">
-      <p class="s-label">Про FEROX LVIV</p>
-      <h2 class="s-title">Ми не продаємо<br>метал. Ми продаємо<br><em>рішення.</em></h2>
-      <p class="about-desc">FEROX LVIV — комерційний партнер виробничого підприємства з повним циклом металообробки у Львові. Від першого контакту до фінального об'єкту — ми беремо відповідальність за результат.</p>
+      <p class="s-label">${site.about.label}</p>
+      <h2 class="s-title">${site.about.title}</h2>
+      <p class="about-desc">${site.about.sectionText}</p>
       <blockquote class="about-quote">Кожен виріб — це рішення конкретного завдання.<br>Ми не робимо типового.</blockquote>
     </div>
     <div class="about-stats reveal">
-      <div class="a-stat"><div class="a-stat-n">100%</div><div class="a-stat-t">Власне виробництво у Львові — ЧПУ, лазер, вальці</div></div>
-      <div class="a-stat"><div class="a-stat-n">2</div><div class="a-stat-t">Напрямки: дизайн-об'єкти та промислова металообробка</div></div>
-      <div class="a-stat"><div class="a-stat-n">15хв</div><div class="a-stat-t">Від заявки до прорахунку *у випадку дизайн-проекту до 24 годин</div></div>
-      <div class="a-stat"><div class="a-stat-n">B2B</div><div class="a-stat-t">Архітектори, девелопери, виробничі компанії</div></div>
+      ${site.about.valueProps.map(v => `<div class="a-stat"><div class="a-stat-n">${v.num}</div><div class="a-stat-t">${v.label}</div></div>`).join('')}
     </div>
   </div>
 </section>
@@ -846,46 +844,43 @@ ${inlineCTA(
 
 // ── ABOUT ──
 function aboutPage() {
+  const p = pages.about;
   return head(
-    'Про FEROX LVIV | Команда та виробництво',
-    'FEROX LVIV — комерційний партнер виробничого підприємства у Львові. Власне виробництво, повний цикл металообробки, фокус на якості.',
-    'про FEROX, металообробка Львів компанія, виробництво металу',
+    p.metaTitle,
+    p.metaDesc,
+    p.keywords,
     '/about/'
   ) + nav('about') +
   pageHeader(
     [{ href: '/', label: 'Головна' }, { label: 'Про нас' }],
-    'Метал — це наш<br><em>спосіб думати.</em>',
-    'FEROX LVIV — комерційний партнер виробничого підприємства з повним циклом металообробки. Ми не виробники в класичному сенсі — ми ті, хто бачить можливість і втілює її в металі.'
+    p.hero.h1,
+    p.hero.sub,
+    null,
+    null,
+    p.hero.label
   ) + `
 <section>
-  <div class="col2">
-    <div class="reveal">
-      <p class="s-label">Філософія</p>
-      <p>Ми вважаємо що метал — це не просто матеріал. Це спосіб мислення про форму, силу і час. Кортен, який змінюється з роками, нержавійка, яка не піддається корозії, лазерна різка з точністю до десятої міліметра — все це різні мови одного і того ж тексту.</p>
-      <p>Наша робота — перекладати ідеї архітекторів, девелоперів і дизайнерів цією мовою. Без втрат, без компромісів у якості, без посередників між замовником і виробництвом.</p>
-    </div>
-    <div class="reveal">
-      <p class="s-label">Як ми працюємо</p>
-      <p>FEROX LVIV — це комерційний фронт повного виробничого циклу у Львові. Ми приймаємо замовлення, розробляємо технічну документацію, контролюємо виготовлення і здаємо готовий об'єкт.</p>
-      <p>За нами стоїть виробництво з лазерною різкою, гнуттям з ЧПУ, зварюванням і вальцюванням. Все на місці. Це означає швидші терміни, кращий контроль якості і конкурентні ціни.</p>
-    </div>
+  <div class="reveal">
+    <p class="s-label">${p.story.label}</p>
+    <h2 class="s-title" style="margin-bottom:40px">${p.story.title}</h2>
+  </div>
+  <div class="col2" style="gap:60px">
+    ${p.story.paragraphs.map(text => `<div class="reveal">
+      <p style="font-size:15px;line-height:1.85;color:var(--steel);font-weight:300">${text}</p>
+    </div>`).join('')}
   </div>
 </section>
 
 <section class="dark-section" style="padding:100px 5vw">
   <div class="reveal">
-    <p class="s-label">Цифри</p>
-    <h2 class="s-title" style="color:var(--white)">Чим ми <em>відрізняємось.</em></h2>
+    <p class="s-label">Наші цінності</p>
+    <h2 class="s-title" style="color:var(--white)">На чому <em>стоїмо.</em></h2>
   </div>
-  <div style="margin-top:60px;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;position:relative;z-index:1">
-    ${[
-      ['100%', 'Власного виробництва у Львові'],
-      ['15хв', 'Від заявки до прорахунку'],
-      ['5+', 'Років досвіду команди'],
-      ['B2B', 'Фокус на бізнесі']
-    ].map(([n, t]) => `<div class="reveal" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);padding:36px 28px;transition:all .4s">
-      <div style="font-family:'Playfair Display',serif;font-size:54px;font-weight:900;color:var(--corten);line-height:1">${n}</div>
-      <div style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.6;margin-top:14px">${t}</div>
+  <div style="margin-top:60px;display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(160,82,45,.15);position:relative;z-index:1">
+    ${p.values.map(v => `<div class="reveal" style="background:rgba(255,255,255,.02);padding:40px 36px;transition:all .4s;border:1px solid rgba(255,255,255,.04)">
+      <div style="font-family:'Playfair Display',serif;font-size:48px;font-weight:900;color:var(--corten);line-height:1;margin-bottom:18px">${v.num}</div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:22px;color:var(--white);margin-bottom:14px;font-weight:700">${v.title}</h3>
+      <p style="font-size:14px;color:rgba(255,255,255,.5);line-height:1.75;font-weight:300">${v.desc}</p>
     </div>`).join('')}
   </div>
 </section>
@@ -903,27 +898,27 @@ ${inlineCTA(
 
 // ── PROCESS ──
 function processPage() {
+  const p = pages.process;
   return head(
-    'Як ми працюємо | FEROX LVIV',
-    'Процес роботи FEROX LVIV: від першої заявки до готового об\'єкту. Прозоро, з чіткими термінами і контролем якості.',
-    'процес роботи металообробка, як замовити',
+    p.metaTitle,
+    p.metaDesc,
+    p.keywords,
     '/process/'
   ) + nav('process') +
   pageHeader(
     [{ href: '/', label: 'Головна' }, { label: 'Як ми працюємо' }],
-    'Три кроки до<br><em>готового об\'єкту.</em>',
-    'Від першого повідомлення до здачі готового виробу. Прозоро, прогнозовано, з чіткими термінами на кожному етапі.'
+    p.hero.h1,
+    p.hero.sub,
+    null,
+    null,
+    p.hero.label
   ) + `
 <section style="padding-top:80px">
   <div class="proc-steps">
-    ${[
-      ['01', 'Заявка та кваліфікація', 'Ви описуєте завдання — ми уточнюємо деталі. Матеріал, розміри, терміни, бюджет. Відповідаємо протягом 15 хвилин у робочий час. На цьому етапі формуємо технічне завдання.'],
-      ['02', 'Технічне завдання та ціна', 'Готуємо детальний прорахунок з конструктором та менеджером виробництва. Комерційна пропозиція — 15 хвилин після уточнення (для дизайн-проектів — до 24 годин). Фіксуємо терміни і умови оплати.'],
-      ['03', 'Виготовлення та здача', 'Виробництво у Львові під вашим контролем. Фото прогресу на кожному етапі. Доставка або самовивіз — як зручно. Гарантія на роботи.']
-    ].map(([n, t, d]) => `<div class="proc-step reveal">
-      <div class="proc-num"><span>${n}</span></div>
-      <h3 class="proc-title">${t}</h3>
-      <p class="proc-desc">${d}</p>
+    ${p.steps.map(step => `<div class="proc-step reveal">
+      <div class="proc-num"><span>${step.num}</span></div>
+      <h3 class="proc-title">${step.title}</h3>
+      <p class="proc-desc">${step.desc}</p>
     </div>`).join('')}
   </div>
 </section>
@@ -961,10 +956,17 @@ ${inlineCTA(
 
 // ── CONTACT ──
 function contactPage() {
+  const p = pages.contact;
+  const channelIcons = {
+    telegram: '<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#229ED9"/><path d="M22.96 10.04L20.4 22.16c-.2.84-.68 1.04-1.36.64l-3.76-2.76-1.8 1.72c-.2.2-.36.36-.76.36l.28-3.84 7.04-6.36c.32-.28-.04-.44-.48-.16l-8.72 5.44-3.76-1.16c-.84-.24-.84-.84.16-1.24l14.68-5.64c.68-.24 1.28.16 1.04 1.24z" fill="#fff"/></svg>',
+    instagram: '<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="ig-grad-c" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FED576"/><stop offset="20%" stop-color="#F47133"/><stop offset="40%" stop-color="#BC3081"/><stop offset="80%" stop-color="#4C63D2"/></linearGradient></defs><rect width="32" height="32" rx="8" fill="url(#ig-grad-c)"/><rect x="8" y="8" width="16" height="16" rx="5" stroke="#fff" stroke-width="1.8" fill="none"/><circle cx="16" cy="16" r="3.6" stroke="#fff" stroke-width="1.8" fill="none"/><circle cx="21" cy="11" r="1.1" fill="#fff"/></svg>',
+    pinterest: '<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#E60023"/><path d="M16 6c-5.52 0-10 4.48-10 10 0 4.24 2.64 7.84 6.36 9.32-.08-.8-.16-2 .04-2.88.16-.76 1.16-4.92 1.16-4.92s-.32-.6-.32-1.48c0-1.4.8-2.44 1.8-2.44.84 0 1.24.64 1.24 1.4 0 .84-.56 2.12-.84 3.32-.24 1 .48 1.8 1.48 1.8 1.76 0 3.12-1.88 3.12-4.6 0-2.4-1.72-4.08-4.16-4.08-2.84 0-4.52 2.12-4.52 4.32 0 .84.32 1.76.76 2.28.08.12.08.16.08.24-.08.32-.24 1-.28 1.16-.04.16-.16.24-.32.16-1.16-.52-1.84-2.2-1.84-3.6 0-2.92 2.12-5.6 6.12-5.6 3.2 0 5.72 2.28 5.72 5.36 0 3.2-2 5.76-4.8 5.76-.92 0-1.84-.48-2.12-1.04l-.6 2.2c-.2.84-.76 1.88-1.16 2.52.84.24 1.76.4 2.72.4 5.52 0 10-4.48 10-10s-4.48-10-10-10z" fill="#fff"/></svg>',
+    mail: '<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#A0522D"/><path d="M8 11l8 6 8-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect x="8" y="10" width="16" height="12" rx="1.5" stroke="#fff" stroke-width="1.8" fill="none"/></svg>'
+  };
   return head(
-    'Контакти FEROX LVIV | Львів',
-    'Зв\'язатися з FEROX LVIV — Telegram, Instagram, форма замовлення прорахунку. Львів, Україна.',
-    'контакти FEROX, металообробка Львів контакти',
+    p.metaTitle,
+    p.metaDesc,
+    p.keywords,
     '/contact/'
   ) + nav('contact').replace('id="nav"', 'id="nav" class="always-light"') + `
 <section style="padding-top:120px;padding-bottom:0">
@@ -973,82 +975,24 @@ function contactPage() {
   </div>
 </section>
 
-${contactSection('', 'Розкажіть<br>про <em>проект.</em>').replace('<section id="contact">', '<section id="contact" style="padding-top:0">')}
+${contactSection('', p.hero.title).replace('<section id="contact">', '<section id="contact" style="padding-top:0">')}
 
 <section class="qc-wrap">
   <div class="reveal" style="text-align:center;margin-bottom:50px">
     <p class="s-label" style="justify-content:center;display:flex">Швидкі контакти</p>
     <h2 class="s-title" style="text-align:center">Як вам <em>зручно.</em></h2>
-    <p style="font-size:15px;color:var(--steel);max-width:520px;margin:18px auto 0;line-height:1.7;font-weight:300">Оберіть зручний канал — ми відповідаємо протягом 30 хвилин у робочий час.</p>
+    <p style="font-size:15px;color:var(--steel);max-width:520px;margin:18px auto 0;line-height:1.7;font-weight:300">${p.hero.sub}</p>
   </div>
   <div class="qc-grid">
-    <a href="https://t.me/feroxlviv" class="qc-card reveal" target="_blank" rel="noopener">
-      <div class="qc-icon qc-icon-tg">
-        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="16" cy="16" r="16" fill="#229ED9"/>
-          <path d="M22.96 10.04L20.4 22.16c-.2.84-.68 1.04-1.36.64l-3.76-2.76-1.8 1.72c-.2.2-.36.36-.76.36l.28-3.84 7.04-6.36c.32-.28-.04-.44-.48-.16l-8.72 5.44-3.76-1.16c-.84-.24-.84-.84.16-1.24l14.68-5.64c.68-.24 1.28.16 1.04 1.24z" fill="#fff"/>
-        </svg>
-      </div>
+    ${p.channels.map(c => `<a href="${c.url}" class="qc-card reveal"${c.url.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}>
+      <div class="qc-icon qc-icon-${c.icon}">${channelIcons[c.icon] || ''}</div>
       <div class="qc-body">
-        <div class="qc-name">Telegram</div>
-        <div class="qc-handle">@feroxlviv</div>
-        <div class="qc-desc">Найшвидший канал. Відповідь до 30 хв.</div>
+        <div class="qc-name">${c.name}</div>
+        <div class="qc-handle">${c.handle}</div>
+        <div class="qc-desc">${c.desc}</div>
       </div>
       <span class="qc-arrow" aria-hidden="true">↗</span>
-    </a>
-    <a href="https://instagram.com/feroxlviv" class="qc-card reveal" target="_blank" rel="noopener">
-      <div class="qc-icon qc-icon-ig">
-        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#FED576"/>
-              <stop offset="20%" stop-color="#F47133"/>
-              <stop offset="40%" stop-color="#BC3081"/>
-              <stop offset="80%" stop-color="#4C63D2"/>
-            </linearGradient>
-          </defs>
-          <rect width="32" height="32" rx="8" fill="url(#ig-grad)"/>
-          <rect x="8" y="8" width="16" height="16" rx="5" stroke="#fff" stroke-width="1.8" fill="none"/>
-          <circle cx="16" cy="16" r="3.6" stroke="#fff" stroke-width="1.8" fill="none"/>
-          <circle cx="21" cy="11" r="1.1" fill="#fff"/>
-        </svg>
-      </div>
-      <div class="qc-body">
-        <div class="qc-name">Instagram</div>
-        <div class="qc-handle">@feroxlviv</div>
-        <div class="qc-desc">Портфоліо і нові роботи. Пишіть в Direct.</div>
-      </div>
-      <span class="qc-arrow" aria-hidden="true">↗</span>
-    </a>
-    <a href="https://pinterest.com/feroxlviv" class="qc-card reveal" target="_blank" rel="noopener">
-      <div class="qc-icon qc-icon-pin">
-        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="16" cy="16" r="16" fill="#E60023"/>
-          <path d="M16 6c-5.52 0-10 4.48-10 10 0 4.24 2.64 7.84 6.36 9.32-.08-.8-.16-2 .04-2.88.16-.76 1.16-4.92 1.16-4.92s-.32-.6-.32-1.48c0-1.4.8-2.44 1.8-2.44.84 0 1.24.64 1.24 1.4 0 .84-.56 2.12-.84 3.32-.24 1 .48 1.8 1.48 1.8 1.76 0 3.12-1.88 3.12-4.6 0-2.4-1.72-4.08-4.16-4.08-2.84 0-4.52 2.12-4.52 4.32 0 .84.32 1.76.76 2.28.08.12.08.16.08.24-.08.32-.24 1-.28 1.16-.04.16-.16.24-.32.16-1.16-.52-1.84-2.2-1.84-3.6 0-2.92 2.12-5.6 6.12-5.6 3.2 0 5.72 2.28 5.72 5.36 0 3.2-2 5.76-4.8 5.76-.92 0-1.84-.48-2.12-1.04l-.6 2.2c-.2.84-.76 1.88-1.16 2.52.84.24 1.76.4 2.72.4 5.52 0 10-4.48 10-10s-4.48-10-10-10z" fill="#fff"/>
-        </svg>
-      </div>
-      <div class="qc-body">
-        <div class="qc-name">Pinterest</div>
-        <div class="qc-handle">feroxlviv</div>
-        <div class="qc-desc">Референси і натхнення. Заберіть ідею.</div>
-      </div>
-      <span class="qc-arrow" aria-hidden="true">↗</span>
-    </a>
-    <a href="mailto:hello@feroxlviv.ua" class="qc-card reveal">
-      <div class="qc-icon qc-icon-mail">
-        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect width="32" height="32" rx="8" fill="#A0522D"/>
-          <path d="M8 11l8 6 8-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          <rect x="8" y="10" width="16" height="12" rx="1.5" stroke="#fff" stroke-width="1.8" fill="none"/>
-        </svg>
-      </div>
-      <div class="qc-body">
-        <div class="qc-name">Email</div>
-        <div class="qc-handle">hello@feroxlviv.ua</div>
-        <div class="qc-desc">Для документів і офіційних запитів.</div>
-      </div>
-      <span class="qc-arrow" aria-hidden="true">↗</span>
-    </a>
+    </a>`).join('')}
   </div>
 </section>
 ` + footer();
