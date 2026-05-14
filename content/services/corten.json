@@ -122,6 +122,16 @@
       "img": "/uploads/Памятник.png",
       "tag": "Кортен · Меморіал",
       "title": "Пам'ятна табличка"
+    },
+    {
+      "img": "/uploads/lobby_art.png",
+      "tag": "Кортен · Дизайн ЖК",
+      "title": "Арт кульптура"
+    },
+    {
+      "img": "/uploads/lobby_iko.png",
+      "tag": "Кортен · Дизайн ЖК",
+      "title": "Лоббі ЖК"
     }
   ],
   "video": {
