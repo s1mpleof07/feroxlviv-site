@@ -1,0 +1,10 @@
+{
+  "slug": "lobby",
+  "title": "Лоббі для ЖК",
+  "tag": "Кортен - Девелоперам",
+  "code": "IKO",
+  "image": "/uploads/lobby_iko.png",
+  "wide": true,
+  "order": 6,
+  "video": null
+}
