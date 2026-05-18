@@ -105,6 +105,16 @@ collections:
                 options: [clock, warehouse, card, doc, box, truck, tools, handshake]
               - { name: title, label: "Заголовок пункту", widget: string }
               - { name: desc, label: "Опис", widget: text }
+              
+          - name: cortenCategories
+             label: "Блок 'Кортен — сталь яка живе' (4 категорії)"
+             widget: list
+             max: 4
+             min: 4
+             fields:
+               - { name: title, label: "Назва категорії", widget: string }
+               - { name: image, label: "Фото", widget: image, required: false }
+              
 
   # ════════════════════════════════════════════
   # 2. ПОСЛУГИ
