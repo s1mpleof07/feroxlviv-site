@@ -7,9 +7,33 @@
     "sub": "Найшвидше — через Telegram. Або через форму нижче — ми відповімо протягом 15 хвилин у робочий час. У випадку дизайн-проекту з кортену термін опрацювання — до 24 годин."
   },
   "channels": [
-    { "name": "Telegram", "handle": "@feroxlviv", "desc": "Найшвидший канал. Відповідь до 15 хв.", "icon": "telegram", "url": "https://t.me/feroxlviv" },
-    { "name": "Instagram", "handle": "@feroxlviv", "desc": "Портфоліо і нові роботи. Пишіть в Direct.", "icon": "instagram", "url": "https://instagram.com/feroxlviv" },
-    { "name": "Pinterest", "handle": "feroxlviv", "desc": "Референси і натхнення. Заберіть ідею.", "icon": "pinterest", "url": "https://pinterest.com/feroxlviv" },
-    { "name": "Email", "handle": "hello@feroxlviv.ua", "desc": "Для документів і офіційних запитів.", "icon": "mail", "url": "mailto:hello@feroxlviv.ua" }
+    {
+      "name": "Telegram",
+      "handle": "@feroxlviv",
+      "desc": "Найшвидший канал. Відповідь до 15 хв.",
+      "icon": "telegram",
+      "url": "https://t.me/feroxlviv"
+    },
+    {
+      "name": "Instagram",
+      "handle": "@ferox_ukraine",
+      "desc": "Портфоліо і нові роботи. Пишіть в Direct.",
+      "icon": "instagram",
+      "url": "https://www.instagram.com/ferox_ukraine/"
+    },
+    {
+      "name": "Pinterest",
+      "handle": "feroxlviv",
+      "desc": "Референси і натхнення. Заберіть ідею.",
+      "icon": "pinterest",
+      "url": "https://pinterest.com/feroxlviv"
+    },
+    {
+      "name": "Email",
+      "handle": "hello@feroxlviv.ua",
+      "desc": "Для документів і офіційних запитів.",
+      "icon": "mail",
+      "url": "mailto:hello@feroxlviv.ua"
+    }
   ]
 }
