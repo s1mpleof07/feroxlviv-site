@@ -209,9 +209,13 @@ section{padding:100px 5vw}
 .cf-link{display:inline-flex;align-items:center;gap:10px;margin-top:36px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--corten);border-bottom:1px solid transparent;transition:border-color .3s,gap .3s}
 .cf-link:hover{border-color:var(--corten);gap:16px}
 .cf-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;position:relative;z-index:1}
-.cf-box{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;color:rgba(255,255,255,.3);letter-spacing:.06em;text-align:center;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);transition:all .4s;padding:20px;cursor:pointer}
+.cf-box{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;color:rgba(255,255,255,.3);letter-spacing:.06em;text-align:center;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);transition:all .4s;padding:20px;cursor:pointer;position:relative;overflow:hidden}
 .cf-box:hover,.cf-box.on{background:rgba(160,82,45,.12);border-color:rgba(160,82,45,.3);color:var(--corten-l)}
 .cf-box:hover{transform:scale(.98)}
+.cf-box-img{color:#fff;border-color:rgba(160,82,45,.2)}
+.cf-box-img span{position:relative;z-index:2;font-size:16px;font-weight:700;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.6);align-self:flex-end;width:100%;text-align:left;padding:6px 4px}
+.cf-box-img{align-items:flex-end;justify-content:flex-start;padding:24px}
+.cf-box-img:hover{transform:scale(1.02);border-color:var(--corten)}
 
 /* ── FOR WHO ── */
 .fw-wrap{background:var(--white)}

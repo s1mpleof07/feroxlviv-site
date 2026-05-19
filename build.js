@@ -475,10 +475,7 @@ function homePage() {
     <a href="/services/corten/" class="cf-link">Більше про кортен <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   </div>
   <div class="cf-grid reveal" aria-hidden="true">
-    <div class="cf-box on">Олені &amp; кашпо</div>
-    <div class="cf-box">Фасади &amp; панелі</div>
-    <div class="cf-box">Ландшафт &amp; огорожі</div>
-    <div class="cf-box on">Арт &amp; пам'ятники</div>
+    ${(site.cortenCategories || []).map(c => `<div class="cf-box${c.image ? ' cf-box-img' : ''}"${c.image ? ` style="background-image:linear-gradient(180deg,rgba(21,20,15,.3) 0%,rgba(21,20,15,.85) 100%),url('${c.image}');background-size:cover;background-position:center"` : ''}><span>${c.title}</span></div>`).join('')}
   </div>
 </div>
 
