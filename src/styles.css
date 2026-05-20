@@ -578,3 +578,28 @@ footer{background:var(--anthracite);padding:60px 5vw 28px}
 /* Field error state */
 .f-input-error,.f-input-error:focus,.f-ta.f-input-error,.f-ta.f-input-error:focus,.f-sel.f-input-error{border-color:#c84040 !important;background:rgba(200,60,60,.04);animation:errorShake .35s}
 @keyframes errorShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+
+/* ── NAV PHONE (clickable phone number in top bar) ── */
+.nav-phone{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--anthracite);letter-spacing:.01em;padding:9px 4px;margin-right:16px;transition:color .25s;text-decoration:none;white-space:nowrap}
+.nav-phone svg{color:var(--corten);transition:transform .25s}
+.nav-phone:hover{color:var(--corten)}
+.nav-phone:hover svg{transform:rotate(-12deg) scale(1.1)}
+.nav.scrolled .nav-phone,.nav.dark .nav-phone{color:var(--white)}
+.nav.scrolled .nav-phone:hover,.nav.dark .nav-phone:hover{color:var(--corten-l)}
+
+/* On medium screens — hide the number, keep only the icon (still clickable, still calls) */
+@media (max-width:1100px){
+  .nav-phone-text{display:none}
+  .nav-phone{padding:9px;margin-right:8px}
+  .nav-phone svg{width:20px;height:20px}
+}
+
+/* On mobile (where burger appears) — hide entirely; phone is shown in mob menu */
+@media (max-width:768px){
+  .nav-phone{display:none}
+}
+
+/* ── MOBILE MENU PHONE LINK ── */
+.mob-phone{display:flex !important;align-items:center;gap:12px;margin-top:32px;padding:18px 22px;background:rgba(160,82,45,.08);border:1px solid rgba(160,82,45,.25);border-radius:4px;color:var(--corten) !important;font-size:18px;font-weight:700;transition:all .25s}
+.mob-phone:hover,.mob-phone:active{background:var(--corten);color:#fff !important;border-color:var(--corten)}
+.mob-phone svg{flex-shrink:0}
