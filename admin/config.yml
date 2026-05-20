@@ -9,9 +9,9 @@ backend:
 media_folder: "static/uploads"
 public_folder: "/uploads"
 
-site_url: https://feroxlviv-site.pages.dev
-display_url: https://feroxlviv-site.pages.dev
-logo_url: https://feroxlviv-site.pages.dev/favicon.ico
+site_url: https://feroxlviv.com.ua
+display_url: https://feroxlviv.com.ua
+logo_url: https://feroxlviv.com.ua/favicon.ico
 
 # Інтерфейс українською
 locale: 'uk'
