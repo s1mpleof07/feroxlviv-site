@@ -1,7 +1,7 @@
 {
   "name": "FEROX LVIV",
-  "domain": "feroxlviv.ua",
-  "url": "https://feroxlviv.ua",
+  "domain": "feroxlviv.com.ua",
+  "url": "https://feroxlviv.com.ua",
   "hero": {
     "label": "Метал. Форма. Характер.",
     "h1": "Метал,<br>що говорить<br><em>за себе.</em>",
@@ -23,7 +23,7 @@
     "valueProps": [
       {
         "num": "15+",
-        "label": "Років досвіду команди"
+        "label": "Років досвіду"
       },
       {
         "num": "300+",
@@ -31,7 +31,7 @@
       },
       {
         "num": "15хв",
-        "label": "Від заявки до прорахунку    *у випадку дизайн-проекту до 24 годин"
+        "label": "Від заявки до прорахунку *у випадку дизайн-проекту до 24 годин"
       },
       {
         "num": "100%",
@@ -42,11 +42,11 @@
   "contacts": {
     "telegram": "@feroxlviv",
     "telegramUrl": "https://t.me/feroxlviv",
-    "instagram": "@ferox.studio.ua",
-    "instagramUrl": "https://www.instagram.com/ferox.studio.ua/",
+    "instagram": "@ferox_ukraine",
+    "instagramUrl": "https://www.instagram.com/ferox_ukraine/",
     "pinterest": "feroxlviv",
     "pinterestUrl": "https://pinterest.com/feroxlviv",
-    "email": "hello@feroxlviv.ua",
+    "email": "hello@feroxlviv.com.ua",
     "phone": "+380 63 019 40 13",
     "address": "Львів, Україна",
     "responseTime": "Протягом 15 хвилин у робочий час",
@@ -101,21 +101,9 @@
     }
   ],
   "cortenCategories": [
-    {
-      "title": "Арт-об'єкт",
-      "image": "/uploads/ChatGPT Image 20 трав. 2026 р., 09_59_52.png"
-    },
-    {
-      "title": "Ландшафт",
-      "image": "/uploads/Кашпо_приватний_будинок.png"
-    },
-    {
-      "title": "Вхідна група",
-      "image": "/uploads/entrance.png"
-    },
-    {
-      "title": "Інтер'єр",
-      "image": "/uploads/lobby_iko.png"
-    }
+    { "title": "Олені & кашпо", "image": "" },
+    { "title": "Фасади & панелі", "image": "" },
+    { "title": "Ландшафт & огорожі", "image": "" },
+    { "title": "Арт & пам'ятники", "image": "" }
   ]
 }
