@@ -574,3 +574,7 @@ footer{background:var(--anthracite);padding:60px 5vw 28px}
 .c-form-status.success{opacity:1;background:rgba(34,140,80,.08);border-color:rgba(34,140,80,.3);color:#1a7d4f}
 .c-form-status.error{opacity:1;background:rgba(200,60,60,.08);border-color:rgba(200,60,60,.3);color:#a13030}
 .c-form-status.error a{color:#a13030;text-decoration:underline;font-weight:700}
+
+/* Field error state */
+.f-input-error,.f-input-error:focus,.f-ta.f-input-error,.f-ta.f-input-error:focus,.f-sel.f-input-error{border-color:#c84040 !important;background:rgba(200,60,60,.04);animation:errorShake .35s}
+@keyframes errorShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}

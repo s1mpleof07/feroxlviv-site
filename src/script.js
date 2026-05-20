@@ -198,7 +198,45 @@ document.addEventListener('keydown', (e) => {
   if (!forms.length) return;
   const WORKER_URL = 'https://leads-feroxlviv.prokopiv-andriy99.workers.dev/lead';
 
+  // Normalize UA phone to +380XXXXXXXXX format. Returns null if invalid.
+  function normalizeUaPhone(raw) {
+    if (!raw) return null;
+    const digits = String(raw).replace(/\D/g, '');
+    // 380XXXXXXXXX (12 digits)
+    if (digits.length === 12 && digits.startsWith('380')) return '+' + digits;
+    // 0XXXXXXXXX (10 digits, leading zero)
+    if (digits.length === 10 && digits.startsWith('0')) return '+38' + digits;
+    // XXXXXXXXX (9 digits, without leading zero)
+    if (digits.length === 9) return '+380' + digits;
+    return null;
+  }
+
+  // Format phone for display: +380 67 123 4567
+  function formatUaPhone(normalized) {
+    if (!normalized || normalized.length !== 13) return normalized;
+    return `+380 ${normalized.slice(4, 6)} ${normalized.slice(6, 9)} ${normalized.slice(9)}`;
+  }
+
   forms.forEach(form => {
+    const phoneInput = form.querySelector('[name=phone]');
+    const nameInput = form.querySelector('[name=name]');
+    const messageInput = form.querySelector('[name=message]');
+
+    // Auto-format phone on input (visual hint without forcing)
+    if (phoneInput) {
+      phoneInput.setAttribute('placeholder', '+380 XX XXX XX XX');
+      phoneInput.setAttribute('inputmode', 'tel');
+    }
+
+    function showFieldError(input, msg) {
+      if (!input) return;
+      input.classList.add('f-input-error');
+      input.focus();
+      // Remove error on next input
+      const removeOnce = () => { input.classList.remove('f-input-error'); input.removeEventListener('input', removeOnce); };
+      input.addEventListener('input', removeOnce);
+    }
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = form.querySelector('button[type="submit"]');
@@ -208,21 +246,54 @@ document.addEventListener('keydown', (e) => {
         form.appendChild(el);
         return el;
       })();
-      const originalBtnText = btn ? btn.textContent : '';
+      const originalBtnText = btn ? btn.innerHTML : '';
+
+      // ── VALIDATION ──
+      const name = (nameInput?.value || '').trim();
+      const phoneRaw = (phoneInput?.value || '').trim();
+      const message = (messageInput?.value || '').trim();
+
+      if (name.length < 2) {
+        statusEl.className = 'c-form-status error';
+        statusEl.textContent = 'Будь ласка, вкажіть ім\'я.';
+        showFieldError(nameInput);
+        return;
+      }
+      const phoneNormalized = normalizeUaPhone(phoneRaw);
+      if (!phoneNormalized) {
+        statusEl.className = 'c-form-status error';
+        statusEl.textContent = 'Невірний номер телефону. Введіть український номер у форматі +380 XX XXX XX XX.';
+        showFieldError(phoneInput);
+        return;
+      }
+      if (message.length < 10) {
+        statusEl.className = 'c-form-status error';
+        statusEl.textContent = 'Будь ласка, опишіть проект детальніше (хоча б одне речення).';
+        showFieldError(messageInput);
+        return;
+      }
 
       // Disable form, show progress
-      if (btn) { btn.disabled = true; btn.textContent = 'Відправляємо...'; }
+      if (btn) { btn.disabled = true; btn.innerHTML = '<span>Відправляємо...</span>'; }
       statusEl.className = 'c-form-status sending';
-      statusEl.textContent = '';
+      statusEl.textContent = 'Відправляємо заявку...';
 
-      // Collect data
+      // ── COLLECT DATA ──
+      // Source tracking:
+      // - page: where the form is now (usually /contact/)
+      // - referrer: where the user came from before this page (the actual interest)
+      // - serviceFromUrl: ?service=xxx query param (set by "Замовити" buttons on service pages)
+      const urlParams = new URLSearchParams(window.location.search);
       const data = {
-        name: form.querySelector('[name=name]')?.value || '',
-        phone: form.querySelector('[name=phone]')?.value || '',
-        message: form.querySelector('[name=message]')?.value || '',
+        name: name,
+        phone: phoneNormalized,
+        phoneDisplay: formatUaPhone(phoneNormalized),
+        message: message,
         service: form.querySelector('[name=service]')?.value || '',
         website: form.querySelector('[name=website]')?.value || '',
         page: window.location.pathname,
+        referrer: document.referrer || '',
+        serviceFromUrl: urlParams.get('service') || '',
         ts: new Date().toISOString()
       };
 
@@ -232,16 +303,17 @@ document.addEventListener('keydown', (e) => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
         });
-        if (!res.ok) throw new Error('Server returned ' + res.status);
+        const result = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(result.error || 'Server error');
         statusEl.className = 'c-form-status success';
         statusEl.textContent = '✓ Дякуємо! Заявка отримана — відповімо протягом 15 хвилин.';
         form.reset();
-        if (btn) { btn.disabled = false; btn.textContent = originalBtnText; }
       } catch (err) {
         console.error('Form submit error:', err);
         statusEl.className = 'c-form-status error';
         statusEl.innerHTML = 'Виникла помилка. Напишіть нам прямо в <a href="https://t.me/feroxlviv" target="_blank" rel="noopener">Telegram</a> — відповімо швидше.';
-        if (btn) { btn.disabled = false; btn.textContent = originalBtnText; }
+      } finally {
+        if (btn) { btn.disabled = false; btn.innerHTML = originalBtnText; }
       }
     });
   });
