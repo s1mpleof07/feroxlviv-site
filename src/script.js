@@ -166,7 +166,16 @@ document.addEventListener('keydown', (e) => {
 
   cards.forEach(card => card.addEventListener('click', () => {
     const id = card.dataset.yt;
-    if (id) open(id);
+    if (id) {
+      open(id);
+      // Analytics event
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'video_play',
+        video_id: id,
+        page_path: window.location.pathname
+      });
+    }
   }));
   closeBtn.addEventListener('click', close);
   modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
@@ -291,6 +300,15 @@ document.addEventListener('keydown', (e) => {
         statusEl.className = 'c-form-status success';
         statusEl.textContent = '✓ Дякуємо! Заявка отримана — відповімо протягом 15 хвилин.';
         form.reset();
+        // Analytics — conversion event
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'lead_submit',
+          service: data.service || 'not-specified',
+          service_from_url: data.serviceFromUrl || '',
+          page_path: window.location.pathname,
+          referrer_path: data.referrer || ''
+        });
       } catch (err) {
         console.error('Form submit error:', err);
         statusEl.className = 'c-form-status error';
@@ -298,6 +316,45 @@ document.addEventListener('keydown', (e) => {
       } finally {
         if (btn) { btn.disabled = false; btn.innerHTML = originalBtnText; }
       }
+    });
+  });
+})();
+
+// ── ANALYTICS — track key CTA clicks ──
+(function() {
+  window.dataLayer = window.dataLayer || [];
+
+  // Phone clicks (nav + mobile + footer + any tel: link)
+  document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+    link.addEventListener('click', () => {
+      window.dataLayer.push({
+        event: 'phone_click',
+        phone_location: link.closest('.nav') ? 'nav' : (link.closest('.mob-menu') ? 'mobile_menu' : 'other'),
+        page_path: window.location.pathname
+      });
+    });
+  });
+
+  // CTA button clicks (всі "Отримати прорахунок" / "Замовити" і подібні)
+  document.querySelectorAll('.btn-p, .nav-cta, .inline-cta-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      window.dataLayer.push({
+        event: 'cta_click',
+        cta_text: (btn.textContent || '').trim().substring(0, 60),
+        cta_destination: btn.getAttribute('href') || '',
+        page_path: window.location.pathname
+      });
+    });
+  });
+
+  // Service card clicks on home (strip + material cards leading to /services/)
+  document.querySelectorAll('a[href^="/services/"]').forEach(link => {
+    link.addEventListener('click', () => {
+      window.dataLayer.push({
+        event: 'service_card_click',
+        service_path: link.getAttribute('href'),
+        page_path: window.location.pathname
+      });
     });
   });
 })();
