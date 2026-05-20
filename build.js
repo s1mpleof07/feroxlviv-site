@@ -474,8 +474,8 @@ function homePage() {
     <p class="cf-text">Атмосферостійка сталь COR-TEN утворює на поверхні захисний шар іржі, який зупиняє подальшу корозію. Не потребує фарбування. Набуває унікального характеру з часом.</p>
     <a href="/services/corten/" class="cf-link">Більше про кортен <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   </div>
-  <div class="cf-grid reveal" aria-hidden="true">
-    ${(site.cortenCategories || []).map(c => `<div class="cf-box${c.image ? ' cf-box-img' : ''}"${c.image ? ` style="background-image:linear-gradient(180deg,rgba(21,20,15,.3) 0%,rgba(21,20,15,.85) 100%),url('${c.image}');background-size:cover;background-position:center"` : ''}><span>${c.title}</span></div>`).join('')}
+  <div class="cf-grid reveal">
+    ${(site.cortenCategories || []).map(c => `<a href="/services/corten/" class="cf-box${c.image ? ' cf-box-img' : ''}"${c.image ? ` style="background-image:linear-gradient(180deg,rgba(21,20,15,.3) 0%,rgba(21,20,15,.85) 100%),url('${c.image}');background-size:cover;background-position:center"` : ''} aria-label="${c.title} — дизайн з кортену"><span>${c.title}</span></a>`).join('')}
   </div>
 </div>
 
