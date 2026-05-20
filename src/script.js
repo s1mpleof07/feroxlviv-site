@@ -43,23 +43,6 @@ const obs = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-// ── FORM ──
-document.querySelectorAll('form[data-form="contact"]').forEach(form => {
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const fields = this.querySelectorAll('[required]');
-    let valid = true;
-    fields.forEach(f => { if (!f.value.trim()) valid = false; });
-    if (!valid) {
-      alert("Будь ласка, заповніть обов'язкові поля.");
-      return;
-    }
-    const okEl = this.querySelector('.f-ok');
-    if (okEl) okEl.style.display = 'block';
-    this.querySelectorAll('input,select,textarea,button').forEach(el => el.disabled = true);
-  });
-});
-
 // ── SMOOTH ANCHOR ──
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
