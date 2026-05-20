@@ -209,13 +209,16 @@ section{padding:100px 5vw}
 .cf-link{display:inline-flex;align-items:center;gap:10px;margin-top:36px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--corten);border-bottom:1px solid transparent;transition:border-color .3s,gap .3s}
 .cf-link:hover{border-color:var(--corten);gap:16px}
 .cf-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;position:relative;z-index:1}
-.cf-box{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;color:rgba(255,255,255,.3);letter-spacing:.06em;text-align:center;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);transition:all .4s;padding:20px;cursor:pointer;position:relative;overflow:hidden}
+.cf-box{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;color:rgba(255,255,255,.3);letter-spacing:.06em;text-align:center;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);transition:all .4s;padding:20px;cursor:pointer;position:relative;overflow:hidden;text-decoration:none}
 .cf-box:hover,.cf-box.on{background:rgba(160,82,45,.12);border-color:rgba(160,82,45,.3);color:var(--corten-l)}
 .cf-box:hover{transform:scale(.98)}
 .cf-box-img{color:#fff;border-color:rgba(160,82,45,.2)}
-.cf-box-img span{position:relative;z-index:2;font-size:16px;font-weight:700;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.6);align-self:flex-end;width:100%;text-align:left;padding:6px 4px}
+.cf-box-img span{position:relative;z-index:2;font-size:16px;font-weight:700;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.6);align-self:flex-end;width:100%;text-align:left;padding:6px 4px;transition:transform .4s}
 .cf-box-img{align-items:flex-end;justify-content:flex-start;padding:24px}
-.cf-box-img:hover{transform:scale(1.02);border-color:var(--corten)}
+.cf-box-img::after{content:'↗';position:absolute;top:18px;right:20px;font-size:22px;color:#fff;opacity:0;transform:translate(-6px,6px);transition:all .4s;z-index:2;text-shadow:0 2px 6px rgba(0,0,0,.5)}
+.cf-box-img:hover{transform:scale(1.02);border-color:var(--corten);box-shadow:0 14px 40px -10px rgba(0,0,0,.5)}
+.cf-box-img:hover::after{opacity:1;transform:translate(0,0)}
+.cf-box-img:hover span{transform:translateX(3px)}
 
 /* ── FOR WHO ── */
 .fw-wrap{background:var(--white)}
@@ -531,3 +534,43 @@ footer{background:var(--anthracite);padding:60px 5vw 28px}
   content-visibility: auto;
   contain-intrinsic-size: 800px;
 }
+
+/* ── VIDEO BLOCK (на сторінках послуг) ── */
+.video-section{padding:90px 5vw;background:var(--anthracite);position:relative;overflow:hidden}
+.video-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 30% 50%,rgba(160,82,45,.12) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 90% 80%,rgba(160,82,45,.08) 0%,transparent 65%);pointer-events:none}
+.video-card{position:relative;display:block;width:100%;max-width:1100px;margin:0 auto;aspect-ratio:16/9;border:1px solid rgba(160,82,45,.25);border-radius:4px;overflow:hidden;background:#15140f;cursor:pointer;transition:all .5s cubic-bezier(.2,.7,.3,1);padding:0;text-align:left;font:inherit;color:inherit}
+.video-card:hover{transform:translateY(-4px);box-shadow:0 30px 60px -20px rgba(0,0,0,.6),0 0 0 1px rgba(160,82,45,.5)}
+.video-thumb{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .8s cubic-bezier(.2,.7,.3,1);filter:brightness(.7) saturate(.95)}
+.video-card:hover .video-thumb{transform:scale(1.04);filter:brightness(.78) saturate(1.05)}
+.video-gradient{position:absolute;inset:0;background:linear-gradient(180deg,rgba(21,20,15,.2) 0%,rgba(21,20,15,.1) 50%,rgba(21,20,15,.85) 100%);pointer-events:none}
+.video-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px;text-align:center}
+.video-play-circle{width:84px;height:84px;display:flex;align-items:center;justify-content:center;transition:all .4s;margin-bottom:32px;backdrop-filter:blur(8px);border-radius:50%}
+.video-card:hover .video-play-circle{transform:scale(1.1)}
+.video-play-circle svg{width:100%;height:100%}
+.video-meta{max-width:600px}
+.video-label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--corten-l);margin-bottom:14px;font-weight:500}
+.video-title{font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,42px);font-weight:700;color:#fff;line-height:1.15;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+
+/* ── VIDEO MODAL ── */
+.video-modal{position:fixed;inset:0;background:rgba(15,14,12,.92);backdrop-filter:blur(12px);z-index:999;display:flex;align-items:center;justify-content:center;padding:5vh 5vw;opacity:0;transition:opacity .3s}
+.video-modal[hidden]{display:none}
+.video-modal.is-open{opacity:1}
+.video-modal-wrap{position:relative;width:100%;max-width:1280px;aspect-ratio:16/9;background:#000;border-radius:4px;overflow:hidden;box-shadow:0 40px 80px -20px rgba(0,0,0,.6)}
+.video-modal-wrap iframe{width:100%;height:100%;border:0}
+.video-modal-close{position:absolute;top:20px;right:20px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:50%;cursor:pointer;transition:all .25s;backdrop-filter:blur(8px)}
+.video-modal-close:hover{background:rgba(160,82,45,.3);border-color:var(--corten);transform:rotate(90deg)}
+
+@media (max-width:768px){
+  .video-section{padding:60px 4vw}
+  .video-content{padding:24px}
+  .video-play-circle{width:64px;height:64px;margin-bottom:20px}
+  .video-modal{padding:2vh 3vw}
+  .video-modal-close{top:10px;right:10px;width:38px;height:38px}
+}
+
+/* ── CONTACT FORM STATUS ── */
+.c-form-status{margin-top:16px;padding:14px 18px;border-radius:4px;font-size:14px;line-height:1.5;font-weight:500;opacity:0;transition:opacity .3s;border:1px solid transparent}
+.c-form-status.sending{opacity:1;background:rgba(160,82,45,.08);border-color:rgba(160,82,45,.2);color:var(--corten)}
+.c-form-status.success{opacity:1;background:rgba(34,140,80,.08);border-color:rgba(34,140,80,.3);color:#1a7d4f}
+.c-form-status.error{opacity:1;background:rgba(200,60,60,.08);border-color:rgba(200,60,60,.3);color:#a13030}
+.c-form-status.error a{color:#a13030;text-decoration:underline;font-weight:700}

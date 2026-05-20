@@ -157,3 +157,92 @@ if (matModal) {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && matModal && matModal.classList.contains('open')) closeMatModal();
 });
+
+// ── VIDEO MODAL (YouTube lazy embed) ──
+(function() {
+  const cards = document.querySelectorAll('.video-card[data-yt]');
+  const modal = document.getElementById('videoModal');
+  const wrap = document.getElementById('videoModalWrap');
+  const closeBtn = document.getElementById('videoModalClose');
+  if (!cards.length || !modal || !wrap || !closeBtn) return;
+
+  function open(youtubeId) {
+    wrap.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    modal.hidden = false;
+    requestAnimationFrame(() => modal.classList.add('is-open'));
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    modal.classList.remove('is-open');
+    setTimeout(() => {
+      modal.hidden = true;
+      wrap.innerHTML = '';
+      document.body.style.overflow = '';
+    }, 300);
+  }
+
+  cards.forEach(card => card.addEventListener('click', () => {
+    const id = card.dataset.yt;
+    if (id) open(id);
+  }));
+  closeBtn.addEventListener('click', close);
+  modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.hidden) close();
+  });
+})();
+
+// ── CONTACT FORM → Telegram (через Cloudflare Worker) ──
+(function() {
+  const forms = document.querySelectorAll('form.c-form');
+  if (!forms.length) return;
+  const WORKER_URL = 'https://leads-feroxlviv.prokopiv-andriy99.workers.dev/lead';
+
+  forms.forEach(form => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      const statusEl = form.querySelector('.c-form-status') || (() => {
+        const el = document.createElement('div');
+        el.className = 'c-form-status';
+        form.appendChild(el);
+        return el;
+      })();
+      const originalBtnText = btn ? btn.textContent : '';
+
+      // Disable form, show progress
+      if (btn) { btn.disabled = true; btn.textContent = 'Відправляємо...'; }
+      statusEl.className = 'c-form-status sending';
+      statusEl.textContent = '';
+
+      // Collect data
+      const data = {
+        name: form.querySelector('[name=name]')?.value || '',
+        phone: form.querySelector('[name=phone]')?.value || '',
+        message: form.querySelector('[name=message]')?.value || '',
+        service: form.querySelector('[name=service]')?.value || '',
+        website: form.querySelector('[name=website]')?.value || '',
+        page: window.location.pathname,
+        ts: new Date().toISOString()
+      };
+
+      try {
+        const res = await fetch(WORKER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (!res.ok) throw new Error('Server returned ' + res.status);
+        statusEl.className = 'c-form-status success';
+        statusEl.textContent = '✓ Дякуємо! Заявка отримана — відповімо протягом 15 хвилин.';
+        form.reset();
+        if (btn) { btn.disabled = false; btn.textContent = originalBtnText; }
+      } catch (err) {
+        console.error('Form submit error:', err);
+        statusEl.className = 'c-form-status error';
+        statusEl.innerHTML = 'Виникла помилка. Напишіть нам прямо в <a href="https://t.me/feroxlviv" target="_blank" rel="noopener">Telegram</a> — відповімо швидше.';
+        if (btn) { btn.disabled = false; btn.textContent = originalBtnText; }
+      }
+    });
+  });
+})();
