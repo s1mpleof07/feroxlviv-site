@@ -294,6 +294,7 @@ function contactForm(prefill = '') {
     ['other', 'Інше / декілька послуг']
   ].map(([v, l]) => `<option value="${v}"${v === prefill ? ' selected' : ''}>${l}</option>`).join('');
   return `<form class="c-form reveal" data-form="contact" novalidate aria-label="Форма замовлення прорахунку">
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <div class="f-row">
         <div class="f-group"><label class="f-label" for="fname">Ваше ім'я *</label><input class="f-input" type="text" id="fname" name="name" placeholder="Андрій" required autocomplete="name"></div>
         <div class="f-group"><label class="f-label" for="fphone">Телефон *</label><input class="f-input" type="tel" id="fphone" name="phone" placeholder="+380 xx xxx xx xx" required autocomplete="tel"></div>
@@ -307,7 +308,6 @@ function contactForm(prefill = '') {
       <button type="submit" class="btn-dark"><span>Надіслати заявку</span>
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <div class="f-ok" role="alert">Дякуємо! Ми отримали вашу заявку і зв&apos;яжемось протягом 15 хвилин у робочий час.</div>
     </form>`;
 }
 
@@ -366,6 +366,15 @@ function footer() {
     <p class="ft-seo">Лазерна різка металу Львів · Кортен купити · Металообробка Львів · Гнуття металу · Зварювання Львів</p>
   </div>
 </footer>
+
+<!-- Video modal (lazy YouTube embed) -->
+<div class="video-modal" id="videoModal" hidden aria-hidden="true" role="dialog" aria-label="Відеоплеєр">
+  <button class="video-modal-close" id="videoModalClose" aria-label="Закрити відео">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <div class="video-modal-wrap" id="videoModalWrap"></div>
+</div>
+
 <script src="/script.js" defer></script>
 </body>
 </html>`;
@@ -662,6 +671,27 @@ function servicePage(s) {
     </a>`).join('')}
   </div>
 </section>
+
+${(s.video && s.video.youtubeId) ? `
+<section class="video-section">
+  <button class="video-card reveal" type="button" data-yt="${s.video.youtubeId}" aria-label="Подивитися відео: ${s.video.title || 'процес виробництва'}">
+    <div class="video-thumb" style="background-image:url('${s.video.thumbnail || `https://i.ytimg.com/vi/${s.video.youtubeId}/maxresdefault.jpg`}')"></div>
+    <div class="video-gradient"></div>
+    <div class="video-content">
+      <div class="video-play-circle" aria-hidden="true">
+        <svg viewBox="0 0 80 80" fill="none">
+          <circle cx="40" cy="40" r="38" stroke="rgba(255,255,255,.9)" stroke-width="2" fill="rgba(160,82,45,.3)"/>
+          <path d="M32 26v28l22-14z" fill="#fff"/>
+        </svg>
+      </div>
+      <div class="video-meta">
+        <p class="video-label">Дивіться як ми працюємо</p>
+        <h2 class="video-title">${s.video.title || 'Процес виробництва'}</h2>
+      </div>
+    </div>
+  </button>
+</section>
+` : ''}
 
 <section class="seo-section">
   <div class="reveal seo-content">
