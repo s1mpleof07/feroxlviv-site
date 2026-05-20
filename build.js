@@ -113,6 +113,10 @@ function nav(active = '') {
     ${link('/process/', 'Як ми працюємо', 'process')}
     ${link('/contact/', 'Контакт', 'contact')}
   </ul>
+  ${site.contacts.phone ? `<a href="tel:${site.contacts.phone.replace(/\s/g, '')}" class="nav-phone" aria-label="Зателефонувати ${site.contacts.phone}">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.37 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="nav-phone-text">${site.contacts.phone}</span>
+  </a>` : ''}
   <a href="/contact/" class="nav-cta"><span>Отримати прорахунок</span></a>
   <button class="burger" id="burger" aria-label="Меню" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -132,6 +136,10 @@ function nav(active = '') {
   <a href="/about/"${active === 'about' ? ' class="active"' : ''}>Про нас</a>
   <a href="/process/"${active === 'process' ? ' class="active"' : ''}>Як ми працюємо</a>
   <a href="/contact/"${active === 'contact' ? ' class="active"' : ''}>Контакт</a>
+  ${site.contacts.phone ? `<a href="tel:${site.contacts.phone.replace(/\s/g, '')}" class="mob-phone">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.37 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>${site.contacts.phone}</span>
+  </a>` : ''}
 </div>`;
 }
 
