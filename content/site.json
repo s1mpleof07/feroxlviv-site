@@ -101,9 +101,21 @@
     }
   ],
   "cortenCategories": [
-    { "title": "Олені & кашпо", "image": "" },
-    { "title": "Фасади & панелі", "image": "" },
-    { "title": "Ландшафт & огорожі", "image": "" },
-    { "title": "Арт & пам'ятники", "image": "" }
+    {
+      "title": "Арт-Об'єкт",
+      "image": "/uploads/ChatGPT Image 20 трав. 2026 р., 09_59_52.png"
+    },
+    {
+      "title": "Ландшафт Кашпо",
+      "image": "/uploads/Кашпо_приватний_будинок.png"
+    },
+    {
+      "title": "Екстер'єр",
+      "image": "/uploads/entrance.png"
+    },
+    {
+      "title": "Інтер'єр",
+      "image": "/uploads/lobby_iko.png"
+    }
   ]
 }
