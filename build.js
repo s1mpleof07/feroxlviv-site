@@ -60,20 +60,20 @@ function head(title, desc, keywords, canonical) {
 <meta name="keywords" content="${keywords}">
 <meta name="robots" content="index, follow">
 <meta name="author" content="FEROX LVIV">
-<link rel="canonical" href="https://feroxlviv.ua${canonical}">
+<link rel="canonical" href="https://feroxlviv.com.ua${canonical}">
 <meta property="og:title" content="${title}">
 <meta property="og:description" content="${desc}">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://feroxlviv.ua${canonical}">
+<meta property="og:url" content="https://feroxlviv.com.ua${canonical}">
 <meta property="og:locale" content="uk_UA">
 <meta property="og:site_name" content="FEROX LVIV">
-<meta property="og:image" content="https://feroxlviv.ua/og-cover.jpg">
+<meta property="og:image" content="https://feroxlviv.com.ua/og-cover.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${title}">
 <meta name="twitter:description" content="${desc}">
-<meta name="twitter:image" content="https://feroxlviv.ua/og-cover.jpg">
+<meta name="twitter:image" content="https://feroxlviv.com.ua/og-cover.jpg">
 <meta name="theme-color" content="#2C2C2A">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="format-detection" content="telephone=no">
@@ -81,7 +81,7 @@ function head(title, desc, keywords, canonical) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"FEROX LVIV","description":"Виготовлення дизайн-об'єктів з кортену та послуги металообробки у Львові","address":{"@type":"PostalAddress","addressLocality":"Львів","addressCountry":"UA"},"url":"https://feroxlviv.ua","serviceType":["Лазерна різка металу","Гнуття металу","Зварювання","Дизайн з кортену"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"FEROX LVIV","description":"Виготовлення дизайн-об'єктів з кортену та послуги металообробки у Львові","address":{"@type":"PostalAddress","addressLocality":"Львів","addressCountry":"UA"},"url":"https://feroxlviv.com.ua","serviceType":["Лазерна різка металу","Гнуття металу","Зварювання","Дизайн з кортену"]}</script>
 </head>
 <body>`;
 }
@@ -1098,12 +1098,12 @@ ${[
   '/', '/services/', '/portfolio/', '/about/', '/process/', '/contact/',
   ...services.map(s => `/services/${s.slug}/`),
   ...projects.map(p => `/portfolio/${p.slug}/`)
-].map(u => `  <url><loc>https://feroxlviv.ua${u}</loc><changefreq>weekly</changefreq></url>`).join('\n')}
+].map(u => `  <url><loc>https://feroxlviv.com.ua${u}</loc><changefreq>weekly</changefreq></url>`).join('\n')}
 </urlset>`;
   writeFile('sitemap.xml', sitemap);
 
   // Robots
-  writeFile('robots.txt', `User-agent: *\nAllow: /\nSitemap: https://feroxlviv.ua/sitemap.xml\n`);
+  writeFile('robots.txt', `User-agent: *\nAllow: /\nSitemap: https://feroxlviv.com.ua/sitemap.xml\n`);
 
   console.log('\n✅ Build complete! Files in:', OUT);
 }
