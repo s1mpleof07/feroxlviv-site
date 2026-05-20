@@ -101,21 +101,9 @@
     }
   ],
   "cortenCategories": [
-    {
-      "title": "Дизайн-об'єкти",
-      "image": "/uploads/Олень_кортен.png"
-    },
-    {
-      "title": "Креативні рішення",
-      "image": "/uploads/Фонтан.png"
-    },
-    {
-      "title": "Констрункції",
-      "image": "/uploads/lobby_iko.png"
-    },
-    {
-      "title": "Ландшафт",
-      "image": "/uploads/Кашпо_приватний_будинок.png"
-    }
+    { "title": "Олені & кашпо", "image": "" },
+    { "title": "Фасади & панелі", "image": "" },
+    { "title": "Ландшафт & огорожі", "image": "" },
+    { "title": "Арт & пам'ятники", "image": "" }
   ]
 }
