@@ -257,7 +257,28 @@ collections:
       - { name: rolling, label: "Параметри вальцювання", widget: text }
 
   # ════════════════════════════════════════════
-  # 5. СТОРІНКИ (about, process, contact)
+  # 5. БЛОГ
+  # ════════════════════════════════════════════
+  - name: blog
+    label: "Блог (статті)"
+    folder: "content/blog"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    fields:
+      - { name: slug, label: "URL-slug (напр. corten-shcho-take)", widget: string }
+      - { name: title, label: "Заголовок статті", widget: string }
+      - { name: metaTitle, label: "Meta Title (для Google, до 60 символів)", widget: string }
+      - { name: metaDesc, label: "Meta Description (до 160 символів)", widget: text }
+      - { name: date, label: "Дата публікації", widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+      - { name: category, label: "Категорія", widget: select, options: ["Матеріали", "Технології", "Проекти", "Дизайн", "Новини"] }
+      - { name: excerpt, label: "Короткий опис (анонс на сторінці блогу)", widget: text }
+      - { name: readTime, label: "Час читання (хвилини)", widget: number, default: 5 }
+      - { name: image, label: "Обкладинка статті", widget: image, required: false }
+      - { name: content, label: "Вміст статті (HTML)", widget: text }
+
+  # ════════════════════════════════════════════
+  # 6. СТОРІНКИ (about, process, contact)
   # ════════════════════════════════════════════
   - name: pages
     label: "Сторінки"
