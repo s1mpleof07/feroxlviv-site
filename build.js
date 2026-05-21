@@ -76,6 +76,8 @@ function head(title, desc, keywords, canonical) {
 <meta name="twitter:description" content="${desc}">
 <meta name="twitter:image" content="https://feroxlviv.com.ua/og-cover.jpg">
 <meta name="theme-color" content="#2C2C2A">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="format-detection" content="telephone=no">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1201,6 +1203,8 @@ function build() {
   // Static files
   fs.copyFileSync(SRC + '/styles.css', OUT + '/styles.css');
   fs.copyFileSync(SRC + '/script.js', OUT + '/script.js');
+  const faviconSrc = __dirname + '/static/favicon.svg';
+  if (fs.existsSync(faviconSrc)) fs.copyFileSync(faviconSrc, OUT + '/favicon.svg');
   console.log('  ✓ styles.css, script.js');
 
   // Admin (Sveltia CMS)
