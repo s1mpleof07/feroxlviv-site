@@ -27,6 +27,7 @@ const whyUs = site.whyUs || [];
 const materials = loadDir('materials');
 const services = loadDir('services').sort((a, b) => parseInt(a.num) - parseInt(b.num));
 const projects = loadDir('projects');
+const blogPosts = loadDir('blog').sort((a, b) => new Date(b.date) - new Date(a.date));
 const pages = {
   about: loadJson('pages/about.json'),
   process: loadJson('pages/process.json'),
@@ -115,6 +116,7 @@ function nav(active = '') {
       </div>
     </li>
     ${link('/portfolio/', 'Проекти', 'portfolio')}
+    ${link('/blog/', 'Блог', 'blog')}
     ${link('/about/', 'Про нас', 'about')}
     ${link('/process/', 'Як ми працюємо', 'process')}
     ${link('/contact/', 'Контакт', 'contact')}
@@ -139,6 +141,7 @@ function nav(active = '') {
     </div>
   </div>
   <a href="/portfolio/"${active === 'portfolio' ? ' class="active"' : ''}>Проекти</a>
+  <a href="/blog/"${active === 'blog' ? ' class="active"' : ''}>Блог</a>
   <a href="/about/"${active === 'about' ? ' class="active"' : ''}>Про нас</a>
   <a href="/process/"${active === 'process' ? ' class="active"' : ''}>Як ми працюємо</a>
   <a href="/contact/"${active === 'contact' ? ' class="active"' : ''}>Контакт</a>
@@ -1049,6 +1052,147 @@ function writeFile(p, content) {
   console.log('  ✓', p);
 }
 
+// ════════════════════════════════════════════════════════
+// BLOG
+// ════════════════════════════════════════════════════════
+
+function blogListPage() {
+  const formatDate = (iso) => {
+    const d = new Date(iso);
+    const months = ['січня','лютого','березня','квітня','травня','червня','липня','серпня','вересня','жовтня','листопада','грудня'];
+    return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+  };
+  return head(
+    'Блог FEROX LVIV — статті про метал, кортен і архітектуру',
+    'Корисні статті про металообробку, кортенову сталь, дизайн-об\'єкти та тренди в архітектурі. Досвід команди FEROX LVIV.',
+    'блог металообробка, кортен статті, архітектура метал',
+    '/blog/'
+  ) + nav('blog') +
+  pageHeader(
+    [{ href: '/', label: 'Головна' }, { label: 'Блог' }],
+    'Знання та<br><em>досвід.</em>',
+    'Статті про матеріали, технології та дизайн з металу — від команди FEROX LVIV.',
+    null, null, 'Блог'
+  ) + `
+<section style="padding-top:60px">
+  ${blogPosts.length === 0 ? '<p style="color:var(--steel);text-align:center;padding:60px 0">Статті незабаром з\'являться.</p>' : `
+  <div class="blog-grid">
+    ${blogPosts.map(post => `<article class="blog-card reveal">
+      ${post.image ? `<a href="/blog/${post.slug}/" class="blog-card-img" style="background-image:url('${post.image}')"></a>` : `<a href="/blog/${post.slug}/" class="blog-card-img blog-card-img-placeholder"></a>`}
+      <div class="blog-card-body">
+        <div class="blog-card-meta">
+          <span class="blog-tag">${post.category || 'Стаття'}</span>
+          <span class="blog-date">${formatDate(post.date)}</span>
+          ${post.readTime ? `<span class="blog-read">${post.readTime} хв читання</span>` : ''}
+        </div>
+        <h2 class="blog-card-title"><a href="/blog/${post.slug}/">${post.title}</a></h2>
+        <p class="blog-card-excerpt">${post.excerpt || ''}</p>
+        <a href="/blog/${post.slug}/" class="blog-card-link">Читати далі
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </article>`).join('')}
+  </div>`}
+</section>
+
+${inlineCTA(
+  'Маєте питання про матеріали?',
+  'Проконсультуємо<br>безкоштовно. <em>Відповідь за 15 хв.</em>',
+  'Наш конструктор допоможе обрати матеріал і технологію для вашого проекту.',
+  'Отримати консультацію',
+  '/contact/'
+)}
+` + footer();
+}
+
+function blogPostPage(post) {
+  const formatDate = (iso) => {
+    const d = new Date(iso);
+    const months = ['січня','лютого','березня','квітня','травня','червня','липня','серпня','вересня','жовтня','листопада','грудня'];
+    return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+  };
+  const otherPosts = blogPosts.filter(p => p.slug !== post.slug).slice(0, 3);
+  return head(
+    post.metaTitle || `${post.title} | FEROX LVIV`,
+    post.metaDesc || post.excerpt || '',
+    post.keywords || `${post.category}, FEROX LVIV, металообробка Львів`,
+    `/blog/${post.slug}/`
+  ) + nav('blog') +
+  `<section class="ph">
+  <div class="ph-bg" aria-hidden="true"></div>
+  <div class="ph-bg-warm" aria-hidden="true"></div>
+  <div class="ph-grid" aria-hidden="true"></div>
+  <div class="ph-laser" aria-hidden="true"></div>
+  <div class="ph-vline" aria-hidden="true"></div>
+  <nav class="crumbs" aria-label="Хлібні крихти">
+    <a href="/">Головна</a><span class="crumbs-sep">/</span>
+    <a href="/blog/">Блог</a><span class="crumbs-sep">/</span>
+    <span>${post.title}</span>
+  </nav>
+  <p class="ph-label" style="position:relative;z-index:1;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--corten);margin:24px 0 16px">${post.category || 'Стаття'}</p>
+  <h1 class="ph-h1" style="max-width:800px">${post.title}</h1>
+  <div class="blog-post-meta" style="position:relative;z-index:1;display:flex;gap:20px;margin-top:20px;font-size:13px;color:rgba(255,255,255,.5)">
+    <span>${formatDate(post.date)}</span>
+    ${post.readTime ? `<span>${post.readTime} хв читання</span>` : ''}
+    <span>Команда FEROX LVIV</span>
+  </div>
+</section>
+
+<section style="padding-top:60px;padding-bottom:80px">
+  <div style="display:grid;grid-template-columns:1fr 320px;gap:80px;align-items:start">
+    <article class="blog-post-content reveal">
+      ${post.image ? `<img src="${post.image}" alt="${post.title}" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:4px;margin-bottom:40px">` : ''}
+      ${post.content || ''}
+    </article>
+    <aside style="position:sticky;top:100px">
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:4px;padding:28px;margin-bottom:28px">
+        <p style="font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--corten);margin-bottom:16px">Про матеріал</p>
+        <p style="font-size:14px;color:var(--steel);line-height:1.7;margin-bottom:20px">Маєте питання щодо кортену або іншого матеріалу для вашого проекту?</p>
+        <a href="/contact/" class="btn-p" style="width:100%;text-align:center;display:block;padding:12px;font-size:13px">Отримати консультацію</a>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:4px;padding:28px">
+        <p style="font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--corten);margin-bottom:16px">Наші послуги</p>
+        ${services.slice(0,4).map(s => `<a href="/services/${s.slug}/" style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);color:var(--anthracite);font-size:14px;text-decoration:none;transition:color .25s">
+          <span style="font-size:10px;color:var(--corten)">0${s.num}</span>
+          <span>${s.titleShort}</span>
+        </a>`).join('')}
+      </div>
+    </aside>
+  </div>
+</section>
+
+${otherPosts.length > 0 ? `<section style="background:var(--bone);padding:80px 5vw">
+  <div class="reveal" style="margin-bottom:40px">
+    <p class="s-label">Читайте також</p>
+    <h2 class="s-title">Інші <em>статті.</em></h2>
+  </div>
+  <div class="blog-grid">
+    ${otherPosts.map(p => `<article class="blog-card reveal">
+      <a href="/blog/${p.slug}/" class="blog-card-img blog-card-img-placeholder"></a>
+      <div class="blog-card-body">
+        <div class="blog-card-meta">
+          <span class="blog-tag">${p.category || 'Стаття'}</span>
+          <span class="blog-date">${formatDate(p.date)}</span>
+        </div>
+        <h3 class="blog-card-title"><a href="/blog/${p.slug}/">${p.title}</a></h3>
+        <a href="/blog/${p.slug}/" class="blog-card-link">Читати
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </article>`).join('')}
+  </div>
+</section>` : ''}
+
+${inlineCTA(
+  'Є питання по проекту?',
+  'Описуйте завдання —<br><em>відповімо за 15 хвилин.</em>',
+  'Безкоштовна консультація. Підберемо матеріал і розрахуємо вартість.',
+  'Замовити прорахунок',
+  '/contact/'
+)}
+` + footer();
+}
+
 function build() {
   // Clean
   if (fs.existsSync(OUT)) fs.rmSync(OUT, { recursive: true });
@@ -1092,6 +1236,10 @@ function build() {
   writeFile('portfolio/index.html', portfolioIndex());
   projects.forEach(p => writeFile(`portfolio/${p.slug}/index.html`, projectPage(p)));
 
+  // Blog
+  writeFile('blog/index.html', blogListPage());
+  blogPosts.forEach(post => writeFile(`blog/${post.slug}/index.html`, blogPostPage(post)));
+
   // Other pages
   writeFile('about/index.html', aboutPage());
   writeFile('process/index.html', processPage());
@@ -1101,9 +1249,10 @@ function build() {
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${[
-  '/', '/services/', '/portfolio/', '/about/', '/process/', '/contact/',
+  '/', '/services/', '/portfolio/', '/blog/', '/about/', '/process/', '/contact/',
   ...services.map(s => `/services/${s.slug}/`),
-  ...projects.map(p => `/portfolio/${p.slug}/`)
+  ...projects.map(p => `/portfolio/${p.slug}/`),
+  ...blogPosts.map(p => `/blog/${p.slug}/`)
 ].map(u => `  <url><loc>https://feroxlviv.com.ua${u}</loc><changefreq>weekly</changefreq></url>`).join('\n')}
 </urlset>`;
   writeFile('sitemap.xml', sitemap);
