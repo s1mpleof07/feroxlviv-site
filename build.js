@@ -76,8 +76,7 @@ function head(title, desc, keywords, canonical) {
 <meta name="twitter:description" content="${desc}">
 <meta name="twitter:image" content="https://feroxlviv.com.ua/og-cover.jpg">
 <meta name="theme-color" content="#2C2C2A">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="apple-touch-icon" href="/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='32' height='32' fill='%231a1a18'/%3E%3Crect width='3' height='32' fill='%23a0522d'/%3E%3Ctext x='8' y='24' fill='%23fff' font-size='21' font-weight='700' font-family='Georgia%2Cserif'%3EF%3C/text%3E%3C/svg%3E">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="format-detection" content="telephone=no">
 <link rel="preconnect" href="https://fonts.googleapis.com">
