@@ -1160,6 +1160,48 @@ ${contactSection('', p.hero.title).replace('<section id="contact">', '<section i
     </a>`).join('')}
   </div>
 </section>
+
+
+<section class="gmap-section">
+  <div class="gmap-inner reveal">
+    <div class="gmap-map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2573.4!2d24.0308715!3d49.8395669!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xadeda1de440983c9:0xde677f2b89b98b1c!2sFerox%20Lviv!5e0!3m2!1suk!2sua!4v1!5m2!1suk!2sua" width="100%" height="100%" style="border:0;display:block" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="FEROX LVIV на Google Maps"></iframe>
+    </div>
+    <div class="gmap-card">
+      <div class="gmap-logo">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#a0522d"/><circle cx="12" cy="9" r="2.5" fill="#fff"/></svg>
+        <span>FEROX LVIV</span>
+      </div>
+      <div class="gmap-rating">
+        <span class="gmap-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <a href="https://www.google.com/maps/place/Ferox+Lviv/@49.8395669,24.0308715,17z" target="_blank" rel="noopener" class="gmap-review-count">Google Maps</a>
+      </div>
+      <div class="gmap-details">
+        <div class="gmap-detail-row">
+          <svg viewBox="0 0 20 20" fill="none" width="15" height="15"><path d="M10 2C6.69 2 4 4.69 4 8c0 4.5 6 10 6 10s6-5.5 6-10c0-3.31-2.69-6-6-6zm0 8a2 2 0 110-4 2 2 0 010 4z" fill="currentColor"/></svg>
+          <span>площа Міцкевича, 10, Львів</span>
+        </div>
+        <div class="gmap-detail-row">
+          <svg viewBox="0 0 20 20" fill="none" width="15" height="15"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" fill="currentColor"/></svg>
+          <a href="tel:+380630194013" class="gmap-phone">${site.contacts.phone}</a>
+        </div>
+        <div class="gmap-detail-row">
+          <svg viewBox="0 0 20 20" fill="none" width="15" height="15"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" fill="currentColor"/></svg>
+          <span>Пн&#8211;Пт, 09:00&#8211;18:00</span>
+        </div>
+        <div class="gmap-detail-row">
+          <svg viewBox="0 0 20 20" fill="none" width="15" height="15"><path d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" fill="currentColor"/></svg>
+          <a href="https://feroxlviv.com.ua" class="gmap-phone">feroxlviv.com.ua</a>
+        </div>
+      </div>
+      <div class="gmap-actions">
+        <a href="https://www.google.com/maps/dir/?api=1&destination=49.8395669,24.0308715" target="_blank" rel="noopener" class="gmap-btn gmap-btn-primary">&#9655; Маршрут</a>
+        <a href="https://search.google.com/local/writereview?placeid=ChIJy4OJRdyh7UARi4u5iCt_Zt4" target="_blank" rel="noopener" class="gmap-btn gmap-btn-outline">&#9733; Залишити відгук</a>
+      </div>
+      <a href="https://www.google.com/maps/place/Ferox+Lviv/@49.8395669,24.0308715,17z" target="_blank" rel="noopener" class="gmap-open">Відкрити в Google Maps &#8599;</a>
+    </div>
+  </div>
+</section>
 ` + footer();
 }
 
