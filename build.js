@@ -85,7 +85,58 @@ function head(title, desc, keywords, canonical) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"FEROX LVIV","description":"Виготовлення дизайн-об'єктів з кортену та послуги металообробки у Львові","address":{"@type":"PostalAddress","addressLocality":"Львів","addressCountry":"UA"},"url":"https://feroxlviv.com.ua","serviceType":["Лазерна різка металу","Гнуття металу","Зварювання","Дизайн з кортену"]}</script>
+<script type="application/ld+json">${JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "ProfessionalService"],
+  "@id": "https://feroxlviv.com.ua/#business",
+  "name": "FEROX LVIV",
+  "alternateName": "Ферокс Львів",
+  "description": "Виготовлення дизайн-об'єктів з кортенової сталі та послуги металообробки у Львові: лазерна різка, гнуття з ЧПУ, зварювання, Hardox. Для архітекторів, девелоперів та виробничих компаній.",
+  "url": "https://feroxlviv.com.ua",
+  "telephone": "+380630194013",
+  "email": "hello@feroxlviv.com.ua",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Львів",
+    "addressRegion": "Львівська область",
+    "addressCountry": "UA"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 49.8397,
+    "longitude": 24.0297
+  },
+  "areaServed": [
+    {"@type": "City", "name": "Львів"},
+    {"@type": "City", "name": "Київ"},
+    {"@type": "Country", "name": "Україна"}
+  ],
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "09:00",
+    "closes": "18:00"
+  }],
+  "priceRange": "$$",
+  "currenciesAccepted": "UAH",
+  "paymentAccepted": "Готівка, безготівковий розрахунок",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Послуги FEROX LVIV",
+    "itemListElement": [
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Дизайн-об'єкти з кортену", "url": "https://feroxlviv.com.ua/services/corten/"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Лазерна різка металу", "url": "https://feroxlviv.com.ua/services/laser-cutting/"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Гнуття металу з ЧПУ", "url": "https://feroxlviv.com.ua/services/cnc-bending/"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Зварювання та вальцювання", "url": "https://feroxlviv.com.ua/services/welding/"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Hardox — броньова сталь", "url": "https://feroxlviv.com.ua/services/hardox/"}}
+    ]
+  },
+  "sameAs": [
+    "https://t.me/feroxlviv",
+    "https://instagram.com/feroxlviv"
+  ],
+  "knowsAbout": ["кортенова сталь", "COR-TEN", "лазерна різка металу", "гнуття металу", "зварювання", "Hardox", "металообробка", "архітектурний метал"]
+})}</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KR9LWFWB');</script>
 <!-- End Google Tag Manager -->
@@ -614,6 +665,73 @@ ${inlineCTA(
 }
 
 // ── SERVICE PAGE ──
+const SERVICE_FAQ = {
+  'corten': [
+    { q: 'Скільки коштує виріб з кортену у Львові?', a: 'Вартість залежить від складності, розміру та товщини листа. Кашпо простої форми починається від 3 000–5 000 грн, великі арт-об\'єкти — від 15 000 грн. Прорахунок безкоштовний і займає до 15 хвилин.' },
+    { q: 'Як довго формується патина на кортенові?', a: 'В умовах Львова та України патина стабілізується за 1–3 роки залежно від місця розміщення. Перші місяці колір нерівномірний — це нормально. Через рік поверхня вирівнюється і набуває характерного теракотового відтінку.' },
+    { q: 'Чи потрібне фарбування кортену?', a: 'Ні. Це головна перевага матеріалу — захисна патина утворюється природно і замінює фарбу. Кортен не потребує жодного обслуговування протягом десятків років.' },
+    { q: 'Чи підходить кортен для вулиці взимку?', a: 'Так. Кортен чудово переносить мороз, сніг і перепади температур. Він використовується в скандинавських країнах де умови значно суворіші ніж в Україні.' },
+    { q: 'Який мінімальний термін виготовлення?', a: 'Типові вироби — кашпо, огорожі, таблички — виготовляємо за 7–14 робочих днів. Складні арт-об\'єкти і великі фасадні панелі — до 6 тижнів.' }
+  ],
+  'laser-cutting': [
+    { q: 'Яка максимальна товщина металу для лазерної різки?', a: 'Залежить від матеріалу: сталь — до 20 мм, алюміній — до 10 мм, нержавійка — до 12 мм. Оптимальна якість різу — до 8–10 мм.' },
+    { q: 'Яка точність лазерної різки?', a: 'Точність ±0,1 мм. Це дозволяє виготовляти деталі з чистим краєм без додаткової обробки — одразу до складання або зварювання.' },
+    { q: 'Скільки коштує лазерна різка металу у Львові?', a: 'Вартість залежить від товщини матеріалу і довжини різу. Для розрахунку надішліть DXF-файл або ескіз — прорахуємо вартість протягом 15 хвилин.' },
+    { q: 'Які матеріали можна різати лазером?', a: 'Чорна сталь, нержавійка, алюміній, кортен, Hardox. Не ріжемо мідь, латунь, оцинковку (через шкідливі випари) і матеріали з відбивним покриттям.' }
+  ],
+  'cnc-bending': [
+    { q: 'Яка точність гнуття з ЧПУ?', a: 'Точність кута ±0,5°. Для більшості архітектурних і промислових задач цього достатньо щоб деталі збирались без підгонки.' },
+    { q: 'Яка максимальна товщина металу для гнуття?', a: 'До 10 мм для сталі, до 6 мм для нержавійки та алюмінію. Максимальна довжина гнуття — 3000 мм.' },
+    { q: 'Чи можете зігнути деталь після лазерної різки?', a: 'Так — це стандартний ланцюжок: лазерна різка → гнуття → зварювання. Ми виконуємо всі три операції в одному місці, що скорочує терміни і виключає транспортні ризики.' },
+    { q: 'Який мінімальний радіус гнуття?', a: 'Залежить від товщини матеріалу. Як правило, мінімальний внутрішній радіус = 1×товщина листа. Наш конструктор розрахує оптимальні параметри для вашого завдання.' }
+  ],
+  'welding': [
+    { q: 'Які методи зварювання ви використовуєте?', a: 'Аргонодугове (TIG) — для нержавійки та алюмінію, напівавтомат (MIG/MAG) — для чорної сталі та кортену, ручне дугове — для важких конструкцій. Вибір методу залежить від матеріалу і вимог до шву.' },
+    { q: 'Чи даєте гарантію на зварні шви?', a: 'Так, гарантія на конструкційну цілісність зварних швів. Документально підтверджуємо параметри зварювання для відповідальних конструкцій.' },
+    { q: 'Чи зварюєте кортенову сталь?', a: 'Так, але це вимагає спеціальних електродів і дроту що витримують атмосферний вплив — щоб шов старів так само як основний метал і не виділявся на патині.' },
+    { q: 'Чи можете вальцювати труби і профілі?', a: 'Так, вальцюємо листи і профілі для виготовлення циліндричних і конічних елементів. Мінімальний діаметр кола залежить від товщини матеріалу.' }
+  ],
+  'hardox': [
+    { q: 'Що таке сталь Hardox і чим вона відрізняється від звичайної?', a: 'Hardox — це зносостійка броньова сталь від шведського виробника SSAB з твердістю 400–600 HB (звичайна конструкційна сталь — 120–180 HB). Вона у 3–5 разів міцніша і використовується там де важлива стійкість до ударів, зносу і пробиття.' },
+    { q: 'Де купити Hardox у Львові?', a: 'FEROX LVIV постачає і обробляє листи Hardox 400, 450, 500 і 600 у Львові. Лазерна різка, гнуття і зварювання Hardox — на власному виробництві.' },
+    { q: 'Яка товщина листів Hardox доступна?', a: 'Від 4 мм до 80 мм залежно від марки. Найчастіше замовляють Hardox 400 товщиною 6–20 мм для захисних конструкцій і Hardox 500 для деталей що зазнають інтенсивного зносу.' },
+    { q: 'Чи працюєте з оборонними підприємствами?', a: 'Так, надаємо послуги обробки броньових сталей для підприємств оборонно-промислового комплексу. Для деталей запиту звертайтесь через форму або Telegram.' }
+  ]
+};
+
+function faqBlock(slug) {
+  const faqs = SERVICE_FAQ[slug];
+  if (!faqs) return '';
+  const schema = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": {"@type": "Answer", "text": f.a}
+    }))
+  });
+  return `<section style="background:var(--bone);padding:80px 5vw">
+  <script type="application/ld+json">${schema}<\/script>
+  <div class="reveal" style="margin-bottom:48px">
+    <p class="s-label">Часті питання</p>
+    <h2 class="s-title">Відповіді на<br><em>ваші питання.</em></h2>
+  </div>
+  <div class="faq-list" itemscope itemtype="https://schema.org/FAQPage">
+    ${faqs.map((f, i) => `<details class="faq-item reveal" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <summary class="faq-q" itemprop="name">
+        <span class="faq-num">0${i+1}</span>
+        <span>${f.q}</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </summary>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <p itemprop="text">${f.a}</p>
+      </div>
+    </details>`).join('')}
+  </div>
+</section>`;
+}
+
 function servicePage(s) {
   const otherServices = services.filter(x => x.slug !== s.slug);
   return head(s.metaTitle, s.metaDesc, s.keywords, `/services/${s.slug}/`) +
@@ -718,6 +836,8 @@ ${(s.video && s.video.youtubeId) ? `
     <div class="seo-text">${(s.seo && s.seo.text) || ''}</div>
   </div>
 </section>
+
+${faqBlock(s.slug)}
 
 ${inlineCTA(
   'Готові замовити',
@@ -1265,6 +1385,64 @@ ${[
 
   // Robots
   writeFile('robots.txt', `User-agent: *\nAllow: /\nSitemap: https://feroxlviv.com.ua/sitemap.xml\n`);
+
+  // llms.txt — structured info for AI crawlers (Perplexity, Claude, Gemini)
+  writeFile('llms.txt', `# FEROX LVIV
+
+> Виготовлення дизайн-об'єктів з кортенової сталі та послуги металообробки у Львові, Україна.
+
+FEROX LVIV — комерційний партнер виробничого підприємства з повним циклом металообробки. Ми виготовляємо архітектурні вироби та забезпечуємо промислову металообробку для архітекторів, девелоперів і виробничих компаній.
+
+## Контакти
+
+- Телефон: +380 63 019 40 13
+- Email: hello@feroxlviv.com.ua
+- Telegram: https://t.me/feroxlviv
+- Сайт: https://feroxlviv.com.ua
+- Локація: Львів, Україна
+
+## Послуги
+
+### Дизайн-об'єкти з кортену (COR-TEN)
+${SERVICE_FAQ['corten'].map(f => `- **${f.q}** ${f.a}`).join('\n')}
+Детальніше: https://feroxlviv.com.ua/services/corten/
+
+### Лазерна різка металу
+${SERVICE_FAQ['laser-cutting'].map(f => `- **${f.q}** ${f.a}`).join('\n')}
+Детальніше: https://feroxlviv.com.ua/services/laser-cutting/
+
+### Гнуття металу з ЧПУ
+${SERVICE_FAQ['cnc-bending'].map(f => `- **${f.q}** ${f.a}`).join('\n')}
+Детальніше: https://feroxlviv.com.ua/services/cnc-bending/
+
+### Зварювання та вальцювання
+${SERVICE_FAQ['welding'].map(f => `- **${f.q}** ${f.a}`).join('\n')}
+Детальніше: https://feroxlviv.com.ua/services/welding/
+
+### Hardox — броньова сталь
+${SERVICE_FAQ['hardox'].map(f => `- **${f.q}** ${f.a}`).join('\n')}
+Детальніше: https://feroxlviv.com.ua/services/hardox/
+
+## Матеріали
+
+- **Кортен (COR-TEN)**: атмосферостійка сталь стандартів A588, A606, COR-TEN A/B. Листи від 1.5 до 12 мм. Натуральна патина без фарбування.
+- **Hardox**: шведська броньова сталь SSAB твердістю 400–600 HB. Hardox 400, 450, 500, 600.
+- **Чорна сталь**: конструкційна сталь СТ3, СТ10, СТ20.
+- **Нержавійка**: харчова і технічна нержавіюча сталь AISI 304, AISI 316.
+- **Алюміній**: АМЦ, Д16, АД31.
+
+## Блог
+
+${blogPosts.slice(0,5).map(p => `- [${p.title}](https://feroxlviv.com.ua/blog/${p.slug}/) — ${p.excerpt || ''}`).join('\n')}
+
+## Ключові факти
+
+- Розташування виробництва: Львів, Україна
+- Термін прорахунку: до 15 хвилин
+- Термін виготовлення типових виробів: 7–14 робочих днів
+- Клієнти: архітектори, девелопери, ландшафтні дизайнери, виробничі компанії, підприємства ОПК
+- Мова обслуговування: українська
+`);
 
   console.log('\n✅ Build complete! Files in:', OUT);
 }
