@@ -668,3 +668,38 @@ details[open] .faq-icon::after{transform:translate(-50%,-50%) rotate(90deg);opac
   .faq-q{font-size:15px;gap:12px}
   .faq-a{padding-left:36px}
 }
+
+/* ── GOOGLE MAP BLOCK ── */
+.gmap-section{padding:0;background:var(--anthracite)}
+.gmap-inner{display:grid;grid-template-columns:1fr 360px;min-height:420px}
+.gmap-map{position:relative;min-height:420px;background:#1a1a18}
+.gmap-map iframe{position:absolute;inset:0;width:100%;height:100%}
+.gmap-card{background:#1e1e1a;padding:36px 32px;display:flex;flex-direction:column;gap:0;border-left:1px solid rgba(160,82,45,.2)}
+.gmap-logo{display:flex;align-items:center;gap:10px;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:16px}
+.gmap-rating{display:flex;align-items:center;gap:10px;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.08)}
+.gmap-stars{color:#f5a623;font-size:18px;letter-spacing:2px}
+.gmap-review-count{font-size:12px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .25s}
+.gmap-review-count:hover{color:var(--corten-l)}
+.gmap-details{display:flex;flex-direction:column;gap:14px;margin-bottom:28px;flex:1}
+.gmap-detail-row{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.55);line-height:1.5}
+.gmap-detail-row svg{flex-shrink:0;margin-top:1px;color:rgba(160,82,45,.7)}
+.gmap-phone{color:rgba(255,255,255,.55);text-decoration:none;transition:color .25s}
+.gmap-phone:hover{color:var(--corten-l)}
+.gmap-actions{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.gmap-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 16px;border-radius:3px;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:all .25s;flex:1;justify-content:center;white-space:nowrap}
+.gmap-btn-primary{background:var(--corten);color:#fff}
+.gmap-btn-primary:hover{background:#8b4513}
+.gmap-btn-outline{background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.15)}
+.gmap-btn-outline:hover{border-color:var(--corten);color:var(--corten-l)}
+.gmap-open{font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .25s;text-align:center}
+.gmap-open:hover{color:var(--corten-l)}
+
+@media(max-width:900px){
+  .gmap-inner{grid-template-columns:1fr;grid-template-rows:300px auto}
+  .gmap-map{min-height:300px}
+  .gmap-card{border-left:none;border-top:1px solid rgba(160,82,45,.2);padding:28px 24px}
+}
+@media(max-width:480px){
+  .gmap-actions{flex-direction:column}
+  .gmap-btn{flex:none;width:100%}
+}
