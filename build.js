@@ -1174,7 +1174,7 @@ ${contactSection('', p.hero.title).replace('<section id="contact">', '<section i
       </div>
       <div class="gmap-rating">
         <span class="gmap-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        <a href="https://www.google.com/maps/place/Ferox+Lviv/@49.8395669,24.0308715,17z" target="_blank" rel="noopener" class="gmap-review-count">Google Maps</a>
+        <a href="https://www.google.com/maps?cid=16025917623992159004" target="_blank" rel="noopener" class="gmap-review-count">5.0 · 2 відгуки · Google</a>
       </div>
       <div class="gmap-details">
         <div class="gmap-detail-row">
@@ -1196,7 +1196,7 @@ ${contactSection('', p.hero.title).replace('<section id="contact">', '<section i
       </div>
       <div class="gmap-actions">
         <a href="https://www.google.com/maps/dir/?api=1&destination=49.8395669,24.0308715" target="_blank" rel="noopener" class="gmap-btn gmap-btn-primary">&#9655; Маршрут</a>
-        <a href="https://search.google.com/local/writereview?placeid=ChIJy4OJRdyh7UARi4u5iCt_Zt4" target="_blank" rel="noopener" class="gmap-btn gmap-btn-outline">&#9733; Залишити відгук</a>
+        <a href="https://www.google.com/maps?cid=16025917623992159004&hl=uk&actiontype=WriteReview" target="_blank" rel="noopener" class="gmap-btn gmap-btn-outline">&#9733; Залишити відгук</a>
       </div>
       <a href="https://www.google.com/maps/place/Ferox+Lviv/@49.8395669,24.0308715,17z" target="_blank" rel="noopener" class="gmap-open">Відкрити в Google Maps &#8599;</a>
     </div>
