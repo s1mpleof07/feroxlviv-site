@@ -76,7 +76,9 @@ function head(title, desc, keywords, canonical) {
 <meta name="twitter:description" content="${desc}">
 <meta name="twitter:image" content="https://feroxlviv.com.ua/og-cover.jpg">
 <meta name="theme-color" content="#2C2C2A">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='32' height='32' fill='%231a1a18'/%3E%3Crect width='3' height='32' fill='%23a0522d'/%3E%3Ctext x='8' y='24' fill='%23fff' font-size='21' font-weight='700' font-family='Georgia%2Cserif'%3EF%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="format-detection" content="telephone=no">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -272,7 +274,6 @@ function pageHeader(crumbs, h1, sub, deco, bgImage, label) {
   <div class="ph-bg" aria-hidden="true"></div>
   <div class="ph-bg-warm" aria-hidden="true"></div>
   <div class="ph-grid" aria-hidden="true"></div>
-  <div class="ph-laser" aria-hidden="true"></div>
   <div class="ph-vline" aria-hidden="true"></div>
   <nav class="crumbs" aria-label="Хлібні крихти">
     ${crumbs.map((c, i) => i === crumbs.length - 1
@@ -419,7 +420,6 @@ function homePage() {
     <div class="hero-photo-fade"></div>
   </div>
   <div class="hero-grid" aria-hidden="true"></div>
-  <div class="hero-laser" aria-hidden="true"></div>
   <div class="hero-vline" aria-hidden="true"></div>
   <div class="hero-hline" aria-hidden="true"></div>
 
@@ -1123,7 +1123,6 @@ function blogPostPage(post) {
   <div class="ph-bg" aria-hidden="true"></div>
   <div class="ph-bg-warm" aria-hidden="true"></div>
   <div class="ph-grid" aria-hidden="true"></div>
-  <div class="ph-laser" aria-hidden="true"></div>
   <div class="ph-vline" aria-hidden="true"></div>
   <nav class="crumbs" aria-label="Хлібні крихти">
     <a href="/">Головна</a><span class="crumbs-sep">/</span>
@@ -1204,6 +1203,10 @@ function build() {
   fs.copyFileSync(SRC + '/script.js', OUT + '/script.js');
   const faviconSrc = __dirname + '/static/favicon.svg';
   if (fs.existsSync(faviconSrc)) fs.copyFileSync(faviconSrc, OUT + '/favicon.svg');
+  ['favicon-32.png','favicon-48.png','favicon-180.png'].forEach(f => {
+    const src = __dirname + '/static/' + f;
+    if (fs.existsSync(src)) fs.copyFileSync(src, OUT + '/' + f);
+  });
   console.log('  ✓ styles.css, script.js');
 
   // Admin (Sveltia CMS)
