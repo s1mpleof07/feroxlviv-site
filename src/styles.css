@@ -703,6 +703,10 @@ details[open] .faq-icon::after{transform:translate(-50%,-50%) rotate(90deg);opac
   .gmap-actions{flex-direction:column}
   .gmap-btn{flex:none;width:100%}
 }
+ });
+    });
+  });
+})();
 
 /* ── TELEGRAM WIDGET ── */
 .tg-widget {
@@ -729,4 +733,7 @@ details[open] .faq-icon::after{transform:translate(-50%,-50%) rotate(90deg);opac
   0%, 100% { box-shadow: 0 4px 20px rgba(34,158,217,.45); }
   50% { box-shadow: 0 4px 32px rgba(34,158,217,.75), 0 0 0 8px rgba(34,158,217,.15); }
 }
-})();:
+ });
+    });
+  });
+})();
