@@ -703,3 +703,29 @@ details[open] .faq-icon::after{transform:translate(-50%,-50%) rotate(90deg);opac
   .gmap-actions{flex-direction:column}
   .gmap-btn{flex:none;width:100%}
 }
+
+/* ── TELEGRAM WIDGET ── */
+.tg-widget {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;
+  width: 56px;
+  height: 56px;
+  background: #229ED9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(34,158,217,.45);
+  transition: opacity .3s, transform .3s;
+  animation: tgPulse 2.5s ease-in-out infinite;
+}
+.tg-widget:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 28px rgba(34,158,217,.6);
+}
+@keyframes tgPulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(34,158,217,.45); }
+  50% { box-shadow: 0 4px 32px rgba(34,158,217,.75), 0 0 0 8px rgba(34,158,217,.15); }
+}
