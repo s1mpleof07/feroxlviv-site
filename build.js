@@ -146,7 +146,11 @@ function head(title, desc, keywords, canonical) {
 <body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KR9LWFWB" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->`;
+<!-- End Google Tag Manager (noscript) -->
+<a href="https://t.me/feroxlviv" class="tg-sticky" target="_blank" rel="noopener" aria-label="Написати нам у Telegram">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21.8 2.2L1.4 10c-1.4.6-1.4 1.4-.2 1.7l5.2 1.6 2 6.3c.3.8.5 1.1 1 1.1.5 0 .7-.2 1-.6l2.5-2.5 5.2 3.8c1 .5 1.6.3 1.9-.9l3.4-16c.4-1.6-.6-2.3-1.6-1.3z" fill="currentColor"/></svg>
+  <span class="tg-sticky-label">Telegram</span>
+</a>`;
 }
 
 function nav(active = '') {
@@ -1368,7 +1372,7 @@ function build() {
   const faviconSrc = __dirname + '/static/favicon.svg';
   if (fs.existsSync(faviconSrc)) fs.copyFileSync(faviconSrc, OUT + '/favicon.svg');
   ['favicon-32.png','favicon-48.png','favicon-180.png'].forEach(f => {
-    const src = __dirname + '/static/uploads/' + f;
+    const src = __dirname + '/static/' + f;
     if (fs.existsSync(src)) fs.copyFileSync(src, OUT + '/' + f);
   });
   console.log('  ✓ styles.css, script.js');
