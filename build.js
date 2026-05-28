@@ -1368,7 +1368,7 @@ function build() {
   const faviconSrc = __dirname + '/static/favicon.svg';
   if (fs.existsSync(faviconSrc)) fs.copyFileSync(faviconSrc, OUT + '/favicon.svg');
   ['favicon-32.png','favicon-48.png','favicon-180.png'].forEach(f => {
-    const src = __dirname + '/static/' + f;
+    const src = __dirname + '/static/uploads/' + f;
     if (fs.existsSync(src)) fs.copyFileSync(src, OUT + '/' + f);
   });
   console.log('  ✓ styles.css, script.js');
