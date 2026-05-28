@@ -713,3 +713,145 @@ details[open] .faq-icon::after{transform:translate(-50%,-50%) rotate(90deg);opac
   .tg-sticky-label{display:none}
   .tg-sticky svg{width:24px;height:24px}
 }
+
+/* ══════════════════════════════════════
+   HERO ART — CSS технічне креслення
+   ══════════════════════════════════════ */
+.hero-art{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
+
+/* Зовнішня рамка — технічне креслення */
+.hero-art-frame{
+  position:absolute;right:7%;top:13%;width:76%;height:72%;
+  border:1px solid rgba(160,82,45,.3);
+  animation:artDrift 30s ease-in-out infinite alternate
+}
+/* Внутрішня рамка — дворядний кант */
+.hero-art-frame::before{
+  content:'';position:absolute;inset:12px;
+  border:.5px solid rgba(160,82,45,.12)
+}
+/* Кутові відсічки — обрізані кути рамки */
+.hero-art-frame::after{
+  content:'';position:absolute;
+  top:-1px;left:-1px;right:-1px;bottom:-1px;
+  background:
+    linear-gradient(135deg,#1a1a18 16px,transparent 16px) top left,
+    linear-gradient(225deg,#1a1a18 16px,transparent 16px) top right,
+    linear-gradient(315deg,#1a1a18 16px,transparent 16px) bottom right,
+    linear-gradient(45deg, #1a1a18 16px,transparent 16px) bottom left;
+  background-size:50% 50%;background-repeat:no-repeat
+}
+
+/* Кортенова пластина по центру рамки */
+.hero-art-panel{
+  position:absolute;left:14%;right:14%;top:16%;bottom:16%;
+  background:rgba(160,82,45,.06);
+  border:1px solid rgba(160,82,45,.22);
+  overflow:hidden
+}
+/* Горизонтальні лінії — текстура прокатки */
+.hero-art-panel::before{
+  content:'';position:absolute;inset:0;
+  background-image:repeating-linear-gradient(
+    0deg,transparent,transparent 15px,
+    rgba(160,82,45,.07) 15px,rgba(160,82,45,.07) 16px
+  )
+}
+/* Тонкий вертикальний акцент всередині */
+.hero-art-panel::after{
+  content:'';position:absolute;
+  left:12px;top:0;bottom:0;width:2px;
+  background:rgba(160,82,45,.35)
+}
+
+/* Анімований лазерний сканер */
+.hero-art-scanner{
+  position:absolute;left:0;right:0;height:1px;top:0;
+  background:linear-gradient(90deg,transparent,rgba(212,149,106,.7) 30%,rgba(232,184,148,1) 50%,rgba(212,149,106,.7) 70%,transparent);
+  box-shadow:0 0 8px rgba(212,149,106,.4),0 0 20px rgba(160,82,45,.2);
+  animation:laserScan 5s cubic-bezier(.4,0,.6,1) infinite;
+  pointer-events:none
+}
+@keyframes laserScan{
+  0%{top:0;opacity:0}
+  5%{opacity:1}
+  92%{opacity:.8}
+  100%{top:100%;opacity:0}
+}
+
+/* Горизонтальна розмірна лінія внизу */
+.hero-art-dim-h{
+  position:absolute;bottom:-20px;left:14%;right:14%;height:1px;
+  background:rgba(160,82,45,.2)
+}
+.hero-art-dim-h::before,.hero-art-dim-h::after{
+  content:'';position:absolute;width:1px;height:8px;
+  background:rgba(160,82,45,.25);top:-4px
+}
+.hero-art-dim-h::before{left:0}
+.hero-art-dim-h::after{right:0}
+
+/* Вертикальна розмірна лінія справа */
+.hero-art-dim-v{
+  position:absolute;right:-20px;top:16%;bottom:16%;width:1px;
+  background:rgba(160,82,45,.2)
+}
+.hero-art-dim-v::before,.hero-art-dim-v::after{
+  content:'';position:absolute;height:1px;width:8px;
+  background:rgba(160,82,45,.25);right:-4px
+}
+.hero-art-dim-v::before{top:0}
+.hero-art-dim-v::after{bottom:0}
+
+/* Технічний підпис */
+.hero-art-caption{
+  position:absolute;bottom:-38px;left:0;right:0;
+  font-size:8px;color:rgba(160,82,45,.35);
+  letter-spacing:.22em;font-family:'Courier New',monospace;
+  text-align:left
+}
+.hero-art-caption::after{content:'COR-TEN A588 · 3MM · FEROX LVIV'}
+
+/* Кружечок-мітка у верхньому правому куті */
+.hero-art-circle{
+  position:absolute;right:6%;top:10%;
+  width:20px;height:20px;border-radius:50%;
+  border:.5px solid rgba(160,82,45,.3);
+  animation:artPulse 4s ease-in-out infinite
+}
+.hero-art-circle::before{
+  content:'';position:absolute;
+  inset:4px;border-radius:50%;
+  background:rgba(160,82,45,.2)
+}
+.hero-art-circle::after{
+  content:'';position:absolute;
+  inset:8px;border-radius:50%;
+  background:rgba(160,82,45,.4)
+}
+
+/* Хрест — "+" мітка координатної точки */
+.hero-art-cross{
+  position:absolute;left:5%;bottom:10%;
+  width:14px;height:14px
+}
+.hero-art-cross::before,.hero-art-cross::after{
+  content:'';position:absolute;
+  background:rgba(160,82,45,.35)
+}
+.hero-art-cross::before{left:6px;top:0;width:1px;height:100%}
+.hero-art-cross::after{top:6px;left:0;width:100%;height:1px}
+
+@keyframes artDrift{
+  0%{transform:translate(0,0)}
+  100%{transform:translate(4px,-6px)}
+}
+@keyframes artPulse{
+  0%,100%{opacity:.6;transform:scale(1)}
+  50%{opacity:1;transform:scale(1.15)}
+}
+
+/* Мобільний — спрощуємо */
+@media(max-width:768px){
+  .hero-art{display:none}
+}
