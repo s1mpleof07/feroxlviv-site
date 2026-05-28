@@ -703,37 +703,13 @@ details[open] .faq-icon::after{transform:translate(-50%,-50%) rotate(90deg);opac
   .gmap-actions{flex-direction:column}
   .gmap-btn{flex:none;width:100%}
 }
- });
-    });
-  });
-})();
 
-/* ── TELEGRAM WIDGET ── */
-.tg-widget {
-  position: fixed;
-  bottom: 28px;
-  right: 28px;
-  z-index: 999;
-  width: 56px;
-  height: 56px;
-  background: #229ED9;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 20px rgba(34,158,217,.45);
-  transition: opacity .3s, transform .3s;
-  animation: tgPulse 2.5s ease-in-out infinite;
+/* ── TELEGRAM STICKY ── */
+.tg-sticky{position:fixed;bottom:28px;right:28px;z-index:9000;display:flex;align-items:center;gap:10px;background:#a0522d;color:#fff;text-decoration:none;padding:13px 20px 13px 16px;border-radius:40px;box-shadow:0 4px 20px rgba(160,82,45,.35);transition:transform .25s,box-shadow .25s;font-family:'Trebuchet MS',Arial,sans-serif}
+.tg-sticky:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(160,82,45,.45)}
+.tg-sticky-label{font-size:13px;font-weight:500;letter-spacing:.04em;white-space:nowrap}
+@media(max-width:640px){
+  .tg-sticky{bottom:20px;right:16px;padding:14px;border-radius:50%}
+  .tg-sticky-label{display:none}
+  .tg-sticky svg{width:24px;height:24px}
 }
-.tg-widget:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 28px rgba(34,158,217,.6);
-}
-@keyframes tgPulse {
-  0%, 100% { box-shadow: 0 4px 20px rgba(34,158,217,.45); }
-  50% { box-shadow: 0 4px 32px rgba(34,158,217,.75), 0 0 0 8px rgba(34,158,217,.15); }
-}
- });
-    });
-  });
-})();
