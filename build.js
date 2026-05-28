@@ -475,6 +475,18 @@ function homePage() {
   <div class="hero-photo" aria-hidden="true">
     <div class="hero-photo-img"></div>
     <div class="hero-photo-fade"></div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="hero-art-frame">
+        <div class="hero-art-panel">
+          <div class="hero-art-scanner"></div>
+        </div>
+        <div class="hero-art-dim-h"></div>
+        <div class="hero-art-dim-v"></div>
+        <div class="hero-art-caption"></div>
+      </div>
+      <div class="hero-art-circle"></div>
+      <div class="hero-art-cross"></div>
+    </div>
   </div>
   <div class="hero-grid" aria-hidden="true"></div>
   <div class="hero-vline" aria-hidden="true"></div>
