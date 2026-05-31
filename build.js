@@ -617,7 +617,6 @@ function homePage() {
 
 <a href="/architects/" class="arch-banner reveal" aria-label="Сторінка для архітекторів та дизайнерів">
   <div class="arch-banner-bg" aria-hidden="true">
-    <img src="/uploads/hero-bg.jpg" class="arch-banner-img" alt="" loading="lazy" decoding="async">
     <div class="arch-banner-ov"></div>
   </div>
   <div class="arch-banner-body">
