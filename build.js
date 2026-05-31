@@ -161,7 +161,11 @@ function nav(active = '') {
   ).join('');
   return `<nav id="nav" role="navigation" aria-label="Головна навігація">
   <a href="/" class="nav-logo" aria-label="FEROX LVIV — головна">
-    <span class="nav-bar"></span>FEROX LVIV
+    <svg class="nav-logo-svg" viewBox="0 0 230 62" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="0" y="5" width="2.5" height="52" fill="#a0522d"/>
+      <text x="14" y="44" font-family="Georgia,'Times New Roman',serif" font-size="32" font-weight="700" fill="currentColor" letter-spacing="4">FEROX</text>
+      <text x="15" y="58" font-family="'DM Sans','Trebuchet MS',Arial,sans-serif" font-size="10" fill="#a0522d" letter-spacing="9">LVIV</text>
+    </svg>
   </a>
   <ul class="nav-links">
     <li>
@@ -469,27 +473,47 @@ function homePage() {
     '/'
   ) + nav('') + `
 <section class="hero" aria-label="Головний блок FEROX LVIV">
-  <div class="hero-bg" aria-hidden="true"></div>
-  <div class="hero-bg-warm" aria-hidden="true"></div>
-  <div class="hero-bg-cool" aria-hidden="true"></div>
-  <div class="hero-photo" aria-hidden="true">
-    <div class="hero-photo-img"></div>
-    <div class="hero-photo-fade"></div>
-  </div>
-  <div class="hero-grid" aria-hidden="true"></div>
-  <div class="hero-vline" aria-hidden="true"></div>
-  <div class="hero-hline" aria-hidden="true"></div>
 
-  <p class="hero-label">${site.hero.label}</p>
-  <h1 class="hero-h1">${site.hero.h1}</h1>
-  <p class="hero-sub">${site.hero.sub}</p>
-  <div class="hero-btns">
-    <a href="${site.hero.ctaPrimary.href}" class="btn-p"><span>${site.hero.ctaPrimary.label}</span>
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-    <a href="${site.hero.ctaSecondary.href}" class="btn-g"><span>${site.hero.ctaSecondary.label}</span></a>
+  <!-- ── Фотобекграунд ──────────────────────────────── -->
+  <div class="hero-photo-wrap" aria-hidden="true">
+    <img src="/uploads/hero-bg.jpg" class="hero-photo-real" alt="" loading="eager" fetchpriority="high" decoding="async">
+    <div class="hero-photo-overlay"></div>
   </div>
-  <div class="hero-scroll" aria-hidden="true">Гортай вниз</div>
+  <div class="hero-accent-line" aria-hidden="true"></div>
+  <div class="hero-vline" aria-hidden="true"></div>
+
+  <!-- ── Контент ──────────────────────────────────── -->
+  <div class="hero-inner">
+    <p class="hero-label">${site.hero.label}</p>
+    <h1 class="hero-h1">${site.hero.h1}</h1>
+    <p class="hero-sub">${site.hero.sub}</p>
+    <div class="hero-btns">
+      <a href="${site.hero.ctaPrimary.href}" class="btn-p" data-event="cta_click" data-label="hero_primary">
+        <span>${site.hero.ctaPrimary.label}</span>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="${site.hero.ctaSecondary.href}" class="btn-g" data-event="cta_click" data-label="hero_secondary">
+        <span>${site.hero.ctaSecondary.label}</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ── Статистика ────────────────────────────────── -->
+  <div class="hero-stats" aria-label="Ключові показники">
+    ${(site.about.valueProps || []).slice(0,4).map(v => `
+    <div class="hero-stat">
+      <span class="hero-stat-n">${v.num}</span>
+      <span class="hero-stat-l">${v.label}</span>
+    </div>`).join('')}
+  </div>
+
+  <!-- ── Соціальні ─────────────────────────────────── -->
+  <div class="hero-soc">
+    <a href="https://instagram.com/feroxlviv" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://t.me/feroxlviv" target="_blank" rel="noopener">Telegram</a>
+    <a href="https://pinterest.com/feroxlviv" target="_blank" rel="noopener">Pinterest</a>
+  </div>
+
 </section>
 
 <div class="strip" role="complementary" aria-label="Напрямки роботи">
