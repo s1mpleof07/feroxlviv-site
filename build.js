@@ -615,9 +615,31 @@ function homePage() {
   </div>
 </section>
 
+<a href="/architects/" class="arch-banner reveal" aria-label="Сторінка для архітекторів та дизайнерів">
+  <div class="arch-banner-bg" aria-hidden="true">
+    <img src="/uploads/hero-bg.jpg" class="arch-banner-img" alt="" loading="lazy" decoding="async">
+    <div class="arch-banner-ov"></div>
+  </div>
+  <div class="arch-banner-body">
+    <p class="arch-banner-label">Для архітекторів та дизайнерів</p>
+    <h2 class="arch-banner-h">Є окремий набір<br>інструментів для вас.</h2>
+    <ul class="arch-banner-list">
+      <li>Безкоштовна перевірка креслень DWG/DXF</li>
+      <li>Текстури Corten 4K для Corona / Lumion</li>
+      <li>Таймлайн патини для показу замовнику</li>
+      <li>Box зразків матеріалу — безкоштовна відправка</li>
+    </ul>
+  </div>
+  <div class="arch-banner-cta">
+    <span>Детальніше</span>
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+      <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1"/>
+      <path d="M15 20h10M21 16l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+</a>
+
 <section class="why-section">
-  <div class="why-bg" aria-hidden="true"></div>
-  <div class="why-head">
     <div class="reveal">
       <p class="s-label">Чому ми</p>
       <h2 class="s-title" style="color:var(--white)">Вісім причин<br>працювати з <em>FEROX.</em></h2>
