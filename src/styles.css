@@ -991,3 +991,12 @@ details[open] .faq-icon::after{transform:translate(-50%,-50%) rotate(90deg);opac
 @media(max-width:480px){
   .arch-banner-list{flex-direction:column;gap:8px}
 }
+
+/* в”Ђв”Ђ FORM STATUS (РґРёРЅР°РјС–С‡РЅРѕ СЃС‚РІРѕСЂСЋС”С‚СЊСЃСЏ СЃРєСЂРёРїС‚РѕРј) в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ */
+.c-form-status{margin-top:12px;padding:13px 16px;font-size:14px;line-height:1.5;border-left:3px solid transparent;display:none}
+.c-form-status:not(:empty){display:block}
+.c-form-status.success{background:rgba(59,109,17,.08);border-color:#3B6D11;color:#3B6D11}
+.c-form-status.error{background:rgba(163,45,45,.08);border-color:#A32D2D;color:#A32D2D}
+.c-form-status.error a{color:#A32D2D;font-weight:500}
+.c-form-status.sending{background:rgba(160,82,45,.06);border-color:var(--corten);color:var(--corten)}
+.f-input-error{border-color:#A32D2D!important;background:rgba(163,45,45,.04)!important}
