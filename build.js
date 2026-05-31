@@ -1396,6 +1396,225 @@ ${inlineCTA(
 ` + footer();
 }
 
+// ── ARCHITECTS LANDING PAGE ──────────────────────────────────
+function architectPage() {
+  return head(
+    'FEROX LVIV для архітекторів | Кортен під авторський проект',
+    'Виготовляємо кортен-об\'єкти точно за специфікацією архітектора. Безкоштовна перевірка креслень, текстури 4K для рендеру, зразки матеріалу. Виробництво у Львові.',
+    'кортен для архітекторів, COR-TEN дизайн, архітектурний метал Львів, металеві арт-об\'єкти, фасадні касети кортен, дизайн інтер\'єр кортен',
+    '/architects/'
+  ) + nav('') + `
+
+<!-- ═══ HERO ════════════════════════════════════════════════ -->
+<section class="arch-hero">
+  <div class="arch-hero-bg" aria-hidden="true">
+    <img src="/uploads/hero-bg.jpg" class="arch-hero-img" alt="" loading="eager" fetchpriority="high" decoding="async">
+    <div class="arch-hero-ov"></div>
+    <div class="arch-hero-line"></div>
+  </div>
+
+  <div class="arch-hero-body">
+    <p class="arch-hero-label">Для архітекторів та дизайнерів</p>
+    <h1 class="arch-h1">Метал,<br>що прикрашає<br><em>простір.</em></h1>
+    <p class="arch-hero-sub">Кортен-об'єкти під авторський проект. Ми перевіряємо креслення, консультуємо по матеріалу — і виготовляємо так, щоб результат збігся з рендером.</p>
+    <div class="arch-hero-btns">
+      <a href="#catalog" class="btn-p">
+        <span>Отримати каталог і зразки</span>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#patina" class="btn-g"><span>Як виглядає кортен через рік?</span></a>
+    </div>
+  </div>
+
+  <div class="arch-trust-bar">
+    <div class="arch-trust-item">
+      <span class="arch-trust-n">Free</span>
+      <span class="arch-trust-l">Перевірка креслень</span>
+    </div>
+    <div class="arch-trust-item">
+      <span class="arch-trust-n">3D</span>
+      <span class="arch-trust-l">Підтримка в проекті</span>
+    </div>
+    <div class="arch-trust-item">
+      <span class="arch-trust-n">NDA</span>
+      <span class="arch-trust-l">Конфіденційність</span>
+    </div>
+    <div class="arch-trust-item">
+      <span class="arch-trust-n">Box</span>
+      <span class="arch-trust-l">Зразки матеріалу</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 3 ПРИЧИНИ ═══════════════════════════════════════════ -->
+<section class="arch-why">
+  <div class="arch-why-head reveal">
+    <p class="s-label">Чому обирають нас</p>
+    <h2 class="s-title">Ми говоримо<br><em>вашою мовою.</em></h2>
+  </div>
+  <div class="arch-why-grid">
+    <div class="arch-why-card reveal">
+      <div class="arch-why-num">01</div>
+      <h3 class="arch-why-t">Технічний супровід безкоштовно</h3>
+      <p class="arch-why-d">Наш конструктор перевіряє ваші DWG/DXF-файли до запуску у виробництво. Розраховуємо радіус гнуття, товщину листа, вузли кріплення — щоб проект не розвалився на монтажі.</p>
+    </div>
+    <div class="arch-why-card reveal">
+      <div class="arch-why-num">02</div>
+      <h3 class="arch-why-t">Точно як у рендері</h3>
+      <p class="arch-why-d">Виготовляємо за погодженими кресленнями з відхиленням ±1 мм для лазерної різки. Жодних «ну приблизно так» — результат збігається з тим, що ви показали замовнику.</p>
+    </div>
+    <div class="arch-why-card reveal">
+      <div class="arch-why-num">03</div>
+      <h3 class="arch-why-t">Захищаємо ваш авторитет</h3>
+      <p class="arch-why-d">Якщо на монтажі щось не сходиться — вирішуємо за свій рахунок. Ваш клієнт не дізнається. Нам важливо, щоб ви рекомендували нас наступним замовникам.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ТАЙМЛАЙН ПАТИНИ ══════════════════════════════════════ -->
+<section class="patina-section" id="patina">
+  <div class="patina-head reveal">
+    <p class="s-label">Важливо знати</p>
+    <h2 class="s-title" style="color:var(--white)">Як кортен<br><em>дозріває.</em></h2>
+    <p class="patina-intro">Кортен з цеху виглядає як звичайна сталь. Це нормально — патина формується на повітрі після монтажу. Покажіть це замовнику заздалегідь, щоб уникнути непорозумінь.</p>
+  </div>
+
+  <div class="patina-stages reveal">
+    <div class="patina-stage">
+      <div class="patina-swatch" style="background:#8e8c87"></div>
+      <div class="patina-stage-body">
+        <div class="patina-stage-date">День монтажу</div>
+        <h3 class="patina-stage-t">Сталь без патини</h3>
+        <p class="patina-stage-d">Після різки та гнуття поверхня сріблясто-сіра. Виглядає як звичайний метал. Замовника треба попередити — це не брак, це початок процесу.</p>
+      </div>
+    </div>
+    <div class="patina-arrow" aria-hidden="true">→</div>
+    <div class="patina-stage">
+      <div class="patina-swatch" style="background:#a0622d"></div>
+      <div class="patina-stage-body">
+        <div class="patina-stage-date">2–4 місяці</div>
+        <h3 class="patina-stage-t">Перша патина</h3>
+        <p class="patina-stage-d">Оксидний шар формується нерівномірно — плямами теплого рудого кольору. Смуги від дощу на суміжних матеріалах — максимальні саме в цей період.</p>
+      </div>
+    </div>
+    <div class="patina-arrow" aria-hidden="true">→</div>
+    <div class="patina-stage">
+      <div class="patina-swatch" style="background:#5c3118"></div>
+      <div class="patina-stage-body">
+        <div class="patina-stage-date">1–2 роки</div>
+        <h3 class="patina-stage-t">Зріла патина</h3>
+        <p class="patina-stage-d">Захисний шар стабілізується. Глибокий бархатний коричнево-рудий колір. Патина більше не «тече» і сама захищає сталь. Саме так виглядає кортен на рендерах.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="patina-note reveal">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <p>Якщо проект передбачає кортен поруч зі світлою плиткою або фасадом — ми проектуємо приховані водовідвідні лотки або пропонуємо обробку лаком-фіксатором патини. Деталі — у каталозі.</p>
+  </div>
+</section>
+
+<!-- ═══ ЩО ВХОДИТЬ У КАТАЛОГ ════════════════════════════════ -->
+<section class="arch-catalog-section">
+  <div class="reveal">
+    <p class="s-label">Що ви отримаєте</p>
+    <h2 class="s-title">Набір інструментів<br><em>для архітектора.</em></h2>
+  </div>
+  <div class="arch-catalog-grid reveal">
+    <div class="arch-cat-item">
+      <div class="arch-cat-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 3v5h5M9 13h6M9 17h6" stroke="currentColor" stroke-width="1.5"/></svg>
+      </div>
+      <h3 class="arch-cat-t">PDF-каталог виробів</h3>
+      <p class="arch-cat-d">Преміальний документ, який можна показати замовнику. Матеріал, технології, приклади застосування, вузли кріплення.</p>
+    </div>
+    <div class="arch-cat-item">
+      <div class="arch-cat-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 9h18M9 3v18" stroke="currentColor" stroke-width="1.5"/></svg>
+      </div>
+      <h3 class="arch-cat-t">Текстури Corten 4K</h3>
+      <p class="arch-cat-d">Seamless-текстури для 3ds Max, Corona/Vray, Lumion. Три стадії патини — для реалістичного рендеру без пошуку по стокам.</p>
+    </div>
+    <div class="arch-cat-item">
+      <div class="arch-cat-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+      <h3 class="arch-cat-t">Таймлайн патини</h3>
+      <p class="arch-cat-d">Гайд «День 1 → Рік 2» з реальними фото та поясненнями для замовника. Знімає 80% питань ще до монтажу.</p>
+    </div>
+    <div class="arch-cat-item">
+      <div class="arch-cat-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM1 10h22M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      </div>
+      <h3 class="arch-cat-t">Box зразків матеріалу</h3>
+      <p class="arch-cat-d">Три плашки кортену: свіжа, рання патина, зріла. Безкоштовна відправка — щоб замовник потримав матеріал у руках до ухвалення рішення.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ФОРМА — ОТРИМАТИ КАТАЛОГ ═════════════════════════════ -->
+<section class="arch-lead" id="catalog">
+  <div class="arch-lead-grid">
+    <div class="arch-lead-text reveal">
+      <p class="s-label" style="color:var(--corten-l)">Отримати безкоштовно</p>
+      <h2 class="arch-lead-h">Каталог, текстури<br>і зразки матеріалу.</h2>
+      <ul class="arch-lead-list">
+        <li>PDF-каталог виробів FEROX з технічними вузлами</li>
+        <li>Текстури Corten 4K для Corona / Vray / Lumion</li>
+        <li>Таймлайн патини для показу замовнику</li>
+        <li>Box зразків — безкоштовна відправка по Україні</li>
+      </ul>
+      <p class="arch-lead-note">Надішлемо в Telegram протягом 2 годин у робочий час.</p>
+    </div>
+    <form class="arch-form reveal" data-form="contact" novalidate aria-label="Форма для архітекторів">
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <input type="hidden" name="service" value="arch-catalog">
+      <div class="f-group">
+        <label class="f-label" for="arch-name">Ваше ім'я *</label>
+        <input class="f-input" type="text" id="arch-name" name="name" placeholder="Ім'я та прізвище" required autocomplete="name">
+      </div>
+      <div class="f-group">
+        <label class="f-label" for="arch-phone">Телефон або Telegram *</label>
+        <input class="f-input" type="tel" id="arch-phone" name="phone" placeholder="+380 xx xxx xx xx" required autocomplete="tel">
+      </div>
+      <div class="f-group">
+        <label class="f-label" for="arch-studio">Студія або Instagram</label>
+        <input class="f-input" type="text" id="arch-studio" name="message" placeholder="@yourstudio або Студія XYZ">
+      </div>
+      <button type="submit" class="btn-dark" style="width:100%;justify-content:center">
+        <span>Отримати каталог і зразки</span>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="f-ok">✓ Готово! Надішлемо матеріали в Telegram протягом 2 годин.</div>
+    </form>
+  </div>
+</section>
+
+<!-- ═══ ПАРТНЕРСЬКА ПРОГРАМА ══════════════════════════════════ -->
+<section class="arch-partner">
+  <div class="arch-partner-inner">
+    <div class="reveal">
+      <p class="s-label" style="color:rgba(255,255,255,.5)">Для постійних партнерів</p>
+      <h2 class="s-title" style="color:var(--white)">Агентська<br><em>програма.</em></h2>
+      <p class="arch-partner-d">Якщо ви закладаєте вироби FEROX у специфікацію проекту — отримуєте фіксовану агентську винагороду після оплати замовником. Умови та деталі — в особистій розмові.</p>
+    </div>
+    <a href="/contact/" class="btn-p arch-partner-btn reveal">
+      <span>Обговорити умови співпраці</span>
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+
+${inlineCTA(
+  'Є питання по проекту?',
+  'Надішліть DWG або опишіть ідею —<br><em>відповімо за 2 години.</em>',
+  'Безкоштовна перевірка креслень. Підберемо матеріал і товщину під ваше завдання.',
+  'Надіслати запит',
+  '/contact/'
+)}
+` + footer();
+}
+
 function build() {
   // Clean
   if (fs.existsSync(OUT)) fs.rmSync(OUT, { recursive: true });
@@ -1453,12 +1672,13 @@ function build() {
   writeFile('about/index.html', aboutPage());
   writeFile('process/index.html', processPage());
   writeFile('contact/index.html', contactPage());
+  writeFile('architects/index.html', architectPage());
 
   // Sitemap
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${[
-  '/', '/services/', '/portfolio/', '/blog/', '/about/', '/process/', '/contact/',
+  '/', '/services/', '/portfolio/', '/blog/', '/about/', '/process/', '/contact/', '/architects/',
   ...services.map(s => `/services/${s.slug}/`),
   ...projects.map(p => `/portfolio/${p.slug}/`),
   ...blogPosts.map(p => `/blog/${p.slug}/`)
