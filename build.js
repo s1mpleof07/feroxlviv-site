@@ -133,7 +133,7 @@ function head(title, desc, keywords, canonical) {
   },
   "sameAs": [
     "https://t.me/feroxlviv",
-    "https://instagram.com/feroxlviv"
+    "https://www.instagram.com/ferox.studio.ua/"
   ],
   "knowsAbout": ["кортенова сталь", "COR-TEN", "лазерна різка металу", "гнуття металу", "зварювання", "Hardox", "металообробка", "архітектурний метал"]
 })}</script>
@@ -400,7 +400,7 @@ function contactSection(prefillService = '', titleH = 'Розкажіть<br>п�
       <p class="c-desc">Ми відповімо протягом 15 хвилин у робочий час і підготуємо детальний прорахунок. У випадку дизайн-проекту з кортену термін опрацювання — до 24 годин.</p>
       <div class="c-details">
         <div class="c-detail"><span class="c-dlabel">Telegram</span><a href="https://t.me/feroxlviv" class="c-dval">@feroxlviv</a></div>
-        <div class="c-detail"><span class="c-dlabel">Instagram</span><a href="https://instagram.com/feroxlviv" class="c-dval">@feroxlviv</a></div>
+        <div class="c-detail"><span class="c-dlabel">Instagram</span><a href="https://www.instagram.com/ferox.studio.ua/" class="c-dval">@ferox.studio.ua</a></div>
         <div class="c-detail"><span class="c-dlabel">Місто</span><span class="c-dval">Львів, Україна</span></div>
         <div class="c-detail"><span class="c-dlabel">Графік</span><span class="c-dval">Пн–Пт, 9:00–18:00</span></div>
       </div>
@@ -435,7 +435,7 @@ function footer() {
     <div class="ft-col">
       <div class="ft-col-t">Соціальні мережі</div>
       <ul>
-        <li><a href="https://instagram.com/feroxlviv">Instagram</a></li>
+        <li><a href="https://www.instagram.com/ferox.studio.ua/">Instagram</a></li>
         <li><a href="https://t.me/feroxlviv">Telegram</a></li>
         <li><a href="https://pinterest.com/feroxlviv">Pinterest</a></li>
       </ul>
@@ -520,7 +520,7 @@ function homePage() {
 
   <!-- ── Соціальні ─────────────────────────────────── -->
   <div class="hero-soc">
-    <a href="https://instagram.com/feroxlviv" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.instagram.com/ferox.studio.ua/" target="_blank" rel="noopener">Instagram</a>
     <a href="https://t.me/feroxlviv" target="_blank" rel="noopener">Telegram</a>
     <a href="https://pinterest.com/feroxlviv" target="_blank" rel="noopener">Pinterest</a>
   </div>
