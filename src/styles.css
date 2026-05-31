@@ -966,3 +966,29 @@ details[open] .faq-icon::after{transform:translate(-50%,-50%) rotate(90deg);opac
   .arch-form{padding:28px 20px}
   .arch-lead-grid{gap:32px}
 }
+
+/* в”Ђв”Ђ ARCHITECTS BANNER (homepage) в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ */
+.arch-banner{display:flex;align-items:center;justify-content:space-between;gap:48px;position:relative;min-height:280px;overflow:hidden;background:#1a1a18;text-decoration:none;color:inherit;cursor:pointer;padding:60px 5vw}
+.arch-banner-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.arch-banner-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;transition:transform .8s ease}
+.arch-banner:hover .arch-banner-img{transform:scale(1.04)}
+.arch-banner-ov{position:absolute;inset:0;background:linear-gradient(100deg,rgba(13,10,8,.95) 0%,rgba(13,10,8,.88) 35%,rgba(13,10,8,.6) 65%,rgba(13,10,8,.25) 100%)}
+.arch-banner-body{position:relative;z-index:1;flex:1;max-width:640px}
+.arch-banner-label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--corten);font-weight:500;display:inline-flex;align-items:center;gap:10px;margin-bottom:18px}
+.arch-banner-label::before{content:'';width:24px;height:1px;background:var(--corten)}
+.arch-banner-h{font-family:'Playfair Display',serif;font-size:clamp(24px,3.2vw,40px);font-weight:700;color:var(--white);line-height:1.15;margin-bottom:22px}
+.arch-banner-list{list-style:none;display:flex;flex-wrap:wrap;gap:8px 28px}
+.arch-banner-list li{font-size:13px;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:8px;font-weight:300}
+.arch-banner-list li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--corten);flex-shrink:0}
+.arch-banner-cta{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--corten);flex-shrink:0;transition:transform .3s,gap .3s}
+.arch-banner:hover .arch-banner-cta{transform:translateX(6px);gap:14px}
+.arch-banner-cta span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;white-space:nowrap}
+.arch-banner-cta svg{transition:transform .3s}
+.arch-banner:hover .arch-banner-cta svg{transform:scale(1.1)}
+@media(max-width:768px){
+  .arch-banner{flex-direction:column;align-items:flex-start;gap:24px;min-height:auto;padding:48px 5vw}
+  .arch-banner-cta{flex-direction:row;align-self:flex-start}
+}
+@media(max-width:480px){
+  .arch-banner-list{flex-direction:column;gap:8px}
+}
