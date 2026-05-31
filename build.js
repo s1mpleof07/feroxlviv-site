@@ -498,13 +498,24 @@ function homePage() {
     </div>
   </div>
 
-  <!-- ── Статистика ────────────────────────────────── -->
-  <div class="hero-stats" aria-label="Ключові показники">
-    ${(site.about.valueProps || []).slice(0,4).map(v => `
+  <!-- ── B2B показники ─────────────────────────────── -->
+  <div class="hero-stats" aria-label="Умови роботи">
     <div class="hero-stat">
-      <span class="hero-stat-n">${v.num}</span>
-      <span class="hero-stat-l">${v.label}</span>
-    </div>`).join('')}
+      <span class="hero-stat-n">24<em>г</em></span>
+      <span class="hero-stat-l">Комерційна пропозиція</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-n">7–14<em> д</em></span>
+      <span class="hero-stat-l">Термін виготовлення</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-n">ПДВ</span>
+      <span class="hero-stat-l">Офіційний платник</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-n">5.0<em>★</em></span>
+      <span class="hero-stat-l">Рейтинг Google</span>
+    </div>
   </div>
 
   <!-- ── Соціальні ─────────────────────────────────── -->
