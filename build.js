@@ -1587,9 +1587,10 @@ function architectPage() {
       </ul>
       <p class="arch-lead-note">Надішлемо в Telegram протягом 2 годин у робочий час.</p>
     </div>
-    <form class="arch-form reveal" data-form="contact" novalidate aria-label="Форма для архітекторів">
+    <form class="arch-form c-form reveal" data-form="contact" novalidate aria-label="Форма для архітекторів">
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <input type="hidden" name="service" value="arch-catalog">
+      <input type="hidden" name="message" value="Запит на каталог і зразки матеріалу. Сторінка для архітекторів.">
       <div class="f-group">
         <label class="f-label" for="arch-name">Ваше ім'я *</label>
         <input class="f-input" type="text" id="arch-name" name="name" placeholder="Ім'я та прізвище" required autocomplete="name">
@@ -1600,13 +1601,12 @@ function architectPage() {
       </div>
       <div class="f-group">
         <label class="f-label" for="arch-studio">Студія або Instagram</label>
-        <input class="f-input" type="text" id="arch-studio" name="message" placeholder="@yourstudio або Студія XYZ">
+        <input class="f-input" type="text" id="arch-studio" placeholder="@yourstudio або Студія XYZ">
       </div>
       <button type="submit" class="btn-dark" style="width:100%;justify-content:center">
         <span>Отримати каталог і зразки</span>
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <div class="f-ok">✓ Готово! Надішлемо матеріали в Telegram протягом 2 годин.</div>
     </form>
   </div>
 </section>
