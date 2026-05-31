@@ -969,9 +969,7 @@ details[open] .faq-icon::after{transform:translate(-50%,-50%) rotate(90deg);opac
 
 /* в”Ђв”Ђ ARCHITECTS BANNER (homepage) в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ */
 .arch-banner{display:flex;align-items:center;justify-content:space-between;gap:48px;position:relative;min-height:280px;overflow:hidden;background:#1a1a18;text-decoration:none;color:inherit;cursor:pointer;padding:60px 5vw}
-.arch-banner-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
-.arch-banner-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;transition:transform .8s ease}
-.arch-banner:hover .arch-banner-img{transform:scale(1.04)}
+.arch-banner-bg{position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 75% 110% at 95% 50%,rgba(160,82,45,.62) 0%,rgba(110,48,16,.45) 30%,rgba(60,24,8,.2) 60%,transparent 80%),radial-gradient(ellipse 45% 70% at 100% 10%,rgba(212,149,106,.35) 0%,transparent 55%),radial-gradient(ellipse 40% 55% at 88% 88%,rgba(130,55,18,.45) 0%,transparent 55%),radial-gradient(ellipse 25% 40% at 72% 40%,rgba(180,100,40,.2) 0%,transparent 50%),repeating-linear-gradient(125deg,transparent,transparent 3px,rgba(160,82,45,.025) 3px,rgba(160,82,45,.025) 6px),linear-gradient(110deg,#150f08 0%,#1e1208 45%,#221408 70%,#180e05 100%)}
 .arch-banner-ov{position:absolute;inset:0;background:linear-gradient(100deg,rgba(13,10,8,.95) 0%,rgba(13,10,8,.88) 35%,rgba(13,10,8,.6) 65%,rgba(13,10,8,.25) 100%)}
 .arch-banner-body{position:relative;z-index:1;flex:1;max-width:640px}
 .arch-banner-label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--corten);font-weight:500;display:inline-flex;align-items:center;gap:10px;margin-bottom:18px}
@@ -981,6 +979,7 @@ details[open] .faq-icon::after{transform:translate(-50%,-50%) rotate(90deg);opac
 .arch-banner-list li{font-size:13px;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:8px;font-weight:300}
 .arch-banner-list li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--corten);flex-shrink:0}
 .arch-banner-cta{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--corten);flex-shrink:0;transition:transform .3s,gap .3s}
+.arch-banner:hover .arch-banner-bg{opacity:.9}
 .arch-banner:hover .arch-banner-cta{transform:translateX(6px);gap:14px}
 .arch-banner-cta span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;white-space:nowrap}
 .arch-banner-cta svg{transition:transform .3s}
