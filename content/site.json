@@ -7,7 +7,7 @@
     "h1": "Метал,<br>що говорить<br><em>за себе.</em>",
     "sub": "Дизайн-об'єкти з кортену та точна металообробка у Львові. Для архітекторів, девелоперів і тих, хто цінує якість матеріалу.",
     "ctaPrimary": {
-      "label": "Отримати прорахунок",
+      "label": "Отримати розрахунок",
       "href": "/contact/"
     },
     "ctaSecondary": {
@@ -19,7 +19,7 @@
     "label": "Про FEROX",
     "title": "Метал — це не матеріал.<br><em>Це характер.</em>",
     "sectionTitle": "Хто ми",
-    "sectionText": "FEROX LVIV — команда, що поєднує інженерну точність із дизайнерським баченням. Ми не просто ріжемо й гнемо метал — ми створюємо об'єкти що залишаються в просторі надовго.",
+    "sectionText": "FEROX LVIV — команда, що поєднує інженерну точність із дизайнерським баченням. Ми не просто ріжемо й гнемо метал — ми створюємо об'єкти, що залишаються в просторі надовго.",
     "valueProps": [
       {
         "num": "15+",
@@ -31,7 +31,7 @@
       },
       {
         "num": "15хв",
-        "label": "Від заявки до прорахунку *у випадку дизайн-проекту до 24 годин"
+        "label": "Від заявки до розрахунку *у випадку дизайн-проекту до 24 годин"
       },
       {
         "num": "100%",
@@ -42,8 +42,8 @@
   "contacts": {
     "telegram": "@feroxlviv",
     "telegramUrl": "https://t.me/feroxlviv",
-    "instagram": "@ferox_ukraine",
-    "instagramUrl": "https://www.instagram.com/ferox_ukraine/",
+    "instagram": "@ferox.studio.ua",
+    "instagramUrl": "https://www.instagram.com/ferox.studio.ua/",
     "pinterest": "feroxlviv",
     "pinterestUrl": "https://pinterest.com/feroxlviv",
     "email": "hello@feroxlviv.com.ua",
@@ -103,19 +103,19 @@
   "cortenCategories": [
     {
       "title": "Арт-об'єкт Олень",
-      "image": "/uploads/ChatGPT Image 20 трав. 2026 р., 09_59_52.png"
+      "image": "/uploads/corten-olen-skulptura.webp"
     },
     {
       "title": "Ландшафт Кашпо",
-      "image": "/uploads/Кашпо_приватний_будинок.png"
+      "image": "/uploads/kashpo-pryvatnyi-budynok.webp"
     },
     {
       "title": "Екстер'єр",
-      "image": "/uploads/entrance.png"
+      "image": "/uploads/entrance.webp"
     },
     {
       "title": "Інтер'єр",
-      "image": "/uploads/lobby_iko.png"
+      "image": "/uploads/lobby-iko.webp"
     }
   ]
 }
