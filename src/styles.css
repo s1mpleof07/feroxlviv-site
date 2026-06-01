@@ -293,7 +293,7 @@ section{padding:100px 5vw}
 .s-label::before{content:'';width:24px;height:1px;background:var(--corten)}
 .s-title{font-family:'Playfair Display',serif;font-size:clamp(30px,4.5vw,60px);font-weight:700;line-height:1.1;color:var(--anthracite)}
 .s-title em{color:var(--corten);font-style:normal}
-.reveal{opacity:0;transform:translateY(36px);transition:opacity .7s,transform .7s}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
 /* в”Ђв”Ђ ABOUT в”Ђв”Ђ */
