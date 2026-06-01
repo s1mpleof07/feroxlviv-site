@@ -76,6 +76,7 @@ function head(title, desc, keywords, canonical) {
 <meta name="twitter:description" content="${desc}">
 <meta name="twitter:image" content="https://feroxlviv.com.ua/og-cover.jpg">
 <meta name="theme-color" content="#2C2C2A">
+<link rel="shortcut icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
@@ -1697,6 +1698,8 @@ function build() {
   fs.copyFileSync(SRC + '/script.js', OUT + '/script.js');
   const faviconSrc = __dirname + '/static/favicon.svg';
   if (fs.existsSync(faviconSrc)) fs.copyFileSync(faviconSrc, OUT + '/favicon.svg');
+  const faviconIcoSrc = __dirname + '/static/favicon.ico';
+  if (fs.existsSync(faviconIcoSrc)) fs.copyFileSync(faviconIcoSrc, OUT + '/favicon.ico');
   ['favicon-32.png','favicon-48.png','favicon-180.png'].forEach(f => {
     const src = __dirname + '/static/' + f;
     if (fs.existsSync(src)) fs.copyFileSync(src, OUT + '/' + f);
