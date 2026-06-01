@@ -189,7 +189,7 @@ function nav(active = '') {
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.37 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <span class="nav-phone-text">${site.contacts.phone}</span>
   </a>` : ''}
-  <a href="/contact/" class="nav-cta"><span>Отримати прорахунок</span></a>
+  <a href="/contact/" class="nav-cta"><span>Отримати розрахунок</span></a>
   <button class="burger" id="burger" aria-label="Меню" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
@@ -397,7 +397,7 @@ function contactSection(prefillService = '', titleH = 'Розкажіть<br>п�
     <div class="reveal">
       <p class="s-label">Зв'яжіться з нами</p>
       <h2 class="c-title">${titleH}</h2>
-      <p class="c-desc">Ми відповімо протягом 15 хвилин у робочий час і підготуємо детальний прорахунок. У випадку дизайн-проекту з кортену термін опрацювання — до 24 годин.</p>
+      <p class="c-desc">Ми відповімо протягом 15 хвилин у робочий час і підготуємо детальний розрахунок. У випадку дизайн-проекту з кортену термін опрацювання — до 24 годин.</p>
       <div class="c-details">
         <div class="c-detail"><span class="c-dlabel">Telegram</span><a href="https://t.me/feroxlviv" class="c-dval">@feroxlviv</a></div>
         <div class="c-detail"><span class="c-dlabel">Instagram</span><a href="https://www.instagram.com/ferox.studio.ua/" class="c-dval">@ferox.studio.ua</a></div>
@@ -443,7 +443,13 @@ function footer() {
   </div>
   <div class="ft-bot">
     <p class="ft-copy">© 2026 FEROX LVIV. Всі права захищені.</p>
-    <p class="ft-seo">Лазерна різка металу Львів · Кортен купити · Металообробка Львів · Гнуття металу · Зварювання Львів</p>
+    <nav class="ft-seo-links" aria-label="Послуги">
+      <a href="/services/laser-cutting/">Лазерна різка металу Львів</a>
+      <a href="/services/corten/">Кортен купити Львів</a>
+      <a href="/services/bending/">Гнуття металу ЧПУ</a>
+      <a href="/services/welding/">Зварювання Львів</a>
+      <a href="/services/">Металообробка Львів</a>
+    </nav>
   </div>
 </footer>
 
@@ -476,7 +482,7 @@ function homePage() {
 
   <!-- ── Фотобекграунд ──────────────────────────────── -->
   <div class="hero-photo-wrap" aria-hidden="true">
-    <img src="/uploads/hero-bg.jpg" class="hero-photo-real" alt="" loading="eager" fetchpriority="high" decoding="async">
+    <img src="/uploads/hero-bg.jpg" class="hero-photo-real" alt="Кортеновий олень — арт-об'єкт із сталі COR-TEN, виробництво FEROX LVIV" loading="eager" fetchpriority="high" decoding="async">
     <div class="hero-photo-overlay"></div>
   </div>
   <div class="hero-accent-line" aria-hidden="true"></div>
@@ -658,7 +664,7 @@ function homePage() {
 
 ${inlineCTA(
   'Готові обговорити проект?',
-  'Розкажіть про ваше завдання —<br>отримаєте <em>прорахунок за 15 хв.</em>',
+  'Розкажіть про ваше завдання —<br>отримаєте <em>розрахунок за 15 хв.</em>',
   'Безкоштовна консультація. Без зобов\'язань. Тільки конкретика по матеріалах, термінах і ціні.',
   'Залишити заявку',
   '/contact/'
@@ -729,7 +735,7 @@ ${inlineCTA(
 // ── SERVICE PAGE ──
 const SERVICE_FAQ = {
   'corten': [
-    { q: 'Скільки коштує виріб з кортену у Львові?', a: 'Вартість залежить від складності, розміру та товщини листа. Кашпо простої форми починається від 3 000–5 000 грн, великі арт-об\'єкти — від 15 000 грн. Прорахунок безкоштовний і займає до 15 хвилин.' },
+    { q: 'Скільки коштує виріб з кортену у Львові?', a: 'Вартість залежить від складності, розміру та товщини листа. Кашпо простої форми починається від 3 000–5 000 грн, великі арт-об\'єкти — від 15 000 грн. Розрахунок безкоштовний і займає до 15 хвилин.' },
     { q: 'Як довго формується патина на кортенові?', a: 'В умовах Львова та України патина стабілізується за 1–3 роки залежно від місця розміщення. Перші місяці колір нерівномірний — це нормально. Через рік поверхня вирівнюється і набуває характерного теракотового відтінку.' },
     { q: 'Чи потрібне фарбування кортену?', a: 'Ні. Це головна перевага матеріалу — захисна патина утворюється природно і замінює фарбу. Кортен не потребує жодного обслуговування протягом десятків років.' },
     { q: 'Чи підходить кортен для вулиці взимку?', a: 'Так. Кортен чудово переносить мороз, сніг і перепади температур. Він використовується в скандинавських країнах де умови значно суворіші ніж в Україні.' },
@@ -903,9 +909,9 @@ ${faqBlock(s.slug)}
 
 ${inlineCTA(
   'Готові замовити',
-  'Опишіть проект — отримайте<br><em>прорахунок за 15 хв.</em>',
+  'Опишіть проект — отримайте<br><em>розрахунок за 15 хв.</em>',
   'Безкоштовна консультація з конструктором. Точна ціна, терміни, технічні деталі.',
-  'Замовити прорахунок',
+  'Замовити розрахунок',
   `/contact/?service=${s.slug}`
 )}
 
@@ -1411,7 +1417,7 @@ ${inlineCTA(
   'Є питання по проекту?',
   'Описуйте завдання —<br><em>відповімо за 15 хвилин.</em>',
   'Безкоштовна консультація. Підберемо матеріал і розрахуємо вартість.',
-  'Замовити прорахунок',
+  'Замовити розрахунок',
   '/contact/'
 )}
 ` + footer();
@@ -1429,7 +1435,7 @@ function architectPage() {
 <!-- ═══ HERO ════════════════════════════════════════════════ -->
 <section class="arch-hero">
   <div class="arch-hero-bg" aria-hidden="true">
-    <img src="/uploads/hero-bg.jpg" class="arch-hero-img" alt="" loading="eager" fetchpriority="high" decoding="async">
+    <img src="/uploads/hero-bg.jpg" class="arch-hero-img" alt="Арт-скульптура з кортенової сталі у преміальному інтер'єрі — FEROX LVIV" loading="eager" fetchpriority="high" decoding="async">
     <div class="arch-hero-ov"></div>
     <div class="arch-hero-line"></div>
   </div>
@@ -1636,6 +1642,45 @@ ${inlineCTA(
 ` + footer();
 }
 
+// ── THANK YOU PAGE ───────────────────────────────────────────
+function thankYouPage() {
+  return head(
+    'Дякуємо за заявку | FEROX LVIV',
+    'Ваша заявка отримана. Відповімо протягом 15 хвилин у робочий час.',
+    'FEROX LVIV контакт',
+    '/thank-you/'
+  ) + nav('') + `
+<section class="ty-section">
+  <div class="ty-inner">
+    <div class="ty-icon" aria-hidden="true">
+      <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+        <circle cx="28" cy="28" r="27" stroke="#a0522d" stroke-width="1.5"/>
+        <path d="M18 28l7 7 13-13" stroke="#a0522d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <p class="ty-label">Заявка отримана</p>
+    <h1 class="ty-h">Дякуємо!<br>Зв'яжемось<br><em>невдовзі.</em></h1>
+    <p class="ty-sub">Відповідаємо протягом 15 хвилин у робочий час.<br>Якщо терміново — телефонуйте або пишіть у Telegram.</p>
+    <div class="ty-contacts">
+      <a href="tel:${site.contacts.phone}" class="ty-contact">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2C7.163 21 3 16.837 3 7a2 2 0 012-2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <span>${site.contacts.phone}</span>
+      </a>
+      <a href="https://t.me/feroxlviv" target="_blank" rel="noopener" class="ty-contact">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 5L2 12.5l7 1M21 5l-5 15-4.5-5.5M21 5L9 13.5m0 0L11.5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Telegram</span>
+      </a>
+    </div>
+    <a href="/" class="btn-p ty-back">
+      <span>На головну</span>
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+  <div class="ty-bg" aria-hidden="true"></div>
+</section>
+` + footer();
+}
+
 function build() {
   // Clean
   if (fs.existsSync(OUT)) fs.rmSync(OUT, { recursive: true });
@@ -1694,6 +1739,7 @@ function build() {
   writeFile('process/index.html', processPage());
   writeFile('contact/index.html', contactPage());
   writeFile('architects/index.html', architectPage());
+  writeFile('thank-you/index.html', thankYouPage());
 
   // Sitemap
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
