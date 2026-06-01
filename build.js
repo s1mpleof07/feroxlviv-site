@@ -482,7 +482,10 @@ function homePage() {
 
   <!-- ── Фотобекграунд ──────────────────────────────── -->
   <div class="hero-photo-wrap" aria-hidden="true">
-    <img src="/uploads/hero-bg.jpg" class="hero-photo-real" alt="Кортеновий олень — арт-об'єкт із сталі COR-TEN, виробництво FEROX LVIV" loading="eager" fetchpriority="high" decoding="async">
+    <picture>
+      <source srcset="/uploads/hero-bg.webp" type="image/webp">
+      <img src="/uploads/hero-bg.jpg" class="hero-photo-real" alt="Кортеновий олень — арт-об'єкт із сталі COR-TEN, виробництво FEROX LVIV" loading="eager" fetchpriority="high" decoding="async">
+    </picture>
     <div class="hero-photo-overlay"></div>
   </div>
   <div class="hero-accent-line" aria-hidden="true"></div>
@@ -678,7 +681,7 @@ ${inlineCTA(
   <div class="port-grid">
     ${projects.map(p => `<a class="port-item${p.wide ? ' port-wide' : ''} reveal" href="/portfolio/${p.slug}/">
       <div class="port-inner">
-        <div class="port-bg" aria-hidden="true" style="background-image:url(${p.image})"></div>
+        <div class="port-bg" aria-hidden="true" style="background-image:image-set(url('${p.image.replace(/\.(png|jpg|jpeg)$/i,".webp")}') type('image/webp'),url('${p.image}') type('image/jpeg'))"></div>
         <div class="port-ov" aria-hidden="true"></div>
         <div class="port-c">
           <p class="port-tag">${p.tag}</p>
@@ -986,7 +989,7 @@ function portfolioIndex() {
   <div class="port-grid">
     ${projects.map(p => `<a class="port-item${p.wide ? ' port-wide' : ''} reveal" href="/portfolio/${p.slug}/">
       <div class="port-inner">
-        <div class="port-bg" aria-hidden="true" style="background-image:url(${p.image})"></div>
+        <div class="port-bg" aria-hidden="true" style="background-image:image-set(url('${p.image.replace(/\.(png|jpg|jpeg)$/i,".webp")}') type('image/webp'),url('${p.image}') type('image/jpeg'))"></div>
         <div class="port-ov" aria-hidden="true"></div>
         <div class="port-c">
           <p class="port-tag">${p.tag}</p>
@@ -1062,7 +1065,7 @@ ${inlineCTA(
   <div class="port-grid" style="grid-template-columns:repeat(3,1fr)">
     ${others.map(op => `<a class="port-item reveal" href="/portfolio/${op.slug}/">
       <div class="port-inner">
-        <div class="port-bg" aria-hidden="true" style="background-image:url(${op.image})"></div>
+        <div class="port-bg" aria-hidden="true" style="background-image:image-set(url('${op.image.replace(/\.(png|jpg|jpeg)$/i,".webp")}') type('image/webp'),url('${op.image}') type('image/jpeg'))"></div>
         <div class="port-ov" aria-hidden="true"></div>
         <div class="port-c">
           <p class="port-tag">${op.tag}</p>
@@ -1435,7 +1438,10 @@ function architectPage() {
 <!-- ═══ HERO ════════════════════════════════════════════════ -->
 <section class="arch-hero">
   <div class="arch-hero-bg" aria-hidden="true">
-    <img src="/uploads/hero-bg.jpg" class="arch-hero-img" alt="Арт-скульптура з кортенової сталі у преміальному інтер'єрі — FEROX LVIV" loading="eager" fetchpriority="high" decoding="async">
+    <picture>
+      <source srcset="/uploads/hero-bg.webp" type="image/webp">
+      <img src="/uploads/hero-bg.jpg" class="arch-hero-img" alt="Арт-скульптура з кортенової сталі у преміальному інтер'єрі — FEROX LVIV" loading="eager" fetchpriority="high" decoding="async">
+    </picture>
     <div class="arch-hero-ov"></div>
     <div class="arch-hero-line"></div>
   </div>
