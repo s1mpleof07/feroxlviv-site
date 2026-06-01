@@ -40,7 +40,7 @@ const obs = new IntersectionObserver((entries) => {
       obs.unobserve(e.target);
     }
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+}, { threshold: 0.05, rootMargin: '0px 0px 0px 0px' });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 // ── SMOOTH ANCHOR ──
@@ -299,7 +299,6 @@ document.addEventListener('keydown', function(e) {
           page_path: window.location.pathname,
           referrer_path: data.referrer || ''
         });
-        setTimeout(function() { window.location.href = '/thank-you/'; }, 1800);
       } catch (err) {
         console.error('Form submit error:', err);
         statusEl.className = 'c-form-status error';
