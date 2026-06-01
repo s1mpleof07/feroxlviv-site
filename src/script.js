@@ -299,6 +299,7 @@ document.addEventListener('keydown', function(e) {
           page_path: window.location.pathname,
           referrer_path: data.referrer || ''
         });
+        setTimeout(function() { window.location.href = '/thank-you/'; }, 1800);
       } catch (err) {
         console.error('Form submit error:', err);
         statusEl.className = 'c-form-status error';
