@@ -178,11 +178,11 @@ function nav(active = '') {
       <div class="dropdown" role="menu">
         <a href="/services/"><strong>Усі послуги</strong><small>Огляд напрямків роботи</small></a>
         ${servicesItems}
+        <a href="/architects/" style="border-top:1px solid var(--border);margin-top:4px;padding-top:12px;color:var(--corten)"><strong>Для архітекторів</strong><small>Каталог, зразки, 3D-підтримка</small></a>
       </div>
     </li>
     ${link('/portfolio/', 'Проекти', 'portfolio')}
     ${link('/blog/', 'Блог', 'blog')}
-    ${link('/architects/', 'Для архітекторів', 'architects')}
     ${link('/about/', 'Про нас', 'about')}
     ${link('/process/', 'Як ми працюємо', 'process')}
     ${link('/contact/', 'Контакт', 'contact')}
