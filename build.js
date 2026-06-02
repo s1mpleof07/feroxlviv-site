@@ -158,7 +158,7 @@ function nav(active = '') {
   const link = (href, label, slug) =>
     `<li><a href="${href}"${active === slug ? ' class="active"' : ''}>${label}<span class="ext-ind" aria-hidden="true"></span></a></li>`;
   const servicesItems = services.map(s =>
-    `<a href="/services/${s.slug}/"><strong>${s.titleShort}</strong><small>${s.tags.slice(0,3).join(' · ')}</small></a>`
+    `<a href="/services/${s.slug}/"><strong>${s.titleShort}</strong><small>${s.tags.slice(0,3).join(' · ')}</small></a>${s.slug === 'corten' ? '<a href="/architects/" style="padding-left:20px;color:var(--corten);border-left:2px solid var(--corten);margin-left:4px"><strong>↳ Для архітекторів</strong><small>Каталог, зразки, 3D-підтримка</small></a>' : ''}`
   ).join('');
   return `<nav id="nav" role="navigation" aria-label="Головна навігація">
   <a href="/" class="nav-logo" aria-label="FEROX LVIV — головна">
@@ -178,7 +178,6 @@ function nav(active = '') {
       <div class="dropdown" role="menu">
         <a href="/services/"><strong>Усі послуги</strong><small>Огляд напрямків роботи</small></a>
         ${servicesItems}
-        <a href="/architects/" style="border-top:1px solid var(--border);margin-top:4px;padding-top:12px;color:var(--corten)"><strong>Для архітекторів</strong><small>Каталог, зразки, 3D-підтримка</small></a>
       </div>
     </li>
     ${link('/portfolio/', 'Проекти', 'portfolio')}
@@ -423,7 +422,7 @@ function footer() {
     <div class="ft-col">
       <div class="ft-col-t">Послуги</div>
       <ul>
-        ${services.map(s => `<li><a href="/services/${s.slug}/">${s.titleShort}</a></li>`).join('')}
+        ${services.map(s => `<li><a href="/services/${s.slug}/">${s.titleShort}</a></li>${s.slug === 'corten' ? '<li><a href="/architects/" style="color:var(--corten)">↳ Для архітекторів</a></li>' : ''}`).join('')}
       </ul>
     </div>
     <div class="ft-col">
@@ -431,7 +430,6 @@ function footer() {
       <ul>
         <li><a href="/about/">Про нас</a></li>
         <li><a href="/portfolio/">Проекти</a></li>
-        <li><a href="/architects/">Для архітекторів</a></li>
         <li><a href="/process/">Як ми працюємо</a></li>
         <li><a href="/contact/">Контакт</a></li>
       </ul>
