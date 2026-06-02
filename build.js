@@ -182,6 +182,7 @@ function nav(active = '') {
     </li>
     ${link('/portfolio/', 'Проекти', 'portfolio')}
     ${link('/blog/', 'Блог', 'blog')}
+    ${link('/architects/', 'Для архітекторів', 'architects')}
     ${link('/about/', 'Про нас', 'about')}
     ${link('/process/', 'Як ми працюємо', 'process')}
     ${link('/contact/', 'Контакт', 'contact')}
@@ -207,6 +208,7 @@ function nav(active = '') {
   </div>
   <a href="/portfolio/"${active === 'portfolio' ? ' class="active"' : ''}>Проекти</a>
   <a href="/blog/"${active === 'blog' ? ' class="active"' : ''}>Блог</a>
+  <a href="/architects/"${active === 'architects' ? ' class="active"' : ''}>Для архітекторів</a>
   <a href="/about/"${active === 'about' ? ' class="active"' : ''}>Про нас</a>
   <a href="/process/"${active === 'process' ? ' class="active"' : ''}>Як ми працюємо</a>
   <a href="/contact/"${active === 'contact' ? ' class="active"' : ''}>Контакт</a>
@@ -429,6 +431,7 @@ function footer() {
       <ul>
         <li><a href="/about/">Про нас</a></li>
         <li><a href="/portfolio/">Проекти</a></li>
+        <li><a href="/architects/">Для архітекторів</a></li>
         <li><a href="/process/">Як ми працюємо</a></li>
         <li><a href="/contact/">Контакт</a></li>
       </ul>
@@ -1752,6 +1755,17 @@ function architectPage() {
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <input type="hidden" name="service" value="arch-catalog">
       <input type="hidden" name="message" value="Запит на каталог і зразки матеріалу. Сторінка для архітекторів.">
+      <div class="f-group">
+        <label class="f-label" for="arch-type">Що вас цікавить</label>
+        <select class="f-input" id="arch-type" name="arch_type" style="appearance:none;background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 12 12%22><path d=%22M2 4l4 4 4-4%22 stroke=%22%23a0522d%22 stroke-width=%221.4%22 fill=%22none%22/></svg>');background-repeat:no-repeat;background-position:right 14px center">
+          <option value="">Оберіть тип запиту</option>
+          <option value="catalog">PDF-каталог і зразки матеріалу</option>
+          <option value="textures">Текстури Corten 4K для рендеру</option>
+          <option value="consult">Технічна консультація по проекту</option>
+          <option value="partner">Партнерська / агентська програма</option>
+          <option value="other">Інше</option>
+        </select>
+      </div>
       <div class="f-group">
         <label class="f-label" for="arch-name">Ваше ім'я *</label>
         <input class="f-input" type="text" id="arch-name" name="name" placeholder="Ім'я та прізвище" required autocomplete="name">
