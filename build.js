@@ -1513,34 +1513,182 @@ function architectPage() {
     <p class="patina-intro">Кортен з цеху виглядає як звичайна сталь. Це нормально — патина формується на повітрі після монтажу. Покажіть це замовнику заздалегідь, щоб уникнути непорозумінь.</p>
   </div>
 
-  <div class="patina-stages reveal">
-    <div class="patina-stage">
-      <div class="patina-swatch" style="background:#8e8c87"></div>
-      <div class="patina-stage-body">
-        <div class="patina-stage-date">День монтажу</div>
-        <h3 class="patina-stage-t">Сталь без патини</h3>
-        <p class="patina-stage-d">Після різки та гнуття поверхня сріблясто-сіра. Виглядає як звичайний метал. Замовника треба попередити — це не брак, це початок процесу.</p>
+  <div class="patina-widget reveal">
+    <div class="pw-meta">
+      <span class="pw-stage" id="pw-stage">Чистий метал · з заводу</span>
+      <div class="pw-swatch-row">
+        <div id="pw-dot" class="pw-dot" style="background:#989696"></div>
+        <span class="pw-dn">COR-TEN A · 4 мм</span>
       </div>
     </div>
-    <div class="patina-arrow" aria-hidden="true">→</div>
-    <div class="patina-stage">
-      <div class="patina-swatch" style="background:#a0622d"></div>
-      <div class="patina-stage-body">
-        <div class="patina-stage-date">2–4 місяці</div>
-        <h3 class="patina-stage-t">Перша патина</h3>
-        <p class="patina-stage-d">Оксидний шар формується нерівномірно — плямами теплого рудого кольору. Смуги від дощу на суміжних матеріалах — максимальні саме в цей період.</p>
-      </div>
+    <div class="patina-sc">
+      <div class="patina-cw"><canvas id="patina-cv"></canvas></div>
     </div>
-    <div class="patina-arrow" aria-hidden="true">→</div>
-    <div class="patina-stage">
-      <div class="patina-swatch" style="background:#5c3118"></div>
-      <div class="patina-stage-body">
-        <div class="patina-stage-date">1–2 роки</div>
-        <h3 class="patina-stage-t">Зріла патина</h3>
-        <p class="patina-stage-d">Захисний шар стабілізується. Глибокий бархатний коричнево-рудий колір. Патина більше не «тече» і сама захищає сталь. Саме так виглядає кортен на рендерах.</p>
-      </div>
+    <input type="range" id="patina-rng" min="0" max="100" value="0" step="1" class="pw-range">
+    <div class="pw-labels">
+      <span>З заводу</span><span>1 рік</span><span>5+ років</span>
+    </div>
+    <div class="pw-specs">
+      <div class="pw-spec"><div class="pw-sl">Матеріал</div><div class="pw-sv">COR-TEN A</div></div>
+      <div class="pw-spec"><div class="pw-sl">Товщина</div><div class="pw-sv">4 мм</div></div>
+      <div class="pw-spec"><div class="pw-sl">Обробка</div><div class="pw-sv">Лазерне гравіювання</div></div>
+      <div class="pw-spec"><div class="pw-sl">Патина</div><div class="pw-sv" id="pw-patina">Не сформована</div></div>
     </div>
   </div>
+
+  <script>
+  (function(){
+    var W=640,H=190,RX=5;
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    var cv=document.getElementById('patina-cv');
+    if(!cv)return;
+    cv.width=W*dpr;cv.height=H*dpr;
+    var STOPS=[
+      {v:0,  rgb:[152,150,146]},{v:14, rgb:[111,74,58]},{v:28, rgb:[139,79,51]},
+      {v:42, rgb:[160,82,45]}, {v:57, rgb:[141,65,36]},{v:71, rgb:[115,53,33]},
+      {v:85, rgb:[94,46,30]},  {v:100,rgb:[80,36,22]}
+    ];
+    function getBase(v){
+      for(var i=0;i<STOPS.length-1;i++){
+        var a=STOPS[i],b=STOPS[i+1];
+        if(v<=b.v){var t=(v-a.v)/(b.v-a.v);
+          return[Math.round(a.rgb[0]+(b.rgb[0]-a.rgb[0])*t),
+                 Math.round(a.rgb[1]+(b.rgb[1]-a.rgb[1])*t),
+                 Math.round(a.rgb[2]+(b.rgb[2]-a.rgb[2])*t)];}
+      }
+      return STOPS[STOPS.length-1].rgb.slice();
+    }
+    function shade(rgb,d,wm){
+      var gm=1-wm*.62,bm=1-wm*.86;
+      return[Math.max(0,Math.min(255,rgb[0]+d)),
+             Math.max(0,Math.min(255,rgb[1]+Math.round(d*gm))),
+             Math.max(0,Math.min(255,rgb[2]+Math.round(d*bm)))];
+    }
+    function rgba(s,a){return'rgba('+s[0]+','+s[1]+','+s[2]+','+a.toFixed(3)+')';}
+    function mkRng(seed){var s=seed>>>0;return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+    function gn1(y){
+      var h1=Math.sin(y*.22+2.718)*43758.545,h2=Math.sin(y*.06+1.618)*31337.1;
+      return((h1-Math.floor(h1))*.65+(h2-Math.floor(h2))*.35)*2-1;
+    }
+    function oNoise(x,y,s){
+      var n=0;
+      n+=Math.sin(x*.016+y*.011+s)*.45;
+      n+=Math.sin(x*.011+y*.024+s*1.4)*.28;
+      n+=Math.sin(x*.038+y*.028+s*.9+n)*.20;
+      n+=Math.sin(x*.065+y*.052+s*1.9)*.14;
+      n+=Math.sin(x*.10+y*.082+s*2.3)*.09;
+      n+=Math.sin(x*.18+y*.14+s*1.1)*.05;
+      return Math.max(-1,Math.min(1,n/1.21));
+    }
+    function draw(v){
+      var ctx=cv.getContext('2d');
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      var rgb=getBase(v);
+      var wm=Math.min(1,v/20);
+      var cellBlend=Math.max(0,(v-62)/38);
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(RX,0);ctx.lineTo(W-RX,0);ctx.arcTo(W,0,W,RX,RX);
+      ctx.lineTo(W,H-RX);ctx.arcTo(W,H,W-RX,H,RX);
+      ctx.lineTo(RX,H);ctx.arcTo(0,H,0,H-RX,RX);
+      ctx.lineTo(0,RX);ctx.arcTo(0,0,RX,0,RX);
+      ctx.closePath();ctx.clip();
+      ctx.fillStyle='rgb('+rgb[0]+','+rgb[1]+','+rgb[2]+')';
+      ctx.fillRect(0,0,W,H);
+      if(wm<1){
+        var sh=ctx.createLinearGradient(0,0,W,0);
+        var al=(1-wm)*.09;
+        sh.addColorStop(0,'rgba(255,255,255,0)');
+        sh.addColorStop(.38,'rgba(255,255,255,'+al.toFixed(3)+')');
+        sh.addColorStop(.65,'rgba(255,255,255,'+(al*.45).toFixed(3)+')');
+        sh.addColorStop(1,'rgba(255,255,255,0)');
+        ctx.fillStyle=sh;ctx.fillRect(0,0,W,H);
+      }
+      for(var y=0;y<H;y++){
+        var n=gn1(y);var al=Math.abs(n)*.18;if(al<.016)continue;
+        ctx.fillStyle=rgba(shade(rgb,n*38,wm),al);ctx.fillRect(0,y,W,1);
+      }
+      var ST=4;
+      for(var py=0;py<H;py+=ST){for(var px=0;px<W;px+=ST){
+        var n=oNoise(px,py,7.31);var abs=Math.abs(n);
+        if(abs<.07)continue;
+        var al=(abs-.07)*wm*.55;if(al<.01)continue;
+        ctx.fillStyle=rgba(shade(rgb,n*70*wm,wm),Math.min(.42,al));
+        ctx.fillRect(px,py,ST,ST);
+      }}
+      var rndF=mkRng(77);
+      for(var i=0;i<9;i++){
+        var fx=rndF()*W,fw=rndF()*5+1.5,fa=rndF()*.15*wm;
+        if(fa<.015)continue;
+        var dk=shade(rgb,-50,wm);
+        var fgr=ctx.createLinearGradient(0,0,0,H);
+        fgr.addColorStop(0,rgba(dk,0));
+        fgr.addColorStop(.2+rndF()*.1,rgba(dk,fa*.55));
+        fgr.addColorStop(.6+rndF()*.15,rgba(dk,fa));
+        fgr.addColorStop(1,rgba(dk,fa*.2));
+        ctx.fillStyle=fgr;ctx.fillRect(fx-fw/2,0,fw,H);
+      }
+      if(cellBlend>.01){
+        var CS=5;
+        for(var py=0;py<H;py+=CS){for(var px=0;px<W;px+=CS){
+          var n0=oNoise(px,py,4.71),nx=oNoise(px+CS,py,4.71),ny=oNoise(px,py+CS,4.71);
+          var edge=Math.max(Math.abs(n0-nx),Math.abs(n0-ny));
+          if(edge<.08)continue;
+          var al=(edge-.08)*3.2*cellBlend*.45;if(al<.01)continue;
+          ctx.fillStyle=rgba(shade(rgb,-65,1),Math.min(.48,al));
+          ctx.fillRect(px,py,CS,CS);
+        }}
+      }
+      var rnd2=mkRng(137);
+      for(var i=0;i<450;i++){
+        var fx=rnd2()*W,fy=rnd2()*H,fs=rnd2()*2.5+.6;
+        var al=rnd2()*.12+.03;var d=(rnd2()>.5?1:-1)*(rnd2()*90+32);
+        ctx.fillStyle=rgba(shade(rgb,d,wm),al);ctx.fillRect(fx,fy,fs,fs);
+      }
+      var vgr=ctx.createLinearGradient(0,0,0,H);
+      vgr.addColorStop(0,'rgba(0,0,0,.22)');vgr.addColorStop(.08,'rgba(0,0,0,0)');
+      vgr.addColorStop(.92,'rgba(0,0,0,0)');vgr.addColorStop(1,'rgba(0,0,0,.30)');
+      ctx.fillStyle=vgr;ctx.fillRect(0,0,W,H);
+      var lgr=ctx.createLinearGradient(0,0,W*.13,0);
+      lgr.addColorStop(0,'rgba(255,255,255,.07)');lgr.addColorStop(1,'rgba(255,255,255,0)');
+      ctx.fillStyle=lgr;ctx.fillRect(0,0,W*.13,H);
+      ctx.fillStyle='rgba(255,255,255,.09)';ctx.fillRect(0,0,W,1.5);
+      ctx.globalCompositeOperation='destination-out';
+      ctx.font='400 23px "DM Sans",Arial,sans-serif';
+      try{ctx.letterSpacing='2.5px';}catch(e){}
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillStyle='rgba(0,0,0,1)';
+      ctx.fillText('feroxlviv.com.ua',W/2,H/2+1);
+      ctx.globalCompositeOperation='source-over';
+      ctx.restore();
+    }
+    var LBL=[
+      ['Чистий метал \xb7 з заводу','Не сформована'],
+      ['Початок окислення \xb7 2\u20134 тижні','Початкова'],
+      ['Перша патина \xb7 1\u20132 місяці','Рання'],
+      ['Активна патина \xb7 3\u20136 місяців','Активна'],
+      ['Стабілізація \xb7 6\u201312 місяців','Стабілізується'],
+      ['Зріла патина \xb7 1\u20133 роки','Зріла'],
+      ['Стара патина \xb7 5+ років','Стара'],
+      ['Стара патина \xb7 5+ років','Стара']
+    ];
+    function upd(v){
+      draw(v);
+      var c=getBase(v);
+      var dot=document.getElementById('pw-dot');
+      var stg=document.getElementById('pw-stage');
+      var pat=document.getElementById('pw-patina');
+      if(dot)dot.style.background='rgb('+c[0]+','+c[1]+','+c[2]+')';
+      var s=Math.min(7,Math.floor(v/100*8));
+      if(stg)stg.textContent=LBL[s][0];
+      if(pat)pat.textContent=LBL[s][1];
+    }
+    var rng=document.getElementById('patina-rng');
+    if(rng)rng.addEventListener('input',function(){upd(+this.value);});
+    if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){upd(0);});}
+    else{setTimeout(function(){upd(0);},400);}
+  })();
+  </script>
 
   <div class="patina-note reveal">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
