@@ -1,4 +1,2 @@
-# Old URL aliases → correct pages (301 permanent)
-/projects/      /portfolio/     301
-/how-we-work/   /process/       301
-/services/corten/ /services/corten/ 200
+/projects/    /portfolio/   301
+/how-we-work/ /process/     301
