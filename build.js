@@ -1562,8 +1562,8 @@ function architectPage() {
       return STOPS[STOPS.length-1].rgb.slice();
     }
 
-    /* ── Seeded RNG + noise ──────────────────────── */
-    function mkRng(seed){var s=seed>>>0;return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+    /* ── Noise helpers ───────────────────────────── */
+    function mkRng(s){var x=s>>>0;return function(){x=(x*1664525+1013904223)>>>0;return x/4294967296;};}
     function gn1(y){
       var h1=Math.sin(y*.22+2.718)*43758.545,h2=Math.sin(y*.06+1.618)*31337.1;
       return((h1-Math.floor(h1))*.65+(h2-Math.floor(h2))*.35)*2-1;
@@ -1574,12 +1574,12 @@ function architectPage() {
       n+=Math.sin(x*.011+y*.024+s*1.4)*.28;
       n+=Math.sin(x*.038+y*.028+s*.9+n)*.20;
       n+=Math.sin(x*.065+y*.052+s*1.9)*.14;
-      n+=Math.sin(x*.10+y*.082+s*2.3)*.09;
-      n+=Math.sin(x*.18+y*.14+s*1.1)*.05;
+      n+=Math.sin(x*.10 +y*.082+s*2.3)*.09;
+      n+=Math.sin(x*.18 +y*.14 +s*1.1)*.05;
       return Math.max(-1,Math.min(1,n/1.21));
     }
 
-    /* ── Rounded clip helper ─────────────────────── */
+    /* ── Clip helper ─────────────────────────────── */
     function clipRound(ctx){
       ctx.beginPath();
       ctx.moveTo(RX,0);ctx.lineTo(W-RX,0);ctx.arcTo(W,0,W,RX,RX);
@@ -1589,67 +1589,82 @@ function architectPage() {
       ctx.closePath();ctx.clip();
     }
 
-    /* ── OFFSCREEN: texture layer (built ONCE) ───── */
-    /* All heavy loops run here — result cached as image */
+    /* ── OFFSCREEN TEXTURE — grey base (#808080) ──
+       overlay blend: grey=neutral, dark<128=darken-warm,
+       light>128=lighten-warm — preserves hue of corten base ── */
     var texEl=document.createElement('canvas');
     texEl.width=W*dpr;texEl.height=H*dpr;
     var tctx=texEl.getContext('2d');
     tctx.scale(dpr,dpr);
 
     function buildTexture(){
-      /* Horizontal grain — transparent bg, dark/light neutral patches */
+      /* Grey neutral base — overlay(128,any)=any → no change */
+      tctx.fillStyle='#808080';
+      tctx.fillRect(0,0,W,H);
+
+      /* Horizontal grain: lighter/darker grey lines on grey base */
       for(var y=0;y<H;y++){
         var n=gn1(y);
-        var al=Math.abs(n)*.20;if(al<.016)continue;
-        var v2=n>0?255:0;
-        tctx.fillStyle='rgba('+v2+','+v2+','+v2+','+al.toFixed(3)+')';
+        var al=Math.abs(n)*.22;if(al<.016)continue;
+        var col=n>0?255:0; /* white or black over grey */
+        tctx.fillStyle='rgba('+col+','+col+','+col+','+al.toFixed(3)+')';
         tctx.fillRect(0,y,W,1);
       }
-      /* Organic blobs — ST=6 instead of 4 (fewer iterations, same feel) */
-      var ST=6,rnd0=mkRng(42);
+
+      /* Organic blobs — opaque grey values (48–210) for strong overlay */
+      var ST=6;
       for(var py=0;py<H;py+=ST){for(var px=0;px<W;px+=ST){
-        var n=oNoise(px,py,7.31),abs=Math.abs(n);
+        var n=oNoise(px,py,7.31);var abs=Math.abs(n);
         if(abs<.07)continue;
-        var al=(abs-.07)*.60;if(al<.02)continue;
-        var v2=n>0?220:0;
-        tctx.fillStyle='rgba('+v2+','+v2+','+v2+','+Math.min(.50,al).toFixed(3)+')';
+        var al=(abs-.07)*.65;if(al<.02)continue;
+        var col=n>0?255:0;
+        tctx.fillStyle='rgba('+col+','+col+','+col+','+Math.min(.55,al).toFixed(3)+')';
         tctx.fillRect(px,py,ST,ST);
       }}
-      /* Flow marks (dark vertical streaks) */
+
+      /* Flow marks — dark grey over grey = very dark → strong overlay darkening */
       var rndF=mkRng(77);
       for(var i=0;i<9;i++){
-        var fx=rndF()*W,fw=rndF()*5+1.5,fa=rndF()*.15;
+        var fx=rndF()*W,fw=rndF()*5+1.5,fa=rndF()*.18;
         if(fa<.015)continue;
         var fgr=tctx.createLinearGradient(0,0,0,H);
         fgr.addColorStop(0,'rgba(0,0,0,0)');
-        fgr.addColorStop(.2+rndF()*.1,'rgba(0,0,0,'+(fa*.55).toFixed(3)+')');
-        fgr.addColorStop(.6+rndF()*.15,'rgba(0,0,0,'+fa.toFixed(3)+')');
+        fgr.addColorStop(.2+rndF()*.1,'rgba(0,0,0,'+(fa*.6).toFixed(3)+')');
+        fgr.addColorStop(.65+rndF()*.1,'rgba(0,0,0,'+fa.toFixed(3)+')');
         fgr.addColorStop(1,'rgba(0,0,0,'+(fa*.2).toFixed(3)+')');
         tctx.fillStyle=fgr;tctx.fillRect(fx-fw/2,0,fw,H);
       }
-      /* Fine specks */
+
+      /* Fine specks — strong white/black over grey */
       var rnd2=mkRng(137);
       for(var i=0;i<450;i++){
         var fx=rnd2()*W,fy=rnd2()*H,fs=rnd2()*2.5+.6;
-        var brt=rnd2()>.5,al=rnd2()*.12+.03;
-        var v2=brt?255:0;
-        tctx.fillStyle='rgba('+v2+','+v2+','+v2+','+al.toFixed(3)+')';
+        var brt=rnd2()>.5,al=rnd2()*.14+.04;
+        var col=brt?255:0;
+        tctx.fillStyle='rgba('+col+','+col+','+col+','+al.toFixed(3)+')';
         tctx.fillRect(fx,fy,fs,fs);
       }
-      /* Top/bottom vignette */
+
+      /* Edge vignette — dark over grey → below-128 → overlay darkens plate */
       var vgr=tctx.createLinearGradient(0,0,0,H);
-      vgr.addColorStop(0,'rgba(0,0,0,.22)');vgr.addColorStop(.08,'rgba(0,0,0,0)');
-      vgr.addColorStop(.92,'rgba(0,0,0,0)');vgr.addColorStop(1,'rgba(0,0,0,.30)');
+      vgr.addColorStop(0,'rgba(0,0,0,.44)');
+      vgr.addColorStop(.08,'rgba(0,0,0,0)');
+      vgr.addColorStop(.92,'rgba(0,0,0,0)');
+      vgr.addColorStop(1,'rgba(0,0,0,.55)');
       tctx.fillStyle=vgr;tctx.fillRect(0,0,W,H);
+
       /* Left edge light */
       var lgr=tctx.createLinearGradient(0,0,W*.13,0);
-      lgr.addColorStop(0,'rgba(255,255,255,.07)');lgr.addColorStop(1,'rgba(255,255,255,0)');
+      lgr.addColorStop(0,'rgba(255,255,255,.14)');
+      lgr.addColorStop(1,'rgba(255,255,255,0)');
       tctx.fillStyle=lgr;tctx.fillRect(0,0,W*.13,H);
-      /* Top rim highlight */
-      tctx.fillStyle='rgba(255,255,255,.09)';tctx.fillRect(0,0,W,1.5);
+
+      /* Top rim */
+      tctx.fillStyle='rgba(255,255,255,.18)';
+      tctx.fillRect(0,0,W,1.5);
     }
 
-    /* ── OFFSCREEN: cellular layer (built ONCE) ──── */
+    /* ── OFFSCREEN CELLULAR (v>62) — dark on transparent ── */
     var cellEl=document.createElement('canvas');
     cellEl.width=W*dpr;cellEl.height=H*dpr;
     var cctx=cellEl.getContext('2d');
@@ -1667,7 +1682,7 @@ function architectPage() {
       }}
     }
 
-    /* ── DRAW — one call per RAF frame ──────────── */
+    /* ── DRAW: only GPU ops per frame ────────────── */
     function draw(v){
       var ctx=cv.getContext('2d');
       ctx.setTransform(dpr,0,0,dpr,0,0);
@@ -1678,11 +1693,11 @@ function architectPage() {
       ctx.save();
       clipRound(ctx);
 
-      /* 1. Base color */
+      /* 1. Base color fill */
       ctx.fillStyle='rgb('+rgb[0]+','+rgb[1]+','+rgb[2]+')';
       ctx.fillRect(0,0,W,H);
 
-      /* 2. Metallic sheen at v=0 (just a gradient — cheap) */
+      /* 2. Metallic sheen at v=0 (cheap gradient) */
       if(wm<1){
         var a=(1-wm)*.09;
         var sh=ctx.createLinearGradient(0,0,W,0);
@@ -1693,21 +1708,24 @@ function architectPage() {
         ctx.fillStyle=sh;ctx.fillRect(0,0,W,H);
       }
 
-      /* 3. Texture: single GPU drawImage (replaces all pixel loops) */
+      /* 3. OVERLAY texture — grey base preserves warm hue of corten base */
+      /*    overlay(128)=neutral, overlay(dark)=darken-warm, overlay(light)=lighten-warm */
       if(wm>0){
-        ctx.globalAlpha=Math.min(1,wm*1.05);
+        ctx.globalCompositeOperation='overlay';
+        ctx.globalAlpha=Math.min(1,wm*1.08);
         ctx.drawImage(texEl,0,0,W,H);
         ctx.globalAlpha=1;
+        ctx.globalCompositeOperation='source-over';
       }
 
-      /* 4. Cellular overlay: single GPU drawImage */
+      /* 4. Cellular pattern (source-over — dark edges on warm base) */
       if(cellBlend>.01){
         ctx.globalAlpha=cellBlend;
         ctx.drawImage(cellEl,0,0,W,H);
         ctx.globalAlpha=1;
       }
 
-      /* 5. Laser-cut text — erase (shows concrete through) */
+      /* 5. Laser-cut text: erase to transparent (concrete shows through) */
       ctx.globalCompositeOperation='destination-out';
       ctx.font='400 23px "DM Sans",Arial,sans-serif';
       try{ctx.letterSpacing='2.5px';}catch(e){}
@@ -1731,7 +1749,7 @@ function architectPage() {
       ['Стара патина \xb7 5+ років','Стара']
     ];
 
-    /* ── RAF throttle — max 60fps ────────────────── */
+    /* ── RAF throttle ────────────────────────────── */
     var pending=false,curV=0;
     function upd(v){
       curV=v;
@@ -1754,12 +1772,8 @@ function architectPage() {
     var rng=document.getElementById('patina-rng');
     if(rng)rng.addEventListener('input',function(){upd(+this.value);});
 
-    /* ── Init: build offscreen layers, then draw ─── */
-    function init(){
-      buildTexture(); /* heavy loops run once here */
-      buildCell();    /* heavy loops run once here */
-      upd(0);
-    }
+    /* ── Init: heavy loops once, then draw ───────── */
+    function init(){buildTexture();buildCell();upd(0);}
     if(document.fonts&&document.fonts.ready){document.fonts.ready.then(init);}
     else{setTimeout(init,400);}
   })();
