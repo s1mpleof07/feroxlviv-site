@@ -1544,6 +1544,8 @@ function architectPage() {
     var cv=document.getElementById('patina-cv');
     if(!cv)return;
     cv.width=W*dpr;cv.height=H*dpr;
+
+    /* ── Color stops ─────────────────────────────── */
     var STOPS=[
       {v:0,  rgb:[152,150,146]},{v:14, rgb:[111,74,58]},{v:28, rgb:[139,79,51]},
       {v:42, rgb:[160,82,45]}, {v:57, rgb:[141,65,36]},{v:71, rgb:[115,53,33]},
@@ -1559,13 +1561,8 @@ function architectPage() {
       }
       return STOPS[STOPS.length-1].rgb.slice();
     }
-    function shade(rgb,d,wm){
-      var gm=1-wm*.62,bm=1-wm*.86;
-      return[Math.max(0,Math.min(255,rgb[0]+d)),
-             Math.max(0,Math.min(255,rgb[1]+Math.round(d*gm))),
-             Math.max(0,Math.min(255,rgb[2]+Math.round(d*bm)))];
-    }
-    function rgba(s,a){return'rgba('+s[0]+','+s[1]+','+s[2]+','+a.toFixed(3)+')';}
+
+    /* ── Seeded RNG + noise ──────────────────────── */
     function mkRng(seed){var s=seed>>>0;return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
     function gn1(y){
       var h1=Math.sin(y*.22+2.718)*43758.545,h2=Math.sin(y*.06+1.618)*31337.1;
@@ -1581,79 +1578,136 @@ function architectPage() {
       n+=Math.sin(x*.18+y*.14+s*1.1)*.05;
       return Math.max(-1,Math.min(1,n/1.21));
     }
-    function draw(v){
-      var ctx=cv.getContext('2d');
-      ctx.setTransform(dpr,0,0,dpr,0,0);
-      var rgb=getBase(v);
-      var wm=Math.min(1,v/20);
-      var cellBlend=Math.max(0,(v-62)/38);
-      ctx.save();
+
+    /* ── Rounded clip helper ─────────────────────── */
+    function clipRound(ctx){
       ctx.beginPath();
       ctx.moveTo(RX,0);ctx.lineTo(W-RX,0);ctx.arcTo(W,0,W,RX,RX);
       ctx.lineTo(W,H-RX);ctx.arcTo(W,H,W-RX,H,RX);
       ctx.lineTo(RX,H);ctx.arcTo(0,H,0,H-RX,RX);
       ctx.lineTo(0,RX);ctx.arcTo(0,0,RX,0,RX);
       ctx.closePath();ctx.clip();
-      ctx.fillStyle='rgb('+rgb[0]+','+rgb[1]+','+rgb[2]+')';
-      ctx.fillRect(0,0,W,H);
-      if(wm<1){
-        var sh=ctx.createLinearGradient(0,0,W,0);
-        var al=(1-wm)*.09;
-        sh.addColorStop(0,'rgba(255,255,255,0)');
-        sh.addColorStop(.38,'rgba(255,255,255,'+al.toFixed(3)+')');
-        sh.addColorStop(.65,'rgba(255,255,255,'+(al*.45).toFixed(3)+')');
-        sh.addColorStop(1,'rgba(255,255,255,0)');
-        ctx.fillStyle=sh;ctx.fillRect(0,0,W,H);
-      }
+    }
+
+    /* ── OFFSCREEN: texture layer (built ONCE) ───── */
+    /* All heavy loops run here — result cached as image */
+    var texEl=document.createElement('canvas');
+    texEl.width=W*dpr;texEl.height=H*dpr;
+    var tctx=texEl.getContext('2d');
+    tctx.scale(dpr,dpr);
+
+    function buildTexture(){
+      /* Horizontal grain — transparent bg, dark/light neutral patches */
       for(var y=0;y<H;y++){
-        var n=gn1(y);var al=Math.abs(n)*.18;if(al<.016)continue;
-        ctx.fillStyle=rgba(shade(rgb,n*38,wm),al);ctx.fillRect(0,y,W,1);
+        var n=gn1(y);
+        var al=Math.abs(n)*.20;if(al<.016)continue;
+        var v2=n>0?255:0;
+        tctx.fillStyle='rgba('+v2+','+v2+','+v2+','+al.toFixed(3)+')';
+        tctx.fillRect(0,y,W,1);
       }
-      var ST=4;
+      /* Organic blobs — ST=6 instead of 4 (fewer iterations, same feel) */
+      var ST=6,rnd0=mkRng(42);
       for(var py=0;py<H;py+=ST){for(var px=0;px<W;px+=ST){
-        var n=oNoise(px,py,7.31);var abs=Math.abs(n);
+        var n=oNoise(px,py,7.31),abs=Math.abs(n);
         if(abs<.07)continue;
-        var al=(abs-.07)*wm*.55;if(al<.01)continue;
-        ctx.fillStyle=rgba(shade(rgb,n*70*wm,wm),Math.min(.42,al));
-        ctx.fillRect(px,py,ST,ST);
+        var al=(abs-.07)*.60;if(al<.02)continue;
+        var v2=n>0?220:0;
+        tctx.fillStyle='rgba('+v2+','+v2+','+v2+','+Math.min(.50,al).toFixed(3)+')';
+        tctx.fillRect(px,py,ST,ST);
       }}
+      /* Flow marks (dark vertical streaks) */
       var rndF=mkRng(77);
       for(var i=0;i<9;i++){
-        var fx=rndF()*W,fw=rndF()*5+1.5,fa=rndF()*.15*wm;
+        var fx=rndF()*W,fw=rndF()*5+1.5,fa=rndF()*.15;
         if(fa<.015)continue;
-        var dk=shade(rgb,-50,wm);
-        var fgr=ctx.createLinearGradient(0,0,0,H);
-        fgr.addColorStop(0,rgba(dk,0));
-        fgr.addColorStop(.2+rndF()*.1,rgba(dk,fa*.55));
-        fgr.addColorStop(.6+rndF()*.15,rgba(dk,fa));
-        fgr.addColorStop(1,rgba(dk,fa*.2));
-        ctx.fillStyle=fgr;ctx.fillRect(fx-fw/2,0,fw,H);
+        var fgr=tctx.createLinearGradient(0,0,0,H);
+        fgr.addColorStop(0,'rgba(0,0,0,0)');
+        fgr.addColorStop(.2+rndF()*.1,'rgba(0,0,0,'+(fa*.55).toFixed(3)+')');
+        fgr.addColorStop(.6+rndF()*.15,'rgba(0,0,0,'+fa.toFixed(3)+')');
+        fgr.addColorStop(1,'rgba(0,0,0,'+(fa*.2).toFixed(3)+')');
+        tctx.fillStyle=fgr;tctx.fillRect(fx-fw/2,0,fw,H);
       }
-      if(cellBlend>.01){
-        var CS=5;
-        for(var py=0;py<H;py+=CS){for(var px=0;px<W;px+=CS){
-          var n0=oNoise(px,py,4.71),nx=oNoise(px+CS,py,4.71),ny=oNoise(px,py+CS,4.71);
-          var edge=Math.max(Math.abs(n0-nx),Math.abs(n0-ny));
-          if(edge<.08)continue;
-          var al=(edge-.08)*3.2*cellBlend*.45;if(al<.01)continue;
-          ctx.fillStyle=rgba(shade(rgb,-65,1),Math.min(.48,al));
-          ctx.fillRect(px,py,CS,CS);
-        }}
-      }
+      /* Fine specks */
       var rnd2=mkRng(137);
       for(var i=0;i<450;i++){
         var fx=rnd2()*W,fy=rnd2()*H,fs=rnd2()*2.5+.6;
-        var al=rnd2()*.12+.03;var d=(rnd2()>.5?1:-1)*(rnd2()*90+32);
-        ctx.fillStyle=rgba(shade(rgb,d,wm),al);ctx.fillRect(fx,fy,fs,fs);
+        var brt=rnd2()>.5,al=rnd2()*.12+.03;
+        var v2=brt?255:0;
+        tctx.fillStyle='rgba('+v2+','+v2+','+v2+','+al.toFixed(3)+')';
+        tctx.fillRect(fx,fy,fs,fs);
       }
-      var vgr=ctx.createLinearGradient(0,0,0,H);
+      /* Top/bottom vignette */
+      var vgr=tctx.createLinearGradient(0,0,0,H);
       vgr.addColorStop(0,'rgba(0,0,0,.22)');vgr.addColorStop(.08,'rgba(0,0,0,0)');
       vgr.addColorStop(.92,'rgba(0,0,0,0)');vgr.addColorStop(1,'rgba(0,0,0,.30)');
-      ctx.fillStyle=vgr;ctx.fillRect(0,0,W,H);
-      var lgr=ctx.createLinearGradient(0,0,W*.13,0);
+      tctx.fillStyle=vgr;tctx.fillRect(0,0,W,H);
+      /* Left edge light */
+      var lgr=tctx.createLinearGradient(0,0,W*.13,0);
       lgr.addColorStop(0,'rgba(255,255,255,.07)');lgr.addColorStop(1,'rgba(255,255,255,0)');
-      ctx.fillStyle=lgr;ctx.fillRect(0,0,W*.13,H);
-      ctx.fillStyle='rgba(255,255,255,.09)';ctx.fillRect(0,0,W,1.5);
+      tctx.fillStyle=lgr;tctx.fillRect(0,0,W*.13,H);
+      /* Top rim highlight */
+      tctx.fillStyle='rgba(255,255,255,.09)';tctx.fillRect(0,0,W,1.5);
+    }
+
+    /* ── OFFSCREEN: cellular layer (built ONCE) ──── */
+    var cellEl=document.createElement('canvas');
+    cellEl.width=W*dpr;cellEl.height=H*dpr;
+    var cctx=cellEl.getContext('2d');
+    cctx.scale(dpr,dpr);
+
+    function buildCell(){
+      var CS=5;
+      for(var py=0;py<H;py+=CS){for(var px=0;px<W;px+=CS){
+        var n0=oNoise(px,py,4.71),nx=oNoise(px+CS,py,4.71),ny=oNoise(px,py+CS,4.71);
+        var edge=Math.max(Math.abs(n0-nx),Math.abs(n0-ny));
+        if(edge<.08)continue;
+        var al=(edge-.08)*3.2*.45;if(al<.01)continue;
+        cctx.fillStyle='rgba(0,0,0,'+Math.min(.48,al).toFixed(3)+')';
+        cctx.fillRect(px,py,CS,CS);
+      }}
+    }
+
+    /* ── DRAW — one call per RAF frame ──────────── */
+    function draw(v){
+      var ctx=cv.getContext('2d');
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      var rgb=getBase(v);
+      var wm=Math.min(1,v/20);
+      var cellBlend=Math.max(0,(v-62)/38);
+
+      ctx.save();
+      clipRound(ctx);
+
+      /* 1. Base color */
+      ctx.fillStyle='rgb('+rgb[0]+','+rgb[1]+','+rgb[2]+')';
+      ctx.fillRect(0,0,W,H);
+
+      /* 2. Metallic sheen at v=0 (just a gradient — cheap) */
+      if(wm<1){
+        var a=(1-wm)*.09;
+        var sh=ctx.createLinearGradient(0,0,W,0);
+        sh.addColorStop(0,'rgba(255,255,255,0)');
+        sh.addColorStop(.38,'rgba(255,255,255,'+a.toFixed(3)+')');
+        sh.addColorStop(.65,'rgba(255,255,255,'+(a*.45).toFixed(3)+')');
+        sh.addColorStop(1,'rgba(255,255,255,0)');
+        ctx.fillStyle=sh;ctx.fillRect(0,0,W,H);
+      }
+
+      /* 3. Texture: single GPU drawImage (replaces all pixel loops) */
+      if(wm>0){
+        ctx.globalAlpha=Math.min(1,wm*1.05);
+        ctx.drawImage(texEl,0,0,W,H);
+        ctx.globalAlpha=1;
+      }
+
+      /* 4. Cellular overlay: single GPU drawImage */
+      if(cellBlend>.01){
+        ctx.globalAlpha=cellBlend;
+        ctx.drawImage(cellEl,0,0,W,H);
+        ctx.globalAlpha=1;
+      }
+
+      /* 5. Laser-cut text — erase (shows concrete through) */
       ctx.globalCompositeOperation='destination-out';
       ctx.font='400 23px "DM Sans",Arial,sans-serif';
       try{ctx.letterSpacing='2.5px';}catch(e){}
@@ -1661,8 +1715,11 @@ function architectPage() {
       ctx.fillStyle='rgba(0,0,0,1)';
       ctx.fillText('feroxlviv.com.ua',W/2,H/2+1);
       ctx.globalCompositeOperation='source-over';
+
       ctx.restore();
     }
+
+    /* ── Labels ──────────────────────────────────── */
     var LBL=[
       ['Чистий метал \xb7 з заводу','Не сформована'],
       ['Початок окислення \xb7 2\u20134 тижні','Початкова'],
@@ -1673,21 +1730,38 @@ function architectPage() {
       ['Стара патина \xb7 5+ років','Стара'],
       ['Стара патина \xb7 5+ років','Стара']
     ];
+
+    /* ── RAF throttle — max 60fps ────────────────── */
+    var pending=false,curV=0;
     function upd(v){
-      draw(v);
-      var c=getBase(v);
-      var dot=document.getElementById('pw-dot');
-      var stg=document.getElementById('pw-stage');
-      var pat=document.getElementById('pw-patina');
-      if(dot)dot.style.background='rgb('+c[0]+','+c[1]+','+c[2]+')';
-      var s=Math.min(7,Math.floor(v/100*8));
-      if(stg)stg.textContent=LBL[s][0];
-      if(pat)pat.textContent=LBL[s][1];
+      curV=v;
+      if(pending)return;
+      pending=true;
+      requestAnimationFrame(function(){
+        pending=false;
+        draw(curV);
+        var c=getBase(curV);
+        var dot=document.getElementById('pw-dot');
+        var stg=document.getElementById('pw-stage');
+        var pat=document.getElementById('pw-patina');
+        if(dot)dot.style.background='rgb('+c[0]+','+c[1]+','+c[2]+')';
+        var s=Math.min(7,Math.floor(curV/100*8));
+        if(stg)stg.textContent=LBL[s][0];
+        if(pat)pat.textContent=LBL[s][1];
+      });
     }
+
     var rng=document.getElementById('patina-rng');
     if(rng)rng.addEventListener('input',function(){upd(+this.value);});
-    if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){upd(0);});}
-    else{setTimeout(function(){upd(0);},400);}
+
+    /* ── Init: build offscreen layers, then draw ─── */
+    function init(){
+      buildTexture(); /* heavy loops run once here */
+      buildCell();    /* heavy loops run once here */
+      upd(0);
+    }
+    if(document.fonts&&document.fonts.ready){document.fonts.ready.then(init);}
+    else{setTimeout(init,400);}
   })();
   </script>
 
