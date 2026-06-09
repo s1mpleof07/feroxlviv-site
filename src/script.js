@@ -40,7 +40,7 @@ const obs = new IntersectionObserver((entries) => {
       obs.unobserve(e.target);
     }
   });
-}, { threshold: 0.05, rootMargin: '0px 0px 0px 0px' });
+}, { threshold: 0, rootMargin: '0px 0px 120px 0px' });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 // ── SMOOTH ANCHOR ──
