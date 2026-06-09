@@ -1944,6 +1944,11 @@ function build() {
   // Static files
   fs.copyFileSync(SRC + '/styles.css', OUT + '/styles.css');
   fs.copyFileSync(SRC + '/script.js', OUT + '/script.js');
+  // Cloudflare Pages routing & headers
+  ['_redirects','_headers'].forEach(f => {
+    const src = __dirname + '/static/' + f;
+    if (fs.existsSync(src)) fs.copyFileSync(src, OUT + '/' + f);
+  });
   const faviconSrc = __dirname + '/static/favicon.svg';
   if (fs.existsSync(faviconSrc)) fs.copyFileSync(faviconSrc, OUT + '/favicon.svg');
   const faviconIcoSrc = __dirname + '/static/favicon.ico';
