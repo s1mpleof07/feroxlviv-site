@@ -95,7 +95,7 @@ function head(title, desc, keywords, canonical) {
   "description": "Виготовлення дизайн-об'єктів з кортенової сталі та послуги металообробки у Львові: лазерна різка, гнуття з ЧПУ, зварювання, Hardox. Для архітекторів, девелоперів та виробничих компаній.",
   "url": "https://feroxlviv.com.ua",
   "telephone": "+380630194013",
-  "email": "hello@feroxlviv.com.ua",
+  "email": "feroxlviv.business@gmail.com",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Львів",
@@ -2028,7 +2028,7 @@ FEROX LVIV — комерційний партнер виробничого пі
 ## Контакти
 
 - Телефон: +380 63 019 40 13
-- Email: hello@feroxlviv.com.ua
+- Email: feroxlviv.business@gmail.com
 - Telegram: https://t.me/feroxlviv
 - Сайт: https://feroxlviv.com.ua
 - Локація: Львів, Україна
