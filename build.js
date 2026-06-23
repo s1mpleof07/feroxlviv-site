@@ -472,7 +472,7 @@ function footer() {
   <div class="video-modal-wrap" id="videoModalWrap"></div>
 </div>
 
-<script src="/script.js?v=2" defer></script>
+<script src="/script.js?v=3" defer></script>
 </body>
 </html>`;
 }
