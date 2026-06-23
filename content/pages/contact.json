@@ -30,10 +30,10 @@
     },
     {
       "name": "Email",
-      "handle": "hello@feroxlviv.ua",
+      "handle": "feroxlviv.business@gmail.com",
       "desc": "Для документів і офіційних запитів.",
       "icon": "mail",
-      "url": "mailto:hello@feroxlviv.ua"
+      "url": "mailto:feroxlviv.business@gmail.com"
     }
   ]
 }
