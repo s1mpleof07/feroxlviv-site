@@ -291,6 +291,7 @@ document.addEventListener('keydown', function(e) {
         statusEl.className = 'c-form-status success';
         statusEl.textContent = '\u2713 \u0414\u044f\u043a\u0443\u0454\u043c\u043e! \u0417\u0430\u044f\u0432\u043a\u0430 \u043e\u0442\u0440\u0438\u043c\u0430\u043d\u0430 \u2014 \u0432\u0456\u0434\u043f\u043e\u0432\u0456\u043c\u043e \u043f\u0440\u043e\u0442\u044f\u0433\u043e\u043c 15 \u0445\u0432\u0438\u043b\u0438\u043d.';
         form.reset();
+        window.location.href = '/thank-you/';
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: 'lead_submit',
