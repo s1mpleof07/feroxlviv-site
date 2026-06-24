@@ -2,7 +2,7 @@
   "slug": "welding",
   "num": "04",
   "deco": "welding",
-  "bgImage": "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1600&q=80&auto=format&fit=crop",
+  "bgImage": "https://images.pexels.com/photos/3760526/pexels-photo-3760526.jpeg?w=1200&auto=compress&cs=tinysrgb",
   "title": "Зварювання та вальцювання",
   "titleShort": "Зварювання",
   "titleH1": "Зварювання<br><em>та вальцювання.</em>",
@@ -92,34 +92,28 @@
   ],
   "gallery": [
     {
-      "img": "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1200&q=80&auto=format&fit=crop",
-      "tag": "Зварювання · Конструкції",
-      "title": "Металевий навіс"
+      "img": "https://images.pexels.com/photos/3760526/pexels-photo-3760526.jpeg?w=1200&auto=compress&cs=tinysrgb",
+      "caption": "TIG/MIG зварювання"
     },
     {
-      "img": "https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=800&q=80&auto=format&fit=crop",
-      "tag": "TIG · Нержавійка",
-      "title": "Чисті шви"
+      "img": "https://images.pexels.com/photos/4078073/pexels-photo-4078073.jpeg?w=800&auto=compress&cs=tinysrgb",
+      "caption": "Зварювальні роботи"
     },
     {
-      "img": "https://images.unsplash.com/photo-1518709594023-6eab9bab7b23?w=800&q=80&auto=format&fit=crop",
-      "tag": "Зварювання · Огорожі",
-      "title": "Ворота і огорожі"
+      "img": "/uploads/fontan-corten.webp",
+      "caption": "Зварний фонтан з кортену"
     },
     {
-      "img": "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&q=80&auto=format&fit=crop",
-      "tag": "Вальцювання",
-      "title": "Циліндричні елементи"
+      "img": "https://images.pexels.com/photos/3862132/pexels-photo-3862132.jpeg?w=800&auto=compress&cs=tinysrgb",
+      "caption": "Металоконструкції"
     },
     {
-      "img": "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80&auto=format&fit=crop",
-      "tag": "Зварювання · Резервуари",
-      "title": "Технічні ємкості"
+      "img": "/uploads/lobby-iko.webp",
+      "caption": "Складні зварні конструкції"
     },
     {
-      "img": "https://images.unsplash.com/photo-1605559911160-a3d95d213904?w=800&q=80&auto=format&fit=crop",
-      "tag": "Зварювання · Прицепи",
-      "title": "Спецтехніка"
+      "img": "https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?w=800&auto=compress&cs=tinysrgb",
+      "caption": "Виробництво"
     }
   ],
   "seo": {

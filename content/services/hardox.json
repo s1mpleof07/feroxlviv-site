@@ -2,7 +2,7 @@
   "slug": "hardox",
   "num": "05",
   "deco": "default",
-  "bgImage": "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1600&q=80&auto=format&fit=crop",
+  "bgImage": "/uploads/hardox-450.webp",
   "title": "Hardox — броньова сталь",
   "titleShort": "Hardox",
   "titleH1": "Hardox.<br>Сталь що тримає <em>удар.</em>",
@@ -96,34 +96,28 @@
   ],
   "gallery": [
     {
-      "img": "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1200&q=80&auto=format&fit=crop",
-      "tag": "Hardox · Оборонка",
-      "title": "Броньовані елементи"
+      "img": "/uploads/hardox-450.webp",
+      "caption": "Сталь Hardox 450"
     },
     {
-      "img": "https://images.unsplash.com/photo-1605559911160-a3d95d213904?w=800&q=80&auto=format&fit=crop",
-      "tag": "Hardox 500",
-      "title": "Захисні плити"
+      "img": "https://images.pexels.com/photos/4483942/pexels-photo-4483942.jpeg?w=800&auto=compress&cs=tinysrgb",
+      "caption": "Броньована сталь"
     },
     {
-      "img": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80&auto=format&fit=crop",
-      "tag": "Hardox 400",
-      "title": "Підкуси та відвали"
+      "img": "https://images.pexels.com/photos/3760526/pexels-photo-3760526.jpeg?w=1200&auto=compress&cs=tinysrgb",
+      "caption": "Зварювання Hardox"
     },
     {
-      "img": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80&auto=format&fit=crop",
-      "tag": "Hardox · Обробка",
-      "title": "Лазерна різка броні"
+      "img": "https://images.pexels.com/photos/4680088/pexels-photo-4680088.jpeg?w=1200&auto=compress&cs=tinysrgb",
+      "caption": "Лазерна різка Hardox"
     },
     {
-      "img": "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&q=80&auto=format&fit=crop",
-      "tag": "Hardox · Зварювання",
-      "title": "Спецзварювання"
+      "img": "https://images.pexels.com/photos/162553/metal-industry-factory-steel-162553.jpeg?w=800&auto=compress&cs=tinysrgb",
+      "caption": "Захисні конструкції"
     },
     {
-      "img": "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80&auto=format&fit=crop",
-      "tag": "Hardox · Спецтехніка",
-      "title": "Корпуси і модулі"
+      "img": "https://images.pexels.com/photos/3862132/pexels-photo-3862132.jpeg?w=800&auto=compress&cs=tinysrgb",
+      "caption": "Оборонне виробництво"
     }
   ],
   "seo": {

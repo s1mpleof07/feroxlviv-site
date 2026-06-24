@@ -2,7 +2,7 @@
   "slug": "laser-cutting",
   "num": "02",
   "deco": "laser",
-  "bgImage": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1600&q=80&auto=format&fit=crop",
+  "bgImage": "https://images.pexels.com/photos/4680088/pexels-photo-4680088.jpeg?w=1200&auto=compress&cs=tinysrgb",
   "title": "Лазерна різка металу",
   "titleShort": "Лазерна різка",
   "titleH1": "Лазерна різка<br><em>металу.</em>",
@@ -96,34 +96,28 @@
   ],
   "gallery": [
     {
-      "img": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&q=80&auto=format&fit=crop",
-      "tag": "Лазер · B2B",
-      "title": "Меблева серія"
+      "img": "https://images.pexels.com/photos/4680088/pexels-photo-4680088.jpeg?w=1200&auto=compress&cs=tinysrgb",
+      "caption": "Лазерна різка металу"
     },
     {
-      "img": "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&q=80&auto=format&fit=crop",
-      "tag": "Лазер · Точність",
-      "title": "Технічні заготовки"
+      "img": "/uploads/brendova-tablichka.webp",
+      "caption": "Брендова табличка з нержавійки"
     },
     {
-      "img": "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80&auto=format&fit=crop",
-      "tag": "Лазер · Перфорація",
-      "title": "Декоративні екрани"
+      "img": "/uploads/corten-zrazok.webp",
+      "caption": "Різка кортену"
     },
     {
-      "img": "https://images.unsplash.com/photo-1605559911160-a3d95d213904?w=800&q=80&auto=format&fit=crop",
-      "tag": "Лазер · Логотип",
-      "title": "Брендові вивіски"
+      "img": "https://images.pexels.com/photos/3760526/pexels-photo-3760526.jpeg?w=1200&auto=compress&cs=tinysrgb",
+      "caption": "Прецизійна обробка металу"
     },
     {
-      "img": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80&auto=format&fit=crop",
-      "tag": "Лазер · Серія",
-      "title": "Серійне виробництво"
+      "img": "/uploads/pamiatnyk-corten.webp",
+      "caption": "Складна геометрія"
     },
     {
-      "img": "https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=800&q=80&auto=format&fit=crop",
-      "tag": "Лазер · Прототип",
-      "title": "Прототипи деталей"
+      "img": "https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?w=800&auto=compress&cs=tinysrgb",
+      "caption": "Металообробка"
     }
   ],
   "seo": {
