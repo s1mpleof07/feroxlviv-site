@@ -1181,3 +1181,14 @@ nav .nav-links a[href="/architects/"]:hover{color:var(--corten-l)}
 /* Responsive */
 @media(max-width:960px){.pd-main-grid{grid-template-columns:1fr;gap:48px}.pd-gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:200px 200px}.pd-gi-2{display:none}.pd-steps{grid-template-columns:1fr}.pd-related-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.pd-hero{height:400px}.pd-related-grid{grid-template-columns:1fr}.pd-gallery-grid{grid-template-columns:1fr;grid-template-rows:220px}.pd-gi-1,.pd-gi-2{display:none}}
+
+/* Catalog bottom CTA */
+.prod-bottom-cta{padding:60px 5vw}
+.prod-bottom-inner{display:flex;align-items:center;justify-content:space-between;gap:48px;max-width:1200px;margin:0 auto}
+.prod-bottom-text{flex:1}
+.prod-bottom-text .s-title{margin:12px 0 0}
+.prod-bottom-desc{color:#a0998f;font-size:15px;line-height:1.6;margin:12px 0 0}
+.prod-bottom-actions{display:flex;flex-direction:column;align-items:flex-start;gap:14px;flex-shrink:0}
+.prod-bottom-link{font-size:13px;color:rgba(255,255,255,.5);text-decoration:none;font-family:'DM Sans',sans-serif;transition:color .2s}
+.prod-bottom-link:hover{color:var(--corten)}
+@media(max-width:768px){.prod-bottom-inner{flex-direction:column;gap:32px}.prod-bottom-actions{width:100%}}
