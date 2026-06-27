@@ -377,3 +377,76 @@ document.addEventListener('keydown', function(e) {
     });
   });
 })();
+
+// ── Catalog filter ────────────────────────────────────────────────
+(function(){
+  var filters = document.getElementById('catFilters');
+  var grid    = document.getElementById('catGrid');
+  if(!filters || !grid) return;
+  filters.addEventListener('click', function(e){
+    var btn = e.target.closest('.cat-btn');
+    if(!btn) return;
+    // Active state
+    filters.querySelectorAll('.cat-btn').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    var f = btn.dataset.filter;
+    grid.querySelectorAll('.cat-card').forEach(function(card){
+      if(f === 'all' || card.dataset.cat === f){
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  });
+})();
+
+// ── Product catalog filters ────────────────────────────────────
+(function () {
+  var typeWrap  = document.getElementById('prodTypeFilters');
+  var metalWrap = document.getElementById('prodMetalFilters');
+  var grid      = document.getElementById('prodGrid');
+  var empty     = document.getElementById('prodEmpty');
+  var resetBtn  = document.getElementById('prodReset');
+  if (!typeWrap || !metalWrap || !grid) return;
+
+  var activeType  = 'all';
+  var activeMetal = 'all';
+
+  function applyFilters() {
+    var cards = grid.querySelectorAll('.prod-card');
+    var visible = 0;
+    cards.forEach(function (card) {
+      var ok = (activeType  === 'all' || card.dataset.type  === activeType) &&
+               (activeMetal === 'all' || card.dataset.metal === activeMetal);
+      card.classList.toggle('prod-hidden', !ok);
+      if (ok) visible++;
+    });
+    if (empty) empty.style.display = visible === 0 ? 'flex' : 'none';
+  }
+
+  function bindFilter(wrap, setter) {
+    wrap.addEventListener('click', function (e) {
+      var btn = e.target.closest('.prod-btn');
+      if (!btn) return;
+      wrap.querySelectorAll('.prod-btn').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      setter(btn.dataset.filter);
+      applyFilters();
+    });
+  }
+
+  bindFilter(typeWrap,  function (v) { activeType  = v; });
+  bindFilter(metalWrap, function (v) { activeMetal = v; });
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function () {
+      activeType = activeMetal = 'all';
+      [typeWrap, metalWrap].forEach(function (wrap) {
+        wrap.querySelectorAll('.prod-btn').forEach(function (b) {
+          b.classList.toggle('active', b.dataset.filter === 'all');
+        });
+      });
+      applyFilters();
+    });
+  }
+})();
