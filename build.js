@@ -2016,138 +2016,382 @@ ${inlineCTA(
 ` + footer();
 }
 
-// ── CATALOG PAGE — ВИРОБИ З МЕТАЛУ ───────────────────────────
-function catalogPage() {
-  const products = [
-    {
-      title: 'Кашпо та клумби',
-      sub: 'Ландшафтний дизайн',
-      type: 'garden',
-      metal: 'corten',
-      metalLabel: 'Кортен',
-      img: '/uploads/kashpo-pryvatnyi-budynok.webp',
-      desc: 'Об\'ємні та плоскі форми для саду і тераси. Природна патина без обслуговування.',
-      link: '/services/corten/',
-    },
-    {
-      title: 'Скульптури та арт-об\'єкти',
-      sub: 'Архітектурний акцент',
-      type: 'sculpture',
-      metal: 'corten',
-      metalLabel: 'Кортен',
-      img: '/uploads/olen-corten.webp',
-      desc: 'Геометричні фігури тварин, абстракції, об\'ємні композиції для публічних просторів.',
-      link: '/portfolio/corten-deer/',
-    },
-    {
-      title: 'Вхідні групи та фасади',
-      sub: 'Архітектурна металопластика',
-      type: 'facade',
-      metal: 'corten',
-      metalLabel: 'Кортен',
-      img: '/uploads/entrance.webp',
-      desc: 'Декоративні панелі, огорожі, входові групи для ЖК і комерційних будівель.',
-      link: '/services/corten/',
-    },
-    {
-      title: 'Вивіски та таблички',
-      sub: 'Брендинг і навігація',
-      type: 'sign',
-      metal: 'stainless',
-      metalLabel: 'Нержавійка',
-      img: '/uploads/brendova-tablichka.webp',
-      desc: 'Брендові таблички, адресні знаки, навігація. Дзеркальна або матова поверхня.',
-      link: '/services/stainless/',
-    },
-    {
-      title: 'Фонтани та водні об\'єкти',
-      sub: 'Ландшафтний дизайн',
-      type: 'garden',
-      metal: 'corten',
-      metalLabel: 'Кортен',
-      img: '/uploads/fontan-corten.webp',
-      desc: 'Архітектурні водні елементи з атмосферостійкої сталі для вулиці і лобі.',
-      link: '/portfolio/corten-planters/',
-    },
-    {
-      title: 'Декор та панелі для інтер\'єру',
-      sub: 'Дизайн інтер\'єрів',
-      type: 'interior',
-      metal: 'stainless',
-      metalLabel: 'Нержавійка',
-      img: '/uploads/lobby-iko.webp',
-      desc: 'Настінні панно, перегородки, декоративні екрани. AISI 304, полірована поверхня.',
-      link: '/services/stainless/',
-    },
-    {
-      title: 'Пам\'ятники та меморіали',
-      sub: 'Меморіальні вироби',
-      type: 'memorial',
-      metal: 'corten',
-      metalLabel: 'Кортен',
-      img: '/uploads/pamiatnyk-corten.webp',
-      desc: 'Лазерне гравіювання, перфорація, об\'ємні букви. Кортен і нержавійка.',
-      link: '/services/corten/',
-    },
-    {
-      title: 'Декоративні екрани та перфорація',
-      sub: 'Фасад і ландшафт',
-      type: 'facade',
-      metal: 'corten',
-      metalLabel: 'Кортен',
-      img: '/uploads/cat-corten-border.webp',
-      desc: 'Privacy screens, фасадні панелі з перфорацією, декоративні огорожі.',
-      link: '/services/corten/',
-    },
-    {
-      title: 'QR-таблички та брендинг HoReCa',
-      sub: 'Для ресторанів і готелів',
-      type: 'sign',
-      metal: 'stainless',
-      metalLabel: 'Нержавійка',
-      img: '/uploads/lobby-art.webp',
-      desc: 'QR-монети, нумерація столів, меню-холдери. Серійне виробництво під замовлення.',
-      link: '/services/stainless/',
-    },
-    {
-      title: 'Металеві меблі та каркаси',
-      sub: 'Інтер\'єр і виробництво',
-      type: 'interior',
-      metal: 'steel',
-      metalLabel: 'Чорна сталь',
-      img: '/uploads/cat-metal-furniture.webp',
-      desc: 'Столи, стелажі, підставки, каркаси під фарбування або з заводським покриттям.',
-      link: '/services/steel/',
-    },
-    {
-      title: 'Бордюри та кромки клумб',
-      sub: 'Ландшафтний дизайн',
-      type: 'garden',
-      metal: 'corten',
-      metalLabel: 'Кортен',
-      img: '/uploads/corten-zrazok.webp',
-      desc: 'Стрічковий кортен для оформлення клумб, доріжок і ландшафтних зон.',
-      link: '/services/corten/',
-    },
-    {
-      title: 'Деталі та конструкції B2B',
-      sub: 'Промислова металообробка',
-      type: 'b2b',
-      metal: 'steel',
-      metalLabel: 'Чорна сталь',
-      img: '/uploads/cat-laser-parts.webp',
-      desc: 'Лазерна різка і гнуття за кресленням DXF/DWG. Від 1 шт до серійної партії.',
-      link: '/services/laser-cutting/',
-    },
-  ];
+// ══════════════════════════════════════════════════════════════
+// CATALOG DATA — ВИРОБИ З МЕТАЛУ
+// ══════════════════════════════════════════════════════════════
+const catalogProducts = [
+  {
+    slug: 'kashpo',
+    title: 'Кашпо та клумби',
+    titleH1: 'Кашпо та клумби<br><em>з кортену.</em>',
+    sub: 'Ландшафтний дизайн',
+    type: 'garden', metal: 'corten', metalLabel: 'Кортен',
+    img: '/uploads/kashpo-pryvatnyi-budynok.webp',
+    desc: "Об'ємні та плоскі форми для саду і тераси. Природна патина без обслуговування.",
+    descFull: "Кашпо та клумби з кортенової сталі — один з найпопулярніших виробів для ландшафтного дизайну. Атмосферостійка сталь COR-TEN формує захисну патину теплого коричнево-рудого кольору і більше не потребує жодного обслуговування або покриття.",
+    descExtra: "Виготовляємо кашпо будь-якої форми і розміру — від компактних настільних підставок до великих об'ємних клумб для публічних просторів. Повністю водонепроникне зварювання, дренажні отвори за потребою.",
+    specs: [
+      {k:'Матеріал', v:'Кортен COR-TEN A / COR-TEN B'},
+      {k:'Товщина', v:'2–4 мм'},
+      {k:'Обробка', v:'Лазерна різка + зварювання TIG'},
+      {k:'Покриття', v:'Без покриття, природна патина'},
+      {k:'Призначення', v:'Вулиця, тераса, інтер\'єр'},
+      {k:'Термін виготовлення', v:'7–14 робочих днів'},
+    ],
+    gallery: ['/uploads/kashpo-pryvatnyi-budynok.webp','/uploads/fontan-corten.webp','/uploads/corten-zrazok.webp'],
+    related: ['bordyury','fontany','skulptury'],
+  },
+  {
+    slug: 'skulptury',
+    title: 'Скульптури та арт-об\'єкти',
+    titleH1: 'Скульптури та<br><em>арт-об\'єкти.</em>',
+    sub: 'Архітектурний акцент',
+    type: 'sculpture', metal: 'corten', metalLabel: 'Кортен',
+    img: '/uploads/olen-corten.webp',
+    desc: "Геометричні фігури, абстракції, об'ємні композиції для публічних просторів і приватних садів.",
+    descFull: "Скульптури та арт-об'єкти з кортенової сталі — унікальний спосіб зробити простір особливим. Геометричні фігури тварин, абстрактні форми, великі інсталяції — кожен виріб є результатом точного лазерного розкрою та ручного складання.",
+    descExtra: "Виготовляємо за вашим ескізом або 3D-моделлю. Можемо допомогти з розробкою дизайну від ідеї до готового креслення. Кортен з роками набуває глибшого кольору — кожен об'єкт 'живе' разом з простором навколо.",
+    specs: [
+      {k:'Матеріал', v:'Кортен COR-TEN A'},
+      {k:'Товщина', v:'2–8 мм (залежно від форми)'},
+      {k:'Обробка', v:'Лазерна різка + зварювання + шліфування швів'},
+      {k:'Покриття', v:'Без покриття або матовий лак (опціонально)'},
+      {k:'Розміри', v:'Від 30 см до 3+ м заввишки'},
+      {k:'Термін', v:'14–30 робочих днів'},
+    ],
+    gallery: ['/uploads/olen-corten.webp','/uploads/corten-olen-skulptura.webp','/uploads/lobby-art.webp'],
+    related: ['kashpo','fasady','pamiatky'],
+  },
+  {
+    slug: 'fasady',
+    title: 'Вхідні групи та фасади',
+    titleH1: 'Вхідні групи та<br><em>фасадні елементи.</em>',
+    sub: 'Архітектурна металопластика',
+    type: 'facade', metal: 'corten', metalLabel: 'Кортен',
+    img: '/uploads/entrance.webp',
+    desc: "Декоративні панелі, огорожі, вхідні групи для ЖК і комерційних будівель.",
+    descFull: "Фасадні елементи та вхідні групи з кортену — архітектурне рішення, що підкреслює клас будівлі. Декоративні облицювальні панелі, козирки, стелі, вхідні портали — все виготовляється під конкретний проект.",
+    descExtra: "Маємо досвід роботи з девелоперами та архітектурними бюро. Приймаємо файли у форматах DXF, DWG, PDF. Можемо підготувати 3D-візуалізацію перед виробництвом.",
+    specs: [
+      {k:'Матеріал', v:'Кортен COR-TEN A / Нержавійка AISI 304'},
+      {k:'Товщина', v:'2–6 мм'},
+      {k:'Формат файлів', v:'DXF, DWG, PDF, STEP'},
+      {k:'Монтаж', v:'Готові до монтажу елементи'},
+      {k:'Проекти', v:'ЖК, офісні будівлі, HoReCa'},
+      {k:'Термін', v:'За погодженням'},
+    ],
+    gallery: ['/uploads/entrance.webp','/uploads/cat-corten-border.webp','/uploads/lobby-iko.webp'],
+    related: ['ekrany','skulptury','vyviska'],
+  },
+  {
+    slug: 'vyviska',
+    title: 'Вивіски та таблички',
+    titleH1: 'Вивіски та<br><em>таблички.</em>',
+    sub: 'Брендинг і навігація',
+    type: 'sign', metal: 'stainless', metalLabel: 'Нержавійка',
+    img: '/uploads/brendova-tablichka.webp',
+    desc: "Брендові таблички, адресні знаки, навігаційні системи. Дзеркальна або матова поверхня.",
+    descFull: "Вивіски та таблички з нержавіючої сталі — вибір компаній, яким важлива якість і довговічність. Дзеркальна полірована або сатинована поверхня AISI 304 не тьмяніє роками, легко миється і зберігає вигляд при будь-якій погоді.",
+    descExtra: "Виготовляємо від простих адресних табличок до складних навігаційних систем для великих об'єктів. Лазерне гравіювання, об'ємні букви, підсвітлення — підберемо оптимальне рішення для вашого завдання.",
+    specs: [
+      {k:'Матеріал', v:'Нержавійка AISI 304 / AISI 316'},
+      {k:'Поверхня', v:'Дзеркальна, матова, сатинована'},
+      {k:'Товщина', v:'1–3 мм'},
+      {k:'Гравіювання', v:'Лазерне, хімічне, механічне'},
+      {k:'Кріплення', v:'Стійки-дистанційники або скотч'},
+      {k:'Термін', v:'5–10 робочих днів'},
+    ],
+    gallery: ['/uploads/brendova-tablichka.webp','/uploads/lobby-art.webp','/uploads/lobby-iko.webp'],
+    related: ['qr-horeca','interior','vyviska'],
+  },
+  {
+    slug: 'fontany',
+    title: 'Фонтани та водні об\'єкти',
+    titleH1: 'Фонтани та<br><em>водні об\'єкти.</em>',
+    sub: 'Ландшафтний дизайн',
+    type: 'garden', metal: 'corten', metalLabel: 'Кортен',
+    img: '/uploads/fontan-corten.webp',
+    desc: "Архітектурні водні елементи з атмосферостійкої сталі для вулиці і лобі.",
+    descFull: "Фонтани і водні об'єкти з кортену — ефектний акцент для будь-якого простору. Кортен ідеально поєднується з водою: природна патина навколо мокрих поверхонь набуває особливої глибини і краси.",
+    descExtra: "Виготовляємо монолітні чаші, модульні конструкції, водоспади. Передбачаємо технічні отвори для насосів і трубопроводу. Можемо працювати разом із замовниками ландшафтних компаній та архітекторів.",
+    specs: [
+      {k:'Матеріал', v:'Кортен COR-TEN A'},
+      {k:'Зварювання', v:'TIG, повністю водонепроникне'},
+      {k:'Товщина', v:'3–5 мм'},
+      {k:'Покриття', v:'Внутрішнє епоксидне + зовнішня патина'},
+      {k:'Комплектація', v:'Без насосу або з насосом'},
+      {k:'Термін', v:'14–21 робочий день'},
+    ],
+    gallery: ['/uploads/fontan-corten.webp','/uploads/kashpo-pryvatnyi-budynok.webp','/uploads/corten-zrazok.webp'],
+    related: ['kashpo','skulptury','bordyury'],
+  },
+  {
+    slug: 'interior',
+    title: 'Декор для інтер\'єру',
+    titleH1: 'Декор та панелі<br><em>для інтер\'єру.</em>',
+    sub: 'Дизайн інтер\'єрів',
+    type: 'interior', metal: 'stainless', metalLabel: 'Нержавійка',
+    img: '/uploads/lobby-iko.webp',
+    desc: "Настінні панно, перегородки, декоративні екрани. AISI 304, полірована або матова поверхня.",
+    descFull: "Металевий декор для інтер'єру — стиль, що поєднує функціональність і естетику. Нержавіюча сталь в інтер'єрі — це чистота, довговічність і відчуття преміального матеріалу.",
+    descExtra: "Виготовляємо перегородки, настінні панно, декоративні решітки, облицювальні панелі. Всі вироби виготовляються за індивідуальними кресленнями. Приймаємо ескізи, фото референсів, Revit-файли.",
+    specs: [
+      {k:'Матеріал', v:'Нержавійка AISI 304'},
+      {k:'Поверхня', v:'Дзеркальна, матова, з текстурою'},
+      {k:'Товщина', v:'1–3 мм'},
+      {k:'Формат', v:'За кресленням клієнта або власний дизайн'},
+      {k:'Монтаж', v:'Готові до монтажу панелі'},
+      {k:'Термін', v:'7–14 робочих днів'},
+    ],
+    gallery: ['/uploads/lobby-iko.webp','/uploads/lobby-art.webp','/uploads/brendova-tablichka.webp'],
+    related: ['vyviska','mebli','qr-horeca'],
+  },
+  {
+    slug: 'pamiatky',
+    title: 'Пам\'ятники та меморіали',
+    titleH1: 'Пам\'ятники та<br><em>меморіальні плити.</em>',
+    sub: 'Меморіальні вироби',
+    type: 'memorial', metal: 'corten', metalLabel: 'Кортен',
+    img: '/uploads/pamiatnyk-corten.webp',
+    desc: "Лазерне гравіювання, перфорація, об'ємні букви. Кортен і нержавійка.",
+    descFull: "Меморіальні вироби з кортену несуть в собі особливу символіку: атмосферостійка сталь, що живе і змінюється разом з часом, є метафорою пам'яті. Лазерне гравіювання, перфорована ілюстрація, об'ємні літери.",
+    descExtra: "Ми ставимось до кожного такого замовлення з особливою увагою і повагою. Допоможемо розробити дизайн, підготуємо ескіз для погодження. Виготовляємо як індивідуальні пам'ятники, так і серійні меморіальні таблички.",
+    specs: [
+      {k:'Матеріал', v:'Кортен / Нержавійка AISI 304'},
+      {k:'Гравіювання', v:'Лазерне, до 0.1 мм точності'},
+      {k:'Товщина', v:'2–6 мм'},
+      {k:'Обробка', v:'Різка, гравіювання, зварювання'},
+      {k:'Термін', v:'7–14 робочих днів'},
+      {k:'Підготовка дизайну', v:'Безкоштовно за замовленням'},
+    ],
+    gallery: ['/uploads/pamiatnyk-corten.webp','/uploads/corten-zrazok.webp','/uploads/entrance.webp'],
+    related: ['skulptury','vyviska','fasady'],
+  },
+  {
+    slug: 'ekrany',
+    title: 'Декоративні екрани та перфорація',
+    titleH1: 'Декоративні екрани<br><em>та перфорація.</em>',
+    sub: 'Фасад і ландшафт',
+    type: 'facade', metal: 'corten', metalLabel: 'Кортен',
+    img: '/uploads/cat-corten-border.webp',
+    desc: "Privacy screens, фасадні панелі з перфорацією, декоративні огорожі.",
+    descFull: "Декоративні перфоровані екрани з кортену — поєднання функціональності і краси. Захищають від сонця і вітру, забезпечують приватність і при цьому виглядають як елемент архітектурного дизайну.",
+    descExtra: "Малюнок перфорації — будь-який: геометрія, орнамент, логотип, силует. Виготовляємо панелі будь-якого розміру з будь-яким відсотком отворів. Ідеально для тераси, саду, паркінгу, фасаду.",
+    specs: [
+      {k:'Матеріал', v:'Кортен COR-TEN A / Чорна сталь'},
+      {k:'Перфорація', v:'Будь-який малюнок за ескізом'},
+      {k:'Товщина', v:'2–5 мм'},
+      {k:'Монтаж', v:'Настінний, підлоговий, підвісний'},
+      {k:'Формати', v:'DXF, DWG, AI, PDF'},
+      {k:'Термін', v:'7–14 робочих днів'},
+    ],
+    gallery: ['/uploads/cat-corten-border.webp','/uploads/entrance.webp','/uploads/corten-zrazok.webp'],
+    related: ['fasady','kashpo','bordyury'],
+  },
+  {
+    slug: 'qr-horeca',
+    title: 'QR-таблички та брендинг HoReCa',
+    titleH1: 'Брендинг і вироби<br><em>для ресторанів.</em>',
+    sub: 'HoReCa / Ресторани і готелі',
+    type: 'sign', metal: 'stainless', metalLabel: 'Нержавійка',
+    img: '/uploads/lobby-art.webp',
+    desc: "QR-монети, нумерація столів, меню-холдери. Серійне виробництво під замовлення.",
+    descFull: "Металевий брендинг для ресторанів і готелів — деталь, яка формує перше враження. QR-монети на столах, нумерація кімнат, вивіски в лобі, меню-холдери — все виготовляється в єдиному стилі з вашим брендом.",
+    descExtra: "Приймаємо серійні замовлення будь-якого обсягу. Виготовляємо 18 унікальних QR-монет для ресторану так само ретельно, як і один виставковий об'єкт. Швидкий цикл виробництва, можливість доставки по всій Україні.",
+    specs: [
+      {k:'Матеріал', v:'Нержавійка AISI 304 / Латунь Л63'},
+      {k:'Гравіювання', v:'Лазерне (логотип, QR, текст)'},
+      {k:'Поверхня', v:'Дзеркальна, матова, золота PVD'},
+      {k:'Мінімальна партія', v:'Від 1 шт'},
+      {k:'Серія', v:'Від 10 шт — знижка на партію'},
+      {k:'Термін', v:'5–10 робочих днів'},
+    ],
+    gallery: ['/uploads/lobby-art.webp','/uploads/brendova-tablichka.webp','/uploads/lobby-iko.webp'],
+    related: ['vyviska','interior','mebli'],
+  },
+  {
+    slug: 'mebli',
+    title: 'Металеві меблі та каркаси',
+    titleH1: 'Металеві меблі<br><em>та каркаси.</em>',
+    sub: 'Інтер\'єр і виробництво',
+    type: 'interior', metal: 'steel', metalLabel: 'Чорна сталь',
+    img: '/uploads/cat-metal-furniture.webp',
+    desc: "Столи, стелажі, підставки, каркаси під фарбування або з заводським покриттям.",
+    descFull: "Металеві меблі та каркаси — міцно, лаконічно, стильно. Чорна сталь в інтер'єрі — тренд, який не проходить. Ми виготовляємо меблеві каркаси, опори, ніжки, стелажі та підставки за індивідуальними кресленнями.",
+    descExtra: "Можемо підготувати конструктивне креслення за вашим ескізом або референсом. Видаємо готові вироби під фарбування (ґрунтовані) або наносимо порошкове покриття будь-якого кольору RAL.",
+    specs: [
+      {k:'Матеріал', v:'Чорна сталь St37 / St52'},
+      {k:'Зварювання', v:'MIG/MAG, TIG'},
+      {k:'Покриття', v:'Ґрунтовка або порошкова фарба RAL'},
+      {k:'Обробка країв', v:'Шліфовані, без задирок'},
+      {k:'Проектування', v:'За ескізом клієнта'},
+      {k:'Термін', v:'7–14 робочих днів'},
+    ],
+    gallery: ['/uploads/cat-metal-furniture.webp','/uploads/cat-laser-parts.webp','/uploads/lobby-art.webp'],
+    related: ['interior','detali','qr-horeca'],
+  },
+  {
+    slug: 'bordyury',
+    title: 'Бордюри та кромки клумб',
+    titleH1: 'Бордюри та<br><em>кромки клумб.</em>',
+    sub: 'Ландшафтний дизайн',
+    type: 'garden', metal: 'corten', metalLabel: 'Кортен',
+    img: '/uploads/corten-zrazok.webp',
+    desc: "Стрічковий кортен для оформлення клумб, доріжок і ландшафтних зон.",
+    descFull: "Бордюри з кортену — простий і ефектний спосіб впорядкувати ландшафт. Тонка смуга атмосферостійкої сталі відокремлює газон від клумби, створює чіткі межі доріжок або ділить садовий простір на зони.",
+    descExtra: "Виготовляємо смуги будь-якої довжини і висоти. Кріпляться в ґрунт спеціальними кілочками (у комплекті). З часом набувають природного рудого кольору і виглядають як частина живої природи.",
+    specs: [
+      {k:'Матеріал', v:'Кортен COR-TEN A'},
+      {k:'Товщина', v:'1.5–3 мм'},
+      {k:'Висота', v:'100–200 мм'},
+      {k:'Довжина', v:'За потребою'},
+      {k:'Кріплення', v:'Сталеві кілочки у комплекті'},
+      {k:'Термін', v:'3–7 робочих днів'},
+    ],
+    gallery: ['/uploads/corten-zrazok.webp','/uploads/kashpo-pryvatnyi-budynok.webp','/uploads/cat-corten-border.webp'],
+    related: ['kashpo','fontany','ekrany'],
+  },
+  {
+    slug: 'detali',
+    title: 'Деталі та конструкції B2B',
+    titleH1: 'Деталі та<br><em>конструкції B2B.</em>',
+    sub: 'Промислова металообробка',
+    type: 'b2b', metal: 'steel', metalLabel: 'Чорна сталь',
+    img: '/uploads/cat-laser-parts.webp',
+    desc: "Лазерна різка і гнуття за кресленням DXF/DWG. Від 1 шт до серійної партії.",
+    descFull: "Промислова металообробка для юридичних осіб: лазерна різка, гнуття ЧПУ, зварювання за технічними кресленнями. Приймаємо замовлення від 1 деталі до великих серій.",
+    descExtra: "Файли DXF, DWG, STEP, PDF — починаємо виробництво без зайвих погоджень. Забезпечуємо сталу якість деталі від першої до останньої в серії. Виставляємо рахунки ФОП/юр. особам, повний пакет документів.",
+    specs: [
+      {k:'Матеріал', v:'Чорна сталь, нержавійка, алюміній, кортен'},
+      {k:'Лазерна різка', v:'До 20 мм, точність ±0.1 мм'},
+      {k:'Гнуття ЧПУ', v:'До 4 мм, довжина до 2500 мм'},
+      {k:'Зварювання', v:'TIG, MIG/MAG'},
+      {k:'Документи', v:'Рахунок + Акт, ФОП/юр. особа'},
+      {k:'Термін', v:'За погодженням'},
+    ],
+    gallery: ['/uploads/cat-laser-parts.webp','/uploads/corten-zrazok.webp','/uploads/brendova-tablichka.webp'],
+    related: ['mebli','vyviska','fasady'],
+  },
+];
 
+// ── PRODUCT DETAIL PAGE ───────────────────────────────────────
+function productPage(p) {
+  const related = catalogProducts.filter(x => p.related.includes(x.slug)).slice(0, 3);
+  return head(
+    `${p.title} з металу на замовлення | FEROX LVIV`,
+    `${p.desc} Виготовлення у Львові, доставка по Україні. ${p.metalLabel}, власне виробництво.`,
+    `${p.title.toLowerCase()}, ${p.metalLabel.toLowerCase()}, вироби з металу, металообробка Львів`,
+    `/viroby/${p.slug}/`
+  ) + nav('viroby') +
+
+  `<section class="pd-hero">
+    <div class="pd-hero-img" style="background-image:url('${p.img}')">
+      <div class="pd-hero-ov"></div>
+    </div>
+    <div class="pd-hero-content">
+      <nav class="crumbs pd-crumbs" aria-label="Хлібні крихти">
+        <a href="/">Головна</a><span class="crumbs-sep">/</span>
+        <a href="/viroby/">Вироби</a><span class="crumbs-sep">/</span>
+        <span>${p.title}</span>
+      </nav>
+      <span class="pd-metal-tag">${p.metalLabel}</span>
+      <h1 class="pd-h1">${p.titleH1}</h1>
+      <p class="pd-hero-sub">${p.sub}</p>
+    </div>
+  </section>
+
+  <section class="pd-main">
+    <div class="pd-main-grid">
+      <div class="pd-desc-col">
+        <p class="s-label">Про виріб</p>
+        <p class="pd-desc-main">${p.descFull}</p>
+        <p class="pd-desc-extra">${p.descExtra}</p>
+        <a href="/contact/" class="btn-p pd-cta">
+          <span>Отримати розрахунок</span>
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="pd-spec-col">
+        <div class="pd-spec-box">
+          <p class="pd-spec-label">Характеристики</p>
+          ${p.specs.map(r => `<div class="pd-spec-row">
+            <span class="pd-spec-k">${r.k}</span>
+            <span class="pd-spec-v">${r.v}</span>
+          </div>`).join('')}
+        </div>
+        <a href="https://t.me/feroxlviv" class="pd-tg-btn" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 2L11 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22 2 15 22 11 13 2 9 22 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Написати в Telegram
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="pd-gallery">
+    <div class="pd-gallery-inner">
+      <p class="s-label">Галерея</p>
+      <h2 class="s-title">Приклади<br><em>робіт.</em></h2>
+      <div class="pd-gallery-grid">
+        ${p.gallery.map((img, i) => `<div class="pd-gallery-item pd-gi-${i}" style="background-image:url('${img}')"></div>`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <section class="pd-process dark-section">
+    <div class="pd-process-inner">
+      <p class="s-label">Як отримати</p>
+      <h2 class="s-title" style="color:var(--white)">Три кроки до<br><em>готового виробу.</em></h2>
+      <div class="pd-steps">
+        <div class="pd-step reveal">
+          <div class="pd-step-n">01</div>
+          <h3 class="pd-step-t">Заявка та розрахунок</h3>
+          <p class="pd-step-d">Надсилаєте ескіз, фото або опис — ми готуємо розрахунок вартості і термінів протягом 15 хвилин у робочий час.</p>
+        </div>
+        <div class="pd-step reveal">
+          <div class="pd-step-n">02</div>
+          <h3 class="pd-step-t">Виробництво</h3>
+          <p class="pd-step-d">Наше виробництво у Львові: лазерна різка, гнуття, зварювання. Тримаємо вас в курсі на кожному етапі.</p>
+        </div>
+        <div class="pd-step reveal">
+          <div class="pd-step-n">03</div>
+          <h3 class="pd-step-t">Доставка або самовивіз</h3>
+          <p class="pd-step-d">Відправляємо Новою поштою по всій Україні або організовуємо самовивіз у Львові. Упаковка включена.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  ${related.length > 0 ? `<section class="pd-related">
+    <div class="pd-related-inner">
+      <p class="s-label">Також виготовляємо</p>
+      <h2 class="s-title">Схожі<br><em>вироби.</em></h2>
+      <div class="pd-related-grid">
+        ${related.map(r => `<a href="/viroby/${r.slug}/" class="pd-rel-card reveal">
+          <div class="pd-rel-img" style="background-image:url('${r.img}')">
+            <span class="pd-rel-metal">${r.metalLabel}</span>
+          </div>
+          <div class="pd-rel-body">
+            <p class="pd-rel-sub">${r.sub}</p>
+            <h3 class="pd-rel-title">${r.title}</h3>
+            <span class="pd-rel-cta">Детальніше →</span>
+          </div>
+        </a>`).join('')}
+      </div>
+    </div>
+  </section>` : ''}
+
+  ` + contactSection('', `Замовити<br><em>${p.title.toLowerCase()}.</em>`) + footer();
+}
+
+// ── CATALOG INDEX PAGE ────────────────────────────────────────
+function catalogPage() {
   const typeFilters = [
     { key: 'all',       label: 'Всі вироби' },
     { key: 'garden',    label: 'Ландшафт' },
     { key: 'facade',    label: 'Фасади' },
     { key: 'sign',      label: 'Вивіски' },
     { key: 'sculpture', label: 'Скульптури' },
-    { key: 'interior',  label: 'Інтер\'єр' },
+    { key: 'interior',  label: "Інтер'єр" },
     { key: 'memorial',  label: 'Меморіали' },
     { key: 'b2b',       label: 'B2B / Деталі' },
   ];
@@ -2156,32 +2400,25 @@ function catalogPage() {
     { key: 'corten',    label: 'Кортен' },
     { key: 'stainless', label: 'Нержавійка' },
     { key: 'steel',     label: 'Чорна сталь' },
-    { key: 'hardox',    label: 'Hardox' },
   ];
 
   return head(
     'Вироби з металу на замовлення | Кортен, Нержавійка, Сталь | FEROX LVIV',
-    'Каталог металевих виробів: кашпо, скульптури, вивіски, фасади, декор для інтер\'єру. Кортен, нержавійка, чорна сталь. Виготовлення у Львові, доставка по Україні.',
-    'вироби з металу на замовлення, кашпо кортен, вивіски нержавійка, металеві скульптури, декор з металу',
+    "Каталог металевих виробів: кашпо, скульптури, вивіски, фасади, декор для інтер'єру. Кортен, нержавійка, чорна сталь. Виготовлення у Львові.",
+    'вироби з металу на замовлення, кашпо кортен, вивіски нержавійка, металеві скульптури',
     '/viroby/'
   ) + nav('viroby') +
   pageHeader(
-    [{ href: '/', label: 'Головна' }, { label: 'Вироби з металу' }],
+    [{href:'/',label:'Головна'},{label:'Вироби з металу'}],
     'Вироби з металу<br><em>на замовлення.</em>',
-    'Від декоративного арт-об\'єкту до промислової конструкції. Кортен, нержавійка, чорна сталь — виготовляємо все.',
-    null,
-    true,
-    'Каталог виробів'
+    "Від декоративного арт-об'єкту до промислової конструкції. Кортен, нержавійка, чорна сталь — виготовляємо все.",
+    null, true, 'Каталог виробів'
   ) + `
 
 <section class="prod-intro">
   <div class="col2 reveal">
-    <div>
-      <p>Ми виготовляємо металеві вироби будь-якої складності — від одиничного ексклюзивного дизайн-об'єкту до серійної партії для ресторану чи ЖК. Власне виробництво у Львові: лазерна різка, гнуття ЧПУ, зварювання TIG/MIG.</p>
-    </div>
-    <div>
-      <p>Кожен виріб — під конкретне завдання клієнта. Ви надсилаєте ескіз або фото — ми підготуємо розрахунок протягом 15 хвилин. Вектори і креслення розробляємо самостійно.</p>
-    </div>
+    <div><p>Ми виготовляємо металеві вироби будь-якої складності — від одиничного ексклюзивного дизайн-об'єкту до серійної партії для ресторану чи ЖК. Власне виробництво у Львові: лазерна різка, гнуття ЧПУ, зварювання TIG/MIG.</p></div>
+    <div><p>Кожен виріб — під конкретне завдання клієнта. Ви надсилаєте ескіз або фото — ми підготуємо розрахунок протягом 15 хвилин. Вектори і креслення розробляємо самостійно.</p></div>
   </div>
 </section>
 
@@ -2192,21 +2429,21 @@ function catalogPage() {
       <div class="prod-filter-block">
         <span class="prod-filter-label">Тип виробу</span>
         <div class="prod-filter-row" id="prodTypeFilters">
-          ${typeFilters.map(f => `<button class="prod-btn${f.key === 'all' ? ' active' : ''}" data-filter="${f.key}">${f.label}</button>`).join('')}
+          ${typeFilters.map(f=>`<button class="prod-btn${f.key==='all'?' active':''}" data-filter="${f.key}">${f.label}</button>`).join('')}
         </div>
       </div>
       <div class="prod-filter-block">
         <span class="prod-filter-label">Матеріал</span>
         <div class="prod-filter-row" id="prodMetalFilters">
-          ${metalFilters.map(f => `<button class="prod-btn${f.key === 'all' ? ' active' : ''}" data-filter="${f.key}">${f.label}</button>`).join('')}
+          ${metalFilters.map(f=>`<button class="prod-btn${f.key==='all'?' active':''}" data-filter="${f.key}">${f.label}</button>`).join('')}
         </div>
       </div>
     </div>
 
     <div class="prod-grid" id="prodGrid">
-      ${products.map(p => `<article class="prod-card reveal" data-type="${p.type}" data-metal="${p.metal}">
-        <a href="${p.link}" class="prod-card-link" aria-label="${p.title} — дізнатися більше">
-          <div class="prod-card-img" style="background-image:url('${p.img}')" role="img" aria-label="${p.title}">
+      ${catalogProducts.map(p=>`<article class="prod-card reveal" data-type="${p.type}" data-metal="${p.metal}">
+        <a href="/viroby/${p.slug}/" class="prod-card-link" aria-label="${p.title}">
+          <div class="prod-card-img" style="background-image:url('${p.img}')">
             <div class="prod-card-img-ov"></div>
             <span class="prod-card-metal">${p.metalLabel}</span>
           </div>
@@ -2214,7 +2451,7 @@ function catalogPage() {
             <p class="prod-card-sub">${p.sub}</p>
             <h3 class="prod-card-title">${p.title}</h3>
             <p class="prod-card-desc">${p.desc}</p>
-            <span class="prod-card-cta">Дізнатися більше
+            <span class="prod-card-cta">Детальніше
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h12M10 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
           </div>
@@ -2231,65 +2468,17 @@ function catalogPage() {
   </div>
 </section>
 
-<section class="dark-section" style="padding:80px 5vw">
-  <div class="reveal" style="text-align:center;max-width:700px;margin:0 auto">
+<section style="background:var(--anthracite);padding:80px 5vw;border-top:1px solid rgba(160,82,45,.3)">
+  <div class="reveal" style="text-align:center;max-width:640px;margin:0 auto">
     <p class="s-label">Не знайшли що шукаєте?</p>
-    <h2 class="s-title" style="color:var(--white);margin-bottom:20px">Зробимо будь-що<br><em>за вашим ескізом.</em></h2>
-    <p style="color:#a0998f;font-size:16px;line-height:1.7;margin-bottom:40px">Якщо вашого виробу немає в каталозі — надішліть ескіз, фото або опис. Ми виготовляємо нестандартні вироби будь-якої складності.</p>
+    <h2 class="s-title" style="color:var(--white);margin:16px 0 20px">Зробимо будь-що<br><em>за вашим ескізом.</em></h2>
+    <p style="color:#a0998f;font-size:16px;line-height:1.7;margin-bottom:36px">Якщо вашого виробу немає в каталозі — надішліть ескіз, фото або опис. Виготовляємо нестандартні вироби будь-якої складності.</p>
     <a href="/contact/" class="btn-p">
       <span>Надіслати ескіз</span>
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
   </div>
 </section>
-
-<script>
-(function () {
-  var typeWrap  = document.getElementById('prodTypeFilters');
-  var metalWrap = document.getElementById('prodMetalFilters');
-  var grid      = document.getElementById('prodGrid');
-  var empty     = document.getElementById('prodEmpty');
-  var resetBtn  = document.getElementById('prodReset');
-  var activeType  = 'all';
-  var activeMetal = 'all';
-
-  function applyFilters() {
-    var cards   = grid.querySelectorAll('.prod-card');
-    var visible = 0;
-    cards.forEach(function (card) {
-      var ok = (activeType  === 'all' || card.dataset.type  === activeType) &&
-               (activeMetal === 'all' || card.dataset.metal === activeMetal);
-      card.classList.toggle('prod-hidden', !ok);
-      if (ok) visible++;
-    });
-    empty.style.display = visible === 0 ? 'flex' : 'none';
-  }
-
-  function handleFilter(wrap, setter) {
-    wrap.addEventListener('click', function (e) {
-      var btn = e.target.closest('.prod-btn');
-      if (!btn) return;
-      wrap.querySelectorAll('.prod-btn').forEach(function (b) { b.classList.remove('active'); });
-      btn.classList.add('active');
-      setter(btn.dataset.filter);
-      applyFilters();
-    });
-  }
-
-  handleFilter(typeWrap,  function (v) { activeType  = v; });
-  handleFilter(metalWrap, function (v) { activeMetal = v; });
-
-  if (resetBtn) {
-    resetBtn.addEventListener('click', function () {
-      activeType = activeMetal = 'all';
-      document.querySelectorAll('#prodTypeFilters .prod-btn, #prodMetalFilters .prod-btn').forEach(function (b) {
-        b.classList.toggle('active', b.dataset.filter === 'all');
-      });
-      applyFilters();
-    });
-  }
-})();
-</script>
 
 ` + contactSection('', 'Розкажіть про<br><em>ваш виріб.</em>') + footer();
 }
@@ -2395,6 +2584,7 @@ function build() {
 
   // Catalog — Вироби
   writeFile('viroby/index.html', catalogPage());
+  catalogProducts.forEach(p => writeFile(`viroby/${p.slug}/index.html`, productPage(p)));
 
   writeFile('about/index.html', aboutPage());
   writeFile('process/index.html', processPage());
@@ -2407,6 +2597,7 @@ function build() {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${[
   '/', '/viroby/', '/services/', '/portfolio/', '/blog/', '/about/', '/process/', '/contact/', '/architects/',
+  ...catalogProducts.map(p => `/viroby/${p.slug}/`),
   ...services.map(s => `/services/${s.slug}/`),
   ...projects.map(p => `/portfolio/${p.slug}/`),
   ...blogPosts.map(p => `/blog/${p.slug}/`)
