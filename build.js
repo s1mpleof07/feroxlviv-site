@@ -474,7 +474,7 @@ function footer() {
   <div class="video-modal-wrap" id="videoModalWrap"></div>
 </div>
 
-<script src="/script.js?v=3" defer></script>
+<script src="/script.js?v=4" defer></script>
 </body>
 </html>`;
 }
@@ -2468,19 +2468,64 @@ function catalogPage() {
   </div>
 </section>
 
-<section style="background:var(--anthracite);padding:80px 5vw;border-top:1px solid rgba(160,82,45,.3)">
-  <div class="reveal" style="text-align:center;max-width:640px;margin:0 auto">
-    <p class="s-label">Не знайшли що шукаєте?</p>
-    <h2 class="s-title" style="color:var(--white);margin:16px 0 20px">Зробимо будь-що<br><em>за вашим ескізом.</em></h2>
-    <p style="color:#a0998f;font-size:16px;line-height:1.7;margin-bottom:36px">Якщо вашого виробу немає в каталозі — надішліть ескіз, фото або опис. Виготовляємо нестандартні вироби будь-якої складності.</p>
-    <a href="/contact/" class="btn-p">
-      <span>Надіслати ескіз</span>
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
+<section class="prod-bottom-cta dark-section">
+  <div class="prod-bottom-inner reveal">
+    <div class="prod-bottom-text">
+      <p class="s-label">Не знайшли що шукаєте?</p>
+      <h2 class="s-title" style="color:var(--white)">Зробимо будь-що<br><em>за вашим ескізом.</em></h2>
+      <p class="prod-bottom-desc">Надішліть ескіз, фото або опис — підготуємо розрахунок протягом 15 хвилин.</p>
+    </div>
+    <div class="prod-bottom-actions">
+      <a href="https://t.me/feroxlviv" class="btn-p" target="_blank" rel="noopener">
+        <span>Написати в Telegram</span>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="/contact/" class="prod-bottom-link">або залишити заявку на сайті →</a>
+    </div>
   </div>
 </section>
 
-` + contactSection('', 'Розкажіть про<br><em>ваш виріб.</em>') + footer();
+<script>
+(function(){
+  var T=document.getElementById('prodTypeFilters'),
+      M=document.getElementById('prodMetalFilters'),
+      G=document.getElementById('prodGrid'),
+      E=document.getElementById('prodEmpty'),
+      R=document.getElementById('prodReset');
+  if(!T||!M||!G)return;
+  var t='all',m='all';
+  function run(){
+    var cards=G.querySelectorAll('.prod-card'),v=0;
+    cards.forEach(function(c){
+      var ok=(t==='all'||c.dataset.type===t)&&(m==='all'||c.dataset.metal===m);
+      c.classList.toggle('prod-hidden',!ok);
+      if(ok)v++;
+    });
+    if(E)E.style.display=v===0?'flex':'none';
+  }
+  function bind(wrap,setter){
+    wrap.addEventListener('click',function(e){
+      var b=e.target.closest('.prod-btn');
+      if(!b)return;
+      wrap.querySelectorAll('.prod-btn').forEach(function(x){x.classList.remove('active');});
+      b.classList.add('active');
+      setter(b.dataset.filter);
+      run();
+    });
+  }
+  bind(T,function(v){t=v;});
+  bind(M,function(v){m=v;});
+  if(R)R.addEventListener('click',function(){
+    t=m='all';
+    [T,M].forEach(function(w){
+      w.querySelectorAll('.prod-btn').forEach(function(b){b.classList.toggle('active',b.dataset.filter==='all');});
+    });
+    run();
+  });
+})();
+</script>
+
+` + footer();
 }
 
 // ── THANK YOU PAGE ───────────────────────────────────────────
