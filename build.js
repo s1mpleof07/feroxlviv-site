@@ -189,6 +189,7 @@ function nav(active = '') {
         ${servicesItems}
       </div>
     </li>
+    ${link('/viroby/', 'Вироби', 'viroby')}
     ${link('/portfolio/', 'Проекти', 'portfolio')}
     ${link('/blog/', 'Блог', 'blog')}
     ${link('/about/', 'Про нас', 'about')}
@@ -214,6 +215,7 @@ function nav(active = '') {
       ${services.map(s => `<a href="/services/${s.slug}/">${s.titleShort}</a>`).join('')}
     </div>
   </div>
+  <a href="/viroby/"${active === 'viroby' ? ' class="active"' : ''}>Вироби</a>
   <a href="/portfolio/"${active === 'portfolio' ? ' class="active"' : ''}>Проекти</a>
   <a href="/blog/"${active === 'blog' ? ' class="active"' : ''}>Блог</a>
   <a href="/architects/"${active === 'architects' ? ' class="active"' : ''}>Для архітекторів</a>
@@ -618,6 +620,136 @@ function homePage() {
   </div>
 </div>
 
+<section class="cat-section">
+  <div class="cat-head reveal">
+    <div>
+      <p class="s-label">Каталог виробів</p>
+      <h2 class="s-title">Що ми<br><em>виготовляємо.</em></h2>
+    </div>
+    <p class="cat-head-desc">Від декоративних арт-об'єктів до промислових конструкцій. Оберіть категорію — покажемо відповідні роботи та матеріали.</p>
+  </div>
+  <div class="cat-filters reveal" id="catFilters">
+    <button class="cat-btn active" data-filter="all">Всі вироби</button>
+    <button class="cat-btn" data-filter="corten">Кортен</button>
+    <button class="cat-btn" data-filter="stainless">Нержавійка</button>
+    <button class="cat-btn" data-filter="steel">Чорна сталь</button>
+    <button class="cat-btn" data-filter="hardox">Hardox</button>
+  </div>
+  <div class="cat-grid" id="catGrid">
+    <a href="/services/corten/" class="cat-card reveal" data-cat="corten">
+      <div class="cat-card-img" style="background-image:url('/uploads/kashpo-pryvatnyi-budynok.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Кортен · Ландшафт</span>
+        <h3 class="cat-card-title">Кашпо та клумби</h3>
+        <p class="cat-card-desc">Об'ємні та плоскі форми для саду і тераси. Природна патина з часом.</p>
+        <span class="cat-card-cta">Дізнатися більше →</span>
+      </div>
+    </a>
+    <a href="/portfolio/corten-deer/" class="cat-card reveal" data-cat="corten">
+      <div class="cat-card-img" style="background-image:url('/uploads/olen-corten.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Кортен · Арт-об'єкт</span>
+        <h3 class="cat-card-title">Скульптури та арт-об'єкти</h3>
+        <p class="cat-card-desc">Унікальні дизайн-об'єкти з кортену для екстер'єру та публічних просторів.</p>
+        <span class="cat-card-cta">Дізнатися більше →</span>
+      </div>
+    </a>
+    <a href="/portfolio/фонтан-з-кортену/" class="cat-card reveal" data-cat="corten">
+      <div class="cat-card-img" style="background-image:url('/uploads/fontan-corten.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Кортен · Водний об'єкт</span>
+        <h3 class="cat-card-title">Фонтани та водні об'єкти</h3>
+        <p class="cat-card-desc">Архітектурні водні елементи з атмосферостійкої сталі для вулиці і лобі.</p>
+        <span class="cat-card-cta">Дізнатися більше →</span>
+      </div>
+    </a>
+    <a href="/services/corten/" class="cat-card reveal" data-cat="corten">
+      <div class="cat-card-img" style="background-image:url('/uploads/pamiatnyk-corten.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Кортен · Меморіал</span>
+        <h3 class="cat-card-title">Пам'ятники та меморіальні плити</h3>
+        <p class="cat-card-desc">Лазерне гравіювання, перфорація, об'ємні літери. Кортен і нержавійка.</p>
+        <span class="cat-card-cta">Дізнатися більше →</span>
+      </div>
+    </a>
+    <a href="/portfolio/вхідна-група-жк/" class="cat-card reveal cat-card-wide" data-cat="corten">
+      <div class="cat-card-img" style="background-image:url('/uploads/entrance.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Кортен · Фасад</span>
+        <h3 class="cat-card-title">Вхідні групи та фасадні елементи</h3>
+        <p class="cat-card-desc">Металеві панелі, декоративні екрани, архітектурні акценти для ЖК і комерційних будівель.</p>
+        <span class="cat-card-cta">Дізнатися більше →</span>
+      </div>
+    </a>
+    <a href="/services/corten/" class="cat-card reveal" data-cat="corten">
+      <div class="cat-card-img" style="background-image:url('/uploads/cat-corten-border.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Кортен · Ландшафт</span>
+        <h3 class="cat-card-title">Бордюри та кромки клумб</h3>
+        <p class="cat-card-desc">Стрічковий кортен для оформлення клумб, доріжок і ландшафтних зон.</p>
+        <span class="cat-card-cta">Дізнатися більше →</span>
+      </div>
+    </a>
+    <a href="/services/stainless/" class="cat-card reveal" data-cat="stainless">
+      <div class="cat-card-img" style="background-image:url('/uploads/brendova-tablichka.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Нержавійка · Брендинг</span>
+        <h3 class="cat-card-title">Вивіски та таблички</h3>
+        <p class="cat-card-desc">Брендові таблички, адресні знаки, логотипи. Дзеркальна або матова поверхня.</p>
+        <span class="cat-card-cta">Дізнатися більше →</span>
+      </div>
+    </a>
+    <a href="/portfolio/лоббі-для-жк/" class="cat-card reveal cat-card-wide" data-cat="stainless">
+      <div class="cat-card-img" style="background-image:url('/uploads/lobby-iko.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Нержавійка · Інтер'єр</span>
+        <h3 class="cat-card-title">Декор та арт-панелі для інтер'єру</h3>
+        <p class="cat-card-desc">Настінні панно, перегородки, декоративні екрани. AISI 304, дзеркальна полірування.</p>
+        <span class="cat-card-cta">Дізнатися більше →</span>
+      </div>
+    </a>
+    <a href="/services/stainless/" class="cat-card reveal" data-cat="stainless">
+      <div class="cat-card-img" style="background-image:url('/uploads/lobby-art.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Нержавійка · HoReCa</span>
+        <h3 class="cat-card-title">QR-таблички та брендинг ресторанів</h3>
+        <p class="cat-card-desc">Нумерація столів, QR-монети, меню-холдери. Серійне виробництво під замовлення.</p>
+        <span class="cat-card-cta">Дізнатися більше →</span>
+      </div>
+    </a>
+    <a href="/services/hardox/" class="cat-card reveal" data-cat="hardox">
+      <div class="cat-card-img" style="background-image:url('/uploads/hardox-450.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Hardox · Оборонка</span>
+        <h3 class="cat-card-title">Конструкції з броньової сталі Hardox</h3>
+        <p class="cat-card-desc">Різка і зварювання Hardox 450/500. Захисні конструкції, деталі для ОПК.</p>
+        <span class="cat-card-cta">Дізнатися більше →</span>
+      </div>
+    </a>
+    <a href="/services/steel/" class="cat-card reveal" data-cat="steel">
+      <div class="cat-card-img" style="background-image:url('/uploads/cat-metal-furniture.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Чорна сталь · Меблі</span>
+        <h3 class="cat-card-title">Металеві меблі та каркаси</h3>
+        <p class="cat-card-desc">Столи, стелажі, полиці, підставки. Під фарбування або із заводським покриттям.</p>
+        <span class="cat-card-cta">Дізнатися більше →</span>
+      </div>
+    </a>
+    <a href="/services/laser-cutting/" class="cat-card reveal" data-cat="steel">
+      <div class="cat-card-img" style="background-image:url('/uploads/cat-laser-parts.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Чорна сталь · B2B</span>
+        <h3 class="cat-card-title">Деталі та заготовки на замовлення</h3>
+        <p class="cat-card-desc">Лазерна різка і гнуття ЧПУ за кресленням DXF/DWG. Від 1 шт до серії.</p>
+        <span class="cat-card-cta">Дізнатися більше →</span>
+      </div>
+    </a>
+  </div>
+  <div style="text-align:center;margin-top:48px">
+    <a href="/portfolio/" class="btn-dark"><span>Всі роботи</span><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+</section>
+
 <section class="fw-wrap">
   <div class="reveal">
     <p class="s-label">Для кого</p>
@@ -683,28 +815,6 @@ ${inlineCTA(
   'Залишити заявку',
   '/contact/'
 )}
-
-<section id="portfolio" style="padding-top:0">
-  <div class="reveal" style="padding-top:80px;padding-bottom:40px">
-    <p class="s-label">Проекти</p>
-    <h2 class="s-title">Вибрані роботи<br><em>з металу.</em></h2>
-  </div>
-  <div class="port-grid">
-    ${projects.map(p => `<a class="port-item${p.wide ? ' port-wide' : ''} reveal" href="/portfolio/${p.slug}/">
-      <div class="port-inner">
-        <div class="port-bg" aria-hidden="true" style="background-image:image-set(url('${p.image.replace(/\.(png|jpg|jpeg)$/i,".webp")}') type('image/webp'),url('${p.image}') type('image/jpeg'))"></div>
-        <div class="port-ov" aria-hidden="true"></div>
-        <div class="port-c">
-          <p class="port-tag">${p.tag}</p>
-          <h3 class="port-title">${p.title}</h3>
-        </div>
-      </div>
-    </a>`).join('')}
-  </div>
-  <div style="text-align:center;margin-top:48px">
-    <a href="/portfolio/" class="btn-dark"><span>Всі проекти</span><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-  </div>
-</section>
 
 <section class="mat-wrap">
   <div class="mat-head">
@@ -1906,6 +2016,284 @@ ${inlineCTA(
 ` + footer();
 }
 
+// ── CATALOG PAGE — ВИРОБИ З МЕТАЛУ ───────────────────────────
+function catalogPage() {
+  const products = [
+    {
+      title: 'Кашпо та клумби',
+      sub: 'Ландшафтний дизайн',
+      type: 'garden',
+      metal: 'corten',
+      metalLabel: 'Кортен',
+      img: '/uploads/kashpo-pryvatnyi-budynok.webp',
+      desc: 'Об\'ємні та плоскі форми для саду і тераси. Природна патина без обслуговування.',
+      link: '/services/corten/',
+    },
+    {
+      title: 'Скульптури та арт-об\'єкти',
+      sub: 'Архітектурний акцент',
+      type: 'sculpture',
+      metal: 'corten',
+      metalLabel: 'Кортен',
+      img: '/uploads/olen-corten.webp',
+      desc: 'Геометричні фігури тварин, абстракції, об\'ємні композиції для публічних просторів.',
+      link: '/portfolio/corten-deer/',
+    },
+    {
+      title: 'Вхідні групи та фасади',
+      sub: 'Архітектурна металопластика',
+      type: 'facade',
+      metal: 'corten',
+      metalLabel: 'Кортен',
+      img: '/uploads/entrance.webp',
+      desc: 'Декоративні панелі, огорожі, входові групи для ЖК і комерційних будівель.',
+      link: '/services/corten/',
+    },
+    {
+      title: 'Вивіски та таблички',
+      sub: 'Брендинг і навігація',
+      type: 'sign',
+      metal: 'stainless',
+      metalLabel: 'Нержавійка',
+      img: '/uploads/brendova-tablichka.webp',
+      desc: 'Брендові таблички, адресні знаки, навігація. Дзеркальна або матова поверхня.',
+      link: '/services/stainless/',
+    },
+    {
+      title: 'Фонтани та водні об\'єкти',
+      sub: 'Ландшафтний дизайн',
+      type: 'garden',
+      metal: 'corten',
+      metalLabel: 'Кортен',
+      img: '/uploads/fontan-corten.webp',
+      desc: 'Архітектурні водні елементи з атмосферостійкої сталі для вулиці і лобі.',
+      link: '/portfolio/corten-planters/',
+    },
+    {
+      title: 'Декор та панелі для інтер\'єру',
+      sub: 'Дизайн інтер\'єрів',
+      type: 'interior',
+      metal: 'stainless',
+      metalLabel: 'Нержавійка',
+      img: '/uploads/lobby-iko.webp',
+      desc: 'Настінні панно, перегородки, декоративні екрани. AISI 304, полірована поверхня.',
+      link: '/services/stainless/',
+    },
+    {
+      title: 'Пам\'ятники та меморіали',
+      sub: 'Меморіальні вироби',
+      type: 'memorial',
+      metal: 'corten',
+      metalLabel: 'Кортен',
+      img: '/uploads/pamiatnyk-corten.webp',
+      desc: 'Лазерне гравіювання, перфорація, об\'ємні букви. Кортен і нержавійка.',
+      link: '/services/corten/',
+    },
+    {
+      title: 'Декоративні екрани та перфорація',
+      sub: 'Фасад і ландшафт',
+      type: 'facade',
+      metal: 'corten',
+      metalLabel: 'Кортен',
+      img: '/uploads/cat-corten-border.webp',
+      desc: 'Privacy screens, фасадні панелі з перфорацією, декоративні огорожі.',
+      link: '/services/corten/',
+    },
+    {
+      title: 'QR-таблички та брендинг HoReCa',
+      sub: 'Для ресторанів і готелів',
+      type: 'sign',
+      metal: 'stainless',
+      metalLabel: 'Нержавійка',
+      img: '/uploads/lobby-art.webp',
+      desc: 'QR-монети, нумерація столів, меню-холдери. Серійне виробництво під замовлення.',
+      link: '/services/stainless/',
+    },
+    {
+      title: 'Металеві меблі та каркаси',
+      sub: 'Інтер\'єр і виробництво',
+      type: 'interior',
+      metal: 'steel',
+      metalLabel: 'Чорна сталь',
+      img: '/uploads/cat-metal-furniture.webp',
+      desc: 'Столи, стелажі, підставки, каркаси під фарбування або з заводським покриттям.',
+      link: '/services/steel/',
+    },
+    {
+      title: 'Бордюри та кромки клумб',
+      sub: 'Ландшафтний дизайн',
+      type: 'garden',
+      metal: 'corten',
+      metalLabel: 'Кортен',
+      img: '/uploads/corten-zrazok.webp',
+      desc: 'Стрічковий кортен для оформлення клумб, доріжок і ландшафтних зон.',
+      link: '/services/corten/',
+    },
+    {
+      title: 'Деталі та конструкції B2B',
+      sub: 'Промислова металообробка',
+      type: 'b2b',
+      metal: 'steel',
+      metalLabel: 'Чорна сталь',
+      img: '/uploads/cat-laser-parts.webp',
+      desc: 'Лазерна різка і гнуття за кресленням DXF/DWG. Від 1 шт до серійної партії.',
+      link: '/services/laser-cutting/',
+    },
+  ];
+
+  const typeFilters = [
+    { key: 'all',       label: 'Всі вироби' },
+    { key: 'garden',    label: 'Ландшафт' },
+    { key: 'facade',    label: 'Фасади' },
+    { key: 'sign',      label: 'Вивіски' },
+    { key: 'sculpture', label: 'Скульптури' },
+    { key: 'interior',  label: 'Інтер\'єр' },
+    { key: 'memorial',  label: 'Меморіали' },
+    { key: 'b2b',       label: 'B2B / Деталі' },
+  ];
+  const metalFilters = [
+    { key: 'all',       label: 'Будь-який метал' },
+    { key: 'corten',    label: 'Кортен' },
+    { key: 'stainless', label: 'Нержавійка' },
+    { key: 'steel',     label: 'Чорна сталь' },
+    { key: 'hardox',    label: 'Hardox' },
+  ];
+
+  return head(
+    'Вироби з металу на замовлення | Кортен, Нержавійка, Сталь | FEROX LVIV',
+    'Каталог металевих виробів: кашпо, скульптури, вивіски, фасади, декор для інтер\'єру. Кортен, нержавійка, чорна сталь. Виготовлення у Львові, доставка по Україні.',
+    'вироби з металу на замовлення, кашпо кортен, вивіски нержавійка, металеві скульптури, декор з металу',
+    '/viroby/'
+  ) + nav('viroby') +
+  pageHeader(
+    [{ href: '/', label: 'Головна' }, { label: 'Вироби з металу' }],
+    'Вироби з металу<br><em>на замовлення.</em>',
+    'Від декоративного арт-об\'єкту до промислової конструкції. Кортен, нержавійка, чорна сталь — виготовляємо все.',
+    null,
+    true,
+    'Каталог виробів'
+  ) + `
+
+<section class="prod-intro">
+  <div class="col2 reveal">
+    <div>
+      <p>Ми виготовляємо металеві вироби будь-якої складності — від одиничного ексклюзивного дизайн-об'єкту до серійної партії для ресторану чи ЖК. Власне виробництво у Львові: лазерна різка, гнуття ЧПУ, зварювання TIG/MIG.</p>
+    </div>
+    <div>
+      <p>Кожен виріб — під конкретне завдання клієнта. Ви надсилаєте ескіз або фото — ми підготуємо розрахунок протягом 15 хвилин. Вектори і креслення розробляємо самостійно.</p>
+    </div>
+  </div>
+</section>
+
+<section class="prod-catalog-section">
+  <div class="prod-catalog-inner">
+
+    <div class="prod-filters reveal">
+      <div class="prod-filter-block">
+        <span class="prod-filter-label">Тип виробу</span>
+        <div class="prod-filter-row" id="prodTypeFilters">
+          ${typeFilters.map(f => `<button class="prod-btn${f.key === 'all' ? ' active' : ''}" data-filter="${f.key}">${f.label}</button>`).join('')}
+        </div>
+      </div>
+      <div class="prod-filter-block">
+        <span class="prod-filter-label">Матеріал</span>
+        <div class="prod-filter-row" id="prodMetalFilters">
+          ${metalFilters.map(f => `<button class="prod-btn${f.key === 'all' ? ' active' : ''}" data-filter="${f.key}">${f.label}</button>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-grid" id="prodGrid">
+      ${products.map(p => `<article class="prod-card reveal" data-type="${p.type}" data-metal="${p.metal}">
+        <a href="${p.link}" class="prod-card-link" aria-label="${p.title} — дізнатися більше">
+          <div class="prod-card-img" style="background-image:url('${p.img}')" role="img" aria-label="${p.title}">
+            <div class="prod-card-img-ov"></div>
+            <span class="prod-card-metal">${p.metalLabel}</span>
+          </div>
+          <div class="prod-card-body">
+            <p class="prod-card-sub">${p.sub}</p>
+            <h3 class="prod-card-title">${p.title}</h3>
+            <p class="prod-card-desc">${p.desc}</p>
+            <span class="prod-card-cta">Дізнатися більше
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h12M10 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+        </a>
+      </article>`).join('')}
+    </div>
+
+    <div class="prod-empty" id="prodEmpty" style="display:none">
+      <p class="prod-empty-title">Нічого не знайдено</p>
+      <p class="prod-empty-desc">Спробуйте змінити фільтри або скиньте їх</p>
+      <button class="prod-btn active" id="prodReset">Показати всі вироби</button>
+    </div>
+
+  </div>
+</section>
+
+<section class="dark-section" style="padding:80px 5vw">
+  <div class="reveal" style="text-align:center;max-width:700px;margin:0 auto">
+    <p class="s-label">Не знайшли що шукаєте?</p>
+    <h2 class="s-title" style="color:var(--white);margin-bottom:20px">Зробимо будь-що<br><em>за вашим ескізом.</em></h2>
+    <p style="color:#a0998f;font-size:16px;line-height:1.7;margin-bottom:40px">Якщо вашого виробу немає в каталозі — надішліть ескіз, фото або опис. Ми виготовляємо нестандартні вироби будь-якої складності.</p>
+    <a href="/contact/" class="btn-p">
+      <span>Надіслати ескіз</span>
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+
+<script>
+(function () {
+  var typeWrap  = document.getElementById('prodTypeFilters');
+  var metalWrap = document.getElementById('prodMetalFilters');
+  var grid      = document.getElementById('prodGrid');
+  var empty     = document.getElementById('prodEmpty');
+  var resetBtn  = document.getElementById('prodReset');
+  var activeType  = 'all';
+  var activeMetal = 'all';
+
+  function applyFilters() {
+    var cards   = grid.querySelectorAll('.prod-card');
+    var visible = 0;
+    cards.forEach(function (card) {
+      var ok = (activeType  === 'all' || card.dataset.type  === activeType) &&
+               (activeMetal === 'all' || card.dataset.metal === activeMetal);
+      card.classList.toggle('prod-hidden', !ok);
+      if (ok) visible++;
+    });
+    empty.style.display = visible === 0 ? 'flex' : 'none';
+  }
+
+  function handleFilter(wrap, setter) {
+    wrap.addEventListener('click', function (e) {
+      var btn = e.target.closest('.prod-btn');
+      if (!btn) return;
+      wrap.querySelectorAll('.prod-btn').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      setter(btn.dataset.filter);
+      applyFilters();
+    });
+  }
+
+  handleFilter(typeWrap,  function (v) { activeType  = v; });
+  handleFilter(metalWrap, function (v) { activeMetal = v; });
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function () {
+      activeType = activeMetal = 'all';
+      document.querySelectorAll('#prodTypeFilters .prod-btn, #prodMetalFilters .prod-btn').forEach(function (b) {
+        b.classList.toggle('active', b.dataset.filter === 'all');
+      });
+      applyFilters();
+    });
+  }
+})();
+</script>
+
+` + contactSection('', 'Розкажіть про<br><em>ваш виріб.</em>') + footer();
+}
+
 // ── THANK YOU PAGE ───────────────────────────────────────────
 function thankYouPage() {
   return head(
@@ -2005,7 +2393,9 @@ function build() {
   writeFile('blog/index.html', blogListPage());
   blogPosts.forEach(post => writeFile(`blog/${post.slug}/index.html`, blogPostPage(post)));
 
-  // Other pages
+  // Catalog — Вироби
+  writeFile('viroby/index.html', catalogPage());
+
   writeFile('about/index.html', aboutPage());
   writeFile('process/index.html', processPage());
   writeFile('contact/index.html', contactPage());
@@ -2016,7 +2406,7 @@ function build() {
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${[
-  '/', '/services/', '/portfolio/', '/blog/', '/about/', '/process/', '/contact/', '/architects/',
+  '/', '/viroby/', '/services/', '/portfolio/', '/blog/', '/about/', '/process/', '/contact/', '/architects/',
   ...services.map(s => `/services/${s.slug}/`),
   ...projects.map(p => `/portfolio/${p.slug}/`),
   ...blogPosts.map(p => `/blog/${p.slug}/`)
