@@ -190,7 +190,6 @@ function nav(active = '') {
       </div>
     </li>
     ${link('/viroby/', 'Вироби', 'viroby')}
-    ${link('/portfolio/', 'Проекти', 'portfolio')}
     ${link('/blog/', 'Блог', 'blog')}
     ${link('/about/', 'Про нас', 'about')}
     ${link('/process/', 'Як ми працюємо', 'process')}
@@ -216,7 +215,6 @@ function nav(active = '') {
     </div>
   </div>
   <a href="/viroby/"${active === 'viroby' ? ' class="active"' : ''}>Вироби</a>
-  <a href="/portfolio/"${active === 'portfolio' ? ' class="active"' : ''}>Проекти</a>
   <a href="/blog/"${active === 'blog' ? ' class="active"' : ''}>Блог</a>
   <a href="/architects/"${active === 'architects' ? ' class="active"' : ''}>Для архітекторів</a>
   <a href="/about/"${active === 'about' ? ' class="active"' : ''}>Про нас</a>
@@ -440,7 +438,7 @@ function footer() {
       <div class="ft-col-t">Компанія</div>
       <ul>
         <li><a href="/about/">Про нас</a></li>
-        <li><a href="/portfolio/">Проекти</a></li>
+        <li><a href="/viroby/">Вироби</a></li>
         <li><a href="/process/">Як ми працюємо</a></li>
         <li><a href="/contact/">Контакт</a></li>
       </ul>
@@ -633,10 +631,9 @@ function homePage() {
     <button class="cat-btn" data-filter="corten">Кортен</button>
     <button class="cat-btn" data-filter="stainless">Нержавійка</button>
     <button class="cat-btn" data-filter="steel">Чорна сталь</button>
-    <button class="cat-btn" data-filter="hardox">Hardox</button>
   </div>
   <div class="cat-grid" id="catGrid">
-    <a href="/services/corten/" class="cat-card reveal" data-cat="corten">
+    <a href="/viroby/kashpo/" class="cat-card reveal" data-cat="corten">
       <div class="cat-card-img" style="background-image:url('/uploads/kashpo-pryvatnyi-budynok.webp')"></div>
       <div class="cat-card-body">
         <span class="cat-card-tag">Кортен · Ландшафт</span>
@@ -645,7 +642,7 @@ function homePage() {
         <span class="cat-card-cta">Дізнатися більше →</span>
       </div>
     </a>
-    <a href="/portfolio/corten-deer/" class="cat-card reveal" data-cat="corten">
+    <a href="/viroby/skulptury/" class="cat-card reveal" data-cat="corten">
       <div class="cat-card-img" style="background-image:url('/uploads/olen-corten.webp')"></div>
       <div class="cat-card-body">
         <span class="cat-card-tag">Кортен · Арт-об'єкт</span>
@@ -654,7 +651,7 @@ function homePage() {
         <span class="cat-card-cta">Дізнатися більше →</span>
       </div>
     </a>
-    <a href="/portfolio/фонтан-з-кортену/" class="cat-card reveal" data-cat="corten">
+    <a href="/viroby/fontany/" class="cat-card reveal" data-cat="corten">
       <div class="cat-card-img" style="background-image:url('/uploads/fontan-corten.webp')"></div>
       <div class="cat-card-body">
         <span class="cat-card-tag">Кортен · Водний об'єкт</span>
@@ -663,7 +660,7 @@ function homePage() {
         <span class="cat-card-cta">Дізнатися більше →</span>
       </div>
     </a>
-    <a href="/services/corten/" class="cat-card reveal" data-cat="corten">
+    <a href="/viroby/pamiatky/" class="cat-card reveal" data-cat="corten">
       <div class="cat-card-img" style="background-image:url('/uploads/pamiatnyk-corten.webp')"></div>
       <div class="cat-card-body">
         <span class="cat-card-tag">Кортен · Меморіал</span>
@@ -672,7 +669,7 @@ function homePage() {
         <span class="cat-card-cta">Дізнатися більше →</span>
       </div>
     </a>
-    <a href="/portfolio/вхідна-група-жк/" class="cat-card reveal cat-card-wide" data-cat="corten">
+    <a href="/viroby/fasady/" class="cat-card reveal cat-card-wide" data-cat="corten">
       <div class="cat-card-img" style="background-image:url('/uploads/entrance.webp')"></div>
       <div class="cat-card-body">
         <span class="cat-card-tag">Кортен · Фасад</span>
@@ -681,7 +678,7 @@ function homePage() {
         <span class="cat-card-cta">Дізнатися більше →</span>
       </div>
     </a>
-    <a href="/services/corten/" class="cat-card reveal" data-cat="corten">
+    <a href="/viroby/bordyury/" class="cat-card reveal" data-cat="corten">
       <div class="cat-card-img" style="background-image:url('/uploads/cat-corten-border.webp')"></div>
       <div class="cat-card-body">
         <span class="cat-card-tag">Кортен · Ландшафт</span>
@@ -690,7 +687,7 @@ function homePage() {
         <span class="cat-card-cta">Дізнатися більше →</span>
       </div>
     </a>
-    <a href="/services/stainless/" class="cat-card reveal" data-cat="stainless">
+    <a href="/viroby/vyviska/" class="cat-card reveal" data-cat="stainless">
       <div class="cat-card-img" style="background-image:url('/uploads/brendova-tablichka.webp')"></div>
       <div class="cat-card-body">
         <span class="cat-card-tag">Нержавійка · Брендинг</span>
@@ -699,7 +696,7 @@ function homePage() {
         <span class="cat-card-cta">Дізнатися більше →</span>
       </div>
     </a>
-    <a href="/portfolio/лоббі-для-жк/" class="cat-card reveal cat-card-wide" data-cat="stainless">
+    <a href="/viroby/interior/" class="cat-card reveal cat-card-wide" data-cat="stainless">
       <div class="cat-card-img" style="background-image:url('/uploads/lobby-iko.webp')"></div>
       <div class="cat-card-body">
         <span class="cat-card-tag">Нержавійка · Інтер'єр</span>
@@ -708,7 +705,7 @@ function homePage() {
         <span class="cat-card-cta">Дізнатися більше →</span>
       </div>
     </a>
-    <a href="/services/stainless/" class="cat-card reveal" data-cat="stainless">
+    <a href="/viroby/qr-horeca/" class="cat-card reveal" data-cat="stainless">
       <div class="cat-card-img" style="background-image:url('/uploads/lobby-art.webp')"></div>
       <div class="cat-card-body">
         <span class="cat-card-tag">Нержавійка · HoReCa</span>
@@ -717,16 +714,7 @@ function homePage() {
         <span class="cat-card-cta">Дізнатися більше →</span>
       </div>
     </a>
-    <a href="/services/hardox/" class="cat-card reveal" data-cat="hardox">
-      <div class="cat-card-img" style="background-image:url('/uploads/hardox-450.webp')"></div>
-      <div class="cat-card-body">
-        <span class="cat-card-tag">Hardox · Оборонка</span>
-        <h3 class="cat-card-title">Конструкції з броньової сталі Hardox</h3>
-        <p class="cat-card-desc">Різка і зварювання Hardox 450/500. Захисні конструкції, деталі для ОПК.</p>
-        <span class="cat-card-cta">Дізнатися більше →</span>
-      </div>
-    </a>
-    <a href="/services/steel/" class="cat-card reveal" data-cat="steel">
+    <a href="/viroby/mebli/" class="cat-card reveal" data-cat="steel">
       <div class="cat-card-img" style="background-image:url('/uploads/cat-metal-furniture.webp')"></div>
       <div class="cat-card-body">
         <span class="cat-card-tag">Чорна сталь · Меблі</span>
@@ -735,7 +723,7 @@ function homePage() {
         <span class="cat-card-cta">Дізнатися більше →</span>
       </div>
     </a>
-    <a href="/services/laser-cutting/" class="cat-card reveal" data-cat="steel">
+    <a href="/viroby/detali/" class="cat-card reveal" data-cat="steel">
       <div class="cat-card-img" style="background-image:url('/uploads/cat-laser-parts.webp')"></div>
       <div class="cat-card-body">
         <span class="cat-card-tag">Чорна сталь · B2B</span>
@@ -746,7 +734,7 @@ function homePage() {
     </a>
   </div>
   <div style="text-align:center;margin-top:48px">
-    <a href="/portfolio/" class="btn-dark"><span>Всі роботи</span><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="/viroby/" class="btn-dark"><span>Всі вироби</span><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   </div>
 </section>
 
