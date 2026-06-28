@@ -12,7 +12,8 @@
     },
     "ctaSecondary": {
       "label": "Переглянути проекти",
-      "href": "/portfolio/"
+      "href": "/viroby/",
+      "text": "Каталог виробів"
     }
   },
   "about": {
