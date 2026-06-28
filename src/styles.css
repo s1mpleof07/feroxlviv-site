@@ -592,7 +592,7 @@ footer{background:var(--anthracite);padding:60px 5vw 28px}
 .ft-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
 .ft-col ul a{font-size:13px;color:rgba(255,255,255,.35);transition:color .3s,padding-left .3s}
 .ft-col ul a:hover{color:var(--corten-l);padding-left:6px}
-.ft-bot{border-top:1px solid rgba(255,255,255,.07);padding-top:26px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.ft-bot{border-top:1px solid rgba(255,255,255,.07);padding-top:26px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
 .ft-copy{font-size:12px;color:rgba(255,255,255,.22)}
 .ft-seo{font-size:11px;color:rgba(255,255,255,.12);max-width:420px;line-height:1.6}
 
@@ -631,6 +631,8 @@ footer{background:var(--anthracite);padding:60px 5vw 28px}
   .mat-modal-body{padding:30px 28px}
   .mat-modal-specs{grid-template-columns:1fr}
   .ft-top{grid-template-columns:1fr 1fr;gap:32px}
+  .ft-bot{flex-direction:column;align-items:flex-start;gap:12px}
+  .ft-seo-links{display:none}
   .nav-links,.nav-cta{display:none}
   .burger{display:flex}
   .hero-deco,.cf-grid{display:none}
@@ -1056,7 +1058,7 @@ nav .nav-links a[href="/architects/"]:hover{color:var(--corten-l)}
 .mob-menu a[href="/architects/"]{color:var(--corten)}
 
 /* ── Catalog section ─────────────────────────────────────────────── */
-.cat-section{padding:100px 5vw;background:var(--bone)}
+.cat-section{padding:100px 5vw;background:var(--bone);overflow:hidden}
 .cat-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:48px}
 .cat-head-desc{color:#666;font-size:16px;line-height:1.7;max-width:480px}
 .cat-filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px}
