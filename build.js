@@ -634,7 +634,7 @@ function homePage() {
   </div>
   <div class="cat-grid" id="catGrid">
     <a href="/viroby/kashpo/" class="cat-card reveal" data-cat="corten">
-      <div class="cat-card-img" style="background-image:url('/uploads/kashpo-pryvatnyi-budynok.webp')"></div>
+      <div class="cat-card-img" style="background-image:url('/uploads/cat-kashpo-rectangle.webp')"></div>
       <div class="cat-card-body">
         <span class="cat-card-tag">Кортен · Ландшафт</span>
         <h3 class="cat-card-title">Кашпо та клумби</h3>
@@ -643,7 +643,7 @@ function homePage() {
       </div>
     </a>
     <a href="/viroby/skulptury/" class="cat-card reveal" data-cat="corten">
-      <div class="cat-card-img" style="background-image:url('/uploads/olen-corten.webp')"></div>
+      <div class="cat-card-img" style="background-image:url('/uploads/cat-sculpture-deer.webp')"></div>
       <div class="cat-card-body">
         <span class="cat-card-tag">Кортен · Арт-об'єкт</span>
         <h3 class="cat-card-title">Скульптури та арт-об'єкти</h3>
@@ -729,6 +729,42 @@ function homePage() {
         <span class="cat-card-tag">Чорна сталь · B2B</span>
         <h3 class="cat-card-title">Деталі та заготовки на замовлення</h3>
         <p class="cat-card-desc">Лазерна різка і гнуття ЧПУ за кресленням DXF/DWG. Від 1 шт до серії.</p>
+        <span class="cat-card-cta">Дізнатися більше →</span>
+      </div>
+    </a>
+    <a href="/viroby/parkan/" class="cat-card reveal" data-cat="corten">
+      <div class="cat-card-img" style="background-image:url('/uploads/cat-parkan-perforated.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Кортен · Огородження</span>
+        <h3 class="cat-card-title">Паркани та огородження</h3>
+        <p class="cat-card-desc">Перфоровані панелі та ламелі з кортену. Приватність і архітектурний характер.</p>
+        <span class="cat-card-cta">Дізнатися більше →</span>
+      </div>
+    </a>
+    <a href="/viroby/mangal/" class="cat-card reveal" data-cat="corten">
+      <div class="cat-card-img" style="background-image:url('/uploads/cat-mangal-round.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Кортен · Барбекю</span>
+        <h3 class="cat-card-title">Мангали та грилі</h3>
+        <p class="cat-card-desc">Кругла чаша-мангал і вбудований гриль з робочою поверхнею. Жаростійкий кортен.</p>
+        <span class="cat-card-cta">Дізнатися більше →</span>
+      </div>
+    </a>
+    <a href="/viroby/stelazh/" class="cat-card reveal" data-cat="corten">
+      <div class="cat-card-img" style="background-image:url('/uploads/cat-stelazh-cube.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Кортен · Декор</span>
+        <h3 class="cat-card-title">Стелажі для дров</h3>
+        <p class="cat-card-desc">Компактні і великі дровниці з кортену — функціональний декор для тераси і саду.</p>
+        <span class="cat-card-cta">Дізнатися більше →</span>
+      </div>
+    </a>
+    <a href="/viroby/svitylnyky/" class="cat-card reveal" data-cat="corten">
+      <div class="cat-card-img" style="background-image:url('/uploads/cat-light-wall.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Кортен · Освітлення</span>
+        <h3 class="cat-card-title">Вуличні світильники</h3>
+        <p class="cat-card-desc">Настінні та підвісні садові світильники з кортену. Тепле LED-світло і природня патина.</p>
         <span class="cat-card-cta">Дізнатися більше →</span>
       </div>
     </a>
