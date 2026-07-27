@@ -624,13 +624,7 @@ function homePage() {
       <p class="s-label">Каталог виробів</p>
       <h2 class="s-title">Що ми<br><em>виготовляємо.</em></h2>
     </div>
-    <p class="cat-head-desc">Від декоративних арт-об'єктів до промислових конструкцій. Оберіть категорію — покажемо відповідні роботи та матеріали.</p>
-  </div>
-  <div class="cat-filters reveal" id="catFilters">
-    <button class="cat-btn active" data-filter="all">Всі вироби</button>
-    <button class="cat-btn" data-filter="corten">Кортен</button>
-    <button class="cat-btn" data-filter="stainless">Нержавійка</button>
-    <button class="cat-btn" data-filter="steel">Чорна сталь</button>
+    <p class="cat-head-desc">Від декоративних арт-об'єктів до промислових конструкцій — 15 категорій у трьох металах. Нижче кілька напрямків, решта у каталозі.</p>
   </div>
   <div class="cat-grid" id="catGrid">
     <a href="/viroby/kashpo/" class="cat-card reveal" data-cat="corten">
@@ -651,111 +645,12 @@ function homePage() {
         <span class="cat-card-cta">Дізнатися більше →</span>
       </div>
     </a>
-    <a href="/viroby/fontany/" class="cat-card reveal" data-cat="corten">
-      <div class="cat-card-img" style="background-image:url('/uploads/fontan-corten.webp')"></div>
-      <div class="cat-card-body">
-        <span class="cat-card-tag">Кортен · Водний об'єкт</span>
-        <h3 class="cat-card-title">Фонтани та водні об'єкти</h3>
-        <p class="cat-card-desc">Архітектурні водні елементи з атмосферостійкої сталі для вулиці і лобі.</p>
-        <span class="cat-card-cta">Дізнатися більше →</span>
-      </div>
-    </a>
-    <a href="/viroby/pamiatky/" class="cat-card reveal" data-cat="corten">
-      <div class="cat-card-img" style="background-image:url('/uploads/pamiatnyk-corten.webp')"></div>
-      <div class="cat-card-body">
-        <span class="cat-card-tag">Кортен · Меморіал</span>
-        <h3 class="cat-card-title">Пам'ятники та меморіальні плити</h3>
-        <p class="cat-card-desc">Лазерне гравіювання, перфорація, об'ємні літери. Кортен і нержавійка.</p>
-        <span class="cat-card-cta">Дізнатися більше →</span>
-      </div>
-    </a>
-    <a href="/viroby/fasady/" class="cat-card reveal cat-card-wide" data-cat="corten">
+    <a href="/viroby/fasady/" class="cat-card reveal" data-cat="corten">
       <div class="cat-card-img" style="background-image:url('/uploads/entrance.webp')"></div>
       <div class="cat-card-body">
         <span class="cat-card-tag">Кортен · Фасад</span>
         <h3 class="cat-card-title">Вхідні групи та фасадні елементи</h3>
         <p class="cat-card-desc">Металеві панелі, декоративні екрани, архітектурні акценти для ЖК і комерційних будівель.</p>
-        <span class="cat-card-cta">Дізнатися більше →</span>
-      </div>
-    </a>
-    <a href="/viroby/bordyury/" class="cat-card reveal" data-cat="corten">
-      <div class="cat-card-img" style="background-image:url('/uploads/cat-corten-border.webp')"></div>
-      <div class="cat-card-body">
-        <span class="cat-card-tag">Кортен · Ландшафт</span>
-        <h3 class="cat-card-title">Бордюри та кромки клумб</h3>
-        <p class="cat-card-desc">Стрічковий кортен для оформлення клумб, доріжок і ландшафтних зон.</p>
-        <span class="cat-card-cta">Дізнатися більше →</span>
-      </div>
-    </a>
-    <a href="/viroby/vyviska/" class="cat-card reveal" data-cat="stainless">
-      <div class="cat-card-img" style="background-image:url('/uploads/brendova-tablichka.webp')"></div>
-      <div class="cat-card-body">
-        <span class="cat-card-tag">Нержавійка · Брендинг</span>
-        <h3 class="cat-card-title">Вивіски та таблички</h3>
-        <p class="cat-card-desc">Брендові таблички, адресні знаки, логотипи. Дзеркальна або матова поверхня.</p>
-        <span class="cat-card-cta">Дізнатися більше →</span>
-      </div>
-    </a>
-    <a href="/viroby/interior/" class="cat-card reveal cat-card-wide" data-cat="stainless">
-      <div class="cat-card-img" style="background-image:url('/uploads/lobby-iko.webp')"></div>
-      <div class="cat-card-body">
-        <span class="cat-card-tag">Нержавійка · Інтер'єр</span>
-        <h3 class="cat-card-title">Декор та арт-панелі для інтер'єру</h3>
-        <p class="cat-card-desc">Настінні панно, перегородки, декоративні екрани. AISI 304, дзеркальна полірування.</p>
-        <span class="cat-card-cta">Дізнатися більше →</span>
-      </div>
-    </a>
-    <a href="/viroby/qr-horeca/" class="cat-card reveal" data-cat="stainless">
-      <div class="cat-card-img" style="background-image:url('/uploads/lobby-art.webp')"></div>
-      <div class="cat-card-body">
-        <span class="cat-card-tag">Нержавійка · HoReCa</span>
-        <h3 class="cat-card-title">QR-таблички та брендинг ресторанів</h3>
-        <p class="cat-card-desc">Нумерація столів, QR-монети, меню-холдери. Серійне виробництво під замовлення.</p>
-        <span class="cat-card-cta">Дізнатися більше →</span>
-      </div>
-    </a>
-    <a href="/viroby/mebli/" class="cat-card reveal" data-cat="steel">
-      <div class="cat-card-img" style="background-image:url('/uploads/cat-metal-furniture.webp')"></div>
-      <div class="cat-card-body">
-        <span class="cat-card-tag">Чорна сталь · Меблі</span>
-        <h3 class="cat-card-title">Металеві меблі та каркаси</h3>
-        <p class="cat-card-desc">Столи, стелажі, полиці, підставки. Під фарбування або із заводським покриттям.</p>
-        <span class="cat-card-cta">Дізнатися більше →</span>
-      </div>
-    </a>
-    <a href="/viroby/detali/" class="cat-card reveal" data-cat="steel">
-      <div class="cat-card-img" style="background-image:url('/uploads/cat-laser-parts.webp')"></div>
-      <div class="cat-card-body">
-        <span class="cat-card-tag">Чорна сталь · B2B</span>
-        <h3 class="cat-card-title">Деталі та заготовки на замовлення</h3>
-        <p class="cat-card-desc">Лазерна різка і гнуття ЧПУ за кресленням DXF/DWG. Від 1 шт до серії.</p>
-        <span class="cat-card-cta">Дізнатися більше →</span>
-      </div>
-    </a>
-    <a href="/viroby/parkan/" class="cat-card reveal" data-cat="corten">
-      <div class="cat-card-img" style="background-image:url('/uploads/cat-parkan-perforated.webp')"></div>
-      <div class="cat-card-body">
-        <span class="cat-card-tag">Кортен · Огородження</span>
-        <h3 class="cat-card-title">Паркани та огородження</h3>
-        <p class="cat-card-desc">Перфоровані панелі та ламелі з кортену. Приватність і архітектурний характер.</p>
-        <span class="cat-card-cta">Дізнатися більше →</span>
-      </div>
-    </a>
-    <a href="/viroby/mangal/" class="cat-card reveal" data-cat="corten">
-      <div class="cat-card-img" style="background-image:url('/uploads/cat-mangal-round.webp')"></div>
-      <div class="cat-card-body">
-        <span class="cat-card-tag">Кортен · Барбекю</span>
-        <h3 class="cat-card-title">Мангали та грилі</h3>
-        <p class="cat-card-desc">Кругла чаша-мангал і вбудований гриль з робочою поверхнею. Жаростійкий кортен.</p>
-        <span class="cat-card-cta">Дізнатися більше →</span>
-      </div>
-    </a>
-    <a href="/viroby/stelazh/" class="cat-card reveal" data-cat="corten">
-      <div class="cat-card-img" style="background-image:url('/uploads/cat-stelazh-cube.webp')"></div>
-      <div class="cat-card-body">
-        <span class="cat-card-tag">Кортен · Декор</span>
-        <h3 class="cat-card-title">Стелажі для дров</h3>
-        <p class="cat-card-desc">Компактні і великі дровниці з кортену — функціональний декор для тераси і саду.</p>
         <span class="cat-card-cta">Дізнатися більше →</span>
       </div>
     </a>
@@ -768,10 +663,36 @@ function homePage() {
         <span class="cat-card-cta">Дізнатися більше →</span>
       </div>
     </a>
+    <a href="/viroby/vyviska/" class="cat-card reveal" data-cat="stainless">
+      <div class="cat-card-img" style="background-image:url('/uploads/brendova-tablichka.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Нержавійка · Брендинг</span>
+        <h3 class="cat-card-title">Вивіски та таблички</h3>
+        <p class="cat-card-desc">Брендові таблички, адресні знаки, логотипи. Дзеркальна або матова поверхня.</p>
+        <span class="cat-card-cta">Дізнатися більше →</span>
+      </div>
+    </a>
+    <a href="/viroby/" class="cat-more reveal">
+      <span class="cat-more-top">
+        <span class="cat-more-n">+10</span>
+        <span class="cat-more-lb">категорій</span>
+      </span>
+      <span class="cat-more-mid">
+        <span class="cat-more-t">Увесь каталог<br>виробів</span>
+        <span class="cat-more-d">Кашпо, мангали, фонтани, ламелі, облицювання кортеном, стелажі, пам'ятники та інше — з розмірами й оформленням замовлення.</span>
+      </span>
+      <span class="cat-more-cta">Дивитись каталог
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </a>
   </div>
-  <div style="text-align:center;margin-top:48px">
-    <a href="/viroby/" class="btn-dark"><span>Всі вироби</span><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="cat-metals reveal">
+    <span class="cat-metals-lb">Дивитись у металі</span>
+    <a href="/viroby/?metal=corten"><i style="background:#A0522D"></i>Кортен</a>
+    <a href="/viroby/?metal=stainless"><i style="background:#9FA4A8"></i>Нержавійка</a>
+    <a href="/viroby/?metal=steel"><i style="background:#3A3A37"></i>Чорна сталь</a>
   </div>
+  <p class="cat-rest reveal"><span>Також виготовляємо:</span> <a href="/viroby/fontany/">Фонтани та водні об'єкти</a> <a href="/viroby/pamiatky/">Пам'ятники та меморіальні плити</a> <a href="/viroby/bordyury/">Бордюри та кромки клумб</a> <a href="/viroby/interior/">Декор та арт-панелі для інтер'єру</a> <a href="/viroby/qr-horeca/">QR-таблички та брендинг ресторанів</a> <a href="/viroby/mebli/">Металеві меблі та каркаси</a> <a href="/viroby/detali/">Деталі та заготовки на замовлення</a> <a href="/viroby/parkan/">Паркани та огородження</a> <a href="/viroby/mangal/">Мангали та грилі</a> <a href="/viroby/stelazh/">Стелажі для дров</a></p>
 </section>
 
 <section class="fw-wrap">
