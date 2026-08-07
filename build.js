@@ -2414,337 +2414,82 @@ function productPage(p) {
 
 // ── CATALOG INDEX PAGE ────────────────────────────────────────
 function catalogPage() {
+  const cards = CATALOG.map(p => {
+    const lo = minPrice(p);
+    return `      <a class="card" href="/viroby/tovar/${p.slug}/" data-cat="${p.c}">
+        <span class="card-vis">
+          <span class="card-tag" data-tag>кортен</span>
+          <img src="/uploads/${p.img}.webp" alt="${esc(p.t)} з кортенової сталі — FEROX LVIV" loading="lazy" decoding="async">
+          <span class="fx-ph" data-ph hidden><i></i><b></b><s>Фото готуємо</s></span>
+        </span>
+        <span class="card-bd">
+          <h3>${esc(p.t)}</h3>
+          <span class="d">${esc(p.d)}</span>
+          ${lo ? `<span class="p-from" data-price data-lo="${lo}">${p.badge ? `<b>${esc(p.badge)}</b>` : ''}від ${uah(lo)}</span>` : ''}
+          <span class="more">Дивитись виріб →</span>
+        </span>
+      </a>`;
+  }).join('\n');
+
+  const metalBand = METAL_ORDER.map(k => {
+    const m = METAL_INFO[k];
+    const tex = k === 'corten'
+      ? 'repeating-linear-gradient(112deg,rgba(0,0,0,.3) 0 2px,transparent 2px 7px,rgba(232,184,148,.35) 7px 8px,transparent 8px 15px)'
+      : k === 'steel'
+      ? 'repeating-linear-gradient(45deg,rgba(255,255,255,.1) 0 1px,transparent 1px 9px)'
+      : 'repeating-linear-gradient(90deg,rgba(255,255,255,.5) 0 1px,transparent 1px 4px)';
+    return `        <button type="button" class="sw" data-metal="${k}" aria-pressed="${k === 'corten'}" style="--c:${m.ch};--tex:${tex}">
+          <span class="sw-chip"></span><span class="sw-name">${esc(m.n.split('—')[0].trim())}</span>
+          <span class="sw-note">${esc(m.spec)}${k !== 'corten' ? ` Ціни на ${Math.round((1 - METAL_MULT[k]) * 100)}% нижчі за кортен.` : ''}</span>
+        </button>`;
+  }).join('\n');
+
+  const cats = [['all','Усі вироби'],['kashpo','Кашпо'],['light','Світильники'],['mangal','Мангали'],
+    ['bowl','Чаші'],['lamel','Ламелі'],['sign','Вивіски'],['facade','Фасадні панелі'],
+    ['gate','Панелі для воріт'],['clad','Облицювання'],['decor','Декор']];
+
   return head(
-    'Вироби з металу — каталог | Кортен, нержавійка, чорна сталь | FEROX LVIV',
-    "Каталог виробів з металу: кашпо, світильники, мангали, ламелі, вивіски, фасадні панелі, облицювання кортеном. Оберіть метал і розмір або замовте індивідуальні габарити.",
-    'вироби з металу на замовлення, кашпо кортен, світильники кортен, мангал з металу, облицювання кортеном',
+    'Вироби з металу — каталог і ціни | Кортен, нержавійка, чорна сталь | FEROX LVIV',
+    'Каталог виробів з металу з цінами: кашпо, світильники, мангали, ламелі, вивіски, фасадні панелі, облицювання кортеном. Виробництво у Львові, доставка по всій Україні.',
+    'вироби з металу, кортен купити, кашпо з кортену ціна, вироби з металу львів, вироби з металу київ, металовироби на замовлення україна, доставка по україні',
     '/viroby/'
   ) + nav('viroby') +
   pageHeader(
     [{href:'/',label:'Головна'},{label:'Вироби з металу'}],
     'Вироби з металу<br><em>на замовлення.</em>',
-    "Від декоративного арт-об'єкту до промислової конструкції. Кортен, нержавійка, чорна сталь — виготовляємо все.",
+    'Від декоративного арт-об\'єкту до промислової конструкції. Кортен, нержавійка, чорна сталь — з цінами й доставкою по Україні.',
     null, true, 'Каталог виробів'
   ) + `
-<style>
-
-
-
-/* ── кількість ── */
-.qty-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
-.qty-lb{font-size:13px;color:var(--steel)}
-.qty{display:flex;align-items:center;border:1px solid var(--border);border-radius:2px;overflow:hidden}
-.qty-b{width:36px;height:38px;font-size:17px;line-height:1;color:var(--anthracite);background:transparent;transition:background .2s}
-.qty-b:hover{background:var(--bone-d)}
-.qty-i{width:46px;height:38px;border:none;border-left:1px solid var(--border);border-right:1px solid var(--border);
-  text-align:center;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--anthracite);background:transparent}
-.qty-i:focus{outline:none;background:var(--bone-d)}
-.qty-sum{font-size:14px;color:var(--anthracite);margin-left:auto}
-.qty-sum b{font-family:'Playfair Display',Georgia,serif;font-size:19px}
-.btn-ghost{background:transparent!important;color:var(--anthracite)!important;border:1px solid var(--border);margin-top:9px}
-.btn-ghost:hover{background:var(--anthracite)!important;color:var(--bone)!important;border-color:var(--anthracite)}
-
-/* ── кнопка кошика ── */
-.cart-fab{position:fixed;left:24px;bottom:24px;z-index:150;display:flex;align-items:center;gap:9px;
-  padding:13px 19px;background:var(--anthracite);color:var(--bone);border-radius:40px;font-size:14px;
-  box-shadow:0 10px 30px rgba(44,44,42,.28);transition:transform .25s,background .3s}
-.cart-fab[hidden]{display:none}
-.cart-fab:hover{transform:translateY(-3px);background:var(--m)}
-.cart-fab span{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--m);color:#fff;
-  min-width:21px;height:21px;border-radius:11px;display:inline-flex;align-items:center;justify-content:center;
-  padding:0 6px;transition:background .3s}
-.cart-fab:hover span{background:var(--anthracite)}
-
-/* ── панель кошика ── */
-.cart{position:fixed;top:0;right:0;bottom:0;width:min(560px,100%);background:var(--bone);z-index:191;
-  display:flex;flex-direction:column;transform:translateX(101%);transition:transform .45s cubic-bezier(.3,.8,.3,1)}
-.cart.fx-on{transform:translateX(0)}
-.cart-hd{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:26px 30px 20px;
-  border-bottom:1px solid var(--border)}
-.cart-hd h2{font-size:27px}
-.cart-x{position:static;flex-shrink:0}
-.cart-body{flex:1;overflow-y:auto;padding:8px 30px}
-.cart-empty{padding:60px 0;text-align:center;color:var(--steel);font-size:14px;font-weight:300;line-height:1.6}
-.ci{display:flex;gap:16px;padding:20px 0;border-bottom:1px solid var(--border)}
-.ci-x{flex-shrink:0;width:26px;height:26px;border:1px solid var(--border);border-radius:50%;font-size:13px;
-  color:var(--steel);transition:all .22s;align-self:flex-start}
-.ci-x:hover{border-color:var(--anthracite);background:var(--anthracite);color:var(--bone)}
-.ci-in{flex:1;min-width:0}
-.ci-t{font-family:'Playfair Display',Georgia,serif;font-size:18px;line-height:1.25;margin-bottom:5px}
-.ci-m{font-size:12.5px;color:var(--steel);font-weight:300;line-height:1.5;margin-bottom:10px}
-.ci-b{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.ci-p{font-family:'JetBrains Mono',monospace;font-size:13px;margin-left:auto}
-.ci-p em{font-style:normal;color:var(--steel)}
-.cart-foot{border-top:1px solid var(--border);padding:20px 30px 26px;background:var(--bone)}
-.cart-tot{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px}
-.cart-tot span{font-size:14px;color:var(--steel)}
-.cart-tot b{font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:400}
-.cart-note{font-size:12.5px;color:var(--steel);font-weight:300;line-height:1.55;margin-bottom:16px}
-.cart-save{color:var(--m);font-size:13px;margin-bottom:12px}
-@media(max-width:560px){
-  .cart-hd,.cart-body,.cart-foot{padding-left:20px;padding-right:20px}
-  .cart-fab{left:16px;bottom:16px}
-}
-
-/* ── ціни ── */
-.p-from{display:inline-flex;align-items:center;gap:9px;margin-bottom:14px;font-size:15px;color:var(--anthracite)}
-.p-from b{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.12em;font-weight:500;
-  background:var(--m);color:#fff;padding:4px 7px;border-radius:2px;transition:background .5s}
-.price-box{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:18px;padding:16px 18px;
-  background:var(--bone-d);border-left:3px solid var(--m);border-radius:2px;transition:border-color .5s}
-.p-badge{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
-  background:var(--m);color:#fff;padding:5px 8px;border-radius:2px;transition:background .5s}
-.p-old{font-size:15px;color:var(--steel);text-decoration:line-through;text-decoration-thickness:1.5px}
-.p-now{font-family:'Playfair Display',Georgia,serif;font-size:27px;line-height:1;color:var(--anthracite)}
-.p-save{font-size:12.5px;color:var(--m);font-weight:400;transition:color .5s}
-.p-hint{font-size:13.5px;color:var(--steel);font-weight:300}
-.p-note{margin-top:12px;font-size:13px;color:var(--steel);font-weight:300;line-height:1.55}
-
-/* ── смуга вибору металу ── */
-.fx-metals{background:var(--anthracite);color:var(--bone);position:relative;overflow:hidden}
-.fx-metals::after{content:'';position:absolute;inset:0;pointer-events:none;
-  background:repeating-linear-gradient(90deg,transparent 0 39px,rgba(247,244,239,.03) 39px 40px)}
-.fx-metals-in{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:46px 5vw 0}
-.fx-metals-lead{max-width:52ch;font-size:16px;line-height:1.65;color:var(--steel-l);font-weight:300;margin-bottom:34px}
-
-:root{
-  --m:#A0522D; --m-l:#D4956A; --m-d:#8a4425;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--bone);color:var(--anthracite);overflow-x:hidden;-webkit-font-smoothing:antialiased}
-body.lock{overflow:hidden}
-h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif;font-weight:400}
-img{max-width:100%;display:block}
-button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
-::selection{background:var(--m);color:#fff}
-:focus-visible{outline:2px solid var(--m);outline-offset:3px}
-.wrap{max-width:1280px;margin:0 auto;padding:0 5vw}
-.mono{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
-
-
-
-.hero-in{position:relative;z-index:2}
-
-
-
-
-
-.picker{border-top:1px solid rgba(247,244,239,.14)}
-.picker-lb{display:flex;align-items:baseline;gap:14px;padding:20px 0 16px;flex-wrap:wrap}
-.picker-lb .mono{color:var(--steel)}
-.picker-lb .cur{font-family:'Playfair Display',serif;font-size:19px;color:var(--m-l);font-style:italic;transition:color .5s}
-.sws{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(247,244,239,.14)}
-.sw{position:relative;padding:24px 20px 28px;text-align:left;border-right:1px solid rgba(247,244,239,.14);transition:background .35s;overflow:hidden}
-.sw:last-child{border-right:none}
-.sw::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:var(--c);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.2,.7,.3,1)}
-.sw:hover{background:rgba(247,244,239,.045)}
-.sw[aria-pressed="true"]{background:rgba(247,244,239,.07)}
-.sw[aria-pressed="true"]::before{transform:scaleX(1)}
-.sw-chip{width:100%;height:48px;background:var(--c);margin-bottom:14px;position:relative;overflow:hidden}
-.sw-chip::after{content:'';position:absolute;inset:0;background:var(--tex);opacity:.55;mix-blend-mode:overlay}
-.sw-name{font-size:15px;display:block;margin-bottom:5px}
-.sw-note{font-size:12px;color:var(--steel);line-height:1.45;font-weight:300}
-
-.filters{position:sticky;top:72px;z-index:39;background:rgba(247,244,239,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:15px 0}
-.filters-in{display:flex;gap:9px;overflow-x:auto;scrollbar-width:none}
-.filters-in::-webkit-scrollbar{display:none}
-.chip{white-space:nowrap;padding:9px 16px;border:1px solid var(--border);border-radius:2px;font-size:13px;color:var(--steel);transition:all .25s}
-.chip:hover{border-color:var(--m);color:var(--m)}
-.chip[aria-pressed="true"]{background:var(--anthracite);color:var(--bone);border-color:var(--anthracite)}
-
-.cat{padding:70px 0 30px}
-.cat-hd{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:40px;flex-wrap:wrap}
-.cat-hd h2{font-size:clamp(28px,4vw,42px)}
-.cat-hd .mono{color:var(--steel)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;background:var(--border)}
-.card{background:var(--bone);display:flex;flex-direction:column;text-align:left;transition:background .3s;width:100%}
-.card:hover{background:#fff}
-.card-vis{aspect-ratio:4/3;overflow:hidden;position:relative;background:var(--anthracite);display:block}
-.card-vis img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.7,.3,1)}
-.card:hover .card-vis img{transform:scale(1.05)}
-/* заглушка для металів без фото */
-.fx-ph{position:absolute;inset:0;background:var(--anthracite);display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px}
-.fx-ph::before{content:'';position:absolute;inset:0;opacity:.5;
-  background:repeating-linear-gradient(38deg,transparent 0 8px,rgba(247,244,239,.045) 8px 9px)}
-.fx-ph i{width:54px;height:54px;background:var(--phc);border-radius:50%;position:relative;z-index:2;
-  box-shadow:0 0 0 1px rgba(247,244,239,.18), 0 0 30px -6px var(--phc)}
-.fx-ph b{position:relative;z-index:2;font-family:'JetBrains Mono',monospace;font-size:11px;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--steel-l);font-weight:400}
-.fx-ph s{position:relative;z-index:2;text-decoration:none;font-size:12px;color:var(--steel);
-  font-weight:300;max-width:24ch;line-height:1.5}
-.pd-img .fx-ph i{width:76px;height:76px}
-
-.card-tag{position:absolute;top:0;left:0;background:var(--m);color:#fff;padding:6px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;transition:background .5s;z-index:2}
-.card-bd{padding:22px 20px 24px;flex:1;display:flex;flex-direction:column}
-.card h3{font-size:21px;margin-bottom:6px}
-.card .d{font-size:14px;color:var(--steel);line-height:1.55;font-weight:300;flex:1;margin-bottom:16px;display:block}
-.card .more{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--m);display:flex;align-items:center;gap:8px;transition:gap .3s,color .5s}
-.card:hover .more{gap:14px}
-
-.ov{position:fixed;inset:0;background:rgba(20,20,19,.72);backdrop-filter:blur(6px);z-index:190;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
-.ov.fx-on{opacity:1;visibility:visible}
-.pd{position:fixed;top:0;right:0;bottom:0;width:min(620px,100%);background:var(--bone);z-index:191;overflow-y:auto;transform:translateX(101%);transition:transform .45s cubic-bezier(.3,.8,.3,1)}
-.pd.fx-on{transform:translateX(0)}
-.pd-x{position:absolute;top:14px;right:14px;width:40px;height:40px;background:rgba(247,244,239,.92);border:1px solid var(--border);border-radius:50%;font-size:18px;line-height:1;z-index:6;transition:all .25s}
-.pd-x:hover{background:var(--anthracite);color:var(--bone);border-color:var(--anthracite)}
-.pd-img{aspect-ratio:4/3;overflow:hidden;background:var(--anthracite)}
-.pd-img img{width:100%;height:100%;object-fit:cover}
-.pd-bd{padding:30px 34px 40px}
-.pd-cat{color:var(--steel);display:block;margin-bottom:10px}
-.pd h2{font-size:clamp(27px,4.4vw,36px);line-height:1.15;margin-bottom:12px}
-.pd .lead{font-size:15px;color:var(--steel);line-height:1.65;font-weight:300;margin-bottom:24px}
-.pd-sec{border-top:1px solid var(--border);padding:22px 0}
-.pd-sec>.mono{color:var(--steel);display:block;margin-bottom:14px}
-.specs{list-style:none;display:grid;gap:9px}
-.specs li{display:flex;gap:14px;font-size:14px;font-weight:300;line-height:1.5}
-.specs li b{font-weight:400;color:var(--steel);min-width:118px;flex-shrink:0;font-size:13px}
-.row{display:flex;flex-wrap:wrap;gap:8px}
-.size{padding:9px 14px;border:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:12px;transition:all .22s;border-radius:2px}
-.size:hover{border-color:var(--m);color:var(--m)}
-.size[aria-pressed="true"]{background:var(--m);border-color:var(--m);color:#fff}
-.size.cust{border-style:dashed;color:var(--steel)}
-.size.cust:hover{border-style:solid;border-color:var(--m);color:var(--m)}
-.mini-sws{display:flex;gap:8px;flex-wrap:wrap}
-.msw{display:flex;align-items:center;gap:8px;padding:8px 13px;border:1px solid var(--border);font-size:13px;transition:all .22s;border-radius:2px}
-.msw i{width:14px;height:14px;background:var(--c);display:block;flex-shrink:0}
-.msw:hover{border-color:var(--m)}
-.msw[aria-pressed="true"]{border-color:var(--anthracite);background:var(--anthracite);color:var(--bone)}
-.pd-order{position:sticky;bottom:0;background:var(--bone);border-top:1px solid var(--border);padding:18px 34px 22px;margin:0 -34px -40px;box-shadow:0 -10px 24px rgba(44,44,42,.07)}
-.pd-pick{font-size:13px;color:var(--steel);font-weight:300;margin-bottom:12px;line-height:1.5}
-.pd-pick b{color:var(--anthracite);font-weight:400}
-.btn-order{width:100%;padding:16px;background:var(--m);color:#fff;font-size:14px;letter-spacing:.06em;border-radius:2px;transition:background .3s;text-align:center;display:block;text-decoration:none}
-.btn-order:hover{background:var(--m-d)}
-.pd-alt{display:flex;gap:9px;margin-top:9px}
-.pd-alt a{flex:1;padding:12px;border:1px solid var(--border);font-size:13px;text-align:center;color:var(--anthracite);text-decoration:none;transition:all .25s;border-radius:2px}
-.pd-alt a:hover{border-color:var(--anthracite);background:var(--anthracite);color:var(--bone)}
-
-.clad{background:var(--anthracite);color:var(--bone);margin-top:60px;overflow:hidden}
-.clad-in{display:grid;grid-template-columns:.92fr 1.08fr;align-items:stretch;min-height:640px}
-.clad-ph{position:relative;overflow:hidden}
-.clad-ph img{width:100%;height:100%;object-fit:cover;min-height:640px}
-.clad-tx{padding:76px 5vw 76px 58px;display:flex;flex-direction:column;justify-content:center}
-.clad-tx .mono{color:var(--m-l);transition:color .5s}
-.clad-tx h2{font-size:clamp(30px,4.2vw,46px);line-height:1.13;margin:18px 0}
-.clad-tx h2 em{font-style:italic;color:var(--m-l);transition:color .5s}
-.clad-tx p{color:var(--steel-l);font-size:16px;line-height:1.68;font-weight:300;max-width:48ch}
-.clad-l{list-style:none;margin:26px 0 30px;border-top:1px solid rgba(247,244,239,.14)}
-.clad-l li{padding:16px 0;border-bottom:1px solid rgba(247,244,239,.14);font-size:15px;font-weight:300;display:flex;gap:14px;align-items:baseline}
-.clad-l li span{color:var(--m-l);font-family:'JetBrains Mono',monospace;font-size:11px;flex-shrink:0;transition:color .5s}
-.clad-tx .btn{align-self:flex-start;padding:15px 32px;background:var(--m);color:#fff;font-size:14px;letter-spacing:.05em;border-radius:2px;transition:background .3s;text-decoration:none}
-.clad-tx .btn:hover{background:var(--m-d)}
-
-.cust-b{padding:84px 0}
-.cust-in{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
-.cust-in h2{font-size:clamp(28px,4vw,42px);line-height:1.14;margin:16px 0}
-.cust-in h2 em{font-style:italic;color:var(--m);transition:color .5s}
-.cust-in p{color:var(--steel);font-size:16px;line-height:1.68;font-weight:300;max-width:46ch}
-.steps{list-style:none;border-top:1px solid var(--border)}
-.steps li{padding:19px 0;border-bottom:1px solid var(--border);display:flex;gap:18px;align-items:baseline}
-.steps .n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--m);flex-shrink:0;transition:color .5s}
-.steps .t{font-size:15px;font-weight:300}
-.steps .t span{display:block;font-size:13px;color:var(--steel);margin-top:4px}
-.btn-lg{display:inline-block;margin-top:30px;padding:16px 34px;background:var(--anthracite);color:var(--bone);font-size:14px;letter-spacing:.06em;border-radius:2px;transition:background .3s;text-decoration:none}
-.btn-lg:hover{background:var(--m)}
-
-.req{background:var(--bone-d);padding:84px 0 92px}
-.req-in{max-width:640px;margin:0 auto;text-align:center}
-.req h2{font-size:clamp(27px,4vw,40px);margin:14px 0 12px}
-.req p{color:var(--steel);font-size:16px;line-height:1.65;font-weight:300;margin-bottom:32px}
-.acts{display:flex;gap:11px;justify-content:center;flex-wrap:wrap}
-.btn-f{padding:15px 30px;background:var(--m);color:#fff;font-size:14px;letter-spacing:.05em;border-radius:2px;transition:background .3s;text-decoration:none}
-.btn-f:hover{background:var(--m-d)}
-.btn-o{padding:15px 30px;border:1px solid var(--anthracite);font-size:14px;letter-spacing:.05em;border-radius:2px;transition:all .3s;color:var(--anthracite);text-decoration:none}
-.btn-o:hover{background:var(--anthracite);color:var(--bone)}
-.note{margin-top:24px;font-size:13px;color:var(--steel);font-weight:300}
-
-.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,90px);background:var(--anthracite);color:var(--bone);padding:15px 26px;font-size:14px;z-index:200;opacity:0;transition:all .4s cubic-bezier(.2,.8,.3,1);border-radius:2px;box-shadow:0 12px 34px rgba(0,0,0,.3);max-width:90vw;text-align:center}
-.toast.fx-on{transform:translate(-50%,0);opacity:1}
-
-@media(max-width:980px){
-  .clad-in{grid-template-columns:1fr}
-  .clad-ph img{min-height:420px}
-  .clad-tx{padding:56px 5vw}
-  .cust-in{grid-template-columns:1fr;gap:34px}
-}
-@media(max-width:900px){
-  .sws{grid-template-columns:1fr}
-  .sw{border-right:none;border-bottom:1px solid rgba(247,244,239,.14)}
-  .sw:last-child{border-bottom:none}
-}
-@media(max-width:560px){
-  
-  .grid{grid-template-columns:1fr}
-  .pd-bd{padding:24px 22px 34px}
-  .pd-order{padding:16px 22px 20px;margin:0 -22px -34px}
-}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
-
-.pd-link{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--m);text-decoration:none;
-  border-bottom:1px solid transparent;transition:border-color .25s}
-.pd-link:hover{border-bottom-color:var(--m)}
-
-</style>
-
-
 <section class="fx-metals">
   <div class="fx-metals-in">
-    <p class="fx-metals-lead">Кожен виріб виготовляємо у трьох металах. Оберіть матеріал — каталог покаже, як це виглядає.</p>
+    <p class="fx-metals-lead">Кожен виріб виготовляємо у трьох металах. Оберіть матеріал — каталог покаже ціни для нього.</p>
     <div class="picker">
-      <div class="picker-lb">
-        <span class="mono">Оберіть метал</span>
-        <span class="cur" id="curM">Кортен — жива іржа</span>
-      </div>    <div class="sws" role="group" aria-label="Вибір металу">
-        <button class="sw" data-metal="corten" aria-pressed="true" style="--c:#A0522D;--tex:repeating-linear-gradient(112deg,rgba(0,0,0,.3) 0 2px,transparent 2px 7px,rgba(232,184,148,.35) 7px 8px,transparent 8px 15px)">
-          <span class="sw-chip"></span><span class="sw-name">Кортен</span>
-          <span class="sw-note">Патина з часом. Не потребує догляду. Для вулиці й саду.</span>
-        </button>
-        <button class="sw" data-metal="steel" aria-pressed="false" style="--c:#3A3A37;--tex:repeating-linear-gradient(45deg,rgba(255,255,255,.1) 0 1px,transparent 1px 9px)">
-          <span class="sw-chip"></span><span class="sw-name">Чорна сталь + фарбування</span>
-          <span class="sw-note">Порошкове фарбування. Будь-який колір RAL. Мат або глянець.</span>
-        </button>
-        <button class="sw" data-metal="stainless" aria-pressed="false" style="--c:#9FA4A8;--tex:repeating-linear-gradient(90deg,rgba(255,255,255,.5) 0 1px,transparent 1px 4px)">
-          <span class="sw-chip"></span><span class="sw-name">Нержавіюча сталь</span>
-          <span class="sw-note">Шліфована або дзеркальна. AISI 304. Не змінює вигляд.</span>
-        </button>
-      </div>  </div></div>
+      <div class="picker-lb"><span class="mono">Оберіть метал</span><span class="cur" id="curM">Кортен — жива іржа</span></div>
+      <div class="sws" role="group" aria-label="Вибір металу">
+${metalBand}
+      </div>
+    </div>
   </div>
 </section>
 
-
 <nav class="filters" aria-label="Категорії">
   <div class="wrap filters-in" id="fbar">
-    <button class="chip" data-f="all" aria-pressed="true">Усі вироби</button>
-    <button class="chip" data-f="kashpo" aria-pressed="false">Кашпо</button>
-    <button class="chip" data-f="light" aria-pressed="false">Світильники</button>
-    <button class="chip" data-f="mangal" aria-pressed="false">Мангали</button>
-    <button class="chip" data-f="bowl" aria-pressed="false">Чаші</button>
-    <button class="chip" data-f="lamel" aria-pressed="false">Ламелі</button>
-    <button class="chip" data-f="sign" aria-pressed="false">Вивіски</button>
-    <button class="chip" data-f="facade" aria-pressed="false">Фасадні панелі</button>
-    <button class="chip" data-f="gate" aria-pressed="false">Панелі для воріт</button>
-    <button class="chip" data-f="clad" aria-pressed="false">Облицювання</button>
-    <button class="chip" data-f="decor" aria-pressed="false">Декор</button>
+    ${cats.map(([k, l]) => `<button type="button" class="chip" data-f="${k}" aria-pressed="${k === 'all'}">${l}</button>`).join('\n    ')}
   </div>
 </nav>
 
 <main class="cat">
   <div class="wrap">
-    <div class="cat-hd">
-      <h2>Готові моделі</h2>
-      <span class="mono" id="cnt"></span>
+    <div class="cat-hd"><h2>Готові моделі</h2><span class="mono" id="cnt"></span></div>
+    <div class="grid" id="grid">
+${cards}
     </div>
-    <div class="grid" id="grid"></div>
   </div>
 </main>
 
 <section class="clad" id="clad">
   <div class="clad-in">
-    <div class="clad-ph">
-      <img src="/uploads/cat-kamin-corten-tall.webp" alt="Облицювання каміну кортеновою сталлю — проєкт FEROX LVIV" loading="lazy">
-    </div>
+    <div class="clad-ph"><img src="/uploads/cat-kamin-corten-tall.webp" alt="Облицювання каміну кортеновою сталлю — FEROX LVIV" loading="lazy"></div>
     <div class="clad-tx">
       <span class="mono">Облицювання поверхонь</span>
       <h2>Кортен там, де був <em>бетон</em></h2>
@@ -2755,7 +2500,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
         <li><span>03</span>Приховане кріплення без видимих саморізів</li>
         <li><span>04</span>Стабілізація патини — щоб не фарбувала руки й підлогу</li>
       </ul>
-      <a class="btn" href="#request" data-order="Облицювання поверхонь кортеном">Обговорити об'єкт</a>
+      <a class="btn" href="/viroby/tovar/oblytsyuvannya-kaminu/">Дивитись облицювання</a>
     </div>
   </div>
 </section>
@@ -2766,433 +2511,67 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
       <span class="mono" style="color:var(--steel)">Індивідуальне виготовлення</span>
       <h2>Розмір під ваш <em>простір</em></h2>
       <p>Стандартні габарити рідко підходять точно. Робимо будь-який виріб з каталогу під ваші розміри — або зовсім нову форму за ескізом, кресленням чи фото.</p>
-      <a class="btn-lg" href="#request" data-order="Індивідуальне виготовлення за кресленням">Обговорити проєкт</a>
+      <a class="btn-lg" href="https://t.me/feroxlviv" target="_blank" rel="noopener">Обговорити проєкт</a>
     </div>
     <ul class="steps">
       <li><span class="n">01</span><span class="t">Надсилаєте ідею<span>Ескіз, фото, розміри або просто опис словами</span></span></li>
       <li><span class="n">02</span><span class="t">Отримуєте креслення й ціну<span>Технічне креслення з габаритами протягом 1–2 днів</span></span></li>
       <li><span class="n">03</span><span class="t">Виготовлення<span>Лазерна різка, гнуття з ЧПУ, зварювання TIG</span></span></li>
-      <li><span class="n">04</span><span class="t">Доставка по Україні<span>Пакування під транспортування. Монтаж — за потреби</span></span></li>
+      <li><span class="n">04</span><span class="t">Доставка по Україні<span>Київ, Одеса, Дніпро, Харків. Монтаж — за потреби</span></span></li>
     </ul>
   </div>
 </section>
 
-<section class="req" id="request">
-  <div class="wrap req-in">
-    <span class="mono" style="color:var(--steel)">Прорахунок</span>
-    <h2>Порахуємо ваше замовлення</h2>
-    <p>Напишіть, що саме потрібно — відповімо з ціною та термінами того ж дня.</p>
-    <div class="acts">
-      <a class="btn-f" id="tgMain" href="https://t.me/feroxlviv" target="_blank" rel="noopener">Оформити замовлення в Telegram</a>
-      <a class="btn-o" href="tel:+380630194013">+38 (063) 019-40-13</a>
-    </div>
-    <p class="note">FEROX LVIV — виробництво у Львові, доставка по всій Україні</p>
-  </div>
-</section>
-
-<div class="ov" id="ov"></div>
-<aside class="pd" id="pd" role="dialog" aria-modal="true" aria-labelledby="pdT"></aside>
-<div class="toast" id="toast" role="status"></div>
-
-<button type="button" class="cart-fab" id="cartFab" hidden aria-label="Відкрити замовлення">
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 4h2.2l1.6 8.4a1.6 1.6 0 001.6 1.3h6.3a1.6 1.6 0 001.6-1.2L17.6 7H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="17" r="1.1" fill="currentColor"/><circle cx="15" cy="17" r="1.1" fill="currentColor"/></svg>
-  <span id="cartN">0</span>
-</button>
-
-<div class="ov" id="cartOv"></div>
-<aside class="cart" id="cart" role="dialog" aria-modal="true" aria-labelledby="cartT">
-  <div class="cart-hd">
-    <h2 id="cartT">Ваше замовлення</h2>
-    <button type="button" class="pd-x cart-x" aria-label="Закрити">✕</button>
-  </div>
-  <div class="cart-body" id="cartBody"></div>
-  <div class="cart-foot" id="cartFoot"></div>
-</aside>
-
-
+${cartMarkup()}
 <script>
-
-const METALS={
- corten:{n:'Кортен — жива іржа',c:'#A0522D',l:'#D4956A',d:'#8a4425',lab:'кортен',photo:true,
-   spec:'Кортен 2–4 мм. Патина формується 3–6 місяців.'},
- steel:{n:'Чорна сталь + фарбування',c:'#3A3A37',l:'#8E8D86',d:'#26261F',lab:'чорна сталь',photo:false,
-   spec:'Ст3, 2–4 мм. Порошкова фарба, будь-який колір RAL.'},
- stainless:{n:'Нержавіюча сталь AISI 304',c:'#5E656A',ch:'#9FA4A8',l:'#C8CDD1',d:'#474D51',lab:'нержавіюча сталь',photo:false,
-   spec:'AISI 304, 1.5–3 мм. Шліфування або дзеркало.'}
-};
-
-const P=${JSON.stringify(CATALOG)};
-const SUB={kashpo:'kashpo',light:'svitylnyky',mangal:'mangal',bowl:'fontany',
- lamel:'fasady',sign:'vyviska',facade:'fasady',gate:'parkan',clad:'interior',decor:'skulptury'};
-
-const CATN={kashpo:'Кашпо',light:'Світильники',mangal:'Мангали',bowl:'Чаші',lamel:'Ламелі',
- sign:'Вивіски',facade:'Фасадні панелі',gate:'Панелі для воріт',clad:'Облицювання',decor:'Декор'};
-
-let metal='corten', order={t:null,s:null};
-const grid=document.getElementById('grid'), cnt=document.getElementById('cnt'),
-      pd=document.getElementById('pd'), ov=document.getElementById('ov');
-const TG='https://t.me/feroxlviv?text=';
-const plural=n=>n===1?'виріб':(n>=2&&n<=4?'вироби':'виробів');
-
-function fmt(n){return String(n).replace(/\\B(?=(\\d{3})+(?!\\d))/g,' ')+' грн'}
-
-function priceFrom(p){
-  if(!p.pr)return '';
-  var v=Object.keys(p.pr).map(function(k){return p.pr[k][1]});
-  if(!v.length)return '';
-  var one=Object.keys(p.pr).length===1;
-  var bd=p.badge?'<b>'+p.badge+'</b>':'';
-  return '<span class="p-from">'+bd+(one?'':'від ')+fmt(Math.min.apply(null,v))+'</span>';
-}
-
-function priceBox(p,size){
-  var el=document.getElementById('priceBox'); if(!el)return;
-  if(!p.pr||!p.pr[size]){
-    el.innerHTML='<span class="p-hint">'+
-      (!p.pr ? 'Індивідуальне виготовлення — ціну надішлемо у відповідь'
-       : !size ? 'Оберіть розмір — покажемо ціну'
-       : 'Цей розмір — індивідуальне виготовлення, ціну надішлемо у відповідь')+'</span>';
-    return;
-  }
-  var a=p.pr[size][0], b=p.pr[size][1];
-  el.innerHTML=(a&&p.badge?'<span class="p-badge">'+p.badge+'</span>':'')+
-    (a?'<span class="p-old">'+fmt(a)+'</span>':'')+
-    '<span class="p-now">'+fmt(b)+'</span>'+
-    (a?'<span class="p-save">−'+fmt(a-b)+'</span>':'');
-}
-
-function vis(p,size){
-  const m=METALS[metal];
-  if(m.photo||p.own){
-    return \`<img src="/uploads/\${p.img}.webp" alt="\${p.t} — FEROX LVIV" loading="lazy" decoding="async">\`;
-  }
-  return \`<span class="fx-ph" style="--phc:\${m.ch||m.c}">
-      <i></i><b>\${m.lab}</b>
-      <s>Фото у цьому металі готуємо. Виріб виготовляємо — форма й розміри ті самі.</s>
-    </span>\`;
-}
-
-function render(f='all'){
-  const L=f==='all'?P:P.filter(p=>p.c===f);
-  cnt.textContent=L.length+' '+plural(L.length);
-  grid.innerHTML=L.map(p=>\`
-    <button class="card" data-t="\${p.t}">
-      <span class="card-vis">
-        <span class="card-tag">\${METALS[metal].lab}</span>
-        \${vis(p,'sm')}
-      </span>
-      <span class="card-bd">
-        <h3>\${p.t}</h3>
-        <span class="d">\${p.d}</span>
-        \${priceFrom(p)}
-        <span class="more">Дивитись виріб →</span>
-      </span>
-    </button>\`).join('');
-}
-
-function openPD(t){
-  const p=P.find(x=>x.t===t); if(!p)return;
-  order={t:p.t,s:null};
-  pd.innerHTML=\`
-    <button class="pd-x" aria-label="Закрити">✕</button>
-    <div class="pd-img">\${vis(p,'lg')}</div>
-    <div class="pd-bd">
-      <span class="pd-cat mono">\${CATN[p.c]}</span>
-      <h2 id="pdT">\${p.t}</h2>
-      <p class="lead">\${p.full}</p>
-      <div class="pd-sec">
-        <span class="mono">Метал</span>
-        <div class="mini-sws" role="group" aria-label="Метал виробу">
-          \${Object.entries(METALS).map(([k,v])=>\`
-            <button class="msw" data-mm="\${k}" aria-pressed="\${k===metal}" style="--c:\${v.ch||v.c}">
-              <i></i>\${v.lab.charAt(0).toUpperCase()+v.lab.slice(1)}</button>\`).join('')}
-        </div>
-        <p style="margin-top:12px;font-size:13px;color:var(--steel);font-weight:300" id="mSpec">\${METALS[metal].spec}</p>
-      </div>
-      <div class="pd-sec">
-        <span class="mono">Розміри, см</span>
-        <div class="row" role="group" aria-label="Розмір виробу">
-          \${p.s.map(s=>\`<button class="size" data-s="\${s}" aria-pressed="false">\${s}</button>\`).join('')}
-          <button class="size cust" data-s="індивідуальні" aria-pressed="false">Індивідуальні розміри</button>
-        </div>
-        <div id="priceBox" class="price-box"></div>
-        \${p.note?\`<p class="p-note">\${p.note}</p>\`:''}
-      </div>
-      <div class="pd-sec">
-        <span class="mono">Характеристики</span>
-        <ul class="specs">\${p.sp.map(x=>\`<li><b>\${x[0]}</b>\${x[1]}</li>\`).join('')}
-          <li><b>Доставка</b>По всій Україні</li></ul>
-      </div>
-      <div class="pd-sec">
-        \${p.pr?\`<a class="pd-link" href="/viroby/tovar/\${p.slug}/">Повний опис і всі ціни →</a><br>\`:''}
-        <a class="pd-link" href="/viroby/\${p.sub||SUB[p.c]}/">Детальніше про категорію «\${CATN[p.c]}» →</a>
-      </div>
-      <div class="pd-order">
-        <p class="pd-pick" id="pdPick"></p>
-        <div class="qty-row">
-          <span class="qty-lb">Кількість</span>
-          <div class="qty">
-            <button type="button" class="qty-b" data-q="-1" aria-label="Менше">−</button>
-            <input class="qty-i" id="qtyI" type="text" inputmode="numeric" value="1" aria-label="Кількість">
-            <button type="button" class="qty-b" data-q="1" aria-label="Більше">+</button>
-          </div>
-          <span class="qty-sum" id="qtySum"></span>
-        </div>
-        <button type="button" class="btn-order" id="addBtn">Додати до замовлення</button>
-        <a class="btn-order btn-ghost" id="pdBtn" href="#" target="_blank" rel="noopener">Замовити одразу в Telegram</a>
-        <div class="pd-alt">
-          <a href="tel:+380630194013">Зателефонувати</a>
-          <a href="mailto:feroxlviv.business@gmail.com">Написати на пошту</a>
-        </div>
-      </div>
-    </div>\`;
-  upd(); priceBox(p,null); setQty(1);
-  ov.classList.add('fx-on'); pd.classList.add('fx-on');
-  document.body.classList.add('lock'); pd.scrollTop=0;
-  setTimeout(()=>{const x=pd.querySelector('.pd-x'); if(x)x.focus()},120);
-}
-
-function closePD(){
-  ov.classList.remove('fx-on'); pd.classList.remove('fx-on');
-  document.body.classList.remove('lock');
-}
-
-function upd(){
-  const el=document.getElementById('pdPick'); if(!el)return;
-  const m=METALS[metal].lab;
-  el.innerHTML=order.s
-    ? \`<b>\${order.t}</b> · \${m} · \${order.s==='індивідуальні'?'<b>індивідуальні розміри</b>':'<b>'+order.s+'</b>'}\`
-    : \`<b>\${order.t}</b> · \${m} · <span style="color:var(--m)">оберіть розмір вище</span>\`;
-  var _p=P.find(function(x){return x.t===order.t});
-  var _pl=(_p&&_p.pr&&_p.pr[order.s])?'\\nЦіна: '+fmt(_p.pr[order.s][1]):'';
-  const txt=\`Доброго дня! Хочу оформити замовлення.\\n\\nВиріб: \${order.t}\\nМетал: \${m}\\nРозмір: \${order.s||'уточню'}\${_pl}\\n\\nПрошу підтвердити термін виготовлення.\`;
-  const b=document.getElementById('pdBtn'); if(b)b.href=TG+encodeURIComponent(txt);
-}
-
-function toast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('fx-on');
-  clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('fx-on'),3200);
-}
-
-function setMetal(k){
-  metal=k;
-  const m=METALS[k], r=document.documentElement.style;
-  r.setProperty('--m',m.c); r.setProperty('--m-l',m.l);
-  r.setProperty('--m-d',m.d);
-  document.getElementById('curM').textContent=m.n;
-  document.querySelectorAll('.sw').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.metal===k)));
-  const cur=document.querySelector('.chip[aria-pressed="true"]');
-  render(cur?cur.dataset.f:'all');
-  const sp=document.getElementById('mSpec'); if(sp)sp.textContent=m.spec;
-  pd.querySelectorAll('.msw').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mm===k)));
-  // перемалювати фото у відкритій картці товару
-  const box=pd.querySelector('.pd-img');
-  if(box&&order.t){const p=P.find(x=>x.t===order.t); if(p)box.innerHTML=vis(p,'lg');}
-  upd();
-}
-
-document.querySelectorAll('.sw').forEach(b=>b.onclick=()=>setMetal(b.dataset.metal));
-
-document.getElementById('fbar').onclick=e=>{
-  const b=e.target.closest('.chip'); if(!b)return;
-  document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed','false'));
-  b.setAttribute('aria-pressed','true'); render(b.dataset.f);
-};
-
-grid.onclick=e=>{const c=e.target.closest('.card'); if(c)openPD(c.dataset.t)};
-
-pd.onclick=e=>{
-  if(e.target.closest('.pd-x')){closePD();return}
-  const mm=e.target.closest('.msw'); if(mm){setMetal(mm.dataset.mm);return}
-  const s=e.target.closest('.size');
-  if(s){
-    pd.querySelectorAll('.size').forEach(x=>x.setAttribute('aria-pressed','false'));
-    s.setAttribute('aria-pressed','true'); order.s=s.dataset.s;
-    priceBox(P.find(function(x){return x.t===order.t}),order.s);
-    setQty(1); upd(); return;
-  }
-  const qb=e.target.closest('.qty-b');
-  if(qb&&!qb.dataset.ck){ setQty(getQty()+(+qb.dataset.q)); return; }
-  if(e.target.closest('#addBtn')){ cartAdd(); return; }
-  const btn=e.target.closest('#pdBtn');
-  if(btn&&!order.s){
-    e.preventDefault();
-    toast('Оберіть розмір — або натисніть «Індивідуальні розміри»');
-    const f=pd.querySelector('.size'); if(f)f.scrollIntoView({behavior:'smooth',block:'center'});
-  }
-};
-
-pd.addEventListener('input',function(e){
-  if(e.target.closest('#qtyI'))qtySum();
-});
-
-ov.onclick=closePD;
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&pd.classList.contains('fx-on'))closePD()});
-
-document.querySelectorAll('[data-order]').forEach(a=>{
-  a.addEventListener('click',()=>{
-    document.getElementById('tgMain').href=TG+encodeURIComponent(
-      \`Доброго дня! Цікавить: \${a.dataset.order} (\${METALS[metal].lab}). Прошу порахувати.\`);
-  });
-});
-
-document.getElementById('tgMain').href=TG+encodeURIComponent(
-  'Доброго дня! Цікавлять вироби з металу. Прошу порахувати вартість.');
-
-
-/* ─────── КОШИК ─────── */
-var CART=[];
-try{var _c=localStorage.getItem('ferox_cart'); if(_c)CART=JSON.parse(_c)||[];}catch(e){CART=[];}
-function cartSave(){try{localStorage.setItem('ferox_cart',JSON.stringify(CART));}catch(e){}}
-function cartQty(){return CART.reduce(function(a,i){return a+i.q},0)}
-function cartSum(){return CART.reduce(function(a,i){return a+(i.price||0)*i.q},0)}
-function cartOld(){return CART.reduce(function(a,i){return a+((i.old||i.price||0))*i.q},0)}
-function cartHasPrice(){return CART.some(function(i){return i.price})}
-
-function cartFab(){
-  var f=document.getElementById('cartFab'), n=document.getElementById('cartN');
-  if(!f)return;
-  var q=cartQty();
-  f.hidden = q===0;
-  if(n)n.textContent=q;
-}
-
-function cartRender(){
-  var body=document.getElementById('cartBody'), foot=document.getElementById('cartFoot');
-  if(!body)return;
-  if(!CART.length){
-    body.innerHTML='<p class="cart-empty">Тут з\\'являться вироби, які ви додасте.<br>Оберіть товар, розмір і кількість.</p>';
-    foot.innerHTML='';
-    cartFab(); return;
-  }
-  body.innerHTML=CART.map(function(i,k){
-    return '<div class="ci">'+
-      '<button type="button" class="ci-x" data-del="'+k+'" aria-label="Прибрати">✕</button>'+
-      '<div class="ci-in">'+
-        '<div class="ci-t">'+i.t+'</div>'+
-        '<div class="ci-m">'+i.m+' · '+i.s+'</div>'+
-        '<div class="ci-b">'+
-          '<div class="qty"><button type="button" class="qty-b" data-ck="'+k+'" data-q="-1">−</button>'+
-          '<input class="qty-i" data-cq="'+k+'" type="text" inputmode="numeric" value="'+i.q+'">'+
-          '<button type="button" class="qty-b" data-ck="'+k+'" data-q="1">+</button></div>'+
-          '<span class="ci-p">'+(i.price?fmt(i.price*i.q):'<em>за прорахунком</em>')+'</span>'+
-        '</div>'+
-      '</div></div>';
-  }).join('');
-
-  var sum=cartSum(), old=cartOld(), save=old-sum;
-  foot.innerHTML=
-    (cartHasPrice()?'<div class="cart-tot"><span>Разом за прайсом</span><b>'+fmt(sum)+'</b></div>':'')+
-    (save>0?'<p class="cart-save">Ваша економія — '+fmt(save)+'</p>':'')+
-    '<p class="cart-note">Ціни за прайсом і є остаточні. Доставка рахується окремо за тарифом перевізника.</p>'+
-    '<a class="btn-order" id="cartGo" href="#" target="_blank" rel="noopener">Оформити замовлення</a>';
-
-  var go=document.getElementById('cartGo');
-  if(go)go.href=TG+encodeURIComponent(cartText());
-  cartFab();
-}
-
-function cartText(){
-  var L=['Доброго дня! Хочу оформити замовлення.',''];
-  CART.forEach(function(i,k){
-    L.push((k+1)+'. '+i.t);
-    L.push('   Метал: '+i.m+' · Розмір: '+i.s+' · К-сть: '+i.q);
-    if(i.price)L.push('   Ціна: '+fmt(i.price)+' × '+i.q+' = '+fmt(i.price*i.q));
-    L.push('');
-  });
-  if(cartHasPrice())L.push('Разом за прайсом: '+fmt(cartSum()));
-  L.push('','Прошу підтвердити наявність і термін виготовлення.');
-  return L.join('\\n');
-}
-
-function cartAdd(){
-  var p=P.find(function(x){return x.t===order.t});
-  if(!p)return;
-  if(!order.s){
-    toast('Спершу оберіть розмір');
-    var f=pd.querySelector('.size'); if(f)f.scrollIntoView({behavior:'smooth',block:'center'});
-    return;
-  }
-  var q=getQty(), m=METALS[metal].lab;
-  var pr=(p.pr&&p.pr[order.s])?p.pr[order.s]:null;
-  var same=CART.find(function(i){return i.t===p.t&&i.s===order.s&&i.m===m});
-  if(same){ same.q+=q; }
-  else CART.push({t:p.t,s:order.s,m:m,q:q,price:pr?pr[1]:null,old:pr?pr[0]:null});
-  cartSave(); cartRender();
-  toast(p.t+' — додано до замовлення');
-}
-
-function getQty(){
-  var i=document.getElementById('qtyI');
-  var v=i?parseInt(i.value,10):1;
-  return (!v||v<1)?1:(v>99?99:v);
-}
-function setQty(v){
-  var i=document.getElementById('qtyI'); if(!i)return;
-  i.value=(v<1?1:(v>99?99:v)); qtySum();
-}
-function qtySum(){
-  var el=document.getElementById('qtySum'); if(!el)return;
-  var p=P.find(function(x){return x.t===order.t});
-  if(!p||!p.pr||!order.s||!p.pr[order.s]){el.textContent='';return}
-  var q=getQty();
-  el.innerHTML=q>1?'<b>'+fmt(p.pr[order.s][1]*q)+'</b>':'';
-}
-
-function cartOpen(){
-  cartRender();
-  document.getElementById('cartOv').classList.add('fx-on');
-  document.getElementById('cart').classList.add('fx-on');
-  document.body.classList.add('lock');
-}
-function cartClose(){
-  document.getElementById('cartOv').classList.remove('fx-on');
-  document.getElementById('cart').classList.remove('fx-on');
-  document.body.classList.remove('lock');
-}
-
-document.getElementById('cartFab').addEventListener('click',cartOpen);
-document.getElementById('cartOv').addEventListener('click',cartClose);
-document.getElementById('cart').addEventListener('click',function(e){
-  if(e.target.closest('.cart-x')){cartClose();return}
-  var d=e.target.closest('[data-del]');
-  if(d){CART.splice(+d.dataset.del,1);cartSave();cartRender();return}
-  var b=e.target.closest('[data-ck]');
-  if(b){
-    var k=+b.dataset.ck;
-    CART[k].q+= (+b.dataset.q);
-    if(CART[k].q<1)CART.splice(k,1);
-    cartSave();cartRender();
-  }
-});
-document.getElementById('cart').addEventListener('input',function(e){
-  var i=e.target.closest('[data-cq]'); if(!i)return;
-  var k=+i.dataset.cq, v=parseInt(i.value,10);
-  if(!v||v<1)v=1; if(v>99)v=99;
-  CART[k].q=v; cartSave();
-  var f=document.getElementById('cartFoot');
-  if(f){var sum=cartSum(),old=cartOld();cartFab();
-    var t=f.querySelector('.cart-tot b'); if(t)t.textContent=fmt(sum);
-    var sv=f.querySelector('.cart-save'); if(sv)sv.textContent='Ваша економія — '+fmt(old-sum);
-    var g=document.getElementById('cartGo'); if(g)g.href=TG+encodeURIComponent(cartText());
-  }
-  var row=i.closest('.ci'); if(row){var pe=row.querySelector('.ci-p');
-    if(pe&&CART[k].price)pe.textContent=fmt(CART[k].price*CART[k].q);}
-});
-document.addEventListener('keydown',function(e){
-  if(e.key==='Escape'&&document.getElementById('cart').classList.contains('fx-on'))cartClose();
-});
-cartFab();
-
+${shopScript()}
 (function(){
-  const sp=new URLSearchParams(location.search);
-  const q=sp.get('metal');
-  if(q&&METALS[q]&&q!=='corten'){setMetal(q);}else{render();}
-  const o=sp.get('open');
-  if(o){const t=P.find(function(x){return x.slug===o}); if(t)setTimeout(function(){openPD(t.t)},60);}
-})();
+  var metal='corten';
+  var q=new URLSearchParams(location.search).get('metal');
+  if(q&&MI[q])metal=q;
 
+  function paint(){
+    var m=MI[metal],r=document.documentElement.style;
+    r.setProperty('--m',m.c);r.setProperty('--m-l',m.l);r.setProperty('--m-d',m.d);
+    document.getElementById('curM').textContent=m.n;
+    document.querySelectorAll('.sw').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.metal===metal))});
+    document.querySelectorAll('.card').forEach(function(c){
+      var tag=c.querySelector('[data-tag]'); if(tag)tag.textContent=m.short;
+      var img=c.querySelector('img'), ph=c.querySelector('[data-ph]');
+      if(img&&ph){
+        if(m.photo){img.hidden=false;ph.hidden=true}
+        else{img.hidden=true;ph.hidden=false;ph.style.setProperty('--phc',m.ch);ph.querySelector('b').textContent=m.short}
+      }
+      var pr=c.querySelector('[data-price]');
+      if(pr){
+        var lo=+pr.dataset.lo, base=Math.round(lo/MULT.steel);
+        var v=mp(base,metal);
+        var b=pr.querySelector('b');
+        pr.innerHTML=(b?b.outerHTML:'')+'від '+fmt(v);
+      }
+      var href=c.getAttribute('href').split('?')[0];
+      c.setAttribute('href',metal==='corten'?href:href+'?metal='+metal);
+    });
+  }
+  document.querySelectorAll('.sw').forEach(function(b){
+    b.addEventListener('click',function(){metal=b.dataset.metal;paint()});
+  });
+
+  var plural=function(n){return n===1?'виріб':(n>=2&&n<=4?'вироби':'виробів')};
+  function count(){
+    var v=[].filter.call(document.querySelectorAll('.card'),function(c){return !c.hidden}).length;
+    document.getElementById('cnt').textContent=v+' '+plural(v);
+  }
+  document.getElementById('fbar').addEventListener('click',function(e){
+    var b=e.target.closest('.chip'); if(!b)return;
+    document.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed','false')});
+    b.setAttribute('aria-pressed','true');
+    var f=b.dataset.f;
+    document.querySelectorAll('.card').forEach(function(c){c.hidden=!(f==='all'||c.dataset.cat===f)});
+    count();
+  });
+  paint();count();
+})();
 </script>
 ` + footer();
 }
@@ -3213,7 +2592,7 @@ const CATALOG=[
   pr:{'60×60×25':[17000,12000],'90×60×25':[18500,13500]},
   badge:'Топ продажів',
   sp:[['Товщина','2–3 мм'],['Жорсткість','Внутрішні ребра'],['Термін','10–14 днів']]},
- {c:'kashpo',img:'cat-kashpo-modular',t:'Модульний набір кашпо',slug:'nabir-kashpo',
+ {c:'kashpo',img:'cat-kashpo-modular',t:'Модульний набір кашпо',sn:'Набір кашпо з кортену',slug:'nabir-kashpo',
   d:'Композиція з кількох кашпо — на 10% дешевше, ніж поштучно.',
   full:'Набір кашпо різної висоти в одній геометрії. Ставляться групою — працюють як цілісна композиція, а не окремі горщики. Ціна набору на 10% нижча за суму тих самих виробів поштучно.',
   s:['Набір S · ⌀40+⌀50','Набір M · ⌀40+⌀50+⌀60','Набір L · ⌀40+⌀50+⌀60 + прямокутне 90×60'],
@@ -3223,25 +2602,25 @@ const CATALOG=[
   badge:'Вигода 10%',
   note:'Закреслена ціна — сума тих самих кашпо поштучно. Можливе хімічне патинування — термін до 14 днів.',
   sp:[['У наборі','2–4 вироби'],['Товщина','2 мм'],['Знижка','−10% до поштучної'],['Термін','12–16 днів']]},
- {c:'light',img:'cat-light-pillar',t:'Ліхтар FEROX PRO 1',slug:'likhtar-ferox-pro-1',
+ {c:'light',img:'cat-light-pillar',t:'Ліхтар FEROX PRO 1',sn:'Садовий ліхтар з кортену',slug:'likhtar-ferox-pro-1',
   d:'Вертикальний об\'єм зі світловою щілиною. Власна модель.',
   full:'Світло виходить через похилу щілину — освітлює доріжку, не б\'є в очі. Всередині гільза під стандартний патрон, ввід кабелю знизу. Наша власна модель, інших виробників у неї немає.',
   s:['H-40','H-60'],
   pr:{'H-40':[9500,8500],'H-60':[10500,9500]},
   badge:'Сезонний розпродаж',
   sp:[['Захист','IP65'],['Світло','3000K тепле'],['Живлення','220V або 12V'],['Термін','10–14 днів']]},
- {c:'light',img:'cat-light-wall',t:'FEROX Mini Light',slug:'ferox-mini-light',
+ {c:'light',img:'cat-light-wall',t:'FEROX Mini Light',sn:'Настінний світильник з металу',slug:'ferox-mini-light',
   d:'Компактний настінний світильник для фасаду й тераси.',
   full:'Невеликий корпус із двома світловими отворами — промінь малює на стіні дві симетричні плями. Монтаж на дюбелі, кабель заводиться ззаду приховано.',
   s:['20×12×10','28×15×12'],
   pr:{'20×12×10':[null,2000],'28×15×12':[null,2500]},
   sp:[['Захист','IP65'],['Світло','3000K тепле'],['Монтаж','Прихований ввід'],['Термін','7–10 днів']]},
- {c:'light',img:'cat-light-sphere',t:'Світильник-куля перфорований',slug:'svitylnyk-kulya',
+ {c:'light',img:'cat-light-sphere',t:'Світильник-куля перфорований',sn:'Садовий світильник-куля',slug:'svitylnyk-kulya',
   d:'Світло малює візерунок по стінах і землі.',
   full:'Перфорована сфера — вночі проєктує візерунок на все довкола. Підвісний або на ніжці. Малюнок перфорації можна замінити на ваш.',
   s:['⌀25','⌀35','⌀45','⌀60'],
   sp:[['Виконання','Підвіс або ніжка'],['Перфорація','Наша або ваша'],['Термін','10–14 днів']]},
- {c:'mangal',img:'cat-mangal-built',t:'Мангал вбудований з поверхнею',slug:'mangal-vbudovanyi',
+ {c:'mangal',img:'cat-mangal-built',t:'Мангал вбудований з поверхнею',sn:'Вбудований мангал з металу',slug:'mangal-vbudovanyi',
   d:'Мангал із робочою поверхнею та місцем під дрова.',
   full:'Стаціонарний модуль: жарова частина, робоча поверхня збоку, ніша для дров унизу. Стінки 3 мм — не веде від жару навіть після сезону.',
   s:['120×60×90','150×60×90','180×65×90'],
@@ -3256,7 +2635,7 @@ const CATALOG=[
   full:'Неглибока чаша для води чи гальки. Під фонтан робимо переливний борт і отвір під помпу — насос і підводка окремо.',
   s:['⌀40×15','⌀60×20','⌀80×25','⌀100×30'],
   sp:[['Товщина','2–3 мм'],['Опція','Переливний борт'],['Термін','10–14 днів']]},
- {c:'lamel',img:'cat-lamels',t:'Ламелі фасадні вертикальні',slug:'lameli-fasadni',
+ {c:'lamel',img:'cat-lamels',t:'Ламелі фасадні вертикальні',sn:'Фасадні ламелі з металу',slug:'lameli-fasadni',
   d:'Планки для фасаду, парканів і зонування.',
   full:'Вертикальні планки з рівним кроком. Закривають від погляду, але пропускають повітря й світло. Крок і ширину підбираємо під потрібну щільність.',
   s:['H-180','H-200','H-240','H-300'],
@@ -3266,7 +2645,7 @@ const CATALOG=[
   full:'Секції з перфорацією — від щільної сітки до великого візерунка. Малюнок можемо зробити за вашим ескізом або взяти з нашої бібліотеки.',
   s:['200×180','250×200','300×200'],
   sp:[['Товщина','2–3 мм'],['Малюнок','Ваш або наш'],['Термін','16–22 дні']]},
- {c:'facade',img:'cat-parkan-perforated',t:'Панель фасадна перфорована',slug:'panel-fasadna',
+ {c:'facade',img:'cat-parkan-perforated',t:'Панель фасадна перфорована',sn:'Перфорована фасадна панель',slug:'panel-fasadna',
   d:'Малюнок за вашим ескізом або з нашої бібліотеки.',
   full:'Панелі для вентильованого фасаду чи декоративної обшивки. Розкрій під модуль будівлі, кріплення на прихованій підсистемі.',
   s:['100×200','120×240','150×300','за кресленням'],
@@ -3286,7 +2665,7 @@ const CATALOG=[
   full:'Літери з прихованою LED-стрічкою — світиться контур навколо, сам напис лишається темним. Ефект працює в сутінках, коли звичайна вивіска вже не читається.',
   s:['до 60 см','до 100 см','до 150 см','понад 150'],
   sp:[['Підсвітка','LED IP65, 3000K'],['Відступ','40–50 мм від стіни'],['Термін','12–18 днів']]},
- {c:'clad',img:'cat-kamin-corten',t:'Облицювання каміну кортеном',slug:'oblytsyuvannya-kaminu',
+ {c:'clad',img:'cat-kamin-corten',t:'Облицювання каміну кортеном',sn:'Облицювання каміну кортеном',slug:'oblytsyuvannya-kaminu',
   d:'Обшивка топки, колони або порталу листовим кортеном.',
   full:'Панелі розкроюємо під геометрію об\'єкта — з вирізами під топку, вентиляційні щілини й кути. Кріплення приховане. Патину стабілізуємо, щоб не фарбувала руки й підлогу.',
   s:['до 2 м²','2–4 м²','4–8 м²','за проєктом'],
@@ -3296,7 +2675,7 @@ const CATALOG=[
   full:'Обшивка колон, стін, барних стійок і ресепшенів. Шов між панелями робимо навмисно видимим — він задає ритм поверхні замість того, щоб маскуватись.',
   s:['до 5 м²','5–15 м²','15–30 м²','за проєктом'],
   sp:[['Модуль','Під розмір поверхні'],['Шов','Відкритий 8–12 мм'],['Термін','від 20 днів']]},
- {c:'decor',img:'cat-sculpture-deer',t:'Скульптура «Олень»',slug:'skulptura-olen',
+ {c:'decor',img:'cat-sculpture-deer',t:'Скульптура «Олень»',sn:'Скульптура оленя з кортену',slug:'skulptura-olen',
   d:'Силует висотою 3 метри з рогами. Ексклюзивний об\'єкт.',
   full:'Силует, вирізаний лазером із листа, висотою 3 метри разом з рогами. Ставиться на ґрунтові анкери або бетонну п\'яту. У кортені читається на будь-якому фоні — зелень, сніг, бетон. Домінанта ділянки, а не садова фігурка.',
   s:['H-300 з рогами'],
@@ -3317,6 +2696,85 @@ const CATALOG=[
 ];
 
 // ── СТОРІНКА ТОВАРУ (з фіду для Merchant Center) ─────────────
+// ══════════════════════════════════════════════════════════
+// МАГАЗИН: спільні дані, ціни за металом, кошик
+// ══════════════════════════════════════════════════════════
+
+const METAL_MULT = { corten: 1, stainless: 0.7, steel: 0.5 };
+const METAL_INFO = {
+  corten:    { n:'Кортен — жива іржа', short:'кортен', c:'#A0522D', ch:'#A0522D', l:'#D4956A', d:'#8a4425',
+               spec:'Кортен 2–4 мм. Патина формується 3–6 місяців.', photo:true },
+  steel:     { n:'Чорна сталь + фарбування', short:'чорна сталь', c:'#3A3A37', ch:'#3A3A37', l:'#8E8D86', d:'#26261F',
+               spec:'Ст3, 2–4 мм. Порошкова фарба, будь-який колір RAL.', photo:false },
+  stainless: { n:'Нержавіюча сталь AISI 304', short:'нержавіюча сталь', c:'#5E656A', ch:'#9FA4A8', l:'#C8CDD1', d:'#474D51',
+               spec:'AISI 304, 1.5–3 мм. Шліфування або дзеркало.', photo:false }
+};
+const METAL_ORDER = ['corten','steel','stainless'];
+
+function mPrice(base, metal) {
+  if (METAL_MULT[metal] === 1) return base;
+  return Math.round(base * METAL_MULT[metal] / 10) * 10;
+}
+function minPrice(p) {
+  if (!p.pr) return null;
+  return Math.min(...Object.keys(p.pr).map(s => mPrice(p.pr[s][1], 'steel')));
+}
+function maxPrice(p) {
+  if (!p.pr) return null;
+  return Math.max(...Object.keys(p.pr).map(s => p.pr[s][1]));
+}
+
+// ── SEO ─────────────────────────────────────────────────────
+const CAT_SEO = {
+  kashpo:    { g:'кашпо',              pl:'кашпо для рослин' },
+  light:     { g:'світильник',         pl:'вуличні світильники' },
+  mangal:    { g:'мангал',             pl:'мангали та вогнища' },
+  bowl:      { g:'чаша',               pl:'декоративні чаші' },
+  lamel:     { g:'ламелі',             pl:'фасадні ламелі' },
+  sign:      { g:'вивіска',            pl:'вивіски та таблички' },
+  facade:    { g:'фасадна панель',     pl:'фасадні панелі' },
+  gate:      { g:'панель для воріт',   pl:'панелі для воріт' },
+  clad:      { g:'облицювання',        pl:'облицювання кортеном' },
+  decor:     { g:'декор',              pl:'садовий декор' }
+};
+
+function seoName(p) { return p.sn || p.t; }
+
+function seoTitle(p) {
+  const lo = minPrice(p);
+  const n = seoName(p);
+  const t = lo ? `${n} — ціна від ${uah(lo)} | FEROX LVIV`
+               : `${n} на замовлення — Львів, Київ | FEROX LVIV`;
+  return t.length <= 65 ? t : (lo ? `${n} — від ${uah(lo)} | FEROX LVIV`
+                                  : `${n} — Львів, Київ | FEROX LVIV`);
+}
+function seoDesc(p) {
+  const lo = minPrice(p);
+  const price = lo ? `Ціна від ${uah(lo)}. ` : 'Прорахунок за 15 хвилин. ';
+  return `${seoName(p)} на замовлення: кортенова сталь, нержавійка AISI 304 або чорний метал з фарбуванням RAL. `
+       + `${price}Виробництво у Львові, доставка по Україні — Київ, Одеса, Дніпро, Харків.`;
+}
+function seoKeywords(p) {
+  const g = (CAT_SEO[p.c] || {}).g || 'вироби з металу';
+  const pl = (CAT_SEO[p.c] || {}).pl || 'вироби з металу';
+  const n = seoName(p).toLowerCase();
+  const set = new Set([
+    n, `${n} ціна`, `купити ${n}`,
+    `${g} з кортену`, `${g} з металу`, `${g} з нержавійки`,
+    `${g} купити львів`, `${g} купити київ`, `${g} на замовлення`,
+    `${pl} україна`, 'кортенова сталь вироби', 'вироби з металу на замовлення',
+    'металовироби львів', 'доставка по україні'
+  ]);
+  if (p.t.toLowerCase() !== n) set.add(p.t.toLowerCase());
+  return [...set].join(', ');
+}
+function seoH1(p) {
+  const n = seoName(p);
+  return n.toLowerCase().includes('метал') || n.toLowerCase().includes('кортен')
+    ? `${n}<br><em>на замовлення.</em>`
+    : `${n}<br><em>з металу.</em>`;
+}
+
 const CAT_LABEL = {kashpo:'Кашпо',light:'Світильники',mangal:'Мангали',bowl:'Чаші',
   lamel:'Ламелі',sign:'Вивіски',facade:'Фасадні панелі',gate:'Панелі для воріт',
   clad:'Облицювання',decor:'Декор'};
@@ -3326,50 +2784,235 @@ const CAT_SUB = {kashpo:'kashpo',light:'svitylnyky',mangal:'mangal',bowl:'fontan
 function uah(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' грн'; }
 function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
+
+function cartMarkup() {
+  return `<div class="toast" id="toast" role="status"></div>
+<button type="button" class="cart-fab" id="cartFab" hidden aria-label="Відкрити замовлення">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 4h2.2l1.6 8.4a1.6 1.6 0 001.6 1.3h6.3a1.6 1.6 0 001.6-1.2L17.6 7H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="17" r="1.1" fill="currentColor"/><circle cx="15" cy="17" r="1.1" fill="currentColor"/></svg>
+  <span id="cartN">0</span>
+</button>
+<div class="ov" id="cartOv"></div>
+<aside class="cart" id="cart" role="dialog" aria-modal="true" aria-labelledby="cartT">
+  <div class="cart-hd"><h2 id="cartT">Ваше замовлення</h2>
+    <button type="button" class="pd-x cart-x" aria-label="Закрити">✕</button></div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-foot" id="cartFoot"></div>
+</aside>`;
+}
+
+function shopScript() {
+  return `
+var TG='https://t.me/feroxlviv?text=';
+var MULT=${JSON.stringify(METAL_MULT)};
+var MI=${JSON.stringify(Object.fromEntries(METAL_ORDER.map(k => [k, {n: METAL_INFO[k].n, short: METAL_INFO[k].short, c: METAL_INFO[k].c, ch: METAL_INFO[k].ch, l: METAL_INFO[k].l, d: METAL_INFO[k].d, spec: METAL_INFO[k].spec, photo: METAL_INFO[k].photo}])))};
+function fmt(n){return String(n).replace(/\\B(?=(\\d{3})+(?!\\d))/g,' ')+' грн'}
+function mp(base,metal){return MULT[metal]===1?base:Math.round(base*MULT[metal]/10)*10}
+
+var CART=[];
+try{var _c=localStorage.getItem('ferox_cart'); if(_c)CART=JSON.parse(_c)||[];}catch(e){CART=[];}
+function cartSave(){try{localStorage.setItem('ferox_cart',JSON.stringify(CART))}catch(e){}}
+function cartQty(){return CART.reduce(function(a,i){return a+i.q},0)}
+function cartSum(){return CART.reduce(function(a,i){return a+(i.price||0)*i.q},0)}
+function cartOld(){return CART.reduce(function(a,i){return a+((i.old||i.price||0))*i.q},0)}
+function cartHasPrice(){return CART.some(function(i){return i.price})}
+function toast(m){var t=document.getElementById('toast');if(!t)return;t.textContent=m;t.classList.add('fx-on');clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('fx-on')},3200)}
+function cartFab(){var f=document.getElementById('cartFab'),n=document.getElementById('cartN');if(!f)return;var q=cartQty();f.hidden=q===0;if(n)n.textContent=q}
+
+function cartText(){
+  var L=['Доброго дня! Хочу оформити замовлення.',''];
+  CART.forEach(function(i,k){
+    L.push((k+1)+'. '+i.t);
+    L.push('   Метал: '+i.m+' · Розмір: '+i.s+' · К-сть: '+i.q);
+    if(i.price)L.push('   Ціна: '+fmt(i.price)+' × '+i.q+' = '+fmt(i.price*i.q));
+    L.push('');
+  });
+  if(cartHasPrice())L.push('Разом: '+fmt(cartSum()));
+  L.push('','Прошу підтвердити наявність і термін виготовлення.');
+  return L.join('\\n');
+}
+
+function cartRender(){
+  var body=document.getElementById('cartBody'),foot=document.getElementById('cartFoot');
+  if(!body)return;
+  if(!CART.length){
+    body.innerHTML='<p class="cart-empty">Тут з\\'являться вироби, які ви додасте.<br>Оберіть товар, метал і розмір.</p>';
+    foot.innerHTML='';cartFab();return;
+  }
+  body.innerHTML=CART.map(function(i,k){
+    return '<div class="ci"><button type="button" class="ci-x" data-del="'+k+'" aria-label="Прибрати">✕</button>'+
+    '<div class="ci-in"><div class="ci-t">'+i.t+'</div><div class="ci-m">'+i.m+' · '+i.s+'</div>'+
+    '<div class="ci-b"><div class="qty"><button type="button" class="qty-b" data-ck="'+k+'" data-q="-1">−</button>'+
+    '<input class="qty-i" data-cq="'+k+'" type="text" inputmode="numeric" value="'+i.q+'">'+
+    '<button type="button" class="qty-b" data-ck="'+k+'" data-q="1">+</button></div>'+
+    '<span class="ci-p">'+(i.price?fmt(i.price*i.q):'<em>за прорахунком</em>')+'</span></div></div></div>';
+  }).join('');
+  var sum=cartSum(),old=cartOld(),save=old-sum;
+  foot.innerHTML=(cartHasPrice()?'<div class="cart-tot"><span>Разом</span><b>'+fmt(sum)+'</b></div>':'')+
+    (save>0?'<p class="cart-save">Ваша економія — '+fmt(save)+'</p>':'')+
+    '<p class="cart-note">Ціни за прайсом і є остаточні. Доставка рахується окремо за тарифом перевізника.</p>'+
+    '<a class="btn-order" id="cartGo" href="#" target="_blank" rel="noopener">Оформити замовлення</a>';
+  var g=document.getElementById('cartGo');if(g)g.href=TG+encodeURIComponent(cartText());
+  cartFab();
+}
+function cartOpen(){cartRender();document.getElementById('cartOv').classList.add('fx-on');document.getElementById('cart').classList.add('fx-on');document.body.classList.add('lock')}
+function cartClose(){document.getElementById('cartOv').classList.remove('fx-on');document.getElementById('cart').classList.remove('fx-on');document.body.classList.remove('lock')}
+
+(function(){
+  var fab=document.getElementById('cartFab'); if(!fab)return;
+  fab.addEventListener('click',cartOpen);
+  document.getElementById('cartOv').addEventListener('click',cartClose);
+  document.getElementById('cart').addEventListener('click',function(e){
+    if(e.target.closest('.cart-x')){cartClose();return}
+    var d=e.target.closest('[data-del]');
+    if(d){CART.splice(+d.dataset.del,1);cartSave();cartRender();return}
+    var b=e.target.closest('[data-ck]');
+    if(b){var k=+b.dataset.ck;CART[k].q+=(+b.dataset.q);if(CART[k].q<1)CART.splice(k,1);cartSave();cartRender()}
+  });
+  document.getElementById('cart').addEventListener('input',function(e){
+    var i=e.target.closest('[data-cq]');if(!i)return;
+    var k=+i.dataset.cq,v=parseInt(i.value,10);if(!v||v<1)v=1;if(v>99)v=99;
+    CART[k].q=v;cartSave();cartRender();
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&document.getElementById('cart').classList.contains('fx-on'))cartClose();
+  });
+  cartFab();
+})();`;
+}
+
+function itemScript(p) {
+  return `
+(function(){
+  var PRODUCT=${JSON.stringify({t: p.t, slug: p.slug, img: p.img, badge: p.badge || null, pr: p.pr || null})};
+  var metal='corten', size=null;
+  var $=function(id){return document.getElementById(id)};
+
+  var q=new URLSearchParams(location.search).get('metal');
+  if(q&&MI[q])metal=q;
+
+  function paintMetal(){
+    var m=MI[metal],r=document.documentElement.style;
+    r.setProperty('--m',m.c);r.setProperty('--m-l',m.l);r.setProperty('--m-d',m.d);
+    document.querySelectorAll('.im-b').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.metal===metal))});
+    var sp=$('itMspec'); if(sp)sp.textContent=m.spec;
+    var img=$('itImg'),ph=$('itPh');
+    if(img&&ph){
+      if(m.photo){img.hidden=false;ph.hidden=true;}
+      else{img.hidden=true;ph.hidden=false;
+        ph.style.setProperty('--phc',m.ch);
+        ph.querySelector('b').textContent=m.short;}
+    }
+    priceBox();
+  }
+
+  function priceBox(){
+    var el=$('priceBox'); if(!el)return;
+    if(!PRODUCT.pr){el.innerHTML='<span class="p-hint">Індивідуальне виготовлення — ціну надішлемо у відповідь</span>';return}
+    if(!size){el.innerHTML='<span class="p-hint">Оберіть розмір — покажемо ціну</span>';return}
+    if(!PRODUCT.pr[size]){el.innerHTML='<span class="p-hint">Індивідуальний розмір — ціну надішлемо у відповідь</span>';qtySum();tgLink();return}
+    var base=PRODUCT.pr[size][1], oldb=PRODUCT.pr[size][0];
+    var now=mp(base,metal), old=oldb?mp(oldb,metal):null;
+    el.innerHTML=(old&&PRODUCT.badge?'<span class="p-badge">'+PRODUCT.badge+'</span>':'')+
+      (old?'<span class="p-old">'+fmt(old)+'</span>':'')+
+      '<span class="p-now">'+fmt(now)+'</span>'+
+      (old?'<span class="p-save">−'+fmt(old-now)+'</span>':'')+
+      (metal!=='corten'?'<span class="p-mnote">ціна для «'+MI[metal].short+'»</span>':'');
+    qtySum();tgLink();
+  }
+
+  function curPrice(){
+    if(!PRODUCT.pr||!size||!PRODUCT.pr[size])return null;
+    return mp(PRODUCT.pr[size][1],metal);
+  }
+  function getQty(){var i=$('qtyI');var v=i?parseInt(i.value,10):1;return(!v||v<1)?1:(v>99?99:v)}
+  function setQty(v){var i=$('qtyI');if(!i)return;i.value=(v<1?1:(v>99?99:v));qtySum()}
+  function qtySum(){
+    var el=$('qtySum');if(!el)return;
+    var pr=curPrice(),q=getQty();
+    el.innerHTML=(pr&&q>1)?'<b>'+fmt(pr*q)+'</b>':'';
+  }
+  function tgLink(){
+    var b=$('tgBtn');if(!b)return;
+    var pr=curPrice();
+    var t='Доброго дня! Цікавить: '+PRODUCT.t+'\\nМетал: '+MI[metal].short+
+      (size?'\\nРозмір: '+size:'')+(pr?'\\nЦіна: '+fmt(pr):'')+
+      '\\n\\nПрошу підтвердити наявність і термін.';
+    b.href=TG+encodeURIComponent(t);
+  }
+
+  document.querySelectorAll('.im-b').forEach(function(b){
+    b.addEventListener('click',function(){metal=b.dataset.metal;paintMetal()});
+  });
+  document.querySelectorAll('.size').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('.size').forEach(function(x){x.setAttribute('aria-pressed','false')});
+      b.setAttribute('aria-pressed','true');size=b.dataset.s;setQty(1);priceBox();
+    });
+  });
+  document.querySelectorAll('.qty-b[data-q]').forEach(function(b){
+    if(b.dataset.ck)return;
+    b.addEventListener('click',function(){setQty(getQty()+(+b.dataset.q))});
+  });
+  var qi=$('qtyI'); if(qi)qi.addEventListener('input',qtySum);
+
+  var add=$('addBtn');
+  if(add)add.addEventListener('click',function(){
+    if(!size){toast('Спершу оберіть розмір');
+      var f=document.querySelector('.size');if(f)f.scrollIntoView({behavior:'smooth',block:'center'});return}
+    var pr=curPrice();
+    var oldb=(PRODUCT.pr&&PRODUCT.pr[size])?PRODUCT.pr[size][0]:null;
+    var m=MI[metal].short,qn=getQty();
+    var same=CART.find(function(i){return i.t===PRODUCT.t&&i.s===size&&i.m===m});
+    if(same)same.q+=qn;
+    else CART.push({t:PRODUCT.t,s:size,m:m,q:qn,price:pr,old:oldb?mp(oldb,metal):null});
+    cartSave();cartRender();toast(PRODUCT.t+' — додано до замовлення');
+  });
+
+  paintMetal();tgLink();
+})();`;
+}
+
 function itemPage(p) {
   const sizes = Object.keys(p.pr || {});
-  const prices = sizes.map(s => p.pr[s][1]);
-  const low = Math.min(...prices), high = Math.max(...prices);
+  const lo = minPrice(p), hi = maxPrice(p);
   const img = `https://feroxlviv.com.ua/uploads/${p.img}.webp`;
   const url = `https://feroxlviv.com.ua/viroby/tovar/${p.slug}/`;
   const sub = p.sub || CAT_SUB[p.c];
+  const catName = CAT_LABEL[p.c] || 'Вироби';
 
-  const offers = sizes.map((s, i) => ({
-    "@type": "Offer",
-    "name": `${p.t} — ${s}`,
-    "sku": `${p.slug}-${i + 1}`,
-    "url": url,
-    "priceCurrency": "UAH",
-    "price": String(p.pr[s][1]),
-    "itemCondition": "https://schema.org/NewCondition",
-    "availability": "https://schema.org/InStock",
-    "seller": { "@type": "Organization", "name": "FEROX LVIV" }
+  const offers = [];
+  METAL_ORDER.forEach(mk => sizes.forEach((s, i) => {
+    offers.push({
+      "@type": "Offer",
+      "name": `${p.t} — ${s}, ${METAL_INFO[mk].short}`,
+      "sku": `${p.slug}-${mk}-${i + 1}`,
+      "url": url,
+      "priceCurrency": "UAH",
+      "price": String(mPrice(p.pr[s][1], mk)),
+      "itemCondition": "https://schema.org/NewCondition",
+      "availability": "https://schema.org/InStock",
+      "seller": { "@type": "Organization", "name": "FEROX LVIV" }
+    });
   }));
 
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": p.t,
+  const schema = sizes.length ? {
+    "@context": "https://schema.org", "@type": "Product",
+    "name": `${p.t} з кортенової сталі`,
     "description": p.full,
-    "image": [img],
-    "sku": p.slug,
-    "mpn": p.slug.toUpperCase(),
+    "image": [img], "sku": p.slug, "mpn": p.slug.toUpperCase(),
     "brand": { "@type": "Brand", "name": "FEROX LVIV" },
-    "material": "Кортенова сталь",
+    "material": "Кортенова сталь, нержавіюча сталь AISI 304, конструкційна сталь",
+    "category": catName,
     "offers": offers.length === 1 ? offers[0] : {
-      "@type": "AggregateOffer",
-      "priceCurrency": "UAH",
-      "lowPrice": String(low),
-      "highPrice": String(high),
+      "@type": "AggregateOffer", "priceCurrency": "UAH",
+      "lowPrice": String(lo), "highPrice": String(hi),
       "offerCount": String(offers.length),
-      "availability": "https://schema.org/InStock",
-      "offers": offers
+      "availability": "https://schema.org/InStock", "offers": offers
     }
-  };
+  } : null;
 
   const crumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
+    "@context": "https://schema.org", "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type":"ListItem","position":1,"name":"Головна","item":"https://feroxlviv.com.ua/"},
       {"@type":"ListItem","position":2,"name":"Вироби з металу","item":"https://feroxlviv.com.ua/viroby/"},
@@ -3377,63 +3020,104 @@ function itemPage(p) {
     ]
   };
 
-  const rows = sizes.map(s => {
-    const [o, n] = p.pr[s];
-    return `<tr>
-        <td class="it-sz">${esc(s)}</td>
-        <td class="it-op">${o ? uah(o) : ''}</td>
-        <td class="it-np">${uah(n)}</td>
-        <td class="it-bt"><a class="it-buy" href="https://t.me/feroxlviv?text=${encodeURIComponent(`Доброго дня! Замовляю: ${p.t}\nРозмір: ${s}\nЦіна: ${uah(n)}`)}" target="_blank" rel="noopener">Замовити</a></td>
-      </tr>`;
-  }).join('\n');
+  const metalBtns = METAL_ORDER.map(k => {
+    const m = METAL_INFO[k];
+    return `<button type="button" class="im-b" data-metal="${k}" aria-pressed="${k === 'corten'}" style="--c:${m.ch}">
+        <i></i><span>${esc(m.n.split('—')[0].trim())}</span>
+        ${k !== 'corten' ? `<em>−${Math.round((1 - METAL_MULT[k]) * 100)}%</em>` : ''}
+      </button>`;
+  }).join('\n      ');
 
-  return head(
-    `${p.t} — ціна ${uah(low)} | Кортен | FEROX LVIV`,
-    `${p.d} ${p.full.slice(0, 110)}… Ціна від ${uah(low)}. Виготовлення у Львові, доставка по Україні.`,
-    `${p.t.toLowerCase()}, ${p.t.toLowerCase()} кортен, ${p.t.toLowerCase()} ціна, купити ${p.t.toLowerCase()}`,
-    `/viroby/tovar/${p.slug}/`
-  ) +
-  `<script type="application/ld+json">${JSON.stringify(schema)}</script>
-<script type="application/ld+json">${JSON.stringify(crumbSchema)}</script>` +
+  const sizeBtns = sizes.map(s =>
+    `<button type="button" class="size" data-s="${esc(s)}" data-base="${p.pr[s][1]}" data-old="${p.pr[s][0] || ''}" aria-pressed="false">${esc(s)}</button>`
+  ).join('\n        ') +
+  `\n        <button type="button" class="size cust" data-s="індивідуальні" aria-pressed="false">Індивідуальні розміри</button>`;
+
+  return head(seoTitle(p), seoDesc(p), seoKeywords(p), `/viroby/tovar/${p.slug}/`) +
+  (schema ? `<script type="application/ld+json">${JSON.stringify(schema)}</script>` : '') +
+  `<script type="application/ld+json">${JSON.stringify(crumbSchema)}</script>` +
   nav('viroby') +
   pageHeader(
     [{href:'/',label:'Головна'},{href:'/viroby/',label:'Вироби'},{label:p.t}],
-    esc(p.t) + '.',
-    esc(p.d),
-    null, false, CAT_LABEL[p.c] || 'Вироби'
+    seoH1(p),
+    esc(p.d) + ' Кортен, нержавійка або чорна сталь. Виробництво у Львові, доставка по Україні.',
+    null, false, catName
   ) + `
 <section class="it-wrap">
   <div class="it-grid">
     <div class="it-media">
-      <img src="/uploads/${p.img}.webp" alt="${esc(p.t)} — FEROX LVIV" width="1000" height="750" loading="eager">
+      <div class="it-ph" id="itPh" hidden><i></i><b></b><s>Фото у цьому металі готуємо. Форма й розміри ті самі.</s></div>
+      <img id="itImg" src="/uploads/${p.img}.webp" alt="${esc(p.t)} з кортенової сталі — FEROX LVIV, виробництво у Львові" width="1000" height="750" loading="eager">
     </div>
+
     <div class="it-info">
-      <p class="it-price-lead">${p.badge ? `<span class="it-badge">${esc(p.badge)}</span>` : ''}
-        <span class="it-from">${sizes.length > 1 ? 'Ціна від' : 'Ціна'}</span>
-        <span class="it-big" itemprop="price">${uah(low)}</span>
-      </p>
+      ${sizes.length ? `<p class="it-price-lead">
+        ${p.badge ? `<span class="it-badge">${esc(p.badge)}</span>` : ''}
+        <span class="it-from">${sizes.length > 1 || METAL_ORDER.length > 1 ? 'Ціна від' : 'Ціна'}</span>
+        <span class="it-big">${uah(lo)}</span>
+      </p>` : ''}
+
       <p class="it-full">${esc(p.full)}</p>
       ${p.note ? `<p class="it-note">${esc(p.note)}</p>` : ''}
-      <table class="it-tab">
-        <caption class="it-cap">Розміри та ціни</caption>
-        <thead><tr><th>Розмір, см</th><th>Стара ціна</th><th>Ціна</th><th></th></tr></thead>
-        <tbody>
-${rows}
-        </tbody>
-      </table>
+
+      <div class="it-sec">
+        <span class="it-lb">Метал</span>
+        <div class="im-row">
+      ${metalBtns}
+        </div>
+        <p class="it-mspec" id="itMspec">${METAL_INFO.corten.spec}</p>
+      </div>
+
+      ${sizes.length ? `<div class="it-sec">
+        <span class="it-lb">Розмір, см</span>
+        <div class="row">
+        ${sizeBtns}
+        </div>
+        <div class="price-box" id="priceBox"></div>
+      </div>
+
+      <div class="it-sec it-buy-sec">
+        <div class="qty-row">
+          <span class="qty-lb">Кількість</span>
+          <div class="qty">
+            <button type="button" class="qty-b" data-q="-1" aria-label="Менше">−</button>
+            <input class="qty-i" id="qtyI" type="text" inputmode="numeric" value="1" aria-label="Кількість">
+            <button type="button" class="qty-b" data-q="1" aria-label="Більше">+</button>
+          </div>
+          <span class="qty-sum" id="qtySum"></span>
+        </div>
+        <button type="button" class="it-b1" id="addBtn">Додати до замовлення</button>
+        <a class="it-b2" id="tgBtn" href="https://t.me/feroxlviv" target="_blank" rel="noopener">Замовити в Telegram</a>
+      </div>` : `
+      <div class="it-sec it-buy-sec">
+        <a class="it-b1" id="tgBtn" href="https://t.me/feroxlviv" target="_blank" rel="noopener">Отримати прорахунок</a>
+        <a class="it-b2" href="tel:+380630194013">+38 (063) 019-40-13</a>
+      </div>`}
+
       <ul class="it-specs">
         ${p.sp.map(x => `<li><b>${esc(x[0])}</b><span>${esc(x[1])}</span></li>`).join('\n        ')}
-        <li><b>Метал</b><span>Кортен, чорна сталь, нержавійка</span></li>
-        <li><b>Доставка</b><span>По всій Україні</span></li>
+        <li><b>Метали</b><span>Кортен, нержавійка AISI 304, чорна сталь + RAL</span></li>
+        <li><b>Виробництво</b><span>Власний цех у Львові</span></li>
+        <li><b>Доставка</b><span>Київ, Одеса, Дніпро, Харків — уся Україна</span></li>
       </ul>
-      <div class="it-cta">
-        <a class="it-b1" href="/viroby/?open=${p.slug}">Обрати метал і кількість</a>
-        <a class="it-b2" href="tel:+380630194013">+38 (063) 019-40-13</a>
-      </div>
-      <p class="it-more"><a href="/viroby/${sub}/">Більше про категорію «${esc(CAT_LABEL[p.c] || '')}» →</a></p>
+
+      <p class="it-more"><a href="/viroby/${sub}/">Більше про категорію «${esc(catName)}» →</a>
+        <a href="/viroby/">Весь каталог виробів →</a></p>
     </div>
   </div>
+
+  <div class="it-seo">
+    <h2>${esc(p.t)} з металу — виготовлення на замовлення</h2>
+    <p>Виготовляємо ${esc(p.t.toLowerCase())} з кортенової сталі, нержавіючої сталі AISI 304 та чорного металу з порошковим фарбуванням у будь-який колір RAL. Кортен набуває природної патини й не потребує догляду, нержавійка зберігає вигляд роками, фарбована сталь — найдоступніший варіант.</p>
+    <p>Працюємо з власного виробництва у Львові: лазерна різка, гнуття на ЧПУ, зварювання TIG. Відправляємо по всій Україні — Київ, Одеса, Дніпро, Харків, Івано-Франківськ, Тернопіль. Потрібні нестандартні габарити — виготовимо за вашим кресленням або ескізом.</p>
+  </div>
 </section>
+
+${cartMarkup()}
+<script>
+${shopScript()}
+${itemScript(p)}
+</script>
 ` + footer();
 }
 
@@ -3539,7 +3223,7 @@ function build() {
 
   // Catalog — Вироби
   writeFile('viroby/index.html', catalogPage());
-  CATALOG.filter(p => p.pr).forEach(p => writeFile(`viroby/tovar/${p.slug}/index.html`, itemPage(p)));
+  CATALOG.forEach(p => writeFile(`viroby/tovar/${p.slug}/index.html`, itemPage(p)));
   catalogProducts.forEach(p => writeFile(`viroby/${p.slug}/index.html`, productPage(p)));
 
   writeFile('about/index.html', aboutPage());
@@ -3554,7 +3238,7 @@ function build() {
 ${[
   '/', '/viroby/', '/services/', '/portfolio/', '/blog/', '/about/', '/process/', '/contact/', '/architects/',
   ...catalogProducts.map(p => `/viroby/${p.slug}/`),
-  ...CATALOG.filter(p => p.pr).map(p => `/viroby/tovar/${p.slug}/`),
+  ...CATALOG.map(p => `/viroby/tovar/${p.slug}/`),
   ...services.map(s => `/services/${s.slug}/`),
   ...projects.map(p => `/portfolio/${p.slug}/`),
   ...blogPosts.map(p => `/blog/${p.slug}/`)
