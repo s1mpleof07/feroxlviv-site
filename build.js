@@ -2429,6 +2429,63 @@ function catalogPage() {
 <style>
 
 
+
+/* ── кількість ── */
+.qty-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.qty-lb{font-size:13px;color:var(--steel)}
+.qty{display:flex;align-items:center;border:1px solid var(--border);border-radius:2px;overflow:hidden}
+.qty-b{width:36px;height:38px;font-size:17px;line-height:1;color:var(--anthracite);background:transparent;transition:background .2s}
+.qty-b:hover{background:var(--bone-d)}
+.qty-i{width:46px;height:38px;border:none;border-left:1px solid var(--border);border-right:1px solid var(--border);
+  text-align:center;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--anthracite);background:transparent}
+.qty-i:focus{outline:none;background:var(--bone-d)}
+.qty-sum{font-size:14px;color:var(--anthracite);margin-left:auto}
+.qty-sum b{font-family:'Playfair Display',Georgia,serif;font-size:19px}
+.btn-ghost{background:transparent!important;color:var(--anthracite)!important;border:1px solid var(--border);margin-top:9px}
+.btn-ghost:hover{background:var(--anthracite)!important;color:var(--bone)!important;border-color:var(--anthracite)}
+
+/* ── кнопка кошика ── */
+.cart-fab{position:fixed;left:24px;bottom:24px;z-index:150;display:flex;align-items:center;gap:9px;
+  padding:13px 19px;background:var(--anthracite);color:var(--bone);border-radius:40px;font-size:14px;
+  box-shadow:0 10px 30px rgba(44,44,42,.28);transition:transform .25s,background .3s}
+.cart-fab[hidden]{display:none}
+.cart-fab:hover{transform:translateY(-3px);background:var(--m)}
+.cart-fab span{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--m);color:#fff;
+  min-width:21px;height:21px;border-radius:11px;display:inline-flex;align-items:center;justify-content:center;
+  padding:0 6px;transition:background .3s}
+.cart-fab:hover span{background:var(--anthracite)}
+
+/* ── панель кошика ── */
+.cart{position:fixed;top:0;right:0;bottom:0;width:min(560px,100%);background:var(--bone);z-index:191;
+  display:flex;flex-direction:column;transform:translateX(101%);transition:transform .45s cubic-bezier(.3,.8,.3,1)}
+.cart.fx-on{transform:translateX(0)}
+.cart-hd{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:26px 30px 20px;
+  border-bottom:1px solid var(--border)}
+.cart-hd h2{font-size:27px}
+.cart-x{position:static;flex-shrink:0}
+.cart-body{flex:1;overflow-y:auto;padding:8px 30px}
+.cart-empty{padding:60px 0;text-align:center;color:var(--steel);font-size:14px;font-weight:300;line-height:1.6}
+.ci{display:flex;gap:16px;padding:20px 0;border-bottom:1px solid var(--border)}
+.ci-x{flex-shrink:0;width:26px;height:26px;border:1px solid var(--border);border-radius:50%;font-size:13px;
+  color:var(--steel);transition:all .22s;align-self:flex-start}
+.ci-x:hover{border-color:var(--anthracite);background:var(--anthracite);color:var(--bone)}
+.ci-in{flex:1;min-width:0}
+.ci-t{font-family:'Playfair Display',Georgia,serif;font-size:18px;line-height:1.25;margin-bottom:5px}
+.ci-m{font-size:12.5px;color:var(--steel);font-weight:300;line-height:1.5;margin-bottom:10px}
+.ci-b{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.ci-p{font-family:'JetBrains Mono',monospace;font-size:13px;margin-left:auto}
+.ci-p em{font-style:normal;color:var(--steel)}
+.cart-foot{border-top:1px solid var(--border);padding:20px 30px 26px;background:var(--bone)}
+.cart-tot{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px}
+.cart-tot span{font-size:14px;color:var(--steel)}
+.cart-tot b{font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:400}
+.cart-note{font-size:12.5px;color:var(--steel);font-weight:300;line-height:1.55;margin-bottom:16px}
+.cart-save{color:var(--m);font-size:13px;margin-bottom:12px}
+@media(max-width:560px){
+  .cart-hd,.cart-body,.cart-foot{padding-left:20px;padding-right:20px}
+  .cart-fab{left:16px;bottom:16px}
+}
+
 /* ── ціни ── */
 .p-from{display:inline-flex;align-items:center;gap:9px;margin-bottom:14px;font-size:15px;color:var(--anthracite)}
 .p-from b{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.12em;font-weight:500;
@@ -2737,6 +2794,21 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 <aside class="pd" id="pd" role="dialog" aria-modal="true" aria-labelledby="pdT"></aside>
 <div class="toast" id="toast" role="status"></div>
 
+<button type="button" class="cart-fab" id="cartFab" hidden aria-label="Відкрити замовлення">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 4h2.2l1.6 8.4a1.6 1.6 0 001.6 1.3h6.3a1.6 1.6 0 001.6-1.2L17.6 7H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="17" r="1.1" fill="currentColor"/><circle cx="15" cy="17" r="1.1" fill="currentColor"/></svg>
+  <span id="cartN">0</span>
+</button>
+
+<div class="ov" id="cartOv"></div>
+<aside class="cart" id="cart" role="dialog" aria-modal="true" aria-labelledby="cartT">
+  <div class="cart-hd">
+    <h2 id="cartT">Ваше замовлення</h2>
+    <button type="button" class="pd-x cart-x" aria-label="Закрити">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-foot" id="cartFoot"></div>
+</aside>
+
 
 <script>
 
@@ -2755,6 +2827,7 @@ const P=[
   full:'Циліндрична форма, зварений шов зачищений урівень. Дно з дренажними отворами та ніжками — щоб вода йшла, а метал не стояв у воді.',
   s:['⌀40×40','⌀50×50','⌀60×60','⌀80×70'],
   pr:{'⌀40×40':[16500,11500],'⌀50×50':[19000,14000],'⌀60×60':[20500,16500]},
+  badge:'Топ продажів',
   note:'Можливе хімічне патинування — термін до 14 днів.',
   sp:[['Товщина','2 мм'],['Дно','Дренаж + ніжки 20 мм'],['Термін','7–10 днів']]},
  {c:'kashpo',img:'cat-kashpo-rectangle',t:'Кашпо прямокутне',
@@ -2762,21 +2835,30 @@ const P=[
   full:'Витягнута форма для розділення простору — тераси, входи, паркувальні зони. Ребра жорсткості всередині, щоб довга стінка не вигиналась під вагою ґрунту.',
   s:['60×60×25','90×60×25'],
   pr:{'60×60×25':[17000,12000],'90×60×25':[18500,13500]},
+  badge:'Топ продажів',
   sp:[['Товщина','2–3 мм'],['Жорсткість','Внутрішні ребра'],['Термін','10–14 днів']]},
  {c:'kashpo',img:'cat-kashpo-modular',t:'Модульний набір кашпо',
-  d:'Три розміри однієї форми — композиція для входу чи тераси.',
-  full:'Набір із трьох кашпо різної висоти в одній геометрії. Ставляться групою — працюють як цілісна композиція, а не три окремі горщики.',
-  s:['Набір S','Набір M','Набір L'],
-  sp:[['У наборі','3 вироби'],['Товщина','2 мм'],['Термін','12–16 днів']]},
- {c:'light',img:'cat-light-pillar',t:'Світильник-стовп садовий',
-  d:'Вертикальний об\\'єм зі світловою щілиною.',
-  full:'Світло виходить через похилу щілину — освітлює доріжку, не б\\'є в очі. Всередині гільза під стандартний патрон, ввід кабелю знизу.',
-  s:['H-60','H-80','H-100','H-120'],
+  d:'Композиція з кількох кашпо — на 10% дешевше, ніж поштучно.',
+  full:'Набір кашпо різної висоти в одній геометрії. Ставляться групою — працюють як цілісна композиція, а не окремі горщики. Ціна набору на 10% нижча за суму тих самих виробів поштучно.',
+  s:['Набір S · ⌀40+⌀50','Набір M · ⌀40+⌀50+⌀60','Набір L · ⌀40+⌀50+⌀60 + прямокутне 90×60'],
+  pr:{'Набір S · ⌀40+⌀50':[25500,22950],
+      'Набір M · ⌀40+⌀50+⌀60':[42000,37800],
+      'Набір L · ⌀40+⌀50+⌀60 + прямокутне 90×60':[55500,49950]},
+  badge:'Вигода 10%',
+  note:'Закреслена ціна — сума тих самих кашпо поштучно. Можливе хімічне патинування — термін до 14 днів.',
+  sp:[['У наборі','2–4 вироби'],['Товщина','2 мм'],['Знижка','−10% до поштучної'],['Термін','12–16 днів']]},
+ {c:'light',img:'cat-light-pillar',t:'Ліхтар FEROX PRO 1',
+  d:'Вертикальний об\\'єм зі світловою щілиною. Власна модель.',
+  full:'Світло виходить через похилу щілину — освітлює доріжку, не б\\'є в очі. Всередині гільза під стандартний патрон, ввід кабелю знизу. Наша власна модель, інших виробників у неї немає.',
+  s:['H-40','H-60'],
+  pr:{'H-40':[9500,8500],'H-60':[10500,9500]},
+  badge:'Сезонний розпродаж',
   sp:[['Захист','IP65'],['Світло','3000K тепле'],['Живлення','220V або 12V'],['Термін','10–14 днів']]},
- {c:'light',img:'cat-light-wall',t:'Світильник настінний',
-  d:'Спрямоване світло вгору-вниз. Для фасаду й тераси.',
-  full:'Компактний корпус із двома світловими отворами — промінь малює на стіні дві симетричні плями. Монтаж на дюбелі, кабель заводиться ззаду приховано.',
-  s:['20×12×10','28×15×12','36×18×14'],
+ {c:'light',img:'cat-light-wall',t:'FEROX Mini Light',
+  d:'Компактний настінний світильник для фасаду й тераси.',
+  full:'Невеликий корпус із двома світловими отворами — промінь малює на стіні дві симетричні плями. Монтаж на дюбелі, кабель заводиться ззаду приховано.',
+  s:['20×12×10','28×15×12'],
+  pr:{'20×12×10':[null,2000],'28×15×12':[null,2500]},
   sp:[['Захист','IP65'],['Світло','3000K тепле'],['Монтаж','Прихований ввід'],['Термін','7–10 днів']]},
  {c:'light',img:'cat-light-sphere',t:'Світильник-куля перфорований',
   d:'Світло малює візерунок по стінах і землі.',
@@ -2839,10 +2921,13 @@ const P=[
   s:['до 5 м²','5–15 м²','15–30 м²','за проєктом'],
   sp:[['Модуль','Під розмір поверхні'],['Шов','Відкритий 8–12 мм'],['Термін','від 20 днів']]},
  {c:'decor',img:'cat-sculpture-deer',t:'Скульптура «Олень»',
-  d:'Пласка силуетна фігура. Найпопулярніший садовий об\\'єкт.',
-  full:'Силует, вирізаний лазером із листа. Ставиться на ґрунтові анкери або бетонну п\\'яту. У кортені силует читається на будь-якому фоні — зелень, сніг, бетон.',
-  s:['H-80','H-120','H-160','H-200'],
-  sp:[['Товщина','3 мм'],['Кріплення','Анкер або п\\'ята'],['Термін','10–14 днів']]},
+  d:'Силует висотою 3 метри з рогами. Ексклюзивний об\\'єкт.',
+  full:'Силует, вирізаний лазером із листа, висотою 3 метри разом з рогами. Ставиться на ґрунтові анкери або бетонну п\\'яту. У кортені читається на будь-якому фоні — зелень, сніг, бетон. Домінанта ділянки, а не садова фігурка.',
+  s:['H-300 з рогами'],
+  pr:{'H-300 з рогами':[200000,188488]},
+  badge:'Ексклюзив',
+  note:'Виготовляється під замовлення. Менші висоти рахуємо окремо.',
+  sp:[['Висота','3 м з рогами'],['Товщина','3 мм'],['Кріплення','Анкер або бетонна п\\'ята'],['Термін','від 20 днів']]},
  {c:'decor',img:'cat-stelazh-cube',t:'Стелаж-куб',
   d:'Компактна модульна полиця для інтер\\'єру.',
   full:'Кубічна секція — окремо або в стосі. Зварні кути без видимого шва. Для стіни робимо приховане кріплення, щоб куб ніби висів.',
@@ -2873,7 +2958,9 @@ function priceFrom(p){
   if(!p.pr)return '';
   var v=Object.keys(p.pr).map(function(k){return p.pr[k][1]});
   if(!v.length)return '';
-  return '<span class="p-from"><b>ТОП ПРОДАЖІВ</b>від '+fmt(Math.min.apply(null,v))+'</span>';
+  var one=Object.keys(p.pr).length===1;
+  var bd=p.badge?'<b>'+p.badge+'</b>':'';
+  return '<span class="p-from">'+bd+(one?'':'від ')+fmt(Math.min.apply(null,v))+'</span>';
 }
 
 function priceBox(p,size){
@@ -2886,10 +2973,10 @@ function priceBox(p,size){
     return;
   }
   var a=p.pr[size][0], b=p.pr[size][1];
-  el.innerHTML='<span class="p-badge">Топ продажів</span>'+
-    '<span class="p-old">'+fmt(a)+'</span>'+
+  el.innerHTML=(a&&p.badge?'<span class="p-badge">'+p.badge+'</span>':'')+
+    (a?'<span class="p-old">'+fmt(a)+'</span>':'')+
     '<span class="p-now">'+fmt(b)+'</span>'+
-    '<span class="p-save">−'+fmt(a-b)+'</span>';
+    (a?'<span class="p-save">−'+fmt(a-b)+'</span>':'');
 }
 
 function vis(p,size){
@@ -2959,14 +3046,24 @@ function openPD(t){
       </div>
       <div class="pd-order">
         <p class="pd-pick" id="pdPick"></p>
-        <a class="btn-order" id="pdBtn" href="#" target="_blank" rel="noopener">Оформити замовлення</a>
+        <div class="qty-row">
+          <span class="qty-lb">Кількість</span>
+          <div class="qty">
+            <button type="button" class="qty-b" data-q="-1" aria-label="Менше">−</button>
+            <input class="qty-i" id="qtyI" type="text" inputmode="numeric" value="1" aria-label="Кількість">
+            <button type="button" class="qty-b" data-q="1" aria-label="Більше">+</button>
+          </div>
+          <span class="qty-sum" id="qtySum"></span>
+        </div>
+        <button type="button" class="btn-order" id="addBtn">Додати до замовлення</button>
+        <a class="btn-order btn-ghost" id="pdBtn" href="#" target="_blank" rel="noopener">Замовити одразу в Telegram</a>
         <div class="pd-alt">
           <a href="tel:+380630194013">Зателефонувати</a>
           <a href="mailto:feroxlviv.business@gmail.com">Написати на пошту</a>
         </div>
       </div>
     </div>\`;
-  upd(); priceBox(p,null);
+  upd(); priceBox(p,null); setQty(1);
   ov.classList.add('fx-on'); pd.classList.add('fx-on');
   document.body.classList.add('lock'); pd.scrollTop=0;
   setTimeout(()=>{const x=pd.querySelector('.pd-x'); if(x)x.focus()},120);
@@ -3030,8 +3127,11 @@ pd.onclick=e=>{
     pd.querySelectorAll('.size').forEach(x=>x.setAttribute('aria-pressed','false'));
     s.setAttribute('aria-pressed','true'); order.s=s.dataset.s;
     priceBox(P.find(function(x){return x.t===order.t}),order.s);
-    upd(); return;
+    setQty(1); upd(); return;
   }
+  const qb=e.target.closest('.qty-b');
+  if(qb&&!qb.dataset.ck){ setQty(getQty()+(+qb.dataset.q)); return; }
+  if(e.target.closest('#addBtn')){ cartAdd(); return; }
   const btn=e.target.closest('#pdBtn');
   if(btn&&!order.s){
     e.preventDefault();
@@ -3039,6 +3139,10 @@ pd.onclick=e=>{
     const f=pd.querySelector('.size'); if(f)f.scrollIntoView({behavior:'smooth',block:'center'});
   }
 };
+
+pd.addEventListener('input',function(e){
+  if(e.target.closest('#qtyI'))qtySum();
+});
 
 ov.onclick=closePD;
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&pd.classList.contains('fx-on'))closePD()});
@@ -3052,6 +3156,151 @@ document.querySelectorAll('[data-order]').forEach(a=>{
 
 document.getElementById('tgMain').href=TG+encodeURIComponent(
   'Доброго дня! Цікавлять вироби з металу. Прошу порахувати вартість.');
+
+
+/* ─────── КОШИК ─────── */
+var CART=[];
+try{var _c=localStorage.getItem('ferox_cart'); if(_c)CART=JSON.parse(_c)||[];}catch(e){CART=[];}
+function cartSave(){try{localStorage.setItem('ferox_cart',JSON.stringify(CART));}catch(e){}}
+function cartQty(){return CART.reduce(function(a,i){return a+i.q},0)}
+function cartSum(){return CART.reduce(function(a,i){return a+(i.price||0)*i.q},0)}
+function cartOld(){return CART.reduce(function(a,i){return a+((i.old||i.price||0))*i.q},0)}
+function cartHasPrice(){return CART.some(function(i){return i.price})}
+
+function cartFab(){
+  var f=document.getElementById('cartFab'), n=document.getElementById('cartN');
+  if(!f)return;
+  var q=cartQty();
+  f.hidden = q===0;
+  if(n)n.textContent=q;
+}
+
+function cartRender(){
+  var body=document.getElementById('cartBody'), foot=document.getElementById('cartFoot');
+  if(!body)return;
+  if(!CART.length){
+    body.innerHTML='<p class="cart-empty">Тут з\\'являться вироби, які ви додасте.<br>Оберіть товар, розмір і кількість.</p>';
+    foot.innerHTML='';
+    cartFab(); return;
+  }
+  body.innerHTML=CART.map(function(i,k){
+    return '<div class="ci">'+
+      '<button type="button" class="ci-x" data-del="'+k+'" aria-label="Прибрати">✕</button>'+
+      '<div class="ci-in">'+
+        '<div class="ci-t">'+i.t+'</div>'+
+        '<div class="ci-m">'+i.m+' · '+i.s+'</div>'+
+        '<div class="ci-b">'+
+          '<div class="qty"><button type="button" class="qty-b" data-ck="'+k+'" data-q="-1">−</button>'+
+          '<input class="qty-i" data-cq="'+k+'" type="text" inputmode="numeric" value="'+i.q+'">'+
+          '<button type="button" class="qty-b" data-ck="'+k+'" data-q="1">+</button></div>'+
+          '<span class="ci-p">'+(i.price?fmt(i.price*i.q):'<em>за прорахунком</em>')+'</span>'+
+        '</div>'+
+      '</div></div>';
+  }).join('');
+
+  var sum=cartSum(), old=cartOld(), save=old-sum;
+  foot.innerHTML=
+    (cartHasPrice()?'<div class="cart-tot"><span>Разом за прайсом</span><b>'+fmt(sum)+'</b></div>':'')+
+    (save>0?'<p class="cart-save">Ваша економія — '+fmt(save)+'</p>':'')+
+    '<p class="cart-note">Це попередній розрахунок. Точну суму підтвердимо після уточнення металу, оздоблення та доставки.</p>'+
+    '<a class="btn-order" id="cartGo" href="#" target="_blank" rel="noopener">Оформити замовлення</a>';
+
+  var go=document.getElementById('cartGo');
+  if(go)go.href=TG+encodeURIComponent(cartText());
+  cartFab();
+}
+
+function cartText(){
+  var L=['Доброго дня! Хочу оформити замовлення.',''];
+  CART.forEach(function(i,k){
+    L.push((k+1)+'. '+i.t);
+    L.push('   Метал: '+i.m+' · Розмір: '+i.s+' · К-сть: '+i.q);
+    if(i.price)L.push('   Ціна з сайту: '+fmt(i.price)+' × '+i.q+' = '+fmt(i.price*i.q));
+    L.push('');
+  });
+  if(cartHasPrice())L.push('Разом за прайсом: '+fmt(cartSum()));
+  L.push('','Прошу підтвердити вартість і термін.');
+  return L.join('\\n');
+}
+
+function cartAdd(){
+  var p=P.find(function(x){return x.t===order.t});
+  if(!p)return;
+  if(!order.s){
+    toast('Спершу оберіть розмір');
+    var f=pd.querySelector('.size'); if(f)f.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  var q=getQty(), m=METALS[metal].lab;
+  var pr=(p.pr&&p.pr[order.s])?p.pr[order.s]:null;
+  var same=CART.find(function(i){return i.t===p.t&&i.s===order.s&&i.m===m});
+  if(same){ same.q+=q; }
+  else CART.push({t:p.t,s:order.s,m:m,q:q,price:pr?pr[1]:null,old:pr?pr[0]:null});
+  cartSave(); cartRender();
+  toast(p.t+' — додано до замовлення');
+}
+
+function getQty(){
+  var i=document.getElementById('qtyI');
+  var v=i?parseInt(i.value,10):1;
+  return (!v||v<1)?1:(v>99?99:v);
+}
+function setQty(v){
+  var i=document.getElementById('qtyI'); if(!i)return;
+  i.value=(v<1?1:(v>99?99:v)); qtySum();
+}
+function qtySum(){
+  var el=document.getElementById('qtySum'); if(!el)return;
+  var p=P.find(function(x){return x.t===order.t});
+  if(!p||!p.pr||!order.s||!p.pr[order.s]){el.textContent='';return}
+  var q=getQty();
+  el.innerHTML=q>1?'<b>'+fmt(p.pr[order.s][1]*q)+'</b>':'';
+}
+
+function cartOpen(){
+  cartRender();
+  document.getElementById('cartOv').classList.add('fx-on');
+  document.getElementById('cart').classList.add('fx-on');
+  document.body.classList.add('lock');
+}
+function cartClose(){
+  document.getElementById('cartOv').classList.remove('fx-on');
+  document.getElementById('cart').classList.remove('fx-on');
+  document.body.classList.remove('lock');
+}
+
+document.getElementById('cartFab').addEventListener('click',cartOpen);
+document.getElementById('cartOv').addEventListener('click',cartClose);
+document.getElementById('cart').addEventListener('click',function(e){
+  if(e.target.closest('.cart-x')){cartClose();return}
+  var d=e.target.closest('[data-del]');
+  if(d){CART.splice(+d.dataset.del,1);cartSave();cartRender();return}
+  var b=e.target.closest('[data-ck]');
+  if(b){
+    var k=+b.dataset.ck;
+    CART[k].q+= (+b.dataset.q);
+    if(CART[k].q<1)CART.splice(k,1);
+    cartSave();cartRender();
+  }
+});
+document.getElementById('cart').addEventListener('input',function(e){
+  var i=e.target.closest('[data-cq]'); if(!i)return;
+  var k=+i.dataset.cq, v=parseInt(i.value,10);
+  if(!v||v<1)v=1; if(v>99)v=99;
+  CART[k].q=v; cartSave();
+  var f=document.getElementById('cartFoot');
+  if(f){var sum=cartSum(),old=cartOld();cartFab();
+    var t=f.querySelector('.cart-tot b'); if(t)t.textContent=fmt(sum);
+    var sv=f.querySelector('.cart-save'); if(sv)sv.textContent='Ваша економія — '+fmt(old-sum);
+    var g=document.getElementById('cartGo'); if(g)g.href=TG+encodeURIComponent(cartText());
+  }
+  var row=i.closest('.ci'); if(row){var pe=row.querySelector('.ci-p');
+    if(pe&&CART[k].price)pe.textContent=fmt(CART[k].price*CART[k].q);}
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'&&document.getElementById('cart').classList.contains('fx-on'))cartClose();
+});
+cartFab();
 
 (function(){
   const q=new URLSearchParams(location.search).get('metal');
