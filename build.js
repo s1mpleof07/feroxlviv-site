@@ -2428,6 +2428,21 @@ function catalogPage() {
   ) + `
 <style>
 
+
+/* ── ціни ── */
+.p-from{display:inline-flex;align-items:center;gap:9px;margin-bottom:14px;font-size:15px;color:var(--anthracite)}
+.p-from b{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.12em;font-weight:500;
+  background:var(--m);color:#fff;padding:4px 7px;border-radius:2px;transition:background .5s}
+.price-box{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:18px;padding:16px 18px;
+  background:var(--bone-d);border-left:3px solid var(--m);border-radius:2px;transition:border-color .5s}
+.p-badge{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  background:var(--m);color:#fff;padding:5px 8px;border-radius:2px;transition:background .5s}
+.p-old{font-size:15px;color:var(--steel);text-decoration:line-through;text-decoration-thickness:1.5px}
+.p-now{font-family:'Playfair Display',Georgia,serif;font-size:27px;line-height:1;color:var(--anthracite)}
+.p-save{font-size:12.5px;color:var(--m);font-weight:400;transition:color .5s}
+.p-hint{font-size:13.5px;color:var(--steel);font-weight:300}
+.p-note{margin-top:12px;font-size:13px;color:var(--steel);font-weight:300;line-height:1.55}
+
 /* ── смуга вибору металу ── */
 .fx-metals{background:var(--anthracite);color:var(--bone);position:relative;overflow:hidden}
 .fx-metals::after{content:'';position:absolute;inset:0;pointer-events:none;
@@ -2739,11 +2754,14 @@ const P=[
   d:'Класична форма для дерев і великих рослин.',
   full:'Циліндрична форма, зварений шов зачищений урівень. Дно з дренажними отворами та ніжками — щоб вода йшла, а метал не стояв у воді.',
   s:['⌀40×40','⌀50×50','⌀60×60','⌀80×70'],
+  pr:{'⌀40×40':[16500,11500],'⌀50×50':[19000,14000],'⌀60×60':[20500,16500]},
+  note:'Можливе хімічне патинування — термін до 14 днів.',
   sp:[['Товщина','2 мм'],['Дно','Дренаж + ніжки 20 мм'],['Термін','7–10 днів']]},
  {c:'kashpo',img:'cat-kashpo-rectangle',t:'Кашпо прямокутне',
   d:'Довга форма для зонування й живоплотів.',
   full:'Витягнута форма для розділення простору — тераси, входи, паркувальні зони. Ребра жорсткості всередині, щоб довга стінка не вигиналась під вагою ґрунту.',
-  s:['80×30×40','100×35×45','120×40×50','150×40×50'],
+  s:['60×60×25','90×60×25'],
+  pr:{'60×60×25':[17000,12000],'90×60×25':[18500,13500]},
   sp:[['Товщина','2–3 мм'],['Жорсткість','Внутрішні ребра'],['Термін','10–14 днів']]},
  {c:'kashpo',img:'cat-kashpo-modular',t:'Модульний набір кашпо',
   d:'Три розміри однієї форми — композиція для входу чи тераси.',
@@ -2849,6 +2867,31 @@ const grid=document.getElementById('grid'), cnt=document.getElementById('cnt'),
 const TG='https://t.me/feroxlviv?text=';
 const plural=n=>n===1?'виріб':(n>=2&&n<=4?'вироби':'виробів');
 
+function fmt(n){return String(n).replace(/\\B(?=(\\d{3})+(?!\\d))/g,' ')+' грн'}
+
+function priceFrom(p){
+  if(!p.pr)return '';
+  var v=Object.keys(p.pr).map(function(k){return p.pr[k][1]});
+  if(!v.length)return '';
+  return '<span class="p-from"><b>ТОП ПРОДАЖІВ</b>від '+fmt(Math.min.apply(null,v))+'</span>';
+}
+
+function priceBox(p,size){
+  var el=document.getElementById('priceBox'); if(!el)return;
+  if(!p.pr||!p.pr[size]){
+    el.innerHTML='<span class="p-hint">'+
+      (!p.pr ? 'Ціну рахуємо під ваші розміри та метал'
+       : !size ? 'Оберіть розмір — покажемо ціну'
+       : 'Цей розмір рахуємо індивідуально — напишіть, відповімо з ціною')+'</span>';
+    return;
+  }
+  var a=p.pr[size][0], b=p.pr[size][1];
+  el.innerHTML='<span class="p-badge">Топ продажів</span>'+
+    '<span class="p-old">'+fmt(a)+'</span>'+
+    '<span class="p-now">'+fmt(b)+'</span>'+
+    '<span class="p-save">−'+fmt(a-b)+'</span>';
+}
+
 function vis(p,size){
   const m=METALS[metal];
   if(m.photo||p.own){
@@ -2872,6 +2915,7 @@ function render(f='all'){
       <span class="card-bd">
         <h3>\${p.t}</h3>
         <span class="d">\${p.d}</span>
+        \${priceFrom(p)}
         <span class="more">Дивитись виріб →</span>
       </span>
     </button>\`).join('');
@@ -2902,6 +2946,8 @@ function openPD(t){
           \${p.s.map(s=>\`<button class="size" data-s="\${s}" aria-pressed="false">\${s}</button>\`).join('')}
           <button class="size cust" data-s="індивідуальні" aria-pressed="false">Індивідуальні розміри</button>
         </div>
+        <div id="priceBox" class="price-box"></div>
+        \${p.note?\`<p class="p-note">\${p.note}</p>\`:''}
       </div>
       <div class="pd-sec">
         <span class="mono">Характеристики</span>
@@ -2920,7 +2966,7 @@ function openPD(t){
         </div>
       </div>
     </div>\`;
-  upd();
+  upd(); priceBox(p,null);
   ov.classList.add('fx-on'); pd.classList.add('fx-on');
   document.body.classList.add('lock'); pd.scrollTop=0;
   setTimeout(()=>{const x=pd.querySelector('.pd-x'); if(x)x.focus()},120);
@@ -2937,7 +2983,9 @@ function upd(){
   el.innerHTML=order.s
     ? \`<b>\${order.t}</b> · \${m} · \${order.s==='індивідуальні'?'<b>індивідуальні розміри</b>':'<b>'+order.s+'</b>'}\`
     : \`<b>\${order.t}</b> · \${m} · <span style="color:var(--m)">оберіть розмір вище</span>\`;
-  const txt=\`Доброго дня! Хочу оформити замовлення.\\n\\nВиріб: \${order.t}\\nМетал: \${m}\\nРозмір: \${order.s||'уточню'}\\n\\nПрошу порахувати вартість і термін.\`;
+  var _p=P.find(function(x){return x.t===order.t});
+  var _pl=(_p&&_p.pr&&_p.pr[order.s])?'\\nЦіна з сайту: '+fmt(_p.pr[order.s][1]):'';
+  const txt=\`Доброго дня! Хочу оформити замовлення.\\n\\nВиріб: \${order.t}\\nМетал: \${m}\\nРозмір: \${order.s||'уточню'}\${_pl}\\n\\nПрошу порахувати вартість і термін.\`;
   const b=document.getElementById('pdBtn'); if(b)b.href=TG+encodeURIComponent(txt);
 }
 
@@ -2980,7 +3028,9 @@ pd.onclick=e=>{
   const s=e.target.closest('.size');
   if(s){
     pd.querySelectorAll('.size').forEach(x=>x.setAttribute('aria-pressed','false'));
-    s.setAttribute('aria-pressed','true'); order.s=s.dataset.s; upd(); return;
+    s.setAttribute('aria-pressed','true'); order.s=s.dataset.s;
+    priceBox(P.find(function(x){return x.t===order.t}),order.s);
+    upd(); return;
   }
   const btn=e.target.closest('#pdBtn');
   if(btn&&!order.s){
