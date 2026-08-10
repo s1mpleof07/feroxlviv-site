@@ -1379,6 +1379,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 /* заглушка для металів без фото */
 .fx-ph{position:absolute;inset:0;background:var(--anthracite);display:flex;flex-direction:column;
   align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px}
+.fx-ph[hidden],img[hidden],.it-ph[hidden]{display:none!important}
 .fx-ph::before{content:'';position:absolute;inset:0;opacity:.5;
   background:repeating-linear-gradient(38deg,transparent 0 8px,rgba(247,244,239,.045) 8px 9px)}
 .fx-ph i{width:54px;height:54px;background:var(--phc);border-radius:50%;position:relative;z-index:2;
