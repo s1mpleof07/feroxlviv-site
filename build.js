@@ -4,6 +4,12 @@ const path = require('path');
 
 const SRC = __dirname + '/src';
 const OUT = __dirname + '/build';
+
+// Дата збірки і дата останньої правки магазину (каталог + картки товарів).
+// Оновлюй SHOP_UPDATED, коли міняєш ціни, товари чи вміст сторінок виробів —
+// Google використовує lastmod як сигнал, що сторінку варто перечитати.
+const BUILD_DATE = new Date().toISOString().slice(0, 10);
+const SHOP_UPDATED = '2026-08-10';
 const CONTENT = __dirname + '/content';
 
 // ════════════════════════════════════════════════════════
@@ -2715,6 +2721,10 @@ function mPrice(base, metal) {
   if (METAL_MULT[metal] === 1) return base;
   return Math.round(base * METAL_MULT[metal] / 10) * 10;
 }
+function minSize(p) {
+  if (!p.pr) return null;
+  return Math.min(...Object.keys(p.pr).map(s => p.pr[s][1]));
+}
 function minPrice(p) {
   if (!p.pr) return null;
   return Math.min(...Object.keys(p.pr).map(s => mPrice(p.pr[s][1], 'steel')));
@@ -2909,15 +2919,43 @@ function itemScript(p) {
     var el=$('priceBox'); if(!el)return;
     if(!PRODUCT.pr){el.innerHTML='<span class="p-hint">Індивідуальне виготовлення — ціну надішлемо у відповідь</span>';return}
     if(!size){el.innerHTML='<span class="p-hint">Оберіть розмір — покажемо ціну</span>';return}
-    if(!PRODUCT.pr[size]){el.innerHTML='<span class="p-hint">Індивідуальний розмір — ціну надішлемо у відповідь</span>';qtySum();tgLink();return}
+    if(!PRODUCT.pr[size]){
+      el.innerHTML='<span class="p-hint">Індивідуальний розмір — ціну надішлемо у відповідь</span>';
+      topPrice(null);qtySum();tgLink();return}
     var base=PRODUCT.pr[size][1], oldb=PRODUCT.pr[size][0];
     var now=mp(base,metal), old=oldb?mp(oldb,metal):null;
+    topPrice(now);
     el.innerHTML=(old&&PRODUCT.badge?'<span class="p-badge">'+PRODUCT.badge+'</span>':'')+
       (old?'<span class="p-old">'+fmt(old)+'</span>':'')+
       '<span class="p-now">'+fmt(now)+'</span>'+
       (old?'<span class="p-save">−'+fmt(old-now)+'</span>':'')+
       (metal!=='corten'?'<span class="p-mnote">ціна для «'+MI[metal].short+'»</span>':'');
     qtySum();tgLink();
+  }
+
+  function topPrice(v){
+    var big=$('itBig'), lb=$('itLb');
+    if(!big)return;
+    if(v){ big.textContent=fmt(v); if(lb)lb.textContent='Ціна'; }
+    else {
+      var vals=Object.keys(PRODUCT.pr||{}).map(function(k){return mp(PRODUCT.pr[k][1],metal)});
+      if(vals.length){ big.textContent=fmt(Math.min.apply(null,vals)); if(lb)lb.textContent='Ціна від'; }
+    }
+  }
+
+  function selectSize(v){
+    size=v;
+    document.querySelectorAll('.size').forEach(function(x){
+      x.setAttribute('aria-pressed',String(x.dataset.s===v));
+    });
+    setQty(1);priceBox();
+  }
+
+  function smallestSize(){
+    if(!PRODUCT.pr)return null;
+    var ks=Object.keys(PRODUCT.pr);
+    if(!ks.length)return null;
+    return ks.reduce(function(a,b){return PRODUCT.pr[b][1]<PRODUCT.pr[a][1]?b:a});
   }
 
   function curPrice(){
@@ -2944,10 +2982,7 @@ function itemScript(p) {
     b.addEventListener('click',function(){metal=b.dataset.metal;paintMetal()});
   });
   document.querySelectorAll('.size').forEach(function(b){
-    b.addEventListener('click',function(){
-      document.querySelectorAll('.size').forEach(function(x){x.setAttribute('aria-pressed','false')});
-      b.setAttribute('aria-pressed','true');size=b.dataset.s;setQty(1);priceBox();
-    });
+    b.addEventListener('click',function(){selectSize(b.dataset.s)});
   });
   document.querySelectorAll('.qty-b[data-q]').forEach(function(b){
     if(b.dataset.ck)return;
@@ -2968,7 +3003,10 @@ function itemScript(p) {
     cartSave();cartRender();toast(PRODUCT.t+' — додано до замовлення');
   });
 
-  paintMetal();tgLink();
+  paintMetal();
+  var s0=smallestSize();
+  if(s0)selectSize(s0);
+  tgLink();
 })();`;
 }
 
@@ -3024,7 +3062,6 @@ function itemPage(p) {
     const m = METAL_INFO[k];
     return `<button type="button" class="im-b" data-metal="${k}" aria-pressed="${k === 'corten'}" style="--c:${m.ch}">
         <i></i><span>${esc(m.n.split('—')[0].trim())}</span>
-        ${k !== 'corten' ? `<em>−${Math.round((1 - METAL_MULT[k]) * 100)}%</em>` : ''}
       </button>`;
   }).join('\n      ');
 
@@ -3053,8 +3090,8 @@ function itemPage(p) {
     <div class="it-info">
       ${sizes.length ? `<p class="it-price-lead">
         ${p.badge ? `<span class="it-badge">${esc(p.badge)}</span>` : ''}
-        <span class="it-from">${sizes.length > 1 || METAL_ORDER.length > 1 ? 'Ціна від' : 'Ціна'}</span>
-        <span class="it-big">${uah(lo)}</span>
+        <span class="it-from" id="itLb">Ціна</span>
+        <span class="it-big" id="itBig">${uah(minSize(p))}</span>
       </p>` : ''}
 
       <p class="it-full">${esc(p.full)}</p>
@@ -3242,7 +3279,13 @@ ${[
   ...services.map(s => `/services/${s.slug}/`),
   ...projects.map(p => `/portfolio/${p.slug}/`),
   ...blogPosts.map(p => `/blog/${p.slug}/`)
-].map(u => `  <url><loc>https://feroxlviv.com.ua${u}</loc><changefreq>weekly</changefreq></url>`).join('\n')}
+].map(u => {
+  const shop = u === '/viroby/' || u.startsWith('/viroby/tovar/');
+  return `  <url><loc>https://feroxlviv.com.ua${u}</loc>`
+       + `<lastmod>${shop ? SHOP_UPDATED : BUILD_DATE}</lastmod>`
+       + `<changefreq>${shop ? 'weekly' : 'monthly'}</changefreq>`
+       + `<priority>${u === '/' ? '1.0' : shop ? '0.9' : '0.7'}</priority></url>`;
+}).join('\n')}
 </urlset>`;
   writeFile('sitemap.xml', sitemap);
 
