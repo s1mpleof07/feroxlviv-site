@@ -514,14 +514,16 @@ function homePage() {
     <h1 class="hero-h1">${site.hero.h1}</h1>
     <p class="hero-sub">${site.hero.sub}</p>
     <div class="hero-btns">
-      <a href="${site.hero.ctaPrimary.href}" class="btn-p" data-event="cta_click" data-label="hero_primary">
-        <span>${site.hero.ctaPrimary.label}</span>
+      <a href="${site.hero.ctaSecondary.href}" class="btn-p btn-hero" data-event="cta_click" data-label="hero_catalog">
+        <span>${site.hero.ctaSecondary.label}</span>
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <a href="${site.hero.ctaSecondary.href}" class="btn-g" data-event="cta_click" data-label="hero_secondary">
-        <span>${site.hero.ctaSecondary.label}</span>
+      <a href="${site.hero.ctaPrimary.href}" class="btn-g btn-hero-2" data-event="cta_click" data-label="hero_quote">
+        <span>${site.hero.ctaPrimary.label}</span>
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.6 3.4h10.8v9.2H2.6z" stroke="currentColor" stroke-width="1.3"/><path d="M5.2 6.4h5.6M5.2 9.2h3.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
       </a>
     </div>
+    <p class="hero-hint">${site.hero.ctaSecondary.text || 'Каталог виробів'} — з цінами та розмірами</p>
   </div>
 
   <!-- ── B2B показники ─────────────────────────────── -->
