@@ -561,6 +561,83 @@ function homePage() {
   <a href="/services/welding/" class="strip-i"><span class="strip-dot"></span><span>Вальцювання</span><span class="strip-arrow" aria-hidden="true">→</span></a>
 </div>
 
+<section class="cat-section">
+  <div class="cat-head reveal">
+    <div>
+      <p class="s-label">Каталог виробів</p>
+      <h2 class="s-title">Що ми<br><em>виготовляємо.</em></h2>
+    </div>
+    <p class="cat-head-desc">Від декоративних арт-об'єктів до промислових конструкцій — 15 категорій у трьох металах. Нижче кілька напрямків, решта у каталозі.</p>
+  </div>
+  <div class="cat-grid" id="catGrid">
+    <a href="/viroby/?cat=kashpo" class="cat-card reveal" data-cat="corten">
+      <div class="cat-card-img" style="background-image:url('/uploads/cat-kashpo-rectangle.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Кортен · Ландшафт</span>
+        <h3 class="cat-card-title">Кашпо та клумби</h3>
+        <p class="cat-card-desc">Об'ємні та плоскі форми для саду і тераси. Природна патина з часом.</p>
+        <span class="cat-card-cta">Дивитись вироби →</span>
+      </div>
+    </a>
+    <a href="/viroby/?cat=decor" class="cat-card reveal" data-cat="corten">
+      <div class="cat-card-img" style="background-image:url('/uploads/cat-sculpture-deer.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Кортен · Арт-об'єкт</span>
+        <h3 class="cat-card-title">Скульптури та арт-об'єкти</h3>
+        <p class="cat-card-desc">Унікальні дизайн-об'єкти з кортену для екстер'єру та публічних просторів.</p>
+        <span class="cat-card-cta">Дивитись вироби →</span>
+      </div>
+    </a>
+    <a href="/viroby/?cat=facade" class="cat-card reveal" data-cat="corten">
+      <div class="cat-card-img" style="background-image:url('/uploads/entrance.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Кортен · Фасад</span>
+        <h3 class="cat-card-title">Вхідні групи та фасадні елементи</h3>
+        <p class="cat-card-desc">Металеві панелі, декоративні екрани, архітектурні акценти для ЖК і комерційних будівель.</p>
+        <span class="cat-card-cta">Дивитись вироби →</span>
+      </div>
+    </a>
+    <a href="/viroby/?cat=light" class="cat-card reveal" data-cat="corten">
+      <div class="cat-card-img" style="background-image:url('/uploads/cat-light-wall.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Кортен · Освітлення</span>
+        <h3 class="cat-card-title">Вуличні світильники</h3>
+        <p class="cat-card-desc">Настінні та підвісні садові світильники з кортену. Тепле LED-світло і природня патина.</p>
+        <span class="cat-card-cta">Дивитись вироби →</span>
+      </div>
+    </a>
+    <a href="/viroby/?cat=sign" class="cat-card reveal" data-cat="stainless">
+      <div class="cat-card-img" style="background-image:url('/uploads/brendova-tablichka.webp')"></div>
+      <div class="cat-card-body">
+        <span class="cat-card-tag">Нержавійка · Брендинг</span>
+        <h3 class="cat-card-title">Вивіски та таблички</h3>
+        <p class="cat-card-desc">Брендові таблички, адресні знаки, логотипи. Дзеркальна або матова поверхня.</p>
+        <span class="cat-card-cta">Дивитись вироби →</span>
+      </div>
+    </a>
+    <a href="/viroby/" class="cat-more reveal">
+      <span class="cat-more-top">
+        <span class="cat-more-n">+10</span>
+        <span class="cat-more-lb">категорій</span>
+      </span>
+      <span class="cat-more-mid">
+        <span class="cat-more-t">Увесь каталог<br>виробів</span>
+        <span class="cat-more-d">Кашпо, мангали, фонтани, ламелі, облицювання кортеном, стелажі, пам'ятники та інше — з розмірами й оформленням замовлення.</span>
+      </span>
+      <span class="cat-more-cta">Дивитись каталог
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </a>
+  </div>
+  <div class="cat-metals reveal">
+    <span class="cat-metals-lb">Дивитись у металі</span>
+    <a href="/viroby/?metal=corten"><i style="background:#A0522D"></i>Кортен</a>
+    <a href="/viroby/?metal=stainless"><i style="background:#9FA4A8"></i>Нержавійка</a>
+    <a href="/viroby/?metal=steel"><i style="background:#3A3A37"></i>Чорна сталь</a>
+  </div>
+  <p class="cat-rest reveal"><span>Також виготовляємо:</span> <a href="/viroby/fontany/">Фонтани та водні об'єкти</a> <a href="/viroby/pamiatky/">Пам'ятники та меморіальні плити</a> <a href="/viroby/bordyury/">Бордюри та кромки клумб</a> <a href="/viroby/interior/">Декор та арт-панелі для інтер'єру</a> <a href="/viroby/qr-horeca/">QR-таблички та брендинг ресторанів</a> <a href="/viroby/mebli/">Металеві меблі та каркаси</a> <a href="/viroby/detali/">Деталі та заготовки на замовлення</a> <a href="/viroby/parkan/">Паркани та огородження</a> <a href="/viroby/mangal/">Мангали та грилі</a> <a href="/viroby/stelazh/">Стелажі для дров</a></p>
+</section>
+
 <section id="about">
   <div class="about-grid">
     <div class="reveal">
@@ -624,82 +701,6 @@ function homePage() {
   </div>
 </div>
 
-<section class="cat-section">
-  <div class="cat-head reveal">
-    <div>
-      <p class="s-label">Каталог виробів</p>
-      <h2 class="s-title">Що ми<br><em>виготовляємо.</em></h2>
-    </div>
-    <p class="cat-head-desc">Від декоративних арт-об'єктів до промислових конструкцій — 15 категорій у трьох металах. Нижче кілька напрямків, решта у каталозі.</p>
-  </div>
-  <div class="cat-grid" id="catGrid">
-    <a href="/viroby/kashpo/" class="cat-card reveal" data-cat="corten">
-      <div class="cat-card-img" style="background-image:url('/uploads/cat-kashpo-rectangle.webp')"></div>
-      <div class="cat-card-body">
-        <span class="cat-card-tag">Кортен · Ландшафт</span>
-        <h3 class="cat-card-title">Кашпо та клумби</h3>
-        <p class="cat-card-desc">Об'ємні та плоскі форми для саду і тераси. Природна патина з часом.</p>
-        <span class="cat-card-cta">Дізнатися більше →</span>
-      </div>
-    </a>
-    <a href="/viroby/skulptury/" class="cat-card reveal" data-cat="corten">
-      <div class="cat-card-img" style="background-image:url('/uploads/cat-sculpture-deer.webp')"></div>
-      <div class="cat-card-body">
-        <span class="cat-card-tag">Кортен · Арт-об'єкт</span>
-        <h3 class="cat-card-title">Скульптури та арт-об'єкти</h3>
-        <p class="cat-card-desc">Унікальні дизайн-об'єкти з кортену для екстер'єру та публічних просторів.</p>
-        <span class="cat-card-cta">Дізнатися більше →</span>
-      </div>
-    </a>
-    <a href="/viroby/fasady/" class="cat-card reveal" data-cat="corten">
-      <div class="cat-card-img" style="background-image:url('/uploads/entrance.webp')"></div>
-      <div class="cat-card-body">
-        <span class="cat-card-tag">Кортен · Фасад</span>
-        <h3 class="cat-card-title">Вхідні групи та фасадні елементи</h3>
-        <p class="cat-card-desc">Металеві панелі, декоративні екрани, архітектурні акценти для ЖК і комерційних будівель.</p>
-        <span class="cat-card-cta">Дізнатися більше →</span>
-      </div>
-    </a>
-    <a href="/viroby/svitylnyky/" class="cat-card reveal" data-cat="corten">
-      <div class="cat-card-img" style="background-image:url('/uploads/cat-light-wall.webp')"></div>
-      <div class="cat-card-body">
-        <span class="cat-card-tag">Кортен · Освітлення</span>
-        <h3 class="cat-card-title">Вуличні світильники</h3>
-        <p class="cat-card-desc">Настінні та підвісні садові світильники з кортену. Тепле LED-світло і природня патина.</p>
-        <span class="cat-card-cta">Дізнатися більше →</span>
-      </div>
-    </a>
-    <a href="/viroby/vyviska/" class="cat-card reveal" data-cat="stainless">
-      <div class="cat-card-img" style="background-image:url('/uploads/brendova-tablichka.webp')"></div>
-      <div class="cat-card-body">
-        <span class="cat-card-tag">Нержавійка · Брендинг</span>
-        <h3 class="cat-card-title">Вивіски та таблички</h3>
-        <p class="cat-card-desc">Брендові таблички, адресні знаки, логотипи. Дзеркальна або матова поверхня.</p>
-        <span class="cat-card-cta">Дізнатися більше →</span>
-      </div>
-    </a>
-    <a href="/viroby/" class="cat-more reveal">
-      <span class="cat-more-top">
-        <span class="cat-more-n">+10</span>
-        <span class="cat-more-lb">категорій</span>
-      </span>
-      <span class="cat-more-mid">
-        <span class="cat-more-t">Увесь каталог<br>виробів</span>
-        <span class="cat-more-d">Кашпо, мангали, фонтани, ламелі, облицювання кортеном, стелажі, пам'ятники та інше — з розмірами й оформленням замовлення.</span>
-      </span>
-      <span class="cat-more-cta">Дивитись каталог
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M11 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-    </a>
-  </div>
-  <div class="cat-metals reveal">
-    <span class="cat-metals-lb">Дивитись у металі</span>
-    <a href="/viroby/?metal=corten"><i style="background:#A0522D"></i>Кортен</a>
-    <a href="/viroby/?metal=stainless"><i style="background:#9FA4A8"></i>Нержавійка</a>
-    <a href="/viroby/?metal=steel"><i style="background:#3A3A37"></i>Чорна сталь</a>
-  </div>
-  <p class="cat-rest reveal"><span>Також виготовляємо:</span> <a href="/viroby/fontany/">Фонтани та водні об'єкти</a> <a href="/viroby/pamiatky/">Пам'ятники та меморіальні плити</a> <a href="/viroby/bordyury/">Бордюри та кромки клумб</a> <a href="/viroby/interior/">Декор та арт-панелі для інтер'єру</a> <a href="/viroby/qr-horeca/">QR-таблички та брендинг ресторанів</a> <a href="/viroby/mebli/">Металеві меблі та каркаси</a> <a href="/viroby/detali/">Деталі та заготовки на замовлення</a> <a href="/viroby/parkan/">Паркани та огородження</a> <a href="/viroby/mangal/">Мангали та грилі</a> <a href="/viroby/stelazh/">Стелажі для дров</a></p>
-</section>
 
 <section class="fw-wrap">
   <div class="reveal">
@@ -2576,7 +2577,18 @@ ${shopScript()}
     document.querySelectorAll('.card').forEach(function(c){c.hidden=!(f==='all'||c.dataset.cat===f)});
     count();
   });
-  paint();count();
+  function applyCat(f){
+    document.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed',String(x.dataset.f===f))});
+    document.querySelectorAll('.card').forEach(function(c){c.hidden=!(f==='all'||c.dataset.cat===f)});
+    count();
+  }
+  paint();
+  var c0=new URLSearchParams(location.search).get('cat');
+  if(c0&&document.querySelector('.chip[data-f="'+c0+'"]')){
+    applyCat(c0);
+    var g=document.querySelector('.filters');
+    if(g)setTimeout(function(){g.scrollIntoView({behavior:'smooth',block:'start'})},80);
+  } else count();
 })();
 </script>
 ` + footer();
@@ -3139,9 +3151,36 @@ function itemPage(p) {
       </ul>
 
       <p class="it-more"><a href="/viroby/${sub}/">Більше про категорію «${esc(catName)}» →</a>
-        <a href="/viroby/">Весь каталог виробів →</a></p>
+        <a href="/viroby/?cat=${p.c}">Усі «${esc(catName)}» у каталозі →</a></p>
     </div>
   </div>
+
+  ${(() => {
+    const idx = CATALOG.findIndex(x => x.slug === p.slug);
+    const prev = CATALOG[(idx - 1 + CATALOG.length) % CATALOG.length];
+    const next = CATALOG[(idx + 1) % CATALOG.length];
+    const sib = CATALOG.filter(x => x.c === p.c && x.slug !== p.slug).slice(0, 4);
+    return `
+  <nav class="it-nav" aria-label="Навігація між виробами">
+    <a class="it-nav-a it-nav-prev" href="/viroby/tovar/${prev.slug}/">
+      <span class="it-nav-lb">← Попередній</span><span class="it-nav-t">${esc(prev.t)}</span></a>
+    <a class="it-nav-all" href="/viroby/">Усі вироби</a>
+    <a class="it-nav-a it-nav-next" href="/viroby/tovar/${next.slug}/">
+      <span class="it-nav-lb">Наступний →</span><span class="it-nav-t">${esc(next.t)}</span></a>
+  </nav>
+
+  ${sib.length ? `<section class="it-sib">
+    <h2 class="it-sib-h">Інші вироби в категорії «${esc(catName)}»</h2>
+    <div class="it-sib-g">
+      ${sib.map(x => {
+        const l = minSize(x);
+        return `<a class="it-sib-c" href="/viroby/tovar/${x.slug}/">
+        <span class="it-sib-i"><img src="/uploads/${x.img}.webp" alt="${esc(x.t)} — FEROX LVIV" loading="lazy"></span>
+        <span class="it-sib-b"><b>${esc(x.t)}</b>${l ? `<em>від ${uah(l)}</em>` : '<em>за прорахунком</em>'}</span></a>`;
+      }).join('\n      ')}
+    </div>
+  </section>` : ''}`;
+  })()}
 
   <div class="it-seo">
     <h2>${esc(p.t)} з металу — виготовлення на замовлення</h2>
