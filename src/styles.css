@@ -1590,3 +1590,53 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   .it-nav-all{grid-column:1/-1;order:3;text-align:center}
   .it-nav-t{font-size:14px}
 }
+
+/* ══ Кнопки героя: акцент на каталозі ══ */
+.hero-btns{gap:14px;align-items:stretch}
+
+/* Головна дія — «Переглянути проекти» */
+.btn-hero{
+  padding:19px 44px;font-size:13.5px;letter-spacing:.09em;font-weight:500;
+  box-shadow:0 14px 34px -12px rgba(160,82,45,.75);
+}
+.btn-hero::after{width:38%;left:-38%}
+.btn-hero:hover{box-shadow:0 18px 42px -12px rgba(160,82,45,.9);transform:translateY(-2px)}
+.btn-hero:active{transform:translateY(0)}
+
+/* Тонке світіння, щоб око знайшло кнопку першою */
+.btn-hero::before{z-index:0}
+.btn-hero span,.btn-hero svg{z-index:2}
+
+/* Другорядна дія — «Отримати розрахунок» */
+.btn-hero-2{
+  padding:19px 34px;font-size:13px;
+  border-color:rgba(255,255,255,.26);
+  color:rgba(255,255,255,.82);
+  background:rgba(255,255,255,.035);
+  backdrop-filter:blur(2px);
+}
+.btn-hero-2 svg{opacity:.6;transition:opacity .3s}
+.btn-hero-2:hover{
+  border-color:rgba(255,255,255,.55);
+  color:#fff;background:rgba(255,255,255,.08);
+  transform:translateY(-2px);
+}
+.btn-hero-2:hover svg{opacity:1}
+.btn-hero-2:active{transform:translateY(0)}
+
+/* Підпис під кнопками */
+.hero-hint{
+  position:relative;z-index:2;
+  margin-top:16px;font-size:12.5px;font-weight:300;
+  color:rgba(255,255,255,.4);letter-spacing:.02em;
+  opacity:0;animation:fadeUp .8s .95s forwards;
+}
+
+@media(max-width:600px){
+  .btn-hero{padding:17px 30px}
+  .btn-hero-2{padding:16px 26px}
+  .hero-hint{margin-top:14px;font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .btn-hero:hover,.btn-hero-2:hover{transform:none}
+}
