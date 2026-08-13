@@ -1556,3 +1556,37 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .it-seo p{font-size:14.5px;line-height:1.75;color:#5f5d57;font-weight:300;margin-bottom:14px}
 @media(max-width:900px){.it-grid{grid-template-columns:1fr;gap:30px}.it-wrap{padding:40px 5vw 66px}}
 @media(max-width:560px){.it-big{font-size:29px}.it-seo{margin-top:48px}}
+
+/* ── Навігація між виробами ── */
+.it-nav{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;
+  margin-top:56px;padding-top:26px;border-top:1px solid #e4ded4}
+.it-nav-a{display:flex;flex-direction:column;gap:5px;padding:16px 18px;border:1px solid #e4ded4;
+  border-radius:3px;text-decoration:none;color:inherit;transition:border-color .22s,transform .22s;min-width:0}
+.it-nav-a:hover{border-color:var(--corten);transform:translateY(-2px)}
+.it-nav-next{text-align:right}
+.it-nav-lb{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:#8a8880}
+.it-nav-t{font-family:'Playfair Display',Georgia,serif;font-size:16px;line-height:1.25;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.it-nav-all{padding:14px 20px;background:var(--anthracite);color:var(--bone);border-radius:3px;
+  font-size:13px;text-decoration:none;white-space:nowrap;transition:background .25s}
+.it-nav-all:hover{background:var(--corten)}
+
+/* ── Схожі вироби ── */
+.it-sib{margin-top:52px}
+.it-sib-h{font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:400;margin-bottom:22px}
+.it-sib-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
+.it-sib-c{text-decoration:none;color:inherit;display:block;transition:transform .22s}
+.it-sib-c:hover{transform:translateY(-4px)}
+.it-sib-i{display:block;aspect-ratio:4/3;border-radius:3px;overflow:hidden;background:var(--anthracite);margin-bottom:11px}
+.it-sib-i img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.it-sib-c:hover .it-sib-i img{transform:scale(1.05)}
+.it-sib-b{display:block}
+.it-sib-b b{display:block;font-family:'Playfair Display',Georgia,serif;font-size:16.5px;
+  font-weight:400;line-height:1.25;margin-bottom:4px}
+.it-sib-b em{font-style:normal;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--corten)}
+@media(max-width:700px){
+  .it-nav{grid-template-columns:1fr 1fr;gap:10px}
+  .it-nav-all{grid-column:1/-1;order:3;text-align:center}
+  .it-nav-t{font-size:14px}
+}
