@@ -1379,7 +1379,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 /* заглушка для металів без фото */
 .fx-ph{position:absolute;inset:0;background:var(--anthracite);display:flex;flex-direction:column;
   align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px}
-.fx-ph[hidden],img[hidden],.it-ph[hidden]{display:none!important}
+.fx-ph[hidden],img[hidden],.it-ph[hidden],.card[hidden],.cat-card[hidden]{display:none!important}
 .fx-ph::before{content:'';position:absolute;inset:0;opacity:.5;
   background:repeating-linear-gradient(38deg,transparent 0 8px,rgba(247,244,239,.045) 8px 9px)}
 .fx-ph i{width:54px;height:54px;background:var(--phc);border-radius:50%;position:relative;z-index:2;
@@ -1640,3 +1640,46 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 @media(prefers-reduced-motion:reduce){
   .btn-hero:hover,.btn-hero-2:hover{transform:none}
 }
+
+/* ══ Повноекранний перегляд фото ══ */
+.lb{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;
+  background:rgba(18,17,16,.94);backdrop-filter:blur(8px);
+  opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;padding:56px 20px}
+.lb.fx-on{opacity:1;visibility:visible}
+.lb-fig{margin:0;max-width:min(1400px,94vw);max-height:88vh;display:flex;flex-direction:column;
+  align-items:center;gap:14px}
+.lb-fig img{max-width:100%;max-height:80vh;object-fit:contain;display:block;border-radius:3px;
+  box-shadow:0 30px 80px rgba(0,0,0,.55);cursor:zoom-out}
+.lb-fig figcaption{font-size:13px;color:rgba(255,255,255,.55);font-weight:300;text-align:center;
+  max-width:70ch;line-height:1.5}
+.lb-x{position:absolute;top:18px;right:20px;width:46px;height:46px;border-radius:50%;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#fff;font-size:19px;
+  line-height:1;cursor:pointer;transition:background .25s,border-color .25s;z-index:2}
+.lb-x:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.4)}
+.lb-a{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#fff;
+  font-size:30px;line-height:1;cursor:pointer;transition:background .25s;z-index:2;
+  display:flex;align-items:center;justify-content:center;padding-bottom:4px}
+.lb-a:hover{background:rgba(255,255,255,.18)}
+.lb-a[hidden]{display:none}
+.lb-prev{left:18px}
+.lb-next{right:18px}
+
+/* Підказка «збільшити» на фото товару */
+.it-media{cursor:zoom-in}
+.it-media img[data-zoom]{cursor:zoom-in}
+.it-zoom{position:absolute;right:14px;bottom:14px;width:42px;height:42px;border-radius:50%;
+  background:rgba(20,19,18,.6);border:1px solid rgba(255,255,255,.2);color:#fff;
+  display:flex;align-items:center;justify-content:center;cursor:zoom-in;
+  backdrop-filter:blur(4px);transition:background .25s,transform .25s;pointer-events:none;z-index:3}
+.it-media:hover .it-zoom{background:rgba(20,19,18,.85);transform:scale(1.06)}
+.clad-ph img{cursor:zoom-in}
+
+@media(max-width:700px){
+  .lb{padding:52px 10px}
+  .lb-a{width:44px;height:44px;font-size:25px}
+  .lb-prev{left:8px}.lb-next{right:8px}
+  .lb-fig img{max-height:72vh}
+  .it-zoom{width:38px;height:38px;right:10px;bottom:10px}
+}
+@media(prefers-reduced-motion:reduce){.lb{transition:none}}
