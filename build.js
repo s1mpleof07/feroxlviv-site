@@ -2498,7 +2498,7 @@ ${cards}
 
 <section class="clad" id="clad">
   <div class="clad-in">
-    <div class="clad-ph"><img src="/uploads/cat-kamin-corten-tall.webp" alt="Облицювання каміну кортеновою сталлю — FEROX LVIV" loading="lazy"></div>
+    <div class="clad-ph"><img data-zoom src="/uploads/cat-kamin-corten-tall.webp" alt="Облицювання каміну кортеновою сталлю — FEROX LVIV" loading="lazy"></div>
     <div class="clad-tx">
       <span class="mono">Облицювання поверхонь</span>
       <h2>Кортен там, де був <em>бетон</em></h2>
@@ -2810,7 +2810,13 @@ function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').rep
 
 
 function cartMarkup() {
-  return `<div class="toast" id="toast" role="status"></div>
+  return `<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Перегляд фото">
+  <button type="button" class="lb-x" aria-label="Закрити">✕</button>
+  <button type="button" class="lb-a lb-prev" aria-label="Попереднє фото">‹</button>
+  <button type="button" class="lb-a lb-next" aria-label="Наступне фото">›</button>
+  <figure class="lb-fig"><img id="lbImg" alt="" hidden><figcaption id="lbCap"></figcaption></figure>
+</div>
+<div class="toast" id="toast" role="status"></div>
 <button type="button" class="cart-fab" id="cartFab" hidden aria-label="Відкрити замовлення">
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 4h2.2l1.6 8.4a1.6 1.6 0 001.6 1.3h6.3a1.6 1.6 0 001.6-1.2L17.6 7H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="17" r="1.1" fill="currentColor"/><circle cx="15" cy="17" r="1.1" fill="currentColor"/></svg>
   <span id="cartN">0</span>
@@ -2901,6 +2907,59 @@ function cartClose(){document.getElementById('cartOv').classList.remove('fx-on')
     if(e.key==='Escape'&&document.getElementById('cart').classList.contains('fx-on'))cartClose();
   });
   cartFab();
+})();
+
+/* ── Повноекранний перегляд фото ── */
+(function(){
+  var lb=document.getElementById('lb'); if(!lb)return;
+  var im=document.getElementById('lbImg'), cap=document.getElementById('lbCap');
+  var list=[], idx=0;
+
+  function collect(){
+    list=[].slice.call(document.querySelectorAll('[data-zoom]'))
+      .filter(function(e){return !e.hidden && e.getAttribute('src')});
+  }
+  function show(i){
+    if(!list.length)return;
+    idx=(i+list.length)%list.length;
+    var e=list[idx];
+    im.src=e.getAttribute('src'); im.alt=e.getAttribute('alt')||''; im.hidden=false;
+    cap.textContent=e.getAttribute('alt')||'';
+    var multi=list.length>1;
+    lb.querySelector('.lb-prev').hidden=!multi;
+    lb.querySelector('.lb-next').hidden=!multi;
+  }
+  function open(e){
+    collect();
+    var i=list.indexOf(e); if(i<0){list=[e];i=0}
+    show(i); lb.classList.add('fx-on'); document.body.classList.add('lock');
+    lb.querySelector('.lb-x').focus();
+  }
+  function close(){lb.classList.remove('fx-on');document.body.classList.remove('lock');im.hidden=true;im.removeAttribute('src')}
+
+  document.addEventListener('click',function(ev){
+    var z=ev.target.closest('[data-zoom]');
+    if(z&&!z.hidden){ev.preventDefault();open(z);return}
+  });
+  lb.addEventListener('click',function(ev){
+    if(ev.target.closest('.lb-x')){close();return}
+    if(ev.target.closest('.lb-prev')){show(idx-1);return}
+    if(ev.target.closest('.lb-next')){show(idx+1);return}
+    if(!ev.target.closest('.lb-fig'))close();
+  });
+  document.addEventListener('keydown',function(ev){
+    if(!lb.classList.contains('fx-on'))return;
+    if(ev.key==='Escape')close();
+    if(ev.key==='ArrowLeft')show(idx-1);
+    if(ev.key==='ArrowRight')show(idx+1);
+  });
+  var sx=null;
+  lb.addEventListener('touchstart',function(e){sx=e.changedTouches[0].clientX},{passive:true});
+  lb.addEventListener('touchend',function(e){
+    if(sx===null)return;
+    var d=e.changedTouches[0].clientX-sx; sx=null;
+    if(Math.abs(d)>50)show(idx+(d<0?1:-1));
+  },{passive:true});
 })();`;
 }
 
@@ -3098,7 +3157,10 @@ function itemPage(p) {
   <div class="it-grid">
     <div class="it-media">
       <div class="it-ph" id="itPh" hidden><i></i><b></b><s>Фото у цьому металі готуємо. Форма й розміри ті самі.</s></div>
-      <img id="itImg" src="/uploads/${p.img}.webp" alt="${esc(p.t)} з кортенової сталі — FEROX LVIV, виробництво у Львові" width="1000" height="750" loading="eager">
+      <img id="itImg" data-zoom src="/uploads/${p.img}.webp" alt="${esc(p.t)} з кортенової сталі — FEROX LVIV, виробництво у Львові" width="1000" height="750" loading="eager">
+      <button type="button" class="it-zoom" aria-label="Відкрити фото на весь екран">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M7.6 13.2a5.6 5.6 0 100-11.2 5.6 5.6 0 000 11.2zM16 16l-4.4-4.4M5.6 7.6h4M7.6 5.6v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
     </div>
 
     <div class="it-info">
