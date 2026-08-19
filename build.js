@@ -501,7 +501,7 @@ function homePage() {
   <div class="hero-photo-wrap" aria-hidden="true">
     <picture>
       <source srcset="/uploads/hero-bg.webp" type="image/webp">
-      <img src="/uploads/hero-bg.jpg" class="hero-photo-real" alt="Кортеновий олень — арт-об'єкт із сталі COR-TEN, виробництво FEROX LVIV" loading="eager" fetchpriority="high" decoding="async">
+      <img src="/uploads/hero-bg.jpg" class="hero-photo-real" alt="Кортеновий олень — арт-об'єкт із сталі COR-TEN, виробництво FEROX LVIV" loading="eager" fetchpriority="high" decoding="async" width="1000" height="750">
     </picture>
     <div class="hero-photo-overlay"></div>
   </div>
@@ -1291,7 +1291,7 @@ ${contactSection('', p.hero.title).replace('<section id="contact">', '<section i
 <section class="qc-wrap">
   <div class="reveal" style="text-align:center;margin-bottom:50px">
     <p class="s-label" style="justify-content:center;display:flex">Швидкі контакти</p>
-    <h2 class="s-title" style="text-align:center">Як вам <em>зручно.</em></h2>
+    <h1 class="s-title" style="text-align:center">Контакти <em>FEROX LVIV.</em></h1>
     <p style="font-size:15px;color:var(--steel);max-width:520px;margin:18px auto 0;line-height:1.7;font-weight:300">${p.hero.sub}</p>
   </div>
   <div class="qc-grid">
@@ -1515,7 +1515,7 @@ function architectPage() {
   <div class="arch-hero-bg" aria-hidden="true">
     <picture>
       <source srcset="/uploads/hero-bg.webp" type="image/webp">
-      <img src="/uploads/hero-bg.jpg" class="arch-hero-img" alt="Арт-скульптура з кортенової сталі у преміальному інтер'єрі — FEROX LVIV" loading="eager" fetchpriority="high" decoding="async">
+      <img src="/uploads/hero-bg.jpg" class="arch-hero-img" alt="Арт-скульптура з кортенової сталі у преміальному інтер'єрі — FEROX LVIV" loading="eager" fetchpriority="high" decoding="async" width="1000" height="750">
     </picture>
     <div class="arch-hero-ov"></div>
     <div class="arch-hero-line"></div>
@@ -2313,11 +2313,23 @@ const catalogProducts = [
 ];
 
 // ── PRODUCT DETAIL PAGE ───────────────────────────────────────
+// Заголовок для видачі: Google обрізає довше ~65 символів.
+// Пробуємо повний варіант, далі коротші, поки не влізе.
+function clampTitle(variants, max = 65) {
+  for (const v of variants) if (v && v.length <= max) return v;
+  return variants[variants.length - 1];
+}
+
 function productPage(p) {
   const related = catalogProducts.filter(x => p.related.includes(x.slug)).slice(0, 3);
   return head(
-    `${p.title} з металу на замовлення | FEROX LVIV`,
-    `${p.desc} Виготовлення у Львові, доставка по Україні. ${p.metalLabel}, власне виробництво.`,
+    clampTitle([
+      `${p.title} з металу на замовлення | FEROX LVIV`,
+      `${p.title} з металу — Львів | FEROX LVIV`,
+      `${p.title} з металу | FEROX LVIV`,
+      `${p.title} | FEROX LVIV`
+    ]),
+    clampDesc([p.desc, 'Виготовлення у Львові,', 'доставка по Україні.']),
     `${p.title.toLowerCase()}, ${p.metalLabel.toLowerCase()}, вироби з металу, металообробка Львів`,
     `/viroby/${p.slug}/`
   ) + nav('viroby') +
@@ -2428,7 +2440,7 @@ function catalogPage() {
     return `      <a class="card" href="/viroby/tovar/${p.slug}/" data-cat="${p.c}">
         <span class="card-vis">
           <span class="card-tag" data-tag>кортен</span>
-          <img src="/uploads/${p.img}.webp" alt="${esc(p.t)} з кортенової сталі — FEROX LVIV" loading="lazy" decoding="async">
+          <img src="/uploads/${p.img}.webp" alt="${esc(p.t)} з кортенової сталі — FEROX LVIV" loading="lazy" decoding="async" width="1000" height="750">
           <span class="fx-ph" data-ph hidden><i></i><b></b><s>Фото готуємо</s></span>
         </span>
         <span class="card-bd">
@@ -2458,8 +2470,8 @@ function catalogPage() {
     ['gate','Панелі для воріт'],['clad','Облицювання'],['decor','Декор']];
 
   return head(
-    'Вироби з металу — каталог і ціни | Кортен, нержавійка, чорна сталь | FEROX LVIV',
-    'Каталог виробів з металу з цінами: кашпо, світильники, мангали, ламелі, вивіски, фасадні панелі, облицювання кортеном. Виробництво у Львові, доставка по всій Україні.',
+    'Вироби з металу — каталог і ціни | Кортен, сталь | FEROX LVIV',
+    'Каталог виробів з металу з цінами: кашпо, світильники, мангали, ламелі, вивіски, фасадні панелі, облицювання кортеном. Виробництво у Львові.',
     'вироби з металу, кортен купити, кашпо з кортену ціна, вироби з металу львів, вироби з металу київ, металовироби на замовлення україна, доставка по україні',
     '/viroby/'
   ) + nav('viroby') +
@@ -2498,7 +2510,7 @@ ${cards}
 
 <section class="clad" id="clad">
   <div class="clad-in">
-    <div class="clad-ph"><img data-zoom src="/uploads/cat-kamin-corten-tall.webp" alt="Облицювання каміну кортеновою сталлю — FEROX LVIV" loading="lazy"></div>
+    <div class="clad-ph"><img data-zoom src="/uploads/cat-kamin-corten-tall.webp" alt="Облицювання каміну кортеновою сталлю — FEROX LVIV" loading="lazy" width="900" height="1200"></div>
     <div class="clad-tx">
       <span class="mono">Облицювання поверхонь</span>
       <h2>Кортен там, де був <em>бетон</em></h2>
@@ -2749,6 +2761,19 @@ function maxPrice(p) {
 }
 
 // ── SEO ─────────────────────────────────────────────────────
+const CAT_BENEFIT = {
+  kashpo: 'Дренаж і ніжки в комплекті.',
+  light:  'Захист IP65, тепле світло 3000K.',
+  mangal: 'Стінка 3 мм — не веде від жару.',
+  bowl:   'Під воду, каміння або фонтан.',
+  lamel:  'Крок планок під ваш проєкт.',
+  sign:   'Лазерне гравіювання, монтаж на дистанційниках.',
+  facade: 'Прихована підсистема кріплення.',
+  gate:   'Вставка під ваш каркас воріт.',
+  clad:   'Розкрій під геометрію обʼєкта.',
+  decor:  'Кріплення анкером у ґрунт.'
+};
+
 const CAT_SEO = {
   kashpo:    { g:'кашпо',              pl:'кашпо для рослин' },
   light:     { g:'світильник',         pl:'вуличні світильники' },
@@ -2767,16 +2792,33 @@ function seoName(p) { return p.sn || p.t; }
 function seoTitle(p) {
   const lo = minPrice(p);
   const n = seoName(p);
-  const t = lo ? `${n} — ціна від ${uah(lo)} | FEROX LVIV`
-               : `${n} на замовлення — Львів, Київ | FEROX LVIV`;
-  return t.length <= 65 ? t : (lo ? `${n} — від ${uah(lo)} | FEROX LVIV`
-                                  : `${n} — Львів, Київ | FEROX LVIV`);
+  return clampTitle(lo
+    ? [`${n} — ціна від ${uah(lo)} | FEROX LVIV`, `${n} — від ${uah(lo)} | FEROX LVIV`, `${n} | FEROX LVIV`]
+    : [`${n} на замовлення — Львів, Київ | FEROX LVIV`, `${n} на замовлення | FEROX LVIV`, `${n} | FEROX LVIV`]);
 }
+// Опис для сніпета Google: цільова довжина 150-160 символів.
+// Збираємо з блоків і відкидаємо ті, що не влазять, — щоб не було обрізу на півслові.
+function clampDesc(parts, max = 158) {
+  let out = '';
+  for (const part of parts) {
+    if (!part) continue;
+    const next = out ? out + ' ' + part : part;
+    if (next.length > max) break;
+    out = next;
+  }
+  return out;
+}
+
 function seoDesc(p) {
   const lo = minPrice(p);
-  const price = lo ? `Ціна від ${uah(lo)}. ` : 'Прорахунок за 15 хвилин. ';
-  return `${seoName(p)} на замовлення: кортенова сталь, нержавійка AISI 304 або чорний метал з фарбуванням RAL. `
-       + `${price}Виробництво у Львові, доставка по Україні — Київ, Одеса, Дніпро, Харків.`;
+  const n = seoName(p);
+  return clampDesc([
+    lo ? `${n} — ціна від ${uah(lo)}.` : `${n} на замовлення.`,
+    'Кортен, нержавійка або чорна сталь.',
+    CAT_BENEFIT[p.c],
+    'Виробництво у Львові,',
+    'доставка по Україні.'
+  ]);
 }
 function seoKeywords(p) {
   const g = (CAT_SEO[p.c] || {}).g || 'вироби з металу';
@@ -3106,7 +3148,21 @@ function itemPage(p) {
     });
   }));
 
-  const schema = sizes.length ? {
+  const schema = !sizes.length ? {
+    "@context": "https://schema.org", "@type": "Product",
+    "name": `${p.t} з металу`,
+    "description": p.full,
+    "image": [img], "sku": p.slug, "mpn": p.slug.toUpperCase(),
+    "brand": { "@type": "Brand", "name": "FEROX LVIV" },
+    "material": "Кортенова сталь, нержавіюча сталь AISI 304, конструкційна сталь",
+    "category": catName,
+    "offers": {
+      "@type": "Offer", "url": url, "priceCurrency": "UAH",
+      "availability": "https://schema.org/InStock",
+      "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "UAH" },
+      "seller": { "@type": "Organization", "name": "FEROX LVIV" }
+    }
+  } : {
     "@context": "https://schema.org", "@type": "Product",
     "name": `${p.t} з кортенової сталі`,
     "description": p.full,
@@ -3120,7 +3176,7 @@ function itemPage(p) {
       "offerCount": String(offers.length),
       "availability": "https://schema.org/InStock", "offers": offers
     }
-  } : null;
+  };
 
   const crumbSchema = {
     "@context": "https://schema.org", "@type": "BreadcrumbList",
@@ -3239,7 +3295,7 @@ function itemPage(p) {
       ${sib.map(x => {
         const l = minSize(x);
         return `<a class="it-sib-c" href="/viroby/tovar/${x.slug}/">
-        <span class="it-sib-i"><img src="/uploads/${x.img}.webp" alt="${esc(x.t)} — FEROX LVIV" loading="lazy"></span>
+        <span class="it-sib-i"><img src="/uploads/${x.img}.webp" alt="${esc(x.t)} — FEROX LVIV" loading="lazy" width="1000" height="750"></span>
         <span class="it-sib-b"><b>${esc(x.t)}</b>${l ? `<em>від ${uah(l)}</em>` : '<em>за прорахунком</em>'}</span></a>`;
       }).join('\n      ')}
     </div>
@@ -3393,7 +3449,7 @@ ${[
   writeFile('sitemap.xml', sitemap);
 
   // Robots
-  writeFile('robots.txt', `User-agent: *\nAllow: /\nSitemap: https://feroxlviv.com.ua/sitemap.xml\n`);
+  writeFile('robots.txt', `User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: https://feroxlviv.com.ua/sitemap.xml\n`);
 
   // llms.txt — structured info for AI crawlers (Perplexity, Claude, Gemini)
   writeFile('llms.txt', `# FEROX LVIV
