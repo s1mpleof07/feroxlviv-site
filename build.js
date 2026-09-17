@@ -463,7 +463,7 @@ function footer() {
     <nav class="ft-seo-links" aria-label="Послуги">
       <a href="/services/laser-cutting/">Лазерна різка металу Львів</a>
       <a href="/services/corten/">Кортен купити Львів</a>
-      <a href="/services/bending/">Гнуття металу ЧПУ</a>
+      <a href="/services/cnc-bending/">Гнуття металу ЧПУ</a>
       <a href="/services/welding/">Зварювання Львів</a>
       <a href="/services/">Металообробка Львів</a>
     </nav>
@@ -537,8 +537,8 @@ function homePage() {
       <span class="hero-stat-l">Термін виготовлення</span>
     </div>
     <div class="hero-stat">
-      <span class="hero-stat-n">ПДВ</span>
-      <span class="hero-stat-l">Офіційний платник</span>
+      <span class="hero-stat-n">20<em>+</em></span>
+      <span class="hero-stat-l">Моделей у каталозі</span>
     </div>
     <div class="hero-stat">
       <span class="hero-stat-n">5.0<em>★</em></span>
