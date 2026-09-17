@@ -384,7 +384,7 @@ section{padding:100px 5vw}
 .proc-desc{font-size:13px;color:var(--steel);line-height:1.75;font-weight:300}
 
 /* ── PORTFOLIO ── */
-.port-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:56px}
+.port-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-flow:dense;gap:3px;margin-top:56px}
 .port-item{position:relative;overflow:hidden;cursor:pointer;background:var(--anthracite);display:block}
 .port-inner{aspect-ratio:4/3;display:flex;align-items:flex-end;padding:26px;position:relative}
 .port-bg{position:absolute;inset:0;background-size:cover;background-position:center;background-color:var(--anthracite);transition:all .6s}
@@ -460,7 +460,7 @@ section{padding:100px 5vw}
 .mat-stat{text-align:right}
 .mat-stat-n{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--corten);line-height:1}
 .mat-stat-l{font-size:11px;color:var(--steel);letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
-.mat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(160,82,45,.15);position:relative;z-index:1}
+.mat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2px;background:rgba(160,82,45,.15);position:relative;z-index:1}
 .mat-card{background:var(--bone);transition:all .4s;position:relative;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;text-decoration:none;color:inherit}
 .mat-card::before{content:'';position:absolute;left:0;top:0;width:0;height:3px;background:var(--corten);transition:width .35s;z-index:2}
 .mat-card:hover::before{width:100%}
@@ -484,7 +484,7 @@ section{padding:100px 5vw}
 .why-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:60px;position:relative;z-index:1}
 .why-head-right{padding-bottom:8px}
 .why-head-text{font-size:15px;color:rgba(255,255,255,.72);line-height:1.85;font-weight:300;max-width:480px;margin-left:auto}
-.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(160,82,45,.2);position:relative;z-index:1}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2px;background:rgba(160,82,45,.2);position:relative;z-index:1}
 .why-card{background:rgba(255,255,255,.02);padding:32px 28px;transition:all .4s;border:1px solid transparent;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:14px}
 .why-card::before{content:'';position:absolute;left:0;top:0;width:0;height:2px;background:var(--corten);transition:width .35s}
 .why-card:hover::before{width:100%}
@@ -616,7 +616,7 @@ footer{background:var(--anthracite);padding:60px 5vw 28px}
   .fw-grid,.feat-grid{grid-template-columns:1fr 1fr}
   .proc-steps{grid-template-columns:1fr;gap:32px}
   .proc-steps::before{display:none}
-  .port-grid{grid-template-columns:1fr 1fr}
+  .port-grid{grid-template-columns:1fr 1fr;grid-auto-flow:dense}
   .port-wide{grid-column:span 2}
   .mat-grid{grid-template-columns:repeat(2,1fr)}
   .mat-head{grid-template-columns:1fr;gap:24px}
@@ -750,7 +750,7 @@ footer{background:var(--anthracite);padding:60px 5vw 28px}
 .mob-phone svg{flex-shrink:0}
 
 /* ── BLOG ── */
-.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:20px}
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:28px;margin-top:20px}
 .blog-card{background:var(--white);border:1px solid var(--border);border-radius:4px;overflow:hidden;transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column}
 .blog-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px -12px rgba(0,0,0,.12)}
 .blog-card-img{display:block;aspect-ratio:16/9;background-size:cover;background-position:center;transition:transform .5s}
@@ -781,7 +781,6 @@ footer{background:var(--anthracite);padding:60px 5vw 28px}
 .blog-post-content img{border-radius:4px;margin:8px 0 28px}
 
 @media (max-width:1024px){
-  .blog-grid{grid-template-columns:repeat(2,1fr)}
   section:has(.blog-post-content){padding-top:40px}
   section:has(.blog-post-content) > div{grid-template-columns:1fr !important}
   section:has(.blog-post-content) aside{display:none}
