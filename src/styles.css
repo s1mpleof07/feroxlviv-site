@@ -460,7 +460,7 @@ section{padding:100px 5vw}
 .mat-stat{text-align:right}
 .mat-stat-n{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--corten);line-height:1}
 .mat-stat-l{font-size:11px;color:var(--steel);letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
-.mat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:rgba(160,82,45,.15);position:relative;z-index:1}
+.mat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(160,82,45,.15);position:relative;z-index:1}
 .mat-card{background:var(--bone);transition:all .4s;position:relative;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;text-decoration:none;color:inherit}
 .mat-card::before{content:'';position:absolute;left:0;top:0;width:0;height:3px;background:var(--corten);transition:width .35s;z-index:2}
 .mat-card:hover::before{width:100%}
@@ -608,7 +608,7 @@ footer{background:var(--anthracite);padding:60px 5vw 28px}
 
 /* ── RESPONSIVE ── */
 @media(max-width:1100px){
-  .mat-grid{grid-template-columns:repeat(3,1fr)}
+  .mat-grid{grid-template-columns:repeat(2,1fr)}
   .why-grid{grid-template-columns:repeat(2,1fr)}
 }@media(max-width:960px){
   .about-grid,.corten-feat,.contact-grid,.col2{grid-template-columns:1fr;gap:40px}
