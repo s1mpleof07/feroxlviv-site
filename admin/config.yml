@@ -241,7 +241,7 @@ collections:
       - { name: slug, label: "URL (slug)", widget: string }
       - { name: name, label: "Назва матеріалу", widget: string }
       - { name: tag, label: "Тег (опційно)", widget: string, required: false }
-      - { name: tagHot, label: "Червоний бейдж (Hardox)", widget: boolean, default: false }
+      - { name: tagHot, label: "Червоний бейдж (акцент)", widget: boolean, default: false }
       - { name: order, label: "Порядок в списку", widget: number }
       - { name: image, label: "Фото текстури", widget: image }
       - { name: short, label: "Короткий опис (на картці)", widget: text }
