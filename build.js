@@ -98,7 +98,7 @@ function head(title, desc, keywords, canonical) {
   "@id": "https://feroxlviv.com.ua/#business",
   "name": "FEROX LVIV",
   "alternateName": "Ферокс Львів",
-  "description": "Виготовлення дизайн-об'єктів з кортенової сталі та послуги металообробки у Львові: лазерна різка, гнуття з ЧПУ, зварювання, Hardox. Для архітекторів, девелоперів та виробничих компаній.",
+  "description": "Виготовлення дизайн-об'єктів з кортенової сталі, металевих меблів та послуги металообробки у Львові: лазерна різка, гнуття з ЧПУ, зварювання, порошкове фарбування. Для архітекторів, девелоперів та виробничих компаній.",
   "url": "https://feroxlviv.com.ua",
   "telephone": "+380630194013",
   "email": "feroxlviv.business@gmail.com",
@@ -135,14 +135,14 @@ function head(title, desc, keywords, canonical) {
       {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Лазерна різка металу", "url": "https://feroxlviv.com.ua/services/laser-cutting/"}},
       {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Гнуття металу з ЧПУ", "url": "https://feroxlviv.com.ua/services/cnc-bending/"}},
       {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Зварювання та вальцювання", "url": "https://feroxlviv.com.ua/services/welding/"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Hardox — броньова сталь", "url": "https://feroxlviv.com.ua/services/hardox/"}}
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Порошкове фарбування", "url": "https://feroxlviv.com.ua/services/powder-coating/"}}
     ]
   },
   "sameAs": [
     "https://t.me/feroxlviv",
     "https://www.instagram.com/ferox.studio.ua/"
   ],
-  "knowsAbout": ["кортенова сталь", "COR-TEN", "лазерна різка металу", "гнуття металу", "зварювання", "Hardox", "металообробка", "архітектурний метал"]
+  "knowsAbout": ["кортенова сталь", "COR-TEN", "лазерна різка металу", "гнуття металу", "зварювання", "порошкове фарбування", "металеві меблі", "металообробка", "архітектурний метал"]
 })}</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KR9LWFWB');</script>
@@ -660,7 +660,7 @@ function homePage() {
     <h2 class="s-title">П&apos;ять послуг.<br><em>Один стандарт якості.</em></h2>
   </div>
   <div class="srv-grid">
-    ${services.filter(s => s.slug !== 'hardox').map((s, i) => `<a class="srv-card${i === 0 ? ' srv-dark' : ''} reveal" href="/services/${s.slug}/">
+    ${services.filter(s => s.slug !== 'powder-coating').map((s, i) => `<a class="srv-card${i === 0 ? ' srv-dark' : ''} reveal" href="/services/${s.slug}/">
       <div class="srv-num">${s.num}</div>
       <h3 class="srv-title">${s.title}</h3>
       <p class="srv-desc">${s.desc}</p>
@@ -669,23 +669,23 @@ function homePage() {
     </a>`).join('')}
   </div>
 
-  ${(() => { const h = services.find(s => s.slug === 'hardox'); return `
-  <a href="/services/${h.slug}/" class="hardox-card reveal">
-    <div class="hardox-bg" style="background-image:url('${h.bgImage}')"></div>
-    <div class="hardox-overlay"></div>
-    <div class="hardox-content">
-      <div class="hardox-tag-row">
-        <span class="hardox-num">${h.num}</span>
-        <span class="hardox-badge">Оборонна сталь</span>
+  ${(() => { const f = services.find(s => s.slug === 'powder-coating'); return `
+  <a href="/services/${f.slug}/" class="srv-feat-card reveal">
+    <div class="srv-feat-bg" style="background-image:url('${f.bgImage}')"></div>
+    <div class="srv-feat-overlay"></div>
+    <div class="srv-feat-content">
+      <div class="srv-feat-tag-row">
+        <span class="srv-feat-num">${f.num}</span>
+        <span class="srv-feat-badge">Фінішне покриття</span>
       </div>
-      <h3 class="hardox-title">${h.title}</h3>
-      <p class="hardox-desc">${h.desc}</p>
-      <div class="hardox-meta">
-        <div class="hardox-spec"><span class="hardox-spec-n">400–600</span><span class="hardox-spec-l">HB твердість</span></div>
-        <div class="hardox-spec"><span class="hardox-spec-n">12мм</span><span class="hardox-spec-l">лазерна різка</span></div>
-        <div class="hardox-spec"><span class="hardox-spec-n">SSAB</span><span class="hardox-spec-l">оригінал</span></div>
+      <h3 class="srv-feat-title">${f.title}</h3>
+      <p class="srv-feat-desc">${f.desc}</p>
+      <div class="srv-feat-meta">
+        <div class="srv-feat-spec"><span class="srv-feat-spec-n">200+</span><span class="srv-feat-spec-l">кольорів RAL</span></div>
+        <div class="srv-feat-spec"><span class="srv-feat-spec-n">60–120мкм</span><span class="srv-feat-spec-l">товщина шару</span></div>
+        <div class="srv-feat-spec"><span class="srv-feat-spec-n">3–7 днів</span><span class="srv-feat-spec-l">термін</span></div>
       </div>
-      <span class="hardox-cta">Дізнатися більше <span aria-hidden="true">↗</span></span>
+      <span class="srv-feat-cta">Дізнатися більше <span aria-hidden="true">↗</span></span>
     </div>
   </a>
   `; })()}
@@ -777,9 +777,9 @@ ${inlineCTA(
       <h2 class="s-title">З чим ми<br><em>працюємо.</em></h2>
     </div>
     <div class="reveal mat-head-right">
-      <p class="mat-head-text">П'ять типів металу для різних завдань. Від атмосферостійкого кортену для дизайну — до броньової Hardox-сталі для оборонки. Кожен з власним характером і сферою застосування.</p>
+      <p class="mat-head-text">Чотири типи металу для різних завдань — від атмосферостійкого кортену для дизайну до нержавійки й алюмінію для меблів. Кожен з власним характером і сферою застосування, будь-який можна додатково вкрити порошковою фарбою.</p>
       <div class="mat-head-stats">
-        <div class="mat-stat"><div class="mat-stat-n">5</div><div class="mat-stat-l">типів металу</div></div>
+        <div class="mat-stat"><div class="mat-stat-n">4</div><div class="mat-stat-l">типи металу</div></div>
         <div class="mat-stat"><div class="mat-stat-n">20мм</div><div class="mat-stat-l">макс. товщина</div></div>
       </div>
     </div>
@@ -823,7 +823,7 @@ const SERVICE_FAQ = {
     { q: 'Яка максимальна товщина металу для лазерної різки?', a: 'Залежить від матеріалу: сталь — до 20 мм, алюміній — до 10 мм, нержавійка — до 12 мм. Оптимальна якість різу — до 8–10 мм.' },
     { q: 'Яка точність лазерної різки?', a: 'Точність ±0,1 мм. Це дозволяє виготовляти деталі з чистим краєм без додаткової обробки — одразу до складання або зварювання.' },
     { q: 'Скільки коштує лазерна різка металу у Львові?', a: 'Вартість залежить від товщини матеріалу і довжини різу. Для розрахунку надішліть DXF-файл або ескіз — прорахуємо вартість протягом 15 хвилин.' },
-    { q: 'Які матеріали можна різати лазером?', a: 'Чорна сталь, нержавійка, алюміній, кортен, Hardox. Не ріжемо мідь, латунь, оцинковку (через шкідливі випари) і матеріали з відбивним покриттям.' }
+    { q: 'Які матеріали можна різати лазером?', a: 'Чорна сталь, нержавійка, алюміній, кортен. Не ріжемо мідь, латунь, оцинковку (через шкідливі випари) і матеріали з відбивним покриттям.' }
   ],
   'cnc-bending': [
     { q: 'Яка точність гнуття з ЧПУ?', a: 'Точність кута ±0,5°. Для більшості архітектурних і промислових задач цього достатньо щоб деталі збирались без підгонки.' },
@@ -837,11 +837,11 @@ const SERVICE_FAQ = {
     { q: 'Чи зварюєте кортенову сталь?', a: 'Так, але це вимагає спеціальних електродів і дроту що витримують атмосферний вплив — щоб шов старів так само як основний метал і не виділявся на патині.' },
     { q: 'Чи можете вальцювати труби і профілі?', a: 'Так, вальцюємо листи і профілі для виготовлення циліндричних і конічних елементів. Мінімальний діаметр кола залежить від товщини матеріалу.' }
   ],
-  'hardox': [
-    { q: 'Що таке сталь Hardox і чим вона відрізняється від звичайної?', a: 'Hardox — це зносостійка броньова сталь від шведського виробника SSAB з твердістю 400–600 HB (звичайна конструкційна сталь — 120–180 HB). Вона у 3–5 разів міцніша і використовується там де важлива стійкість до ударів, зносу і пробиття.' },
-    { q: 'Де купити Hardox у Львові?', a: 'FEROX LVIV постачає і обробляє листи Hardox 400, 450, 500 і 600 у Львові. Лазерна різка, гнуття і зварювання Hardox — на власному виробництві.' },
-    { q: 'Яка товщина листів Hardox доступна?', a: 'Від 4 мм до 80 мм залежно від марки. Найчастіше замовляють Hardox 400 товщиною 6–20 мм для захисних конструкцій і Hardox 500 для деталей що зазнають інтенсивного зносу.' },
-    { q: 'Чи працюєте з оборонними підприємствами?', a: 'Так, надаємо послуги обробки броньових сталей для підприємств оборонно-промислового комплексу. Для деталей запиту звертайтесь через форму або Telegram.' }
+  'powder-coating': [
+    { q: 'Скільки коштує порошкове фарбування металу?', a: 'Вартість залежить від площі поверхні та кольору RAL. Для дрібних виробів (кашпо, деталі меблів) — від 300–500 грн за одиницю, для серійних замовлень — індивідуальний розрахунок за партію.' },
+    { q: 'Чи можна пофарбувати вже готовий виріб, зроблений не у вас?', a: 'Так, приймаємо на фарбування готові металеві вироби — меблі, огорожі, деталі. Важлива умова: поверхня має бути придатною для дробоструменевої підготовки.' },
+    { q: 'Яка різниця між порошковим фарбуванням і звичайною фарбою?', a: 'Порошкова фарба наноситься електростатично і запікається в печі, утворюючи суцільну плівку, зчеплену з металом. Вона не сколюється від удару і не вигорає на сонці — на відміну від рідкої фарби, що з часом облазить.' },
+    { q: 'Чи можна підібрати нестандартний колір?', a: 'Так, окрім стандартної палітри RAL можемо підібрати кольори під бренд-бук клієнта або зразок.' }
   ]
 };
 
@@ -2165,23 +2165,23 @@ const catalogProducts = [
   },
   {
     slug: 'mebli',
-    title: 'Металеві меблі та каркаси',
-    titleH1: 'Металеві меблі<br><em>та каркаси.</em>',
+    title: 'Меблі з металу',
+    titleH1: 'Готовий шоурум<br><em>дизайну з металу.</em>',
     sub: 'Інтер\'єр і виробництво',
-    type: 'interior', metal: 'steel', metalLabel: 'Чорна сталь',
+    type: 'interior', metal: 'steel', metalLabel: 'Нержавійка · Алюміній · Сталь',
     img: '/uploads/cat-metal-furniture.webp',
-    desc: "Столи, стелажі, підставки, каркаси під фарбування або з заводським покриттям.",
-    descFull: "Металеві меблі та каркаси — міцно, лаконічно, стильно. Чорна сталь в інтер'єрі — тренд, який не проходить. Ми виготовляємо меблеві каркаси, опори, ніжки, стелажі та підставки за індивідуальними кресленнями.",
-    descExtra: "Можемо підготувати конструктивне креслення за вашим ескізом або референсом. Видаємо готові вироби під фарбування (ґрунтовані) або наносимо порошкове покриття будь-якого кольору RAL.",
+    desc: "Столи, стелажі, підставки й каркаси з нержавійки, алюмінію та чорної сталі — власний шоурум готових форм.",
+    descFull: "Меблі з металу — це наш готовий шоурум дизайну: колекція форм, які можна замовити один в один, адаптувати під свій простір або взяти лише за основу для власного проєкту. Працюємо в трьох металах — нержавіюча сталь для вологих і харчових зон, алюміній там, де важлива вага, чорна сталь під порошкове фарбування в будь-який колір бренду чи інтер'єру.",
+    descExtra: "Кожен матеріал має свою логіку застосування. Нержавійка не потребує покриття й витримує вологі приміщення. Алюміній втричі легший за сталь — зручний для мобільних чи підвісних конструкцій. Чорна сталь — найдоступніша база під фарбування: ми самі готуємо поверхню, наносимо порошкову фарбу й запікаємо в печі — виріб приїжджає до клієнта повністю готовим, без окремого етапу в іншому цеху.",
     specs: [
-      {k:'Матеріал', v:'Чорна сталь St37 / St52'},
-      {k:'Зварювання', v:'MIG/MAG, TIG'},
-      {k:'Покриття', v:'Ґрунтовка або порошкова фарба RAL'},
+      {k:'Матеріали', v:'Нержавійка AISI 304, алюміній АМц/Д16, чорна сталь St37/St52'},
+      {k:'Зварювання', v:'TIG (нержавійка, алюміній), MIG/MAG (сталь)'},
+      {k:'Покриття', v:'Порошкова фарба RAL — 200+ кольорів, або нержавійка без покриття'},
       {k:'Обробка країв', v:'Шліфовані, без задирок'},
-      {k:'Проектування', v:'За ескізом клієнта'},
-      {k:'Термін', v:'7–14 робочих днів'},
+      {k:'Проектування', v:'За ескізом клієнта або з готового шоуруму форм'},
+      {k:'Термін', v:'7–14 робочих днів, з фарбуванням — до 3 днів довше'},
     ],
-    gallery: ['/uploads/cat-metal-furniture.webp','/uploads/cat-laser-parts.webp','/uploads/lobby-art.webp'],
+    gallery: ['/uploads/cat-metal-furniture.webp','/uploads/cat-stelazh-cube.webp','/uploads/cat-laser-parts.webp','/uploads/lobby-art.webp'],
     related: ['interior','detali','qr-horeca'],
   },
   {
@@ -3484,14 +3484,13 @@ ${SERVICE_FAQ['cnc-bending'].map(f => `- **${f.q}** ${f.a}`).join('\n')}
 ${SERVICE_FAQ['welding'].map(f => `- **${f.q}** ${f.a}`).join('\n')}
 Детальніше: https://feroxlviv.com.ua/services/welding/
 
-### Hardox — броньова сталь
-${SERVICE_FAQ['hardox'].map(f => `- **${f.q}** ${f.a}`).join('\n')}
-Детальніше: https://feroxlviv.com.ua/services/hardox/
+### Порошкове фарбування
+${SERVICE_FAQ['powder-coating'].map(f => `- **${f.q}** ${f.a}`).join('\n')}
+Детальніше: https://feroxlviv.com.ua/services/powder-coating/
 
 ## Матеріали
 
 - **Кортен (COR-TEN)**: атмосферостійка сталь стандартів A588, A606, COR-TEN A/B. Листи від 1.5 до 12 мм. Натуральна патина без фарбування.
-- **Hardox**: шведська броньова сталь SSAB твердістю 400–600 HB. Hardox 400, 450, 500, 600.
 - **Чорна сталь**: конструкційна сталь СТ3, СТ10, СТ20.
 - **Нержавійка**: харчова і технічна нержавіюча сталь AISI 304, AISI 316.
 - **Алюміній**: АМЦ, Д16, АД31.
