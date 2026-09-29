@@ -195,7 +195,17 @@ function nav(active = '') {
         ${servicesItems}
       </div>
     </li>
-    ${link('/viroby/', 'Вироби', 'viroby')}
+    <li>
+      <a href="/viroby/"${active === 'viroby' || active === 'konfigurator' ? ' class="active"' : ''}>Вироби
+        <svg class="caret" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+          <path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <div class="dropdown" role="menu">
+        <a href="/viroby/"><strong>Каталог виробів</strong><small>20 моделей із цінами й розмірами</small></a>
+        <a href="/konfigurator/"><strong>Конфігуратор 3D</strong><small>Свій розмір, метал і орієнтовна ціна</small></a>
+      </div>
+    </li>
     ${link('/blog/', 'Блог', 'blog')}
     ${link('/about/', 'Про нас', 'about')}
     ${link('/process/', 'Як ми працюємо', 'process')}
@@ -523,7 +533,7 @@ function homePage() {
         <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.6 3.4h10.8v9.2H2.6z" stroke="currentColor" stroke-width="1.3"/><path d="M5.2 6.4h5.6M5.2 9.2h3.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
       </a>
     </div>
-    <p class="hero-hint">${site.hero.ctaSecondary.text || 'Каталог виробів'} — з цінами та розмірами</p>
+    <p class="hero-hint">${site.hero.ctaSecondary.text || 'Каталог виробів'} — з цінами та розмірами. Свій розмір — <a href="/konfigurator/">у 3D-конфігураторі</a></p>
   </div>
 
   <!-- ── B2B показники ─────────────────────────────── -->
@@ -2484,6 +2494,7 @@ function catalogPage() {
 <section class="fx-metals">
   <div class="fx-metals-in">
     <p class="fx-metals-lead">Кожен виріб виготовляємо у трьох металах. Оберіть матеріал — каталог покаже ціни для нього.</p>
+    <p class="fx-cfg-lead">Не знайшли потрібний розмір? <a href="/konfigurator/">Зберіть виріб у 3D-конфігураторі</a> — з орієнтовною ціною.</p>
     <div class="picker">
       <div class="picker-lb"><span class="mono">Оберіть метал</span><span class="cur" id="curM">Кортен — жива іржа</span></div>
       <div class="sws" role="group" aria-label="Вибір металу">
@@ -3263,6 +3274,11 @@ function itemPage(p) {
         <a class="it-b2" href="tel:+380630194013">+38 (063) 019-40-13</a>
       </div>`}
 
+      ${KF_SLUGS.includes(p.slug) ? `<a class="it-cfg" href="/konfigurator/?p=${p.slug}">
+        <span class="it-cfg-t">Потрібен свій розмір?</span>
+        <span class="it-cfg-d">Зберіть цей виріб у 3D-конфігураторі — з вибором металу й орієнтовною ціною</span>
+      </a>` : ''}
+
       <ul class="it-specs">
         ${p.sp.map(x => `<li><b>${esc(x[0])}</b><span>${esc(x[1])}</span></li>`).join('\n        ')}
         <li><b>Метали</b><span>Кортен, нержавійка AISI 304, чорна сталь + RAL</span></li>
@@ -3357,6 +3373,113 @@ function thankYouPage() {
 ` + footer();
 }
 
+
+// ══════════════════════════════════════════════════════════
+// КОНФІГУРАТОР — 3D-збірка виробу під свій розмір
+// ══════════════════════════════════════════════════════════
+const KF_SLUGS = ['kashpo-krugle','kashpo-pryamokutne','nabir-kashpo','likhtar-ferox-pro-1','ferox-mini-light','svitylnyk-kulya',
+  'mangal-vbudovanyi','mangal-chasha','chasha-dekoratyvna','lameli-fasadni','parkan-perforaciya','panel-fasadna','panel-vorit',
+  'tablychky','vyviska-pidsvitka','oblytsyuvannya-kaminu','oblytsyuvannya-stin','skulptura-olen','stelazh-kub','sadovyi-dekor'];
+
+function konfiguratorPage() {
+  const cat = CATALOG.filter(p => KF_SLUGS.includes(p.slug)).map(p => ({ slug: p.slug, t: p.t, c: p.c, s: p.s, pr: p.pr || null }));
+  return head(
+    'Конфігуратор виробів з металу у 3D | FEROX LVIV',
+    'Зберіть кашпо, світильник, мангал, ламелі чи вивіску під свій розмір: 3D-модель, вибір металу й обробки, орієнтовна ціна. Кортен, нержавійка, чорна сталь. Львів.',
+    'конфігуратор кашпо, кашпо з кортену під розмір, 3D конфігуратор металевих виробів, вироби з металу на замовлення, FEROX LVIV',
+    '/konfigurator/'
+  ) + nav('konfigurator').replace('id="nav"', 'id="nav" class="always-light"') + `
+<main class="kf-page">
+<div id="kf" class="kf">
+  <div class="kf-stage">
+    <div class="kf-photo" hidden>
+      <img src="" alt="Скульптура «Олень» з кортену — виконаний виріб FEROX LVIV" width="1000" height="750">
+      <p>Силуетна скульптура вирізається з листа за ескізом, тому її показуємо фото. Оберіть висоту — деталі узгодимо разом.</p>
+    </div>
+    <div class="kf-hud">
+      <div class="kf-seg kf-views" role="group" aria-label="Ракурс">
+        <button type="button" data-view="persp" aria-pressed="true">3D</button>
+        <button type="button" data-view="front" aria-pressed="false">Спереду</button>
+        <button type="button" data-view="side" aria-pressed="false">Збоку</button>
+        <button type="button" data-view="top" aria-pressed="false">Зверху</button>
+      </div>
+      <div class="kf-hud-r">
+        <button type="button" data-hud="dims" aria-pressed="true">Розміри</button>
+        <button type="button" data-hud="human" aria-pressed="false">Людина 175 см</button>
+        <button type="button" data-hud="night" class="kf-night-btn" aria-pressed="false">Вечір</button>
+      </div>
+    </div>
+    <span class="kf-dim" id="kfLx"></span><span class="kf-dim" id="kfLy"></span><span class="kf-dim" id="kfLz"></span>
+    <p class="kf-hint">Тягніть, щоб обертати. Колесо або щипок — наблизити.</p>
+  </div>
+
+  <div class="kf-panel">
+    <header class="kf-head">
+      <h1>Конфігуратор виробів</h1>
+      <p>Задайте розміри, метал і обробку — модель і орієнтовна ціна змінюються одразу. Коли все підходить, надішліть нам на прорахунок.</p>
+    </header>
+
+    <section class="kf-step" aria-labelledby="kfS1"><h2 id="kfS1">1. Виріб</h2>
+      <div class="kf-chips" id="kfCats" role="group" aria-label="Категорія"></div>
+      <div class="kf-list" id="kfProds" role="group" aria-label="Виріб"></div>
+    </section>
+
+    <section class="kf-step" aria-labelledby="kfS2"><h2 id="kfS2">2. Розміри</h2>
+      <div id="kfPresetsWrap"><p class="kf-sub">Готові розміри з каталогу</p><div class="kf-chips" id="kfPresets"></div></div>
+      <div id="kfParams"></div>
+    </section>
+
+    <section class="kf-step" aria-labelledby="kfS3"><h2 id="kfS3">3. Метал і обробка</h2>
+      <div class="kf-seg kf-metals" role="group" aria-label="Метал">
+        <button type="button" data-metal="corten" aria-pressed="true">Кортен</button>
+        <button type="button" data-metal="steel" aria-pressed="false">Сталь + RAL</button>
+        <button type="button" data-metal="stainless" aria-pressed="false">Нержавійка</button>
+      </div>
+      <div id="kfFinish"></div>
+    </section>
+
+    <section class="kf-step" id="kfOptsStep" aria-labelledby="kfS4"><h2 id="kfS4">4. Опції</h2><div id="kfOpts"></div></section>
+
+    <section class="kf-sum" aria-labelledby="kfTitle">
+      <h2 id="kfTitle"></h2>
+      <dl>
+        <dt>Розміри</dt><dd id="kfDims"></dd>
+        <dt>Метал</dt><dd id="kfMetalTxt"></dd>
+        <dt>Опції</dt><dd id="kfOptTxt"></dd>
+        <dt>Матеріал</dt><dd id="kfArea"></dd>
+      </dl>
+      <p class="kf-warn" id="kfWarn" hidden></p>
+      <div class="kf-price" id="kfPrice" aria-live="polite"></div>
+      <div class="kf-qty"><span>Кількість</span>
+        <button type="button" data-q="-1" aria-label="Менше">−</button>
+        <input id="kfQty" type="number" min="1" max="999" value="1" aria-label="Кількість, шт">
+        <button type="button" data-q="1" aria-label="Більше">+</button>
+      </div>
+      <button type="button" class="kf-b1" id="kfSendOpen">Надіслати на прорахунок</button>
+      <div class="kf-b2s">
+        <button type="button" id="kfCart">Додати до замовлення</button>
+        <button type="button" id="kfCopy">Скопіювати посилання</button>
+      </div>
+      <form id="kfForm" class="kf-form" hidden novalidate>
+        <label for="kfName">Ім'я</label><input id="kfName" name="name" autocomplete="name" required>
+        <label for="kfPhone">Телефон</label><input id="kfPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+380 XX XXX XX XX" required>
+        <label for="kfNote">Коментар <small>необов'язково</small></label><textarea id="kfNote" name="message" rows="3" placeholder="Де стоятиме виріб, потрібна доставка, інший колір RAL…"></textarea>
+        <input id="kfWeb" name="website" tabindex="-1" autocomplete="off" class="kf-hp" aria-hidden="true">
+        <button type="submit" class="kf-b1" id="kfSend">Надіслати</button>
+        <p class="kf-status" id="kfStatus" role="status"></p>
+      </form>
+      <p class="kf-fine">Ціна орієнтовна. Точну підтвердимо після прорахунку — з розкроєм, термінами й доставкою.</p>
+    </section>
+  </div>
+  <div class="kf-toast" id="kfToast" role="status" aria-live="polite"></div>
+</div>
+</main>
+<script>window.FX_CAT=${JSON.stringify(cat)};window.FX_MULT=${JSON.stringify(METAL_MULT)};</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+<script src="/konfigurator.js?v=1" defer></script>
+` + footer();
+}
+
 function build() {
   // Clean
   if (fs.existsSync(OUT)) fs.rmSync(OUT, { recursive: true });
@@ -3365,6 +3488,7 @@ function build() {
   // Static files
   fs.copyFileSync(SRC + '/styles.css', OUT + '/styles.css');
   fs.copyFileSync(SRC + '/script.js', OUT + '/script.js');
+  fs.copyFileSync(SRC + '/konfigurator.js', OUT + '/konfigurator.js');
   // Cloudflare Pages routing & headers
   ['_redirects','_headers'].forEach(f => {
     const src = __dirname + '/static/' + f;
@@ -3422,6 +3546,7 @@ function build() {
   CATALOG.forEach(p => writeFile(`viroby/tovar/${p.slug}/index.html`, itemPage(p)));
   catalogProducts.forEach(p => writeFile(`viroby/${p.slug}/index.html`, productPage(p)));
 
+  writeFile('konfigurator/index.html', konfiguratorPage());
   writeFile('about/index.html', aboutPage());
   writeFile('process/index.html', processPage());
   writeFile('contact/index.html', contactPage());
@@ -3432,7 +3557,7 @@ function build() {
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${[
-  '/', '/viroby/', '/services/', '/portfolio/', '/blog/', '/about/', '/process/', '/contact/', '/architects/',
+  '/', '/viroby/', '/konfigurator/', '/services/', '/portfolio/', '/blog/', '/about/', '/process/', '/contact/', '/architects/',
   ...catalogProducts.map(p => `/viroby/${p.slug}/`),
   ...CATALOG.map(p => `/viroby/tovar/${p.slug}/`),
   ...services.map(s => `/services/${s.slug}/`),
