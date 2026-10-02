@@ -2447,16 +2447,17 @@ function productPage(p) {
 function catalogPage() {
   const cards = CATALOG.map(p => {
     const lo = minPrice(p);
-    return `      <a class="card" href="/viroby/tovar/${p.slug}/" data-cat="${p.c}">
+    const phm = p.phm || 'corten';
+    return `      <a class="card" href="/viroby/tovar/${p.slug}/" data-cat="${p.c}"${p.phm ? ` data-phm="${p.phm}"` : ''}>
         <span class="card-vis">
-          <span class="card-tag" data-tag>кортен</span>
-          <img src="/uploads/${p.img}.webp" alt="${esc(p.t)} з кортенової сталі — FEROX LVIV" loading="lazy" decoding="async" width="1000" height="750">
+          <span class="card-tag" data-tag>${phm === 'corten' ? 'кортен' : 'фото: ' + METAL_INFO[phm].short}</span>
+          <img src="/uploads/${p.img}.webp" alt="${esc(p.t)} з ${phm === 'corten' ? 'кортенової сталі' : 'нержавіючої сталі'} — FEROX LVIV" loading="lazy" decoding="async" width="1000" height="750">
           <span class="fx-ph" data-ph hidden><i></i><b></b><s>Фото готуємо</s></span>
         </span>
         <span class="card-bd">
           <h3>${esc(p.t)}</h3>
           <span class="d">${esc(p.d)}</span>
-          ${lo ? `<span class="p-from" data-price data-lo="${lo}">${p.badge ? `<b>${esc(p.badge)}</b>` : ''}від ${uah(lo)}</span>` : ''}
+          ${lo ? `<span class="p-from" data-price data-lo="${lo}" data-mm='${JSON.stringify(p.mm || {})}'>${p.badge ? `<b>${esc(p.badge)}</b>` : ''}від ${uah(lo)}</span>` : ''}
           <span class="more">Дивитись виріб →</span>
         </span>
       </a>`;
@@ -2477,7 +2478,7 @@ function catalogPage() {
 
   const cats = [['all','Усі вироби'],['kashpo','Кашпо'],['light','Світильники'],['mangal','Мангали'],
     ['bowl','Чаші'],['lamel','Ламелі'],['sign','Вивіски'],['facade','Фасадні панелі'],
-    ['gate','Панелі для воріт'],['clad','Облицювання'],['decor','Декор']];
+    ['gate','Панелі для воріт'],['clad','Облицювання'],['decor','Декор'],['mebli','Меблі']];
 
   return head(
     'Вироби з металу — каталог і ціни | Кортен, сталь | FEROX LVIV',
@@ -2568,16 +2569,18 @@ ${shopScript()}
     document.getElementById('curM').textContent=m.n;
     document.querySelectorAll('.sw').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.metal===metal))});
     document.querySelectorAll('.card').forEach(function(c){
-      var tag=c.querySelector('[data-tag]'); if(tag)tag.textContent=m.short;
+      var phm=c.dataset.phm, tag=c.querySelector('[data-tag]');
+      if(tag)tag.textContent=phm&&phm!==metal?'фото: '+MI[phm].short:m.short;
       var img=c.querySelector('img'), ph=c.querySelector('[data-ph]');
       if(img&&ph){
-        if(m.photo){img.hidden=false;ph.hidden=true}
+        if(m.photo||phm){img.hidden=false;ph.hidden=true}
         else{img.hidden=true;ph.hidden=false;ph.style.setProperty('--phc',m.ch);ph.querySelector('b').textContent=m.short}
       }
       var pr=c.querySelector('[data-price]');
       if(pr){
-        var lo=+pr.dataset.lo, base=Math.round(lo/MULT.steel);
-        var v=mp(base,metal);
+        var mm={};try{mm=JSON.parse(pr.dataset.mm||'{}')}catch(e){}
+        var lo=+pr.dataset.lo, base=Math.round(lo/(mm.steel||MULT.steel));
+        var v=mm[metal]!==undefined?Math.round(base*mm[metal]/10)*10:mp(base,metal);
         var b=pr.querySelector('b');
         pr.innerHTML=(b?b.outerHTML:'')+'від '+fmt(v);
       }
@@ -2735,7 +2738,23 @@ const CATALOG=[
   d:'Топіарії, стели, ширми — форми, що тримають композицію.',
   full:'Вертикальні акценти для саду: стели, ширми, геометричні об\'єми. Працюють як точка, до якої збирається решта ландшафту.',
   s:['H-60','H-100','H-150','H-200'],
-  sp:[['Товщина','2–3 мм'],['Кріплення','Анкер у ґрунт'],['Термін','12–16 днів']]}
+  sp:[['Товщина','2–3 мм'],['Кріплення','Анкер у ґрунт'],['Термін','12–16 днів']]},
+ {c:'mebli',img:'cat-stolyk-prostyi',phm:'stainless',t:'Столик журнальний П-подібний',sn:'Журнальний столик з металу',slug:'stolyk-p-podibnyi',
+  d:'Один лист і два плавні згини: стільниця й опори без жодного шва.',
+  full:'Стільниця й дві опори гнуться з одного листа з радіусом R20 — зварних швів немає взагалі, тому метал читається як суцільна стрічка. Кортен покриваємо матовим лаком: патина не фарбує руки, книги й підлогу. Чорну сталь фарбуємо порошковою фарбою в будь-який колір RAL.',
+  s:['90×60×40'],
+  pr:{'90×60×40':[null,30000]},
+  mm:{stainless:22000/30000},
+  note:'Кортен — під матовим лаком, патина не вимазується. Інший розмір — у конфігураторі.',
+  sp:[['Товщина','3 мм'],['Кути','Гнуті, R20, без швів'],['Кортен','Під матовим лаком'],['Термін','10–14 днів']]},
+ {c:'mebli',img:'cat-stolyk-zakrytyi',phm:'stainless',t:'Столик журнальний закритий',sn:'Журнальний столик-куб з металу',slug:'stolyk-zakrytyi',
+  d:'Монолітний об\'єм, закритий з усіх боків, з плавними кутами.',
+  full:'Обичайка гнеться з одного листа з чотирма кутами R20, кришка вварюється врівень і шліфується — шов не видно. Дно утоплене на 5 мм, тож столик стоїть на ребрі, ніби на подіумі. Кортен під матовим лаком не фарбує, чорна сталь — у порошковій фарбі RAL.',
+  s:['90×60×40'],
+  pr:{'90×60×40':[null,45000]},
+  mm:{stainless:35000/45000},
+  note:'Кортен — під матовим лаком, патина не вимазується. Інший розмір — у конфігураторі.',
+  sp:[['Товщина','3 мм'],['Кути','Гнуті, R20'],['Шви','Зачищені врівень'],['Термін','14–18 днів']]}
 ];
 
 // ── СТОРІНКА ТОВАРУ (з фіду для Merchant Center) ─────────────
@@ -2754,9 +2773,13 @@ const METAL_INFO = {
 };
 const METAL_ORDER = ['corten','steel','stainless'];
 
-function mPrice(base, metal) {
-  if (METAL_MULT[metal] === 1) return base;
-  return Math.round(base * METAL_MULT[metal] / 10) * 10;
+function metalK(metal, p) {
+  return p && p.mm && p.mm[metal] !== undefined ? p.mm[metal] : METAL_MULT[metal];
+}
+function mPrice(base, metal, p) {
+  const k = metalK(metal, p);
+  if (k === 1) return base;
+  return Math.round(base * k / 10) * 10;
 }
 function minSize(p) {
   if (!p.pr) return null;
@@ -2764,7 +2787,7 @@ function minSize(p) {
 }
 function minPrice(p) {
   if (!p.pr) return null;
-  return Math.min(...Object.keys(p.pr).map(s => mPrice(p.pr[s][1], 'steel')));
+  return Math.min(...Object.keys(p.pr).map(s => mPrice(p.pr[s][1], 'steel', p)));
 }
 function maxPrice(p) {
   if (!p.pr) return null;
@@ -2782,7 +2805,8 @@ const CAT_BENEFIT = {
   facade: 'Прихована підсистема кріплення.',
   gate:   'Вставка під ваш каркас воріт.',
   clad:   'Розкрій під геометрію обʼєкта.',
-  decor:  'Кріплення анкером у ґрунт.'
+  decor:  'Кріплення анкером у ґрунт.',
+  mebli:  'Гнуті кути без швів, шліфування вручну.'
 };
 
 const CAT_SEO = {
@@ -2795,7 +2819,8 @@ const CAT_SEO = {
   facade:    { g:'фасадна панель',     pl:'фасадні панелі' },
   gate:      { g:'панель для воріт',   pl:'панелі для воріт' },
   clad:      { g:'облицювання',        pl:'облицювання кортеном' },
-  decor:     { g:'декор',              pl:'садовий декор' }
+  decor:     { g:'декор',              pl:'садовий декор' },
+  mebli:     { g:'столик',             pl:'меблі з металу' }
 };
 
 function seoName(p) { return p.sn || p.t; }
@@ -2854,9 +2879,9 @@ function seoH1(p) {
 
 const CAT_LABEL = {kashpo:'Кашпо',light:'Світильники',mangal:'Мангали',bowl:'Чаші',
   lamel:'Ламелі',sign:'Вивіски',facade:'Фасадні панелі',gate:'Панелі для воріт',
-  clad:'Облицювання',decor:'Декор'};
+  clad:'Облицювання',decor:'Декор',mebli:'Меблі'};
 const CAT_SUB = {kashpo:'kashpo',light:'svitylnyky',mangal:'mangal',bowl:'fontany',
-  lamel:'fasady',sign:'vyviska',facade:'fasady',gate:'parkan',clad:'interior',decor:'skulptury'};
+  lamel:'fasady',sign:'vyviska',facade:'fasady',gate:'parkan',clad:'interior',decor:'skulptury',mebli:'mebli'};
 
 function uah(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' грн'; }
 function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
@@ -3019,7 +3044,8 @@ function cartClose(){document.getElementById('cartOv').classList.remove('fx-on')
 function itemScript(p) {
   return `
 (function(){
-  var PRODUCT=${JSON.stringify({t: p.t, slug: p.slug, img: p.img, badge: p.badge || null, pr: p.pr || null})};
+  var PRODUCT=${JSON.stringify({t: p.t, slug: p.slug, img: p.img, badge: p.badge || null, pr: p.pr || null, mm: p.mm || null, phm: p.phm || null})};
+  function mpp(b,m){var k=PRODUCT.mm&&PRODUCT.mm[m]!==undefined?PRODUCT.mm[m]:MULT[m];return k===1?b:Math.round(b*k/10)*10}
   var metal='corten', size=null;
   var $=function(id){return document.getElementById(id)};
 
@@ -3033,7 +3059,7 @@ function itemScript(p) {
     var sp=$('itMspec'); if(sp)sp.textContent=m.spec;
     var img=$('itImg'),ph=$('itPh');
     if(img&&ph){
-      if(m.photo){img.hidden=false;ph.hidden=true;}
+      if(m.photo||PRODUCT.phm){img.hidden=false;ph.hidden=true;}
       else{img.hidden=true;ph.hidden=false;
         ph.style.setProperty('--phc',m.ch);
         ph.querySelector('b').textContent=m.short;}
@@ -3049,7 +3075,7 @@ function itemScript(p) {
       el.innerHTML='<span class="p-hint">Індивідуальний розмір — ціну надішлемо у відповідь</span>';
       topPrice(null);qtySum();tgLink();return}
     var base=PRODUCT.pr[size][1], oldb=PRODUCT.pr[size][0];
-    var now=mp(base,metal), old=oldb?mp(oldb,metal):null;
+    var now=mpp(base,metal), old=oldb?mpp(oldb,metal):null;
     topPrice(now);
     el.innerHTML=(old&&PRODUCT.badge?'<span class="p-badge">'+PRODUCT.badge+'</span>':'')+
       (old?'<span class="p-old">'+fmt(old)+'</span>':'')+
@@ -3064,7 +3090,7 @@ function itemScript(p) {
     if(!big)return;
     if(v){ big.textContent=fmt(v); if(lb)lb.textContent='Ціна'; }
     else {
-      var vals=Object.keys(PRODUCT.pr||{}).map(function(k){return mp(PRODUCT.pr[k][1],metal)});
+      var vals=Object.keys(PRODUCT.pr||{}).map(function(k){return mpp(PRODUCT.pr[k][1],metal)});
       if(vals.length){ big.textContent=fmt(Math.min.apply(null,vals)); if(lb)lb.textContent='Ціна від'; }
     }
   }
@@ -3086,7 +3112,7 @@ function itemScript(p) {
 
   function curPrice(){
     if(!PRODUCT.pr||!size||!PRODUCT.pr[size])return null;
-    return mp(PRODUCT.pr[size][1],metal);
+    return mpp(PRODUCT.pr[size][1],metal);
   }
   function getQty(){var i=$('qtyI');var v=i?parseInt(i.value,10):1;return(!v||v<1)?1:(v>99?99:v)}
   function setQty(v){var i=$('qtyI');if(!i)return;i.value=(v<1?1:(v>99?99:v));qtySum()}
@@ -3125,7 +3151,7 @@ function itemScript(p) {
     var m=MI[metal].short,qn=getQty();
     var same=CART.find(function(i){return i.t===PRODUCT.t&&i.s===size&&i.m===m});
     if(same)same.q+=qn;
-    else CART.push({t:PRODUCT.t,s:size,m:m,q:qn,price:pr,old:oldb?mp(oldb,metal):null});
+    else CART.push({t:PRODUCT.t,s:size,m:m,q:qn,price:pr,old:oldb?mpp(oldb,metal):null});
     cartSave();cartRender();toast(PRODUCT.t+' — додано до замовлення');
   });
 
@@ -3152,7 +3178,7 @@ function itemPage(p) {
       "sku": `${p.slug}-${mk}-${i + 1}`,
       "url": url,
       "priceCurrency": "UAH",
-      "price": String(mPrice(p.pr[s][1], mk)),
+      "price": String(mPrice(p.pr[s][1], mk, p)),
       "itemCondition": "https://schema.org/NewCondition",
       "availability": "https://schema.org/InStock",
       "seller": { "@type": "Organization", "name": "FEROX LVIV" }
@@ -3224,7 +3250,7 @@ function itemPage(p) {
   <div class="it-grid">
     <div class="it-media">
       <div class="it-ph" id="itPh" hidden><i></i><b></b><s>Фото у цьому металі готуємо. Форма й розміри ті самі.</s></div>
-      <img id="itImg" data-zoom src="/uploads/${p.img}.webp" alt="${esc(p.t)} з кортенової сталі — FEROX LVIV, виробництво у Львові" width="1000" height="750" loading="eager">
+      <img id="itImg" data-zoom src="/uploads/${p.img}.webp" alt="${esc(p.t)} з ${p.phm === 'stainless' ? 'нержавіючої сталі' : 'кортенової сталі'} — FEROX LVIV, виробництво у Львові" width="1000" height="750" loading="eager">
       <button type="button" class="it-zoom" aria-label="Відкрити фото на весь екран">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M7.6 13.2a5.6 5.6 0 100-11.2 5.6 5.6 0 000 11.2zM16 16l-4.4-4.4M5.6 7.6h4M7.6 5.6v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       </button>
@@ -3379,10 +3405,11 @@ function thankYouPage() {
 // ══════════════════════════════════════════════════════════
 const KF_SLUGS = ['kashpo-krugle','kashpo-pryamokutne','nabir-kashpo','likhtar-ferox-pro-1','ferox-mini-light','svitylnyk-kulya',
   'mangal-vbudovanyi','mangal-chasha','chasha-dekoratyvna','lameli-fasadni','parkan-perforaciya','panel-fasadna','panel-vorit',
-  'tablychky','vyviska-pidsvitka','oblytsyuvannya-kaminu','oblytsyuvannya-stin','skulptura-olen','stelazh-kub','sadovyi-dekor'];
+  'tablychky','vyviska-pidsvitka','oblytsyuvannya-kaminu','oblytsyuvannya-stin','skulptura-olen','stelazh-kub','sadovyi-dekor',
+  'stolyk-p-podibnyi','stolyk-zakrytyi'];
 
 function konfiguratorPage() {
-  const cat = CATALOG.filter(p => KF_SLUGS.includes(p.slug)).map(p => ({ slug: p.slug, t: p.t, c: p.c, s: p.s, pr: p.pr || null }));
+  const cat = CATALOG.filter(p => KF_SLUGS.includes(p.slug)).map(p => ({ slug: p.slug, t: p.t, c: p.c, s: p.s, pr: p.pr || null, mm: p.mm || null }));
   return head(
     'Конфігуратор виробів з металу у 3D | FEROX LVIV',
     'Зберіть кашпо, світильник, мангал, ламелі чи вивіску під свій розмір: 3D-модель, вибір металу й обробки, орієнтовна ціна. Кортен, нержавійка, чорна сталь. Львів.',
@@ -3406,7 +3433,6 @@ function konfiguratorPage() {
       <div class="kf-hud-r">
         <button type="button" data-hud="dims" aria-pressed="true">Розміри</button>
         <button type="button" data-hud="human" aria-pressed="false">Людина 175 см</button>
-        <button type="button" data-hud="night" class="kf-night-btn" aria-pressed="false">Вечір</button>
       </div>
     </div>
     <span class="kf-dim" id="kfLx"></span><span class="kf-dim" id="kfLy"></span><span class="kf-dim" id="kfLz"></span>
@@ -3440,15 +3466,24 @@ function konfiguratorPage() {
 
     <section class="kf-step" id="kfOptsStep" aria-labelledby="kfS4"><h2 id="kfS4">4. Опції</h2><div id="kfOpts"></div></section>
 
+    <section class="kf-step" aria-labelledby="kfS5"><h2 id="kfS5">Сцена і світло</h2>
+      <div class="kf-scenes" id="kfScenes" role="group" aria-label="Сцена"></div>
+      <div class="kf-seg kf-tod" id="kfTod" role="group" aria-label="Час доби"></div>
+      <div class="kf-row"><label for="kfAz">Напрям сонця <b id="kfAzV"></b></label><input type="range" id="kfAz" min="0" max="360" step="1" style="grid-column:1/-1"></div>
+      <div class="kf-row"><label for="kfEl">Висота сонця <b id="kfElV"></b></label><input type="range" id="kfEl" min="3" max="80" step="1" style="grid-column:1/-1"></div>
+    </section>
+
     <section class="kf-sum" aria-labelledby="kfTitle">
       <h2 id="kfTitle"></h2>
       <dl>
         <dt>Розміри</dt><dd id="kfDims"></dd>
         <dt>Метал</dt><dd id="kfMetalTxt"></dd>
+        <dt>Обробка</dt><dd id="kfFinTxt"></dd>
         <dt>Опції</dt><dd id="kfOptTxt"></dd>
         <dt>Матеріал</dt><dd id="kfArea"></dd>
       </dl>
       <p class="kf-warn" id="kfWarn" hidden></p>
+      <ul class="kf-notes" id="kfNotes"></ul>
       <div class="kf-price" id="kfPrice" aria-live="polite"></div>
       <div class="kf-qty"><span>Кількість</span>
         <button type="button" data-q="-1" aria-label="Менше">−</button>
@@ -3476,7 +3511,7 @@ function konfiguratorPage() {
 </main>
 <script>window.FX_CAT=${JSON.stringify(cat)};window.FX_MULT=${JSON.stringify(METAL_MULT)};</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
-<script src="/konfigurator.js?v=1" defer></script>
+<script src="/konfigurator.js?v=2" defer></script>
 ` + footer();
 }
 
