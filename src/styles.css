@@ -310,6 +310,7 @@ section{padding:100px 5vw}
 
 /* ── SERVICES ── */
 .srv-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:56px}
+.srv-grid>.srv-card:nth-child(odd):last-child{grid-column:1/-1}
 .srv-card{padding:52px 44px;background:var(--white);border:1px solid var(--border);position:relative;transition:all .35s;overflow:hidden;cursor:pointer;display:block}
 .srv-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:var(--corten);transition:width .35s}
 .srv-card:hover::before{width:4px}
