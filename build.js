@@ -98,6 +98,7 @@ function head(title, desc, keywords, canonical) {
   "@id": "https://feroxlviv.com.ua/#business",
   "name": "FEROX LVIV",
   "alternateName": "Ферокс Львів",
+  "legalName": "ФОП Прокопів Андрій Ігорович",
   "description": "Виготовлення дизайн-об'єктів з кортенової сталі, металевих меблів та послуги металообробки у Львові: лазерна різка, гнуття з ЧПУ, зварювання, порошкове фарбування. Для архітекторів, девелоперів та виробничих компаній.",
   "url": "https://feroxlviv.com.ua",
   "telephone": "+380630194013",
@@ -398,6 +399,7 @@ function contactForm(prefill = '') {
     ['laser', 'Лазерна різка металу'],
     ['bending', 'Гнуття з ЧПУ'],
     ['welding', 'Зварювання / вальцювання'],
+    ['coating', 'Порошкове фарбування'],
     ['other', 'Інше / декілька послуг']
   ].map(([v, l]) => `<option value="${v}"${v === prefill ? ' selected' : ''}>${l}</option>`).join('');
   return `<form class="c-form reveal" data-form="contact" novalidate aria-label="Форма замовлення прорахунку">
@@ -469,7 +471,7 @@ function footer() {
     </div>
   </div>
   <div class="ft-bot">
-    <p class="ft-copy">© 2026 FEROX LVIV. Всі права захищені.</p>
+    <p class="ft-copy">© 2026 FEROX LVIV · ФОП Прокопів Андрій Ігорович. Всі права захищені.</p>
     <nav class="ft-seo-links" aria-label="Послуги">
       <a href="/services/laser-cutting/">Лазерна різка металу Львів</a>
       <a href="/services/corten/">Кортен купити Львів</a>
@@ -570,7 +572,7 @@ function homePage() {
   <a href="/services/laser-cutting/" class="strip-i"><span class="strip-dot"></span><span>Лазерна різка</span><span class="strip-arrow" aria-hidden="true">→</span></a>
   <a href="/services/cnc-bending/" class="strip-i"><span class="strip-dot"></span><span>Гнуття з ЧПУ</span><span class="strip-arrow" aria-hidden="true">→</span></a>
   <a href="/services/welding/" class="strip-i"><span class="strip-dot"></span><span>Зварювання</span><span class="strip-arrow" aria-hidden="true">→</span></a>
-  <a href="/services/welding/" class="strip-i"><span class="strip-dot"></span><span>Вальцювання</span><span class="strip-arrow" aria-hidden="true">→</span></a>
+  <a href="/services/powder-coating/" class="strip-i"><span class="strip-dot"></span><span>Порошкове фарбування</span><span class="strip-arrow" aria-hidden="true">→</span></a>
 </div>
 
 <section class="cat-section">
@@ -579,7 +581,7 @@ function homePage() {
       <p class="s-label">Каталог виробів</p>
       <h2 class="s-title">Що ми<br><em>виготовляємо.</em></h2>
     </div>
-    <p class="cat-head-desc">Від декоративних арт-об'єктів до промислових конструкцій — 15 категорій у трьох металах. Нижче кілька напрямків, решта у каталозі.</p>
+    <p class="cat-head-desc">Від декоративних арт-об'єктів до промислових конструкцій — ${catalogProducts.length} категорій у трьох металах. Нижче кілька напрямків, решта у каталозі.</p>
   </div>
   <div class="cat-grid" id="catGrid">
     <a href="/viroby/?cat=kashpo" class="cat-card reveal" data-cat="corten">
@@ -1025,14 +1027,14 @@ ${inlineCTA(
 function servicesIndex() {
   return head(
     'Послуги | FEROX LVIV — металообробка та дизайн з кортену у Львові',
-    'Повний цикл металообробки у Львові: дизайн з кортену, лазерна різка, гнуття з ЧПУ, зварювання, вальцювання. Виробництво у Львові.',
+    'Повний цикл металообробки у Львові: дизайн з кортену, лазерна різка, гнуття з ЧПУ, зварювання, порошкове фарбування. Виробництво у Львові.',
     'послуги металообробки Львів, лазерна різка, гнуття, зварювання, кортен',
     '/services/'
   ) + nav('services') +
   pageHeader(
     [{ href: '/', label: 'Головна' }, { label: 'Послуги' }],
     'Повний цикл<br>металообробки.<br><em>В одному місці.</em>',
-    'Чотири напрямки роботи з металом: від дизайн-об\'єктів з кортену до промислових деталей. Власне виробництво у Львові.'
+    'П\'ять напрямків роботи з металом: від дизайн-об\'єктів з кортену до порошкового фарбування. Власне виробництво у Львові.'
   ) + `
 <section style="padding-top:80px">
   <div class="srv-grid">
@@ -3347,7 +3349,7 @@ function itemPage(p) {
   <div class="it-seo">
     <h2>${esc(p.t)} з металу — виготовлення на замовлення</h2>
     <p>Виготовляємо ${esc(p.t.toLowerCase())} з кортенової сталі, нержавіючої сталі AISI 304 та чорного металу з порошковим фарбуванням у будь-який колір RAL. Кортен набуває природної патини й не потребує догляду, нержавійка зберігає вигляд роками, фарбована сталь — найдоступніший варіант.</p>
-    <p>Працюємо з власного виробництва у Львові: лазерна різка, гнуття на ЧПУ, зварювання TIG. Відправляємо по всій Україні — Київ, Одеса, Дніпро, Харків, Івано-Франківськ, Тернопіль. Потрібні нестандартні габарити — виготовимо за вашим кресленням або ескізом.</p>
+    <p>Працюємо на власних потужностях у Львові: лазерна різка, гнуття на ЧПУ, зварювання TIG. Відправляємо по всій Україні — Київ, Одеса, Дніпро, Харків, Івано-Франківськ, Тернопіль. Потрібні нестандартні габарити — виготовимо за вашим кресленням або ескізом.</p>
   </div>
 </section>
 
