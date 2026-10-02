@@ -1796,3 +1796,33 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 }
 @media(max-width:420px){.kf-list{grid-template-columns:1fr}.kf-ral{grid-template-columns:1fr 1fr}}
 @media(prefers-reduced-motion:reduce){.kf-dim,.kf-toast,.kf-stage{transition:none}}
+
+/* ── конфігуратор v2: сцени, обробки, пояснення ── */
+.kf-stage.sc-garden{background:linear-gradient(180deg,#bcd3e6 0%,#dfe7df 48%,#7d9255 100%)}
+.kf-stage.sc-terrace{background:linear-gradient(180deg,#8d9cc0 0%,#efb07a 45%,#6a4631 100%)}
+.kf-stage.sc-living{background:linear-gradient(180deg,#cdbfae 0%,#b39c83 50%,#8c6d52 100%)}
+.kf-stage::after{content:'';position:absolute;inset:0;pointer-events:none;background:transparent;transition:background .5s}
+.kf-stage.tod-sunset::after{background:linear-gradient(180deg,rgba(255,140,60,.18),rgba(60,20,0,.12))}
+.kf-stage.tod-night::after{background:rgba(8,10,20,.72)}
+.kf-stage.tod-morning::after{background:rgba(255,220,180,.08)}
+.kf-stage canvas{position:relative;z-index:1}
+.kf-stage .kf-hud,.kf-stage .kf-dim,.kf-stage .kf-hint,.kf-stage .kf-photo{z-index:2}
+.kf-fin{display:flex;width:100%;background:var(--white);flex-wrap:wrap}
+.kf-fin button{flex:1 1 auto;min-width:0}
+.kf-seg button:disabled,.kf-ral button:disabled{opacity:.38;cursor:not-allowed;text-decoration:line-through;text-decoration-thickness:1px}
+.kf-ral button[style*="transparent"] span{display:none}
+.kf-row label b{font-weight:500;color:var(--corten)}
+.kf-scenes{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.kf-sc{font:inherit;font-size:12.5px;padding:0 0 6px;border:1px solid var(--border);background:var(--white);border-radius:3px;cursor:pointer;color:var(--anthracite);overflow:hidden;text-align:center}
+.kf-sc span{display:block;height:34px;margin-bottom:5px}
+.kf-sc-studio span{background:linear-gradient(160deg,#efece6,#cfcac2)}
+.kf-sc-garden span{background:linear-gradient(180deg,#bcd3e6,#7d9255)}
+.kf-sc-terrace span{background:linear-gradient(180deg,#efb07a,#6a4631)}
+.kf-sc-living span{background:linear-gradient(180deg,#cdbfae,#8c6d52)}
+.kf-sc[aria-pressed="true"]{border-color:var(--corten);box-shadow:inset 0 0 0 1px var(--corten)}
+.kf-tod{display:flex;width:100%;background:var(--white);margin-bottom:12px}
+.kf-tod button{flex:1}
+.kf-notes{list-style:none;margin:0 0 14px;padding:0;display:grid;gap:6px}
+.kf-notes li{font-size:13px;line-height:1.45;padding:8px 10px;background:#EFEBE4;border-radius:3px}
+.kf-notes li.kf-why{background:transparent;border:1px dashed var(--border);color:var(--anthracite-l)}
+.kf-notes li.kf-why::before{content:'Недоступно: ';color:var(--corten);font-weight:500}
