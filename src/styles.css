@@ -1857,3 +1857,23 @@ body.menu-open .tg-sticky{display:none}
 }
 /* Назви сусідніх товарів переносяться на рядки, а не обрізаються */
 .it-nav-t{white-space:normal !important;overflow-wrap:anywhere}
+
+/* ── Навігація: порядок Компанія → Що робимо → Для кого → Каталог → Замовлення ── */
+.nav-n{display:inline-block;font-size:10px;letter-spacing:.08em;opacity:.6;margin-right:6px;font-variant-numeric:tabular-nums}
+.nav-links a{color:rgba(255,255,255,.92)}
+nav.scrolled .nav-links a,nav.always-light .nav-links a{color:var(--anthracite)}
+.nav-links a.nav-cta-link{background:var(--corten);color:#fff!important;padding:10px 20px;border-radius:2px;font-weight:600;letter-spacing:.06em}
+.nav-links a.nav-cta-link::after{display:none}
+.nav-links a.nav-cta-link:hover{background:var(--corten-d)}
+.nav-links a.nav-cta-link .nav-n{opacity:.85}
+nav.scrolled .nav-links a.nav-cta-link,nav.always-light .nav-links a.nav-cta-link{color:#fff!important}
+/* Мобільне меню: кроки з номерами, суцільна кнопка замовлення */
+.mob-n{font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:.08em;opacity:.6;margin-right:4px;align-self:flex-start}
+.mob-sub a{color:rgba(255,255,255,.85)}
+.mob-menu>a.mob-step{font-family:'Playfair Display',serif;font-size:30px;color:var(--white)}
+.mob-menu>a.mob-step.active{color:var(--corten)}
+.mob-menu>a.mob-cta{background:var(--corten);color:#fff;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:16px 36px;border-radius:2px;margin-top:8px}
+.mob-menu>a.mob-cta:hover{background:var(--corten-d);color:#fff}
+/* Кнопки-контури видно на темному фоні */
+.btn-g{border-color:rgba(255,255,255,.55);color:#fff}
+.btn-g:hover{border-color:var(--corten-l);color:var(--corten-l)}

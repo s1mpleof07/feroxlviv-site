@@ -185,38 +185,36 @@ function nav(active = '') {
     </svg>
   </a>
   <ul class="nav-links">
-    <li>
-      <a href="/services/"${active === 'services' ? ' class="active"' : ''}>Послуги
-        <svg class="caret" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-          <path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
+    <li class="nav-grp">
+      <a href="/about/"${['about','process','blog'].includes(active) ? ' class="active"' : ''}><span class="nav-n">01</span>Компанія<svg class="caret" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <div class="dropdown" role="menu">
+        <a href="/about/"><strong>Про нас</strong><small>Хто ми і чим займаємось</small></a>
+        <a href="/process/"><strong>Як ми працюємо</strong><small>Від заявки до монтажу</small></a>
+        <a href="/blog/"><strong>Блог</strong><small>Статті про кортен і метал</small></a>
+      </div>
+    </li>
+    <li class="nav-grp">
+      <a href="/services/"${['services','portfolio'].includes(active) ? ' class="active"' : ''}><span class="nav-n">02</span>Що робимо<svg class="caret" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <div class="dropdown" role="menu">
         <a href="/services/"><strong>Усі послуги</strong><small>Огляд напрямків роботи</small></a>
         ${servicesItems}
+        <a href="/portfolio/"><strong>Портфоліо</strong><small>Реалізовані проєкти</small></a>
       </div>
     </li>
     <li>
-      <a href="/viroby/"${active === 'viroby' || active === 'konfigurator' ? ' class="active"' : ''}>Вироби
-        <svg class="caret" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-          <path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
+      <a href="/architects/"${active === 'architects' ? ' class="active"' : ''}><span class="nav-n">03</span>Для кого</a>
+    </li>
+    <li class="nav-grp">
+      <a href="/viroby/"${['viroby','konfigurator'].includes(active) ? ' class="active"' : ''}><span class="nav-n">04</span>Каталог<svg class="caret" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <div class="dropdown" role="menu">
-        <a href="/viroby/"><strong>Каталог виробів</strong><small>20 моделей із цінами й розмірами</small></a>
+        <a href="/viroby/"><strong>Каталог виробів</strong><small>Моделі з цінами й розмірами</small></a>
         <a href="/konfigurator/"><strong>Конфігуратор 3D</strong><small>Свій розмір, метал і орієнтовна ціна</small></a>
       </div>
     </li>
-    ${link('/blog/', 'Блог', 'blog')}
-    ${link('/about/', 'Про нас', 'about')}
-    ${link('/process/', 'Як ми працюємо', 'process')}
-    ${link('/contact/', 'Контакт', 'contact')}
+    <li>
+      <a href="/contact/" class="nav-cta-link"${active === 'contact' ? ' aria-current="page"' : ''}><span class="nav-n">05</span>Замовлення</a>
+    </li>
   </ul>
-  ${site.contacts.phone ? `<a href="tel:${site.contacts.phone.replace(/\s/g, '')}" class="nav-phone" aria-label="Зателефонувати ${site.contacts.phone}">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.37 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <span class="nav-phone-text">${site.contacts.phone}</span>
-  </a>` : ''}
-  <a href="/contact/" class="nav-cta"><span>Отримати розрахунок</span></a>
   <button class="burger" id="burger" aria-label="Меню" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
@@ -224,19 +222,31 @@ function nav(active = '') {
 
 <div class="mob-menu" id="mobMenu" role="dialog" aria-modal="true" aria-label="Навігація">
   <button class="mob-close" id="mobClose" aria-label="Закрити меню">✕</button>
-  <div class="mob-section${active === 'services' ? ' open' : ''} has-sub">
-    <a class="mob-trigger" href="/services/">Послуги <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+  <div class="mob-section${['about','process','blog'].includes(active) ? ' open' : ''} has-sub">
+    <a class="mob-trigger" href="/about/"><span class="mob-n">01</span>Компанія <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+    <div class="mob-sub">
+      <a href="/about/">Про нас</a>
+      <a href="/process/">Як ми працюємо</a>
+      <a href="/blog/">Блог</a>
+    </div>
+  </div>
+  <div class="mob-section${['services','portfolio'].includes(active) ? ' open' : ''} has-sub">
+    <a class="mob-trigger" href="/services/"><span class="mob-n">02</span>Що робимо <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
     <div class="mob-sub">
       <a href="/services/">Усі послуги</a>
       ${services.map(s => `<a href="/services/${s.slug}/">${s.titleShort}</a>`).join('')}
+      <a href="/portfolio/">Портфоліо</a>
     </div>
   </div>
-  <a href="/viroby/"${active === 'viroby' ? ' class="active"' : ''}>Вироби</a>
-  <a href="/blog/"${active === 'blog' ? ' class="active"' : ''}>Блог</a>
-  <a href="/architects/"${active === 'architects' ? ' class="active"' : ''}>Для архітекторів</a>
-  <a href="/about/"${active === 'about' ? ' class="active"' : ''}>Про нас</a>
-  <a href="/process/"${active === 'process' ? ' class="active"' : ''}>Як ми працюємо</a>
-  <a href="/contact/"${active === 'contact' ? ' class="active"' : ''}>Контакт</a>
+  <a href="/architects/" class="mob-step${active === 'architects' ? ' active' : ''}"><span class="mob-n">03</span>Для кого</a>
+  <div class="mob-section${['viroby','konfigurator'].includes(active) ? ' open' : ''} has-sub">
+    <a class="mob-trigger" href="/viroby/"><span class="mob-n">04</span>Каталог <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
+    <div class="mob-sub">
+      <a href="/viroby/">Каталог виробів</a>
+      <a href="/konfigurator/">Конфігуратор 3D</a>
+    </div>
+  </div>
+  <a href="/contact/" class="mob-cta"><span class="mob-n">05</span>Замовлення</a>
   ${site.contacts.phone ? `<a href="tel:${site.contacts.phone.replace(/\s/g, '')}" class="mob-phone">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.37 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <span>${site.contacts.phone}</span>
@@ -456,9 +466,11 @@ function footer() {
       <div class="ft-col-t">Компанія</div>
       <ul>
         <li><a href="/about/">Про нас</a></li>
-        <li><a href="/viroby/">Вироби</a></li>
         <li><a href="/process/">Як ми працюємо</a></li>
-        <li><a href="/contact/">Контакт</a></li>
+        <li><a href="/blog/">Блог</a></li>
+        <li><a href="/architects/">Для архітекторів</a></li>
+        <li><a href="/viroby/">Каталог виробів</a></li>
+        <li><a href="/contact/">Замовлення</a></li>
       </ul>
     </div>
     <div class="ft-col">
@@ -2459,7 +2471,7 @@ function catalogPage() {
         <span class="card-bd">
           <h3>${esc(p.t)}</h3>
           <span class="d">${esc(p.d)}</span>
-          ${p.pr ? `<span class="p-sizes">${Object.keys(p.pr).map(k => `<span><em>${esc(k)}</em><b>${uah(p.pr[k][1])}</b></span>`).join('')}</span>` : ''}
+          ${p.pr ? `<span class="p-sizes">${Object.keys(p.pr).map(k => `<span><em>${esc(k)}</em><b>${p.pr[k][0] ? `<s>${uah(p.pr[k][0])}</s> ` : ''}${uah(p.pr[k][1])}</b></span>`).join('')}</span>` : ''}
           ${lo ? `<span class="p-from" data-price data-lo="${lo}" data-mm='${JSON.stringify(p.mm || {})}'>${p.badge ? `<b>${esc(p.badge)}</b>` : ''}від ${uah(lo)}</span>` : ''}
           <span class="more">Дивитись виріб →</span>
         </span>
@@ -2629,8 +2641,8 @@ const CATALOG=[
  {c:'kashpo',img:'ferox-kashpo-kruhle-1',t:'Кашпо кругле',slug:'kashpo-krugle',
   d:'Класична форма для дерев і великих рослин.',
   full:'Циліндрична форма, зварений шов зачищений урівень. Дно з дренажними отворами та ніжками — щоб вода йшла, а метал не стояв у воді.',
-  s:['⌀40×60','⌀60×60'],
-  pr:{'⌀40×60':[null,14000],'⌀60×60':[null,14000]},
+  s:['⌀40×40','⌀50×50','⌀60×60','⌀80×70','⌀40×60'],
+  pr:{'⌀40×40':[16500,11500],'⌀50×50':[19000,14000],'⌀60×60':[20500,14000],'⌀40×60':[null,14000]},
   gallery:['ferox-kashpo-kruhle-1','ferox-kashpo-kruhle-2'],
   badge:'Топ продажів',
   note:'Можливе хімічне патинування — термін до 14 днів.',
@@ -2638,8 +2650,8 @@ const CATALOG=[
  {c:'kashpo',img:'ferox-kashpo-priamokutne-1',t:'Кашпо прямокутне',slug:'kashpo-pryamokutne',
   d:'Довга форма для зонування й живоплотів.',
   full:'Витягнута форма для розділення простору — тераси, входи, паркувальні зони. Ребра жорсткості всередині, щоб довга стінка не вигиналась під вагою ґрунту.',
-  s:['60×60×90','60×40×60'],
-  pr:{'60×60×90':[null,12000],'60×40×60':[null,12000]},
+  s:['60×60×25','90×60×25','60×60×90','60×40×60'],
+  pr:{'60×60×25':[17000,12000],'90×60×25':[18500,13500],'60×60×90':[null,12000],'60×40×60':[null,12000]},
   gallery:['ferox-kashpo-priamokutne-1','ferox-kashpo-priamokutne-2'],
   badge:'Топ продажів',
   sp:[['Товщина','2–3 мм'],['Жорсткість','Внутрішні ребра'],['Термін','10–14 днів']]},
