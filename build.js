@@ -3021,23 +3021,39 @@ function cartClose(){document.getElementById('cartOv').classList.remove('fx-on')
   var im=document.getElementById('lbImg'), cap=document.getElementById('lbCap');
   var list=[], idx=0;
 
+  // Product page: the gallery is main photo + thumbnails, so arrows move through all of them.
+  // Other pages: every visible [data-zoom] image on the page.
   function collect(){
+    var thumbs=[].slice.call(document.querySelectorAll('.it-th[data-src]'));
+    if(thumbs.length && document.getElementById('itImg')){
+      var main=document.getElementById('itImg');
+      var urls=[main.getAttribute('data-main')].concat(thumbs.map(function(t){return t.getAttribute('data-src')}));
+      urls=urls.filter(function(u,i){return u && urls.indexOf(u)===i});
+      list=urls.map(function(u){return {src:u,alt:main.getAttribute('alt')||''}});
+      return;
+    }
     list=[].slice.call(document.querySelectorAll('[data-zoom]'))
-      .filter(function(e){return !e.hidden && e.getAttribute('src')});
+      .filter(function(e){return !e.hidden && e.getAttribute('src')})
+      .map(function(e){return {src:e.getAttribute('src'),alt:e.getAttribute('alt')||''}});
   }
   function show(i){
     if(!list.length)return;
     idx=(i+list.length)%list.length;
-    var e=list[idx];
-    im.src=e.getAttribute('src'); im.alt=e.getAttribute('alt')||''; im.hidden=false;
-    cap.textContent=e.getAttribute('alt')||'';
+    var it=list[idx];
+    im.src=it.src; im.alt=it.alt; im.hidden=false;
+    cap.textContent=it.alt;
     var multi=list.length>1;
     lb.querySelector('.lb-prev').hidden=!multi;
     lb.querySelector('.lb-next').hidden=!multi;
+    // keep the product page's main photo in step with the one being viewed
+    var main=document.getElementById('itImg');
+    if(main && main.hasAttribute('data-main') && main.getAttribute('src')!==it.src) main.src=it.src;
   }
-  function open(e){
+  function open(el){
     collect();
-    var i=list.indexOf(e); if(i<0){list=[e];i=0}
+    var src=el.getAttribute('src');
+    var i=-1; list.some(function(it,k){if(it.src===src){i=k;return true}return false});
+    if(i<0){list=[{src:src,alt:el.getAttribute('alt')||''}];i=0}
     show(i); lb.classList.add('fx-on'); document.body.classList.add('lock');
     lb.querySelector('.lb-x').focus();
   }
@@ -3278,11 +3294,11 @@ function itemPage(p) {
   <div class="it-grid">
     <div class="it-media">
       <div class="it-ph" id="itPh" hidden><i></i><b></b><s>Фото у цьому металі готуємо. Форма й розміри ті самі.</s></div>
-      <img id="itImg" data-zoom src="/uploads/${p.img}.webp" alt="${esc(p.t)} з ${p.phm === 'stainless' ? 'нержавіючої сталі' : 'кортенової сталі'} — FEROX LVIV, виробництво у Львові" width="1000" height="750" loading="eager">
+      <img id="itImg" data-zoom data-main="/uploads/${p.img}.webp" src="/uploads/${p.img}.webp" alt="${esc(p.t)} з ${p.phm === 'stainless' ? 'нержавіючої сталі' : 'кортенової сталі'} — FEROX LVIV, виробництво у Львові" width="1000" height="750" loading="eager">
       <button type="button" class="it-zoom" aria-label="Відкрити фото на весь екран">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M7.6 13.2a5.6 5.6 0 100-11.2 5.6 5.6 0 000 11.2zM16 16l-4.4-4.4M5.6 7.6h4M7.6 5.6v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       </button>
-      ${p.gallery && p.gallery.length ? `<div class="it-thumbs">${p.gallery.map(g => `<button type="button" class="it-th" style="background-image:url('/uploads/${g}.webp')" aria-label="Показати фото" onclick="document.getElementById('itImg').src='/uploads/${g}.webp'"></button>`).join('')}</div>` : ''}
+      ${p.gallery && p.gallery.length ? `<div class="it-thumbs">${p.gallery.map(g => `<button type="button" class="it-th" data-src="/uploads/${g}.webp" style="background-image:url('/uploads/${g}.webp')" aria-label="Показати фото" onclick="document.getElementById('itImg').src='/uploads/${g}.webp'"></button>`).join('')}</div>` : ''}
     </div>
 
     <div class="it-info">
