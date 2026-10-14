@@ -50,7 +50,7 @@ nav.scrolled .nav-links a,nav.always-light .nav-links a{color:var(--steel)}
 .burger span{width:24px;height:1.5px;background:var(--white);transition:all .3s;display:block}
 nav.scrolled .burger span,nav.always-light .burger span{background:var(--anthracite)}
 
-.mob-menu{position:fixed;inset:0;background:var(--anthracite);z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transform:translateX(100%);transition:transform .4s;padding:80px 5vw 40px;overflow-y:auto}
+.mob-menu{position:fixed;inset:0;background:var(--anthracite);z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:24px;transform:translateX(100%);transition:transform .4s;padding:80px 5vw 40px;overflow-y:auto}
 .mob-menu.open{transform:translateX(0)}
 .mob-menu>a,.mob-menu .mob-trigger{font-family:'Playfair Display',serif;font-size:30px;color:var(--white);transition:color .3s;display:flex;align-items:center;gap:10px}
 .mob-menu>a:hover,.mob-menu>a.active,.mob-menu .mob-trigger:hover{color:var(--corten)}
@@ -61,7 +61,7 @@ nav.scrolled .burger span,nav.always-light .burger span{background:var(--anthrac
 .mob-section.open .mob-sub{display:flex}
 .mob-sub a{font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(255,255,255,.5);letter-spacing:.04em;text-transform:uppercase;transition:color .3s}
 .mob-sub a:hover{color:var(--corten-l)}
-.mob-close{position:absolute;top:24px;right:5vw;font-size:28px;color:rgba(255,255,255,.5);cursor:pointer;background:none;border:none}
+.mob-close{display:none}
 
 /* ════════════════════════════════════════════════════════
    HERO — photo background
@@ -1837,3 +1837,23 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .p-sizes span{display:flex;justify-content:space-between;gap:12px;border-top:1px solid rgba(128,128,128,.25);padding-top:3px}
 .p-sizes em{font-style:normal;opacity:.75}
 .p-sizes b{font-weight:600;white-space:nowrap}
+
+/* Бургер стає хрестиком, коли меню відкрите (єдина кнопка закриття) */
+nav .burger.is-open span{background:var(--white)}
+nav .burger.is-open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+nav .burger.is-open span:nth-child(2){opacity:0}
+nav .burger.is-open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* Меню: вміст центрується, але не підходить до шапки і не ховається за нею при довгому списку */
+.mob-menu::before,.mob-menu::after{content:"";margin:auto 0}
+.mob-menu>a.mob-phone{font-size:clamp(17px,5vw,22px);font-family:'DM Sans',sans-serif;font-weight:700;letter-spacing:.02em;white-space:nowrap;max-width:100%}
+/* Плаваюча кнопка Telegram не перекриває меню */
+body.menu-open .tg-sticky{display:none}
+
+/* Мобільні поля вводу: 16px, інакше iOS масштабує сторінку при фокусі */
+@media (max-width:768px){
+  input:not([type=checkbox]):not([type=radio]):not([type=range]),select,textarea{font-size:16px !important}
+  .mob-sub a{padding:8px 4px}
+}
+/* Назви сусідніх товарів переносяться на рядки, а не обрізаються */
+.it-nav-t{white-space:normal !important;overflow-wrap:anywhere}

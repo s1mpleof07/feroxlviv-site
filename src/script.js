@@ -15,6 +15,8 @@ function toggleMenu(v) {
   mobOpen = v;
   if (mob) mob.classList.toggle('open', mobOpen);
   if (burger) burger.setAttribute('aria-expanded', mobOpen);
+  if (burger) burger.classList.toggle('is-open', mobOpen);
+  document.body.classList.toggle('menu-open', mobOpen);
   document.body.style.overflow = mobOpen ? 'hidden' : '';
 }
 if (burger) burger.addEventListener('click', () => toggleMenu(!mobOpen));

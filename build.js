@@ -541,7 +541,7 @@ function homePage() {
   <!-- ── B2B показники ─────────────────────────────── -->
   <div class="hero-stats" aria-label="Умови роботи">
     <div class="hero-stat">
-      <span class="hero-stat-n">24<em>г</em></span>
+      <span class="hero-stat-n">24<em> год</em></span>
       <span class="hero-stat-l">Комерційна пропозиція</span>
     </div>
     <div class="hero-stat">
@@ -554,7 +554,7 @@ function homePage() {
     </div>
     <div class="hero-stat">
       <span class="hero-stat-n">5.0<em>★</em></span>
-      <span class="hero-stat-l">Рейтинг Google</span>
+      <span class="hero-stat-l">Google, 2 відгуки</span>
     </div>
   </div>
 
@@ -3335,17 +3335,18 @@ function itemPage(p) {
   </div>
 
   ${(() => {
-    const idx = CATALOG.findIndex(x => x.slug === p.slug);
-    const prev = CATALOG[(idx - 1 + CATALOG.length) % CATALOG.length];
-    const next = CATALOG[(idx + 1) % CATALOG.length];
+    const same = CATALOG.filter(x => x.c === p.c);
+    const idx = same.findIndex(x => x.slug === p.slug);
+    const prev = same[(idx - 1 + same.length) % same.length];
+    const next = same[(idx + 1) % same.length];
     const sib = CATALOG.filter(x => x.c === p.c && x.slug !== p.slug).slice(0, 4);
     return `
-  <nav class="it-nav" aria-label="Навігація між виробами">
-    <a class="it-nav-a it-nav-prev" href="/viroby/tovar/${prev.slug}/">
-      <span class="it-nav-lb">← Попередній</span><span class="it-nav-t">${esc(prev.t)}</span></a>
+  <nav class="it-nav" aria-label="Навігація між виробами категорії">
+    ${same.length > 1 ? `<a class="it-nav-a it-nav-prev" href="/viroby/tovar/${prev.slug}/">
+      <span class="it-nav-lb">← Попередній</span><span class="it-nav-t">${esc(prev.t)}</span></a>` : '<span class="it-nav-a"></span>'}
     <a class="it-nav-all" href="/viroby/">Усі вироби</a>
-    <a class="it-nav-a it-nav-next" href="/viroby/tovar/${next.slug}/">
-      <span class="it-nav-lb">Наступний →</span><span class="it-nav-t">${esc(next.t)}</span></a>
+    ${same.length > 1 ? `<a class="it-nav-a it-nav-next" href="/viroby/tovar/${next.slug}/">
+      <span class="it-nav-lb">Наступний →</span><span class="it-nav-t">${esc(next.t)}</span></a>` : '<span class="it-nav-a"></span>'}
   </nav>
 
   ${sib.length ? `<section class="it-sib">
