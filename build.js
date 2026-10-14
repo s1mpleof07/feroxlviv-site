@@ -2920,7 +2920,7 @@ function cartMarkup() {
   <button type="button" class="lb-x" aria-label="Закрити">✕</button>
   <button type="button" class="lb-a lb-prev" aria-label="Попереднє фото">‹</button>
   <button type="button" class="lb-a lb-next" aria-label="Наступне фото">›</button>
-  <figure class="lb-fig"><img id="lbImg" alt="" hidden><figcaption id="lbCap"></figcaption></figure>
+  <figure class="lb-fig"><img id="lbImg" alt="Фото виробу FEROX LVIV" hidden><figcaption id="lbCap"></figcaption></figure>
 </div>
 <div class="toast" id="toast" role="status"></div>
 <button type="button" class="cart-fab" id="cartFab" hidden aria-label="Відкрити замовлення">
