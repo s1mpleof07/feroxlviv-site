@@ -2465,7 +2465,7 @@ function catalogPage() {
     return `      <a class="card" href="/viroby/tovar/${p.slug}/" data-cat="${p.c}"${p.phm ? ` data-phm="${p.phm}"` : ''}>
         <span class="card-vis">
           <span class="card-tag" data-tag>${phm === 'corten' ? 'кортен' : 'фото: ' + METAL_INFO[phm].short}</span>
-          <img src="/uploads/${p.img}.webp" alt="${esc(p.t)} з ${phm === 'corten' ? 'кортенової сталі' : 'нержавіючої сталі'} — FEROX LVIV" loading="lazy" decoding="async" width="1000" height="750">
+          <img src="/uploads/${p.img}.webp" alt="${esc(p.t)} з ${METAL_ALT[phm]} — FEROX LVIV" loading="lazy" decoding="async" width="1000" height="750">
           <span class="fx-ph" data-ph hidden><i></i><b></b><s>Фото готуємо</s></span>
         </span>
         <span class="card-bd">
@@ -2754,7 +2754,7 @@ const CATALOG=[
   full:'Кубічна секція — окремо або в стосі. Зварні кути без видимого шва. Для стіни робимо приховане кріплення, щоб куб ніби висів.',
   s:['40×40×30','50×50×35','60×60×40'],
   sp:[['Товщина','2 мм'],['Монтаж','Підлога або стіна'],['Термін','10–14 днів']]},
- {c:'decor',img:'ferox-stelazh-oval-1',t:'Стелаж дизайнерський',sn:'Стелаж з чорного металу з LED-підсвіткою',slug:'stelazh-dyzainerskyi',
+ {c:'decor',img:'ferox-stelazh-oval-1',phm:'steel',dm:'steel',mm:{steel:1},t:'Стелаж дизайнерський',sn:'Стелаж з чорного металу з LED-підсвіткою',slug:'stelazh-dyzainerskyi',
   d:'Висота 3,5 м, ширина 1 м. Овальна рама і LED-підсвітка полиць.',
   full:'Високий дизайнерський стелаж з чорного металу від підлоги до стелі. Овальна рама, дерев’яні полиці з LED-підсвіткою. Каркас зварений, полиці закріплені врівень із рамою. Фарбуємо порошковою фарбою в будь-який колір RAL.',
   s:['350×100 см'],
@@ -2800,6 +2800,7 @@ const METAL_INFO = {
                spec:'AISI 304, 1.5–3 мм. Шліфування або дзеркало.', photo:false }
 };
 const METAL_ORDER = ['corten','steel','stainless'];
+const METAL_ALT = { corten: 'кортенової сталі', steel: 'чорної сталі', stainless: 'нержавіючої сталі' };
 
 function metalK(metal, p) {
   return p && p.mm && p.mm[metal] !== undefined ? p.mm[metal] : METAL_MULT[metal];
@@ -3088,9 +3089,9 @@ function cartClose(){document.getElementById('cartOv').classList.remove('fx-on')
 function itemScript(p) {
   return `
 (function(){
-  var PRODUCT=${JSON.stringify({t: p.t, slug: p.slug, img: p.img, badge: p.badge || null, pr: p.pr || null, mm: p.mm || null, phm: p.phm || null})};
+  var PRODUCT=${JSON.stringify({t: p.t, slug: p.slug, img: p.img, badge: p.badge || null, pr: p.pr || null, mm: p.mm || null, phm: p.phm || null, dm: p.dm || null})};
   function mpp(b,m){var k=PRODUCT.mm&&PRODUCT.mm[m]!==undefined?PRODUCT.mm[m]:MULT[m];return k===1?b:Math.round(b*k/10)*10}
-  var metal='corten', size=null;
+  var metal=PRODUCT.dm||'corten', size=null;
   var $=function(id){return document.getElementById(id)};
 
   var q=new URLSearchParams(location.search).get('metal');
@@ -3294,7 +3295,7 @@ function itemPage(p) {
   <div class="it-grid">
     <div class="it-media">
       <div class="it-ph" id="itPh" hidden><i></i><b></b><s>Фото у цьому металі готуємо. Форма й розміри ті самі.</s></div>
-      <img id="itImg" data-zoom data-main="/uploads/${p.img}.webp" src="/uploads/${p.img}.webp" alt="${esc(p.t)} з ${p.phm === 'stainless' ? 'нержавіючої сталі' : 'кортенової сталі'} — FEROX LVIV, виробництво у Львові" width="1000" height="750" loading="eager">
+      <img id="itImg" data-zoom data-main="/uploads/${p.img}.webp" src="/uploads/${p.img}.webp" alt="${esc(p.t)} з ${METAL_ALT[p.phm || 'corten']} — FEROX LVIV, виробництво у Львові" width="1000" height="750" loading="eager">
       <button type="button" class="it-zoom" aria-label="Відкрити фото на весь екран">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M7.6 13.2a5.6 5.6 0 100-11.2 5.6 5.6 0 000 11.2zM16 16l-4.4-4.4M5.6 7.6h4M7.6 5.6v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       </button>
