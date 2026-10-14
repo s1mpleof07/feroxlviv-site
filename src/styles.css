@@ -1832,3 +1832,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .it-th{width:52px;height:52px;padding:0;border:2px solid rgba(255,255,255,.7);border-radius:3px;background-size:cover;background-position:center;cursor:pointer}
 .it-th:hover,.it-th:focus-visible{border-color:#fff;outline:none}
 @media (max-width:600px){.it-th{width:44px;height:44px}}
+
+.p-sizes{display:flex;flex-direction:column;gap:3px;margin-top:10px;font-size:13px}
+.p-sizes span{display:flex;justify-content:space-between;gap:12px;border-top:1px solid rgba(128,128,128,.25);padding-top:3px}
+.p-sizes em{font-style:normal;opacity:.75}
+.p-sizes b{font-weight:600;white-space:nowrap}
