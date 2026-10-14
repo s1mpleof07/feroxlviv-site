@@ -2747,7 +2747,7 @@ const CATALOG=[
   s:['350×100 см'],
   pr:{'350×100 см':[null,25000]},
   note:'Орієнтовно 600 $. Інші розміри рахуємо під замовлення.',
-  gallery:['ferox-stelazh-kuhnia','ferox-kamin-zala'],
+  gallery:['ferox-stelazh-kuhnia','ferox-stelazh-oval-1','ferox-stelazh-oval-3','ferox-kamin-zala'],
   sp:[['Висота','3,5 м'],['Ширина','1 м'],['Метал','Чорна сталь'],['Термін','уточнюємо']]},
  {c:'decor',img:'cat-kashpo-modular',t:'Садовий декор',slug:'sadovyi-dekor',
   d:'Топіарії, стели, ширми — форми, що тримають композицію.',
