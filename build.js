@@ -2459,6 +2459,7 @@ function catalogPage() {
         <span class="card-bd">
           <h3>${esc(p.t)}</h3>
           <span class="d">${esc(p.d)}</span>
+          ${p.pr ? `<span class="p-sizes">${Object.keys(p.pr).map(k => `<span><em>${esc(k)}</em><b>${uah(p.pr[k][1])}</b></span>`).join('')}</span>` : ''}
           ${lo ? `<span class="p-from" data-price data-lo="${lo}" data-mm='${JSON.stringify(p.mm || {})}'>${p.badge ? `<b>${esc(p.badge)}</b>` : ''}від ${uah(lo)}</span>` : ''}
           <span class="more">Дивитись виріб →</span>
         </span>
@@ -2745,8 +2746,8 @@ const CATALOG=[
   d:'Висота 3,5 м, ширина 1 м. Овальна рама і LED-підсвітка полиць.',
   full:'Високий дизайнерський стелаж з чорного металу від підлоги до стелі. Овальна рама, дерев’яні полиці з LED-підсвіткою. Каркас зварений, полиці закріплені врівень із рамою. Фарбуємо порошковою фарбою в будь-який колір RAL.',
   s:['350×100 см'],
-  pr:{'350×100 см':[null,25000]},
-  note:'Орієнтовно 600 $. Інші розміри рахуємо під замовлення.',
+  pr:{'350×100 см':[null,27000]},
+  note:'600 $ за курсом 45 грн. Інші розміри рахуємо під замовлення.',
   gallery:['ferox-stelazh-oval-1','ferox-stelazh-oval-2','ferox-stelazh-oval-3','ferox-stelazh-oval-4','ferox-stelazh-oval-5'],
   sp:[['Висота','3,5 м'],['Ширина','1 м'],['Підсвітка','LED'],['Термін','уточнюємо']]},
  {c:'decor',img:'cat-kashpo-modular',t:'Садовий декор',slug:'sadovyi-dekor',
