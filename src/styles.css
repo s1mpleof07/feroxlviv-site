@@ -1827,3 +1827,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .kf-notes li{font-size:13px;line-height:1.45;padding:8px 10px;background:#EFEBE4;border-radius:3px}
 .kf-notes li.kf-why{background:transparent;border:1px dashed var(--border);color:var(--anthracite-l)}
 .kf-notes li.kf-why::before{content:'Недоступно: ';color:var(--corten);font-weight:500}
+
+.it-thumbs{position:absolute;left:12px;bottom:12px;display:flex;gap:6px;z-index:2}
+.it-th{width:52px;height:52px;padding:0;border:2px solid rgba(255,255,255,.7);border-radius:3px;background-size:cover;background-position:center;cursor:pointer}
+.it-th:hover,.it-th:focus-visible{border-color:#fff;outline:none}
+@media (max-width:600px){.it-th{width:44px;height:44px}}
